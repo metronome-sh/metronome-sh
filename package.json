@@ -40,6 +40,8 @@
     "yargs": "^17.3.0"
   },
   "devDependencies": {
+    "@remix-run/dev": "^1.1.3",
+    "@remix-run/react": "^1.1.1",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.1.1",
     "@swc/cli": "^0.1.55",

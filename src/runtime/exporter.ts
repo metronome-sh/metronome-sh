@@ -1,12 +1,16 @@
 import { Span } from "./Span";
-import { getApiKey } from "./helpers";
+import { getApiKey } from "../helpers";
 
 export const sendSpan = (span: Span) => {
+  return sendSpans([span]);
+};
+
+export const sendSpans = (spans: Span[]) => {
   // @remix/server-runtime is getting bundled in the browser
   // so we need to check for it here
   // https://github.com/remix-run/remix/issues/550
   if (typeof window !== "undefined") {
-    return;
+    return Promise.resolve();
   }
 
   const http = require("http");
@@ -32,13 +36,17 @@ export const sendSpan = (span: Span) => {
   // prettier-ignore
   const request = protocol.startsWith('https') ? https.request(options) : http.request(options);
 
-  const spans = JSON.stringify({ spans: [span.prepared()] });
+  const prepared = JSON.stringify({
+    spans: spans.map((span) => span.prepared()),
+  });
 
   if (process.env.METRONOME_DEBUG) {
-    console.log(JSON.stringify({ spans: [span.prepared()] }, null, 2));
+    console.log(
+      JSON.stringify({ spans: spans.map((span) => span.prepared()) }, null, 2)
+    );
   }
 
-  request.write(spans, "utf-8");
+  request.write(prepared, "utf-8");
 
   // This only waits for the request to be sent
   // We don't need the response
