@@ -9,7 +9,7 @@ export const sendSpans = (spans: Span[]) => {
   // @remix/server-runtime is getting bundled in the browser
   // so we need to check for it here
   // https://github.com/remix-run/remix/issues/550
-  if (typeof window !== "undefined") {
+  if (typeof window !== "undefined" || process.env.NODE_ENV === "development") {
     return Promise.resolve();
   }
 

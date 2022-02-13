@@ -1,14 +1,19 @@
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getLCP, getFID, getCLS, getTTFB, getFCP } from "web-vitals";
 import type { ReportHandler } from "web-vitals";
 import { EntryContext } from "@remix-run/react/entry";
 
 export const useMetronome = () => {
+  const [env] = useState(process.env.NODE_ENV);
+  const isProduction = env === "production";
+
   const { current: queue } = useRef<any[]>([]);
 
   const { current: remixContext } = useRef<EntryContext>(
     typeof window !== "undefined" ? (window as any).__remixContext : undefined
   );
+
+  console.log({ env });
 
   const connection = useMemo(
     () =>
@@ -20,6 +25,8 @@ export const useMetronome = () => {
 
   const report = useCallback<ReportHandler>(
     ({ name, value, id, delta }) => {
+      if (!isProduction) return;
+
       const { matches } = remixContext;
       const entryRoute = matches[matches.length - 1]!;
 
