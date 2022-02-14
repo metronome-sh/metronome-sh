@@ -31,10 +31,11 @@ export const server = (): PluginObj<any> => {
       // prettier-ignore
       if ((path.node.right as types.Identifier).name === "createRequestHandler") {
         // prettier-ignore
-        const assigmentStatement = template.statement("exports.createRequestHandler = metronome.wrapCreateRequestHandler(createRequestHandler, { version: VERSION, hash: HASH });")
+        const assigmentStatement = template.statement("exports.createRequestHandler = metronome.wrapCreateRequestHandler(createRequestHandler, { version: VERSION, hash: HASH, metronomeVersion: METRONOME_VERSION });")
         path.replaceWith(assigmentStatement({
           VERSION: types.stringLiteral(meta.version),
           HASH: types.stringLiteral(meta.hash),
+          METRONOME_VERSION: types.stringLiteral(meta.metronomeVersion),
         }));
         state.createRequestHandlerWrapped = true;
       }
@@ -71,11 +72,12 @@ export const serverEsm = (): PluginObj<any> => {
       // prettier-ignore
       if((path.node.specifiers[0] as types.ExportSpecifier).local.name === 'createRequestHandler') {
         // prettier-ignore
-        const assigmentStatement =template.statement('const wrappedCreateRequestHandler = wrapCreateRequestHandler(createRequestHandler, { version: VERSION, hash: HASH });');
+        const assigmentStatement =template.statement('const wrappedCreateRequestHandler = wrapCreateRequestHandler(createRequestHandler, { version: VERSION, hash: HASH, metronomeVersion: METRONOME_VERSION });');
         const exportStatement = template.statement("export { wrappedCreateRequestHandler as createRequestHandler };")
         path.insertBefore(assigmentStatement({
           VERSION: types.stringLiteral(meta.version),
           HASH: types.stringLiteral(meta.hash),
+          METRONOME_VERSION: types.stringLiteral(meta.metronomeVersion),
         }));
         path.replaceWith(exportStatement());
         state.createRequestHandlerWrapped = true;

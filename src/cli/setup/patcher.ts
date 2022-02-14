@@ -105,6 +105,8 @@ const getMeta = () => {
 
   let hash = "";
 
+  const { version: metronomeVersion } = require("../../package.json");
+
   try {
     hash = require("child_process")
       .execSync("git rev-parse --short HEAD", { stdio: "pipe" })
@@ -112,7 +114,7 @@ const getMeta = () => {
       .trim();
   } catch (e) {}
 
-  return { version, hash };
+  return { version, hash, metronomeVersion };
 };
 
 export const patch = () => {

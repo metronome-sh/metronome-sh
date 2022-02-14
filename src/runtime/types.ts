@@ -5,6 +5,7 @@ import type {
 } from "@remix-run/server-runtime/data";
 
 export type Meta = {
+  metronomeVersion: string;
   version: string;
   hash: string;
 };

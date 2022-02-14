@@ -51,6 +51,7 @@ export const handleWebVitalsRequest = async (
       "vital.delta": delta,
       "app.version": meta.version,
       "app.hash": meta.hash,
+      "metronome.version": meta.metronomeVersion,
     };
 
     return new Span("vital", { attributes, startTime: 0 }).end({ endTime: 0 });

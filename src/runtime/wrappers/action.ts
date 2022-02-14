@@ -15,6 +15,7 @@ export const wrapCallRouteAction = (
       "remix.route.parent": match.route.parentId,
       "app.version": meta.version,
       "app.hash": meta.hash,
+      "metronome.version": meta.metronomeVersion,
     };
 
     const parent = (loadContext as any)[PARENT_SPAN_CONTEXT_KEY];

@@ -36,11 +36,12 @@ export const data = (): PluginObj<any> => {
       const { meta } = state.opts;
       if ((path.node.right as types.Identifier).name === "callRouteAction") {
         // prettier-ignore
-        const assigmentStatement = template.statement("exports.callRouteAction = metronome.wrapCallRouteAction(callRouteAction, { version: VERSION, hash: HASH });")
+        const assigmentStatement = template.statement("exports.callRouteAction = metronome.wrapCallRouteAction(callRouteAction, { version: VERSION, hash: HASH, metronomeVersion: METRONOME_VERSION });")
         path.replaceWith(
           assigmentStatement({
             VERSION: types.stringLiteral(meta.version),
             HASH: types.stringLiteral(meta.hash),
+            METRONOME_VERSION: types.stringLiteral(meta.metronomeVersion),
           })
         );
         state.callRouteActionWrapped = true;
@@ -48,11 +49,12 @@ export const data = (): PluginObj<any> => {
 
       if ((path.node.right as types.Identifier).name === "callRouteLoader") {
         // prettier-ignore
-        const assigmentStatement = template.statement("exports.callRouteLoader = metronome.wrapCallRouteLoader(callRouteLoader, { version: VERSION, hash: HASH });")
+        const assigmentStatement = template.statement("exports.callRouteLoader = metronome.wrapCallRouteLoader(callRouteLoader, { version: VERSION, hash: HASH, metronomeVersion: METRONOME_VERSION });")
         path.replaceWith(
           assigmentStatement({
             VERSION: types.stringLiteral(meta.version),
             HASH: types.stringLiteral(meta.hash),
+            METRONOME_VERSION: types.stringLiteral(meta.metronomeVersion),
           })
         );
         state.callRouteLoaderWrapped = true;
@@ -90,16 +92,18 @@ export const dataEsm = (): PluginObj<any> => {
       // prettier-ignore
       if((path.node.specifiers[0] as types.ExportSpecifier).local.name === 'callRouteAction') {
         // prettier-ignore
-        const assigmentStatement =template.statement('const wrappedCallRouteAction = wrapCallRouteAction(callRouteAction, { version: VERSION, hash: HASH });');
-        const assigmentStatement2 =template.statement('const wrappedCallRouteLoader = wrapCallRouteLoader(callRouteLoader, { version: VERSION, hash: HASH });');
+        const assigmentStatement =template.statement('const wrappedCallRouteAction = wrapCallRouteAction(callRouteAction, { version: VERSION, hash: HASH, metronomeVersion: METRONOME_VERSION });');
+        const assigmentStatement2 =template.statement('const wrappedCallRouteLoader = wrapCallRouteLoader(callRouteLoader, { version: VERSION, hash: HASH, metronomeVersion: METRONOME_VERSION });');
         const exportStatement = template.statement("export { wrappedCallRouteAction as callRouteAction, wrappedCallRouteLoader as callRouteLoader, extractData };")
         path.insertBefore(assigmentStatement({
           VERSION: types.stringLiteral(meta.version),
           HASH: types.stringLiteral(meta.hash),
+          METRONOME_VERSION: types.stringLiteral(meta.metronomeVersion),
         }));
         path.insertBefore(assigmentStatement2({
           VERSION: types.stringLiteral(meta.version),
           HASH: types.stringLiteral(meta.hash),
+          METRONOME_VERSION: types.stringLiteral(meta.metronomeVersion),
         }));
         path.replaceWith(exportStatement());
         state.callRoutesWrapped = true;

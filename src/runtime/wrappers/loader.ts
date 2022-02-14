@@ -17,6 +17,7 @@ export const wrapCallRouteLoader = (
       "remix.route.parent": match.route.parentId,
       "app.version": meta.version,
       "app.hash": meta.hash,
+      "metronome.version": meta.metronomeVersion,
     };
 
     const span = new Span("loader", { attributes, parent });

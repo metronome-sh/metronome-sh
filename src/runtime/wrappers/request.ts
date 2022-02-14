@@ -26,6 +26,7 @@ export const wrapCreateRequestHandler = (
         "http.method": request.method,
         "app.version": meta.version,
         "app.hash": meta.hash,
+        "metronome.version": meta.metronomeVersion,
       };
 
       const span = new Span("request", { attributes });
