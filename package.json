@@ -63,6 +63,6 @@
   "peerDependencies": {
     "@remix-run/server-runtime": "^1.1.3",
     "react": "^17.0.2",
-    "remix": "v1.1.3"
+    "remix": "^1.1.3"
   }
 }

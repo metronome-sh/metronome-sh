@@ -55,7 +55,7 @@ export const useMetronome = () => {
     getLCP(report);
     getFID(report);
     getCLS(report);
-    getTTFB(report);
+    // getTTFB(report);
     getFCP(report);
   }, [report]);
 };
