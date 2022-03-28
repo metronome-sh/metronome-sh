@@ -2,4 +2,4 @@ export {
   wrapCallRouteAction,
   wrapCallRouteLoader,
   wrapCreateRequestHandler,
-} from "./wrapper";
+} from "./wrappers";

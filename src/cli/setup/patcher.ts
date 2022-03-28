@@ -73,7 +73,10 @@ const cleanup = (files: File[]) => {
   });
 };
 
-const patchFile = ({ filename, plugin }: File) => {
+const patchFile = (
+  { filename, plugin }: File,
+  meta: { version: string; hash: string }
+) => {
   if (isPatched(filename)) return;
 
   const code = fs.readFileSync(filename, "utf-8");
@@ -81,7 +84,7 @@ const patchFile = ({ filename, plugin }: File) => {
 
   const options = {
     filename: path.basename(filename),
-    plugins: [plugin],
+    plugins: [[plugin, { meta }]],
     cloneInputAst: false,
     code: false,
     ast: true,
@@ -94,10 +97,32 @@ const patchFile = ({ filename, plugin }: File) => {
   fs.writeFileSync(filename, result, { encoding: "utf-8" });
 };
 
+const getMeta = () => {
+  const { version = "" } = require(path.resolve(
+    process.cwd(),
+    "./package.json"
+  ));
+
+  let hash = "";
+
+  const { version: metronomeVersion } = require("../../package.json");
+
+  try {
+    hash = require("child_process")
+      .execSync("git rev-parse --short HEAD", { stdio: "pipe" })
+      .toString()
+      .trim();
+  } catch (e) {}
+
+  return { version, hash, metronomeVersion };
+};
+
 export const patch = () => {
   backup(files);
   try {
-    files.forEach(patchFile);
+    const meta = getMeta();
+    files.forEach((file) => patchFile(file, meta));
+
     console.log("Successfully setup Metronome for Remix.");
   } catch (error) {
     console.log(`Could not setup Metronome: ${(error as Error).message}`);

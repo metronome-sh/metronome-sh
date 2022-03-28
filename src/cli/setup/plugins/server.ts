@@ -1,4 +1,5 @@
-import type { PluginObj, Visitor, types } from "@babel/core";
+import type { PluginObj, Visitor } from "@babel/core";
+import { types } from "@babel/core";
 import template from "@babel/template";
 
 export const server = (): PluginObj<any> => {
@@ -25,11 +26,17 @@ export const server = (): PluginObj<any> => {
     },
 
     AssignmentExpression(path, state) {
+      const { meta } = state.opts;
+
       // prettier-ignore
       if ((path.node.right as types.Identifier).name === "createRequestHandler") {
         // prettier-ignore
-        const assigmentStatement = template.statement("exports.createRequestHandler = metronome.wrapCreateRequestHandler(createRequestHandler);")
-        path.replaceWith(assigmentStatement());
+        const assigmentStatement = template.statement("exports.createRequestHandler = metronome.wrapCreateRequestHandler(createRequestHandler, { version: VERSION, hash: HASH, metronomeVersion: METRONOME_VERSION });")
+        path.replaceWith(assigmentStatement({
+          VERSION: types.stringLiteral(meta.version),
+          HASH: types.stringLiteral(meta.hash),
+          METRONOME_VERSION: types.stringLiteral(meta.metronomeVersion),
+        }));
         state.createRequestHandlerWrapped = true;
       }
     },
@@ -61,12 +68,17 @@ export const serverEsm = (): PluginObj<any> => {
     },
 
     ExportNamedDeclaration(path, state) {
+      const { meta } = state.opts;
       // prettier-ignore
       if((path.node.specifiers[0] as types.ExportSpecifier).local.name === 'createRequestHandler') {
         // prettier-ignore
-        const assigmentStatement =template.statement('const wrappedCreateRequestHandler = wrapCreateRequestHandler(createRequestHandler);');
+        const assigmentStatement =template.statement('const wrappedCreateRequestHandler = wrapCreateRequestHandler(createRequestHandler, { version: VERSION, hash: HASH, metronomeVersion: METRONOME_VERSION });');
         const exportStatement = template.statement("export { wrappedCreateRequestHandler as createRequestHandler };")
-        path.insertBefore(assigmentStatement());
+        path.insertBefore(assigmentStatement({
+          VERSION: types.stringLiteral(meta.version),
+          HASH: types.stringLiteral(meta.hash),
+          METRONOME_VERSION: types.stringLiteral(meta.metronomeVersion),
+        }));
         path.replaceWith(exportStatement());
         state.createRequestHandlerWrapped = true;
       }

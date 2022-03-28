@@ -1,7 +1,6 @@
 import cuid from "cuid";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import DeviceDetector from "device-detector-js";
 
 dayjs.extend(utc);
 
@@ -33,6 +32,7 @@ export class Span {
       attributes?: Record<string, any>;
       parent?: Span;
       startTime?: number | bigint;
+      endTime?: number | bigint;
       traceId?: string;
     }
   ) {
@@ -57,10 +57,27 @@ export class Span {
     return this._traceId;
   }
 
-  public end(endTime?: number | bigint) {
+  public end(endArgs?: {
+    endTime?: number | bigint;
+    error?: Error;
+    attributes?: Record<string, any>;
+  }) {
+    const { endTime, attributes, error } = endArgs ?? {};
+
     // prettier-ignore
     this.endNano = endTime !== undefined ? BigInt(endTime) : process.hrtime.bigint();
     this.durationNano = this.endNano - this.startNano;
+
+    if (attributes) {
+      this.setAttributes(attributes);
+    }
+
+    if (error) {
+      this.setAttributes({
+        "internal.error": true,
+        "http.status.code": 500,
+      }).recordException(error);
+    }
 
     return this;
   }
@@ -166,107 +183,3 @@ export class Span {
     );
   }
 }
-
-export const createRequestSpan = (request: Request) => {
-  const attributes = {
-    "remix.request.type": "document",
-    "http.url": request.url,
-    "http.method": request.method,
-  };
-
-  return new Span("request", { attributes });
-};
-
-export const createLoaderSpan = ({
-  routeId,
-  request,
-  context,
-}: {
-  routeId: string;
-  request: Request;
-  context: any;
-}) => {
-  const parent: Span | undefined = context[PARENT_SPAN_CONTEXT_KEY];
-
-  const attributes = {
-    "remix.function": "loader",
-    "remix.route": routeId,
-  };
-
-  return new Span("loader", { attributes, parent });
-};
-
-export const createActionSpan = ({
-  routeId,
-  request,
-  context,
-}: {
-  routeId: string;
-  request: Request;
-  context: any;
-}) => {
-  const parent: Span | undefined = context[PARENT_SPAN_CONTEXT_KEY];
-
-  const attributes = {
-    "remix.function": "action",
-    "remix.route": routeId,
-  };
-
-  return new Span("action", { attributes, parent });
-};
-
-export const createWebVitalSpan = async (request: Request) => {
-  const cloned = request.clone();
-  const json = await cloned.json();
-
-  const { connection, metric } = json;
-  const { name, value, id, delta } = metric;
-
-  const userAgent = cloned.headers.get("User-Agent") || "";
-
-  const deviceDetector = new DeviceDetector();
-  const device = deviceDetector.parse(userAgent);
-
-  const categoryMap = {
-    desktop: "desktop",
-    smartphone: "mobile",
-    tablet: "mobile",
-    unknown: "unknown",
-  };
-
-  const attributes = {
-    "vital.name": name,
-    "vital.value": value,
-    "vital.id": id,
-    "vital.delta": delta,
-    "device.ua": userAgent,
-    "device.client.name": device.client?.name || "unknown",
-    "device.client.version": device.client?.version || "unknown",
-    // prettier-ignore
-    "device.category": categoryMap[(device.device?.type as unknown as keyof typeof categoryMap) || "unknown"] || "unknown",
-    "device.type": device.device?.type || "unknown",
-    "device.brand": device.device?.brand || "unknown",
-    "device.connection": connection || "unknown",
-  };
-
-  return new Span("vital", { attributes, startTime: 0 }).end(0);
-};
-
-export const endSpan = (span: Span, response: Response) => {
-  return span
-    .setAttributes({
-      "http.status.code": response.status,
-      "http.status.text": response.statusText,
-    })
-    .end();
-};
-
-export const endSpanWithError = (span: Span, error: Error) => {
-  return span
-    .setAttributes({
-      "internal.error": true,
-      "http.status.code": 500,
-    })
-    .recordException(error)
-    .end();
-};
