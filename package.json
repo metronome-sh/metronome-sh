@@ -1,6 +1,6 @@
 {
   "name": "metronome-sh",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Metronome - Insights for Remix",
   "main": "dist/react/index.js",
   "bin": {
@@ -40,8 +40,8 @@
     "yargs": "^17.3.0"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.1.3",
-    "@remix-run/react": "^1.1.3",
+    "@remix-run/dev": "^1.3.3",
+    "@remix-run/react": "^1.3.3",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.1.1",
     "@swc/cli": "^0.1.55",
@@ -61,8 +61,8 @@
     "typescript": "^4.5.4"
   },
   "peerDependencies": {
-    "@remix-run/server-runtime": "^1.1.3",
+    "@remix-run/server-runtime": "^1.3.3",
     "react": "^17.0.2",
-    "remix": "^1.1.3"
+    "remix": "^1.3.3"
   }
 }

@@ -92,8 +92,8 @@ export const dataEsm = (): PluginObj<any> => {
       // prettier-ignore
       if((path.node.specifiers[0] as types.ExportSpecifier).local.name === 'callRouteAction') {
         // prettier-ignore
-        const assigmentStatement =template.statement('const wrappedCallRouteAction = wrapCallRouteAction(callRouteAction, { version: VERSION, hash: HASH, metronomeVersion: METRONOME_VERSION });');
-        const assigmentStatement2 =template.statement('const wrappedCallRouteLoader = wrapCallRouteLoader(callRouteLoader, { version: VERSION, hash: HASH, metronomeVersion: METRONOME_VERSION });');
+        const assigmentStatement = template.statement('const wrappedCallRouteAction = wrapCallRouteAction(callRouteAction, { version: VERSION, hash: HASH, metronomeVersion: METRONOME_VERSION });');
+        const assigmentStatement2 = template.statement('const wrappedCallRouteLoader = wrapCallRouteLoader(callRouteLoader, { version: VERSION, hash: HASH, metronomeVersion: METRONOME_VERSION });');
         const exportStatement = template.statement("export { wrappedCallRouteAction as callRouteAction, wrappedCallRouteLoader as callRouteLoader, extractData };")
         path.insertBefore(assigmentStatement({
           VERSION: types.stringLiteral(meta.version),
