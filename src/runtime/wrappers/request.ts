@@ -12,8 +12,8 @@ export const wrapCreateRequestHandler = (
   remixCreateRequestHandler: CreateRequestHandlerFn,
   meta: Meta
 ): CreateRequestHandlerFn => {
-  return (build, platform, mode) => {
-    const handleRequest = remixCreateRequestHandler(build, platform, mode);
+  return (build, mode) => {
+    const handleRequest = remixCreateRequestHandler(build, mode);
 
     return async (request, loadContext) => {
       if (isInternalRequest(request)) {

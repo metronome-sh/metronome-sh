@@ -1,23 +1,46 @@
 import { getRemixConfig, getRequest } from "../../helpers";
 import path from "path";
+import fs from "fs";
 
 const getMetadata = async () => {
   const remixConfig = getRemixConfig();
-  const { serverBuildDirectory } = remixConfig;
 
-  if (!serverBuildDirectory) {
-    throw new Error("Could not determine serverBuildDirectory in Remix config");
+  const { assetsBuildDirectory = "public/build" } = remixConfig;
+
+  const manifestFiles = fs
+    .readdirSync(path.join(process.cwd(), assetsBuildDirectory))
+    .filter((file) => file.startsWith("manifest-"));
+
+  const latestManifestFile = manifestFiles
+    .sort((a, b) => {
+      return (
+        fs.statSync(path.join(process.cwd(), assetsBuildDirectory, a)).mtimeMs -
+        fs.statSync(path.join(process.cwd(), assetsBuildDirectory, b)).mtimeMs
+      );
+    })
+    .pop();
+
+  if (!latestManifestFile) {
+    // prettier-ignore
+    throw new Error("No manifest file found in build directory. Did the project build?");
   }
 
-  let assets;
+  (global.window as any) = {};
 
   try {
-    assets = await import(path.resolve(serverBuildDirectory, "./assets.json"));
+    await import(
+      path.resolve(process.cwd(), assetsBuildDirectory, latestManifestFile)
+    );
   } catch (error) {
-    throw new Error("Could not locate assets.json. Did the project build?");
+    console.log(error);
+    throw new Error(
+      "Could not locate the manifest file. Did the project build?"
+    );
   }
 
-  const { routes } = assets;
+  const { routes } = (window as any).__remixManifest;
+
+  (global.window as any) = undefined;
 
   const metadataRoutes = Object.values(routes).map((route: any) => {
     const { id, path, index } = route;

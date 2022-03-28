@@ -4,16 +4,13 @@ import type { ReportHandler } from "web-vitals";
 import { EntryContext } from "@remix-run/react/entry";
 
 export const useMetronome = () => {
-  const [env] = useState(process.env.NODE_ENV);
-  const isProduction = env === "production";
+  const [isProduction] = useState(process.env.NODE_ENV === "production");
 
   const { current: queue } = useRef<any[]>([]);
 
   const { current: remixContext } = useRef<EntryContext>(
     typeof window !== "undefined" ? (window as any).__remixContext : undefined
   );
-
-  console.log({ env });
 
   const connection = useMemo(
     () =>
