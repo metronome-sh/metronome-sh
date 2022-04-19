@@ -5,6 +5,7 @@ import DeviceDetector, { DeviceDetectorResult } from "device-detector-js";
 import { sendSpan } from "../transport/exporter";
 import { ContextWithMetronome, Meta } from "../types";
 import { METRONOME_CONTEXT_KEY } from "../contants";
+import { webVitalSchema } from "../schemas";
 
 const getDeviceCategory = (result?: DeviceDetectorResult) => {
   if (!result?.device?.type) return "unknown";
@@ -20,21 +21,15 @@ const getDeviceCategory = (result?: DeviceDetectorResult) => {
   }
 };
 
-type WebVitalObject = {
-  metric: {
-    name: string;
-    value: number;
-    id: string;
-    delta: number;
-  };
-  connection: string;
-  routeId: string;
-  routePath: string;
-  pathname: string;
-};
-
 export const action: ActionFunction = async ({ request, context }) => {
-  const webVital = decodeObject<WebVitalObject>(await request.text());
+  const text = await request.text();
+
+  const webVitalsResult = webVitalSchema.safeParse(await decodeObject(text));
+
+  if (!webVitalsResult.success) {
+    // TODO: log error to metronome?
+    return new Response("", { status: 204 });
+  }
 
   const {
     version = "",
@@ -42,15 +37,12 @@ export const action: ActionFunction = async ({ request, context }) => {
     hash = "",
   } = (context as ContextWithMetronome)[METRONOME_CONTEXT_KEY] || {};
 
-  if (!webVital) {
-    // TODO check how we can handle this and send this failure to Metronome
-    return new Response("", { status: 204 });
-  }
-
   const userAgent = request.headers.get("User-Agent") || "";
   const detector = new DeviceDetector();
   const result = detector.parse(userAgent);
-  const { connection, metric, routeId, routePath, pathname } = webVital;
+  const { connection, metric, routeId, routePath, pathname } =
+    webVitalsResult.data;
+
   const { name, value, id, delta } = metric;
 
   const attributes = {

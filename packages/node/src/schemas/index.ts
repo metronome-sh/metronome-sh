@@ -1,0 +1,1 @@
+export { webVitalSchema } from "./webVitalSchema";

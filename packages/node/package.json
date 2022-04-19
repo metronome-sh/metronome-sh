@@ -36,7 +36,8 @@
     "device-detector-js": "^3.0.3",
     "hashids": "^2.2.10",
     "ts-invariant": "^0.9.4",
-    "web-vitals": "^2.1.2"
+    "web-vitals": "^2.1.2",
+    "zod": "^3.14.4"
   },
   "devDependencies": {
     "@metronome-sh/config": "*",
