@@ -17,12 +17,12 @@ module.exports = {
   },
   plugins: [
     autoExternal(),
-    nodeResolve({ extensions: [".ts", ".tsx"] }),
+    nodeResolve({ extensions: [".ts", ".tsx", ".js", ".jsx"] }),
     sucrase({
       exclude: ["node_modules/**", "*.json"],
       transforms: ["typescript", "jsx"],
     }),
-    commonjs(),
+    commonjs({ ignoreDynamicRequires: true }),
     json(),
     production && terser({ mangle: true, compress: { drop_console: true } }),
   ],

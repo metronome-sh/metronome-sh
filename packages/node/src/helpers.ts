@@ -3,10 +3,7 @@ import type { AppConfig } from "@remix-run/dev/config";
 import type { IncomingMessage } from "http";
 import invariant from "ts-invariant";
 import type { ServerBuild } from "@remix-run/node";
-import type { ProjectMeta } from "./types";
-
-const { version } = require(path.resolve(process.cwd(), "package.json"));
-const { version: metronomeVersion } = require("../package.json");
+// import type { ProjectMeta } from "./types";
 
 let noApiKeyWarningLogged = false;
 
@@ -33,9 +30,9 @@ export const getRequestType = (
   return url.searchParams.has("_data") ? "data" : "document";
 };
 
-export const getProjectMeta = (build: ServerBuild): ProjectMeta => {
+export const getProjectMeta = (build: ServerBuild) => {
   const { version: hash } = build.assets;
-  return { hash, metronomeVersion, version };
+  return { hash, metronomeVersion: "none", version: "none" };
 };
 
 export const getRemixConfig = (): AppConfig => {

@@ -5,10 +5,14 @@ const morgan = require("morgan");
 const { createRequestHandler } = require("@remix-run/express");
 const {
   registerMetronome,
-  metronomeLoadContext,
+  createMetronomeGetLoadContext,
 } = require("@metronome-sh/node");
 
 const BUILD_DIR = path.join(process.cwd(), "build");
+
+const build = require(BUILD_DIR);
+
+const getLoadContext = createMetronomeGetLoadContext(build);
 
 const app = express();
 
@@ -36,15 +40,15 @@ app.all(
         purgeRequireCache();
 
         return createRequestHandler({
-          build: registerMetronome(require(BUILD_DIR)),
+          build: registerMetronome(build),
           mode: process.env.NODE_ENV,
-          getLoadContext: metronomeLoadContext,
+          getLoadContext,
         })(req, res, next);
       }
     : createRequestHandler({
-        build: registerMetronome(require(BUILD_DIR)),
+        build: registerMetronome(build),
         mode: process.env.NODE_ENV,
-        getLoadContext: metronomeLoadContext,
+        getLoadContext,
       })
 );
 const port = process.env.PORT || 3000;
