@@ -1,2 +1,2 @@
-export { createScriptRoute } from "./createScriptRoute";
-export { createWebVitalsRoute } from "./createWebVitalsRoute";
+export * as scriptRoute from "./script";
+export * as webVitalsRoute from "./web-vitals";

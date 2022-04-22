@@ -1,9 +1,7 @@
-export { registerMetronome } from "./registerMetronome";
 export { createMetronomeGetLoadContext } from "./createMetronomeGetLoadContext";
-export * from "./Span";
-export * from "./SpanExporter";
+export * from "./NodeSpan";
+export * from "./NodeSpanExporter";
 export {
-  METRONOME_CONTEXT_KEY,
-  METRONOME_VERSION,
+  registerMetronome,
   combineGetLoadContexts,
 } from "@metronome-sh/runtime";

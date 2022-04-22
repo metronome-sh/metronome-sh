@@ -1,7 +1,7 @@
 import { AbstractSpan } from "@metronome-sh/runtime";
 export { SpanName } from "@metronome-sh/runtime";
 
-export class Span extends AbstractSpan {
+export class NodeSpan extends AbstractSpan {
   getStartTime() {
     return process.hrtime.bigint();
   }

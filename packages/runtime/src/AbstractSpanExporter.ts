@@ -3,23 +3,40 @@ import { AbstractSpan } from "./AbstractSpan";
 let noApiKeyWarningLogged = false;
 
 export abstract class AbstractSpanExporter {
-  protected apiKey: string | undefined;
-  protected url: string;
-  protected debug: boolean;
+  private apiKey: string | undefined;
+  private metronomeUrl: string | undefined;
+  private metronomeDebug: string | undefined;
 
   abstract send(span: AbstractSpan | AbstractSpan[]): Promise<void>;
 
-  constructor() {
-    this.apiKey = process.env.METRONOME_API_KEY!;
-    this.url = process.env.METRONOME_URL
-      ? process.env.METRONOME_URL
-      : "https://metronome.sh";
+  protected getApiKey(): string | undefined {
+    return this.apiKey;
+  }
 
-    this.debug = process.env.METRONOME_DEBUG === "true";
+  protected getUrl(): string {
+    return this.metronomeUrl ?? "https://metronome.sh";
+  }
 
-    if (!this.apiKey && !noApiKeyWarningLogged) {
+  protected getDebug(): boolean {
+    return this.metronomeDebug === "true";
+  }
+
+  constructor({
+    apiKey,
+    metronomeUrl,
+    metronomeDebug,
+  }: {
+    apiKey: string | undefined;
+    metronomeUrl: string | undefined;
+    metronomeDebug: string | undefined;
+  }) {
+    if (!apiKey && !noApiKeyWarningLogged) {
       console.log("[Error] METRONOME_API_KEY environment variable is not set");
       noApiKeyWarningLogged = true;
     }
+
+    this.apiKey = apiKey;
+    this.metronomeUrl = metronomeUrl;
+    this.metronomeDebug = metronomeDebug;
   }
 }

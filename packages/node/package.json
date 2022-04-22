@@ -31,9 +31,7 @@
   "homepage": "https://github.com/metronome-sh/metronome-sh#readme",
   "dependencies": {
     "concurrently": "^7.1.0",
-    "cuid": "^2.1.8",
     "dayjs": "^1.10.7",
-    "hashids": "^2.2.10",
     "ts-invariant": "^0.9.4",
     "web-vitals": "^2.1.2"
   },

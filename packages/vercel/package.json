@@ -1,0 +1,49 @@
+{
+  "name": "@metronome-sh/vercel",
+  "version": "2.0.0",
+  "description": "Metronome - Insights for Remix",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/*"
+  ],
+  "scripts": {
+    "build": "concurrently \"npm:build:*\"",
+    "build:typings": "tsc --declaration --emitDeclarationOnly -p ./tsconfig.json --outDir dist/",
+    "build:rollup": "rollup -c",
+    "dev": "concurrently \"npm:dev:*\"",
+    "dev:typings": "tsc --declaration --emitDeclarationOnly -p ./tsconfig.json --outDir dist/ --watch",
+    "dev:rollup": "rollup -c --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "metronome",
+    "remix",
+    "analytics",
+    "insights",
+    "performance",
+    "vercel"
+  ],
+  "author": "Erick Tamayo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/metronome-sh/metronome-sh/issues"
+  },
+  "homepage": "https://github.com/metronome-sh/metronome-sh#readme",
+  "dependencies": {
+    "@metronome-sh/node": "*",
+    "@metronome-sh/runtime": "*",
+    "concurrently": "^7.1.0",
+    "ts-invariant": "^0.9.4"
+  },
+  "devDependencies": {
+    "@metronome-sh/config": "*",
+    "@types/node": "^17.0.1",
+    "@vercel/node": "^1.8.3",
+    "typescript": "^4.5.4"
+  },
+  "peerDependencies": {
+    "@remix-run/dev": ">=1.4.1",
+    "@remix-run/node": ">=1.4.1"
+  }
+}

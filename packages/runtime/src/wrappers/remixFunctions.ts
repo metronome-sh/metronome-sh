@@ -8,30 +8,32 @@ import { METRONOME_CONTEXT_KEY } from "../constants";
 export interface MetronomeWrapperOptions {
   type: SpanName.Action | SpanName.Loader;
   routeId: string;
-  SpanExporter: new (
-    ...args: ConstructorParameters<typeof AbstractSpanExporter>
-  ) => AbstractSpanExporter;
-  Span: new (
-    ...args: ConstructorParameters<typeof AbstractSpan>
-  ) => AbstractSpan;
 }
 
 const wrapRemixFunction = (
   actionFunction: ActionFunction | LoaderFunction,
   options: MetronomeWrapperOptions
 ): ActionFunction | LoaderFunction => {
-  const exporter = new options.SpanExporter();
-
   return async (...args) => {
     const [{ context }] = args;
+
+    const metronomeContext = (context as ContextWithMetronome)[
+      METRONOME_CONTEXT_KEY
+    ];
+
+    if (!metronomeContext) {
+      return actionFunction(...args);
+    }
 
     const {
       metronomeVersion = "",
       hash = "",
       version = "",
-    } = (context as ContextWithMetronome)[METRONOME_CONTEXT_KEY] || {};
+      SpanClass,
+      exporter,
+    } = metronomeContext;
 
-    const { type, routeId, SpanExporter, Span } = options;
+    const { type, routeId } = options;
 
     const attributes = {
       "remix.function": type,
@@ -44,7 +46,7 @@ const wrapRemixFunction = (
     const parent = (context as ContextWithMetronome)[METRONOME_CONTEXT_KEY]
       ?.rootSpan;
 
-    const span = new Span(type, { attributes, parent });
+    const span = new SpanClass(type, { attributes, parent });
 
     try {
       const response = await actionFunction(...args);

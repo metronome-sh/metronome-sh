@@ -33,9 +33,7 @@
   "homepage": "https://github.com/metronome-sh/metronome-sh#readme",
   "dependencies": {
     "concurrently": "^7.1.0",
-    "cuid": "^2.1.8",
     "dayjs": "^1.11.1",
-    "hashids": "^2.2.10",
     "nanoid": "^3.3.3",
     "superstruct": "^0.15.4",
     "ts-invariant": "^0.9.4",

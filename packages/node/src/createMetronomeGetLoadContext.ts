@@ -4,29 +4,40 @@ import {
   METRONOME_CONTEXT_KEY,
   METRONOME_VERSION,
 } from "@metronome-sh/runtime";
-import { Span, SpanName } from "./Span";
+import { NodeSpan, SpanName } from "./NodeSpan";
 import type { ServerBuild } from "@remix-run/node";
-import { SpanExporter } from "./SpanExporter";
+import { NodeSpanExporter } from "./NodeSpanExporter";
 
 export const createMetronomeGetLoadContext = (build: ServerBuild) => {
-  const exporter = new SpanExporter();
+  const exporter = new NodeSpanExporter({
+    apiKey: process.env.METRONOME_API_KEY,
+    metronomeUrl: process.env.METRONOME_URL,
+    metronomeDebug: process.env.METRONOME_DEBUG,
+  });
 
   const { version } = require(process.env.PWD + "/package.json");
+  const { version: hash } = build.assets;
+  const metronomeVersion = METRONOME_VERSION;
 
   return (
     request: IncomingMessage,
     response: ServerResponse
   ): ContextWithMetronome => {
     if (request.url?.includes("__metronome")) {
-      return {};
+      return {
+        [METRONOME_CONTEXT_KEY]: {
+          hash,
+          metronomeVersion,
+          version,
+          exporter,
+          SpanClass: NodeSpan,
+        },
+      };
     }
 
     // if (process.env.NODE_ENV !== "production") {
     //   return {};
     // }
-
-    const { version: hash } = build.assets;
-    const metronomeVersion = METRONOME_VERSION;
 
     // prettier-ignore
     const url = new URL(request.url || "/", `http://${request.headers.host || "localhost"}`);
@@ -39,7 +50,7 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
       "remix.request.type": requestType,
     };
 
-    const span = new Span(SpanName.Request, { attributes });
+    const span = new NodeSpan(SpanName.Request, { attributes });
 
     response.once("finish", async () => {
       span.end({
@@ -58,6 +69,8 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
         hash,
         metronomeVersion,
         version,
+        exporter,
+        SpanClass: NodeSpan,
       },
     };
   };

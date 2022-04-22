@@ -1,6 +1,11 @@
 import dayjs from "dayjs";
-import { nanoid } from "nanoid";
+import { customAlphabet } from "nanoid/non-secure"; // TODO use secure nanoid in the server to replace the ids
 import utc from "dayjs/plugin/utc";
+
+const nanoid = customAlphabet(
+  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+  20
+);
 
 dayjs.extend(utc);
 

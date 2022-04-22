@@ -13,10 +13,7 @@ export const combineGetLoadContexts = <
 ): GenericGetLoadContextFunction<T, R> => {
   return (...args: T) => {
     return getLoadContexts.reduce((acc, getLoadContext) => {
-      return {
-        ...acc,
-        ...getLoadContext(...args),
-      };
+      return { ...acc, ...getLoadContext(...args) };
     }, {} as R);
   };
 };

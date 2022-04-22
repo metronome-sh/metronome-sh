@@ -2,16 +2,20 @@
 import type { ServerBuild } from "@remix-run/server-runtime";
 import path from "path";
 import type { HandlerEvent, HandlerContext } from "@netlify/functions";
+import { NodeSpan, SpanName, NodeSpanExporter } from "@metronome-sh/node";
 import {
   METRONOME_CONTEXT_KEY,
   METRONOME_VERSION,
-  Span,
-  SpanName,
-  SpanExporter,
-} from "@metronome-sh/node";
+} from "@metronome-sh/runtime";
+
+import type { ContextWithMetronome } from "@metronome-sh/runtime";
 
 export const createMetronomeGetLoadContext = (build: ServerBuild) => {
-  const exporter = new SpanExporter();
+  const exporter = new NodeSpanExporter({
+    apiKey: process.env.METRONOME_API_KEY,
+    metronomeUrl: process.env.METRONOME_URL,
+    metronomeDebug: process.env.METRONOME_DEBUG,
+  });
 
   const projectSrc = process.env.LAMBDA_RUNTIME_DIR;
 
@@ -25,9 +29,15 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
 
   const projectMeta = { version, hash, metronomeVersion };
 
-  return (event: HandlerEvent, _: HandlerContext) => {
+  return (event: HandlerEvent, _: HandlerContext): ContextWithMetronome => {
     if (event.path.includes("__metronome")) {
-      return {};
+      return {
+        [METRONOME_CONTEXT_KEY]: {
+          ...projectMeta,
+          exporter,
+          SpanClass: NodeSpan,
+        },
+      };
     }
 
     const attributes = {
@@ -40,10 +50,17 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
           : "data",
     };
 
-    const span = new Span(SpanName.Request, { attributes });
+    const span = new NodeSpan(SpanName.Request, { attributes });
 
     exporter.send(span);
 
-    return { [METRONOME_CONTEXT_KEY]: { rootSpan: span, ...projectMeta } };
+    return {
+      [METRONOME_CONTEXT_KEY]: {
+        rootSpan: span,
+        ...projectMeta,
+        exporter,
+        SpanClass: NodeSpan,
+      },
+    };
   };
 };

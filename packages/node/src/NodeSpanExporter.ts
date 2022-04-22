@@ -1,9 +1,11 @@
 import { AbstractSpanExporter } from "@metronome-sh/runtime";
-import { Span } from "./Span";
+import { NodeSpan } from "./NodeSpan";
 
-export class SpanExporter extends AbstractSpanExporter {
-  send(span: Span | Span[]): Promise<void> {
-    if (!this.apiKey) return Promise.resolve();
+export class NodeSpanExporter extends AbstractSpanExporter {
+  send(span: NodeSpan | NodeSpan[]): Promise<void> {
+    const apiKey = this.getApiKey();
+
+    if (!apiKey) return Promise.resolve();
 
     const spans = Array.isArray(span) ? span : [span];
 
@@ -17,14 +19,14 @@ export class SpanExporter extends AbstractSpanExporter {
     const http = require("http");
     const https = require("https");
 
-    const { hostname, protocol, port } = new URL(this.url);
+    const { hostname, protocol, port } = new URL(this.getUrl());
 
     const options = {
       hostname,
       port,
       path: "/insights",
       method: "POST",
-      headers: { "Content-Type": "application/json", ApiKey: this.apiKey },
+      headers: { "Content-Type": "application/json", ApiKey: apiKey },
     };
 
     // prettier-ignore

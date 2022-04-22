@@ -1,4 +1,4 @@
-export * from "./createRegisterMetronomeFunction";
+export * from "./registerMetronome";
 export * from "./constants";
 export * from "./routes";
 export * from "./AbstractSpan";

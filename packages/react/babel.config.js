@@ -3,6 +3,8 @@ const fs = require("fs");
 
 const webVitalsPolyfill = fs.readFileSync(webVitalsPolyfillPath, "utf8");
 
+const { version } = require("./package.json");
+
 module.exports = {
   presets: [
     ["@babel/preset-env", { targets: { node: "current" }, modules: false }],
@@ -18,6 +20,10 @@ module.exports = {
           {
             search: "__WEB_VITALS_POLYFILL__",
             replace: webVitalsPolyfill,
+          },
+          {
+            search: "__METRONOME_VERSION__",
+            replace: version,
           },
         ],
       },
