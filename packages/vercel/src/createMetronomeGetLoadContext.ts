@@ -47,6 +47,7 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
     const attributes = {
       "http.method": request.method,
       "http.url": request.url,
+      "remix.runtime": "vercel",
       "remix.request.type": requestType,
     };
 

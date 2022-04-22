@@ -7,7 +7,7 @@ export abstract class AbstractSpanExporter {
   private metronomeUrl: string | undefined;
   private metronomeDebug: string | undefined;
 
-  abstract send(span: AbstractSpan | AbstractSpan[]): Promise<void>;
+  abstract send(span: AbstractSpan | AbstractSpan[]): void | Promise<void>;
 
   protected getApiKey(): string | undefined {
     return this.apiKey;

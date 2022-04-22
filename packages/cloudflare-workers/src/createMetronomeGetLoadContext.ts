@@ -5,8 +5,14 @@ import {
   SpanName,
 } from "@metronome-sh/runtime";
 import type { ServerBuild } from "@remix-run/server-runtime";
-import { CloudflarePagesSpan } from "./CloudflarePagesSpan";
-import { CloudflarePagesSpanExporter } from "./CloudflarePagesSpanExporter";
+import { CloudflareSpan } from "./CloudflareSpan";
+import { CloudflareWorkerSpanExporter } from "./CloudflareWorkerSpanExporter";
+
+declare global {
+  var METRONOME_URL: string | undefined;
+  var METRONOME_API_KEY: string | undefined;
+  var METRONOME_DEBUG: string | undefined;
+}
 
 export const createMetronomeGetLoadContext = (build: ServerBuild) => {
   const metronomeVersion = METRONOME_VERSION;
@@ -15,23 +21,32 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
 
   const projectMeta = { version: "", hash, metronomeVersion };
 
-  return (context: EventContext<any, any, any>): ContextWithMetronome => {
-    const { env, request } = context;
+  return (event: FetchEvent): ContextWithMetronome => {
+    const { request, waitUntil } = event;
 
-    const exporter = new CloudflarePagesSpanExporter({
-      apiKey: env.METRONOME_API_KEY,
-      metronomeUrl: env.METRONOME_URL,
-      metronomeDebug: env.METRONOME_DEBUG,
+    const apiKey =
+      typeof METRONOME_URL !== "undefined" ? METRONOME_API_KEY : undefined;
+
+    const metronomeUrl =
+      typeof METRONOME_URL !== "undefined" ? METRONOME_URL : undefined;
+
+    const metronomeDebug =
+      typeof METRONOME_DEBUG !== "undefined" ? METRONOME_DEBUG : undefined;
+
+    const exporter = new CloudflareWorkerSpanExporter({
+      apiKey,
+      metronomeUrl,
+      metronomeDebug,
     });
 
-    exporter.setEventContext(context);
+    exporter.setEvent(event);
 
     if (request.url.includes("__metronome")) {
       return {
         [METRONOME_CONTEXT_KEY]: {
           ...projectMeta,
           exporter,
-          SpanClass: CloudflarePagesSpan,
+          SpanClass: CloudflareSpan,
         },
       };
     }
@@ -50,7 +65,7 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
       "remix.request.type": requestType,
     };
 
-    const span = new CloudflarePagesSpan(SpanName.Request, { attributes });
+    const span = new CloudflareSpan(SpanName.Request, { attributes });
 
     exporter.send(span);
 
@@ -59,7 +74,7 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
         rootSpan: span,
         ...projectMeta,
         exporter,
-        SpanClass: CloudflarePagesSpan,
+        SpanClass: CloudflareSpan,
       },
     };
   };
