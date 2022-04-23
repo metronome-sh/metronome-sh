@@ -24,9 +24,7 @@ jobs:
         uses: bahmutov/npm-install@v1
 
       - name: Set Git Authentication
-        run: git config user.email = "erick@metronome.sh"
-        run: git config user.name = "Erick Tamayo"
-        run: git remote set-url origin https://ericktamayo:${{ GH_TOKEN }}@github.com/someuser/someproject.git
+        run: git config user.email = "erick@metronome.sh" && git config user.name = "Erick Tamayo" && git remote set-url origin https://ericktamayo:${{ GH_TOKEN }}@github.com/someuser/someproject.git
 
       - name: Publish to NPM
         run: npx beachball publish -n ${{ secrets.NPM_TOKEN }} --yes
