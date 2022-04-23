@@ -1,7 +1,7 @@
 import { getLCP, getFID, getCLS, getTTFB, getFCP } from "web-vitals/base";
 import type { ReportHandler } from "web-vitals";
 import type { EntryContext } from "@remix-run/react/entry";
-import { encodeObject, decodeObject } from "../routes/helpers";
+import { encodeObject } from "../routes/helpers";
 
 const base = "__metronome";
 
@@ -11,6 +11,19 @@ const connection =
   (navigator as any).connection ||
   (navigator as any).mozConnection ||
   (navigator as any).webkitConnection;
+
+const send = (payload: any) => {
+  const encodedPayload = encodeObject(payload);
+  if (navigator.sendBeacon) {
+    navigator.sendBeacon(`${base}/web-vitals`, encodedPayload);
+  } else {
+    fetch("/analytics", {
+      body: encodedPayload,
+      method: "POST",
+      keepalive: true,
+    });
+  }
+};
 
 const reportWebVitals: ReportHandler = ({ name, value, id, delta }) => {
   const { matches } = remixContext;
@@ -25,7 +38,7 @@ const reportWebVitals: ReportHandler = ({ name, value, id, delta }) => {
     pathname: entryRoute.pathname,
   };
 
-  navigator.sendBeacon(`${base}/web-vitals`, encodeObject(payload));
+  send(payload);
 };
 
 getLCP(reportWebVitals);

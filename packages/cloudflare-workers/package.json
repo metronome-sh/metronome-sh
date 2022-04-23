@@ -31,13 +31,13 @@
   },
   "homepage": "https://github.com/metronome-sh/metronome-sh#readme",
   "dependencies": {
-    "@metronome-sh/runtime": "*",
+    "@metronome-sh/runtime": "2.0.0",
     "concurrently": "^7.1.0",
     "ts-invariant": "^0.9.4"
   },
   "devDependencies": {
+    "@metronome-sh/config": "2.0.0",
     "@cloudflare/workers-types": "^3.6.0",
-    "@metronome-sh/config": "*",
     "@types/node": "^17.0.1",
     "typescript": "^4.5.4"
   },

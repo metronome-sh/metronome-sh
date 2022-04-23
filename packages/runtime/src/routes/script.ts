@@ -1,4 +1,4 @@
-import type { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/server-runtime";
 
 export const loader: LoaderFunction = async () => {
   return new Response(process.env.METRONOME_SCRIPT, {

@@ -1,5 +1,4 @@
-import { AbstractSpan, SpanName } from "../AbstractSpan";
-import { AbstractSpanExporter } from "../AbstractSpanExporter";
+import { SpanName } from "../AbstractSpan";
 import type { ContextWithMetronome } from "../types";
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
 import { isResponse } from "@remix-run/server-runtime/responses";

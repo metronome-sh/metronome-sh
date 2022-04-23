@@ -1,4 +1,4 @@
-import type { ActionFunction } from "@remix-run/node";
+import type { ActionFunction } from "@remix-run/server-runtime";
 import { decodeObject } from "./helpers";
 import { ContextWithMetronome } from "../types";
 import { METRONOME_CONTEXT_KEY } from "../constants";

@@ -1,4 +1,4 @@
-import type { ServerBuild } from "@remix-run/node";
+import type { ServerBuild } from "@remix-run/server-runtime";
 import { wrapAction, wrapLoader } from "./wrappers";
 
 import { scriptRoute, webVitalsRoute } from "./routes";
