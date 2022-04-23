@@ -1,0 +1,27 @@
+name: Deploy to Fly
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install deps
+        uses: bahmutov/npm-install@v1
+
+      - name: Publish to NPM
+        run: npx beachball publish -n ${{ secrets.NPM_TOKEN }} --yes
