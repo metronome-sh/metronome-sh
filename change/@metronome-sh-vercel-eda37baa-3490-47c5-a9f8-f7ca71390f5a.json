@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "A better way to integrate Metronome with the Remix adapters",
+  "packageName": "@metronome-sh/vercel",
+  "email": "ericktamayo@gmail.com",
+  "dependentChangeType": "patch"
+}

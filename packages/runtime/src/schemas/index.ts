@@ -1,0 +1,1 @@
+export { WebVital } from "./WebVital";
