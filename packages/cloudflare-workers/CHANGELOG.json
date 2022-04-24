@@ -2,6 +2,27 @@
   "name": "@metronome-sh/cloudflare-workers",
   "entries": [
     {
+      "date": "Sun, 24 Apr 2022 05:58:20 GMT",
+      "tag": "@metronome-sh/cloudflare-workers_v5.0.1",
+      "version": "5.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/cloudflare-workers",
+            "comment": "Bump @metronome-sh/runtime to v5.0.1",
+            "commit": "4db2767375cfa211b516c2a9df9d15196ec9ecf9"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/cloudflare-workers",
+            "comment": "Bump @metronome-sh/config to v5.1.0",
+            "commit": "4db2767375cfa211b516c2a9df9d15196ec9ecf9"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 24 Apr 2022 04:22:15 GMT",
       "tag": "@metronome-sh/cloudflare-workers_v5.0.0",
       "version": "5.0.0",

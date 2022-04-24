@@ -1,8 +1,16 @@
 # Change Log - @metronome-sh/config
 
-This log was last generated on Sun, 24 Apr 2022 04:22:15 GMT and should not be manually modified.
+This log was last generated on Sun, 24 Apr 2022 05:58:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.1.0
+
+Sun, 24 Apr 2022 05:58:20 GMT
+
+### Minor changes
+
+- Deploy (ericktamayo@gmail.com)
 
 ## 5.0.0
 

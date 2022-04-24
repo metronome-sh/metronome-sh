@@ -1,6 +1,6 @@
 {
   "name": "@metronome-sh/cloudflare-pages",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Metronome - Insights for Remix",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/metronome-sh/metronome-sh#readme",
   "dependencies": {
-    "@metronome-sh/runtime": "5.0.0",
+    "@metronome-sh/runtime": "5.0.1",
     "concurrently": "^7.1.0",
     "ts-invariant": "^0.9.4"
   },
