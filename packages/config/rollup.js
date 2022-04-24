@@ -5,14 +5,14 @@ const sucrase = require("@rollup/plugin-sucrase");
 const autoExternal = require("rollup-plugin-auto-external");
 const { terser } = require("rollup-plugin-terser");
 
-const isProduction = !process.env.ROLLUP_WATCH;
+const production = !process.env.ROLLUP_WATCH;
 
 module.exports = {
   input: "src/index.ts",
   output: {
     dir: "dist",
     format: "cjs",
-    sourcemap: !isProduction,
+    sourcemap: !production,
     exports: "auto",
   },
   plugins: [
@@ -24,7 +24,7 @@ module.exports = {
     }),
     commonjs({ ignoreDynamicRequires: true }),
     json(),
-    isProduction && terser({ mangle: true, compress: { drop_console: true } }),
+    production && terser({ mangle: true, compress: { drop_console: true } }),
   ],
   external: ["dayjs/plugin/utc"],
 };
