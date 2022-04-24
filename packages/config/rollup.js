@@ -26,5 +26,5 @@ module.exports = {
     json(),
     production && terser({ mangle: true, compress: { drop_console: true } }),
   ],
-  external: ["dayjs/plugin/utc", "fs/promises"],
+  external: ["dayjs/plugin/utc"],
 };
