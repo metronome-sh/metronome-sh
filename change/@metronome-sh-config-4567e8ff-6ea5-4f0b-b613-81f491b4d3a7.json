@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Removed config external dependency",
+  "packageName": "@metronome-sh/config",
+  "email": "ericktamayo@gmail.com",
+  "dependentChangeType": "patch"
+}
