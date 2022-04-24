@@ -23,8 +23,14 @@ jobs:
       - name: Install deps
         uses: bahmutov/npm-install@v1
 
+      - name: Bump versions
+        run: npx beachball bump
+
       - name: Build
         run: npm run build
+
+      - name: Reset bump
+        run: git checkout -- .
 
       - name: Set Git Authentication
         run: git config user.email = "erick@metronome.sh" && git config user.name = "Erick Tamayo" && git remote set-url origin https://ericktamayo:${{ secrets.GH_TOKEN }}@github.com/metronome-sh/metronome-sh.git
