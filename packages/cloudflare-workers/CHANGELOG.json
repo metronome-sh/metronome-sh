@@ -1,0 +1,32 @@
+{
+  "name": "@metronome-sh/cloudflare-workers",
+  "entries": [
+    {
+      "date": "Sun, 24 Apr 2022 04:22:15 GMT",
+      "tag": "@metronome-sh/cloudflare-workers_v5.0.0",
+      "version": "5.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "ericktamayo@gmail.com",
+            "package": "@metronome-sh/cloudflare-workers",
+            "commit": "b1f6295276cd2aec7b82c0ec3e1e04f2d5cbccd0",
+            "comment": "A better way to integrate Metronome with the Remix adapters"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/cloudflare-workers",
+            "comment": "Bump @metronome-sh/runtime to v5.0.0",
+            "commit": "b1f6295276cd2aec7b82c0ec3e1e04f2d5cbccd0"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/cloudflare-workers",
+            "comment": "Bump @metronome-sh/config to v5.0.0",
+            "commit": "b1f6295276cd2aec7b82c0ec3e1e04f2d5cbccd0"
+          }
+        ]
+      }
+    }
+  ]
+}

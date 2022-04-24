@@ -1,0 +1,20 @@
+{
+  "name": "@metronome-sh/config",
+  "entries": [
+    {
+      "date": "Sun, 24 Apr 2022 04:22:15 GMT",
+      "tag": "@metronome-sh/config_v5.0.0",
+      "version": "5.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "ericktamayo@gmail.com",
+            "package": "@metronome-sh/config",
+            "commit": "b1f6295276cd2aec7b82c0ec3e1e04f2d5cbccd0",
+            "comment": "A better way to integrate Metronome with the Remix adapters"
+          }
+        ]
+      }
+    }
+  ]
+}
