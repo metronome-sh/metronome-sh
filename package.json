@@ -1,7 +1,6 @@
 {
-  "name": "turborepo-basic-shared",
-  "version": "0.0.0",
-  "private": true,
+  "name": "metronome-sh",
+  "version": "5.0.0",
   "workspaces": [
     "packages/*"
   ],
