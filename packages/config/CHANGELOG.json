@@ -2,6 +2,21 @@
   "name": "@metronome-sh/config",
   "entries": [
     {
+      "date": "Sun, 24 Apr 2022 06:25:36 GMT",
+      "tag": "@metronome-sh/config_v5.2.0",
+      "version": "5.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "ericktamayo@gmail.com",
+            "package": "@metronome-sh/config",
+            "commit": "5d4ab404790a4582502fd7f98a7f8539a2b882b9",
+            "comment": "make bump build"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 24 Apr 2022 05:58:20 GMT",
       "tag": "@metronome-sh/config_v5.1.0",
       "version": "5.1.0",

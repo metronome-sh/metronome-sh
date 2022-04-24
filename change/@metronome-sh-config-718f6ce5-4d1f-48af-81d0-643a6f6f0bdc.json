@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "make bump build",
-  "packageName": "@metronome-sh/config",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}
