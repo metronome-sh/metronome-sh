@@ -2,6 +2,21 @@
   "name": "@metronome-sh/react",
   "entries": [
     {
+      "date": "Mon, 25 Apr 2022 23:56:07 GMT",
+      "tag": "@metronome-sh/react_v5.0.3",
+      "version": "5.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "ericktamayo@gmail.com",
+            "package": "@metronome-sh/react",
+            "commit": "39cd8c8661830910a5f18910f68f5ef2efb74250",
+            "comment": "bump"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 24 Apr 2022 04:22:15 GMT",
       "tag": "@metronome-sh/react_v5.0.0",
       "version": "5.0.0",

@@ -2,6 +2,33 @@
   "name": "@metronome-sh/vercel",
   "entries": [
     {
+      "date": "Mon, 25 Apr 2022 23:56:07 GMT",
+      "tag": "@metronome-sh/vercel_v5.0.4",
+      "version": "5.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/vercel",
+            "comment": "Bump @metronome-sh/node to v5.0.4",
+            "commit": "39cd8c8661830910a5f18910f68f5ef2efb74250"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/vercel",
+            "comment": "Bump @metronome-sh/runtime to v5.0.4",
+            "commit": "39cd8c8661830910a5f18910f68f5ef2efb74250"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/vercel",
+            "comment": "Bump @metronome-sh/config to v5.2.1",
+            "commit": "39cd8c8661830910a5f18910f68f5ef2efb74250"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 25 Apr 2022 23:38:47 GMT",
       "tag": "@metronome-sh/vercel_v5.0.3",
       "version": "5.0.3",

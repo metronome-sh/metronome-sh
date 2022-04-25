@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "bump",
-  "packageName": "@metronome-sh/react",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}
