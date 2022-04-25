@@ -1,7 +1,8 @@
+import { Infer } from "superstruct";
 import { METRONOME_CONTEXT_KEY } from "./constants";
 import type { AbstractSpan } from "./AbstractSpan";
 import { AbstractSpanExporter } from "./AbstractSpanExporter";
-
+import { WebVital } from "./schemas";
 export type Meta = {
   routeId: string;
 } & ProjectMeta;
