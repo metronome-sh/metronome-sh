@@ -1,6 +1,6 @@
 {
   "name": "@metronome-sh/node",
-  "version": "5.0.2",
+  "version": "5.0.3",
   "description": "Metronome - Insights for Remix",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/metronome-sh/metronome-sh#readme",
   "dependencies": {
-    "@metronome-sh/runtime": "5.0.2",
+    "@metronome-sh/runtime": "5.0.3",
     "concurrently": "^7.1.0",
     "dayjs": "^1.10.7",
     "ts-invariant": "^0.9.4",

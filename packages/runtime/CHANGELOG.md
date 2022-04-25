@@ -1,8 +1,16 @@
 # Change Log - @metronome-sh/runtime
 
-This log was last generated on Sun, 24 Apr 2022 06:25:36 GMT and should not be manually modified.
+This log was last generated on Mon, 25 Apr 2022 23:38:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.0.3
+
+Mon, 25 Apr 2022 23:38:47 GMT
+
+### Patches
+
+- improved scripts (ericktamayo@gmail.com)
 
 ## 5.0.2
 
