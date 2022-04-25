@@ -6,7 +6,6 @@ export const WebVital = object({
     name: enums(["CLS", "FID", "TTFB", "LCP", "FCP"]),
     value: number(),
     id: string(),
-    delta: number(),
   }),
   connection: string(),
   routeId: string(),

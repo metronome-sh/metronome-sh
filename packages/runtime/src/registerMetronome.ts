@@ -1,7 +1,7 @@
 import type { ServerBuild } from "@remix-run/server-runtime";
 import { wrapAction, wrapLoader } from "./wrappers";
 
-import { scriptRoute, webVitalsRoute } from "./routes";
+import { scriptRoute, reportRoute } from "./routes";
 
 export const registerMetronome = (build: ServerBuild): ServerBuild => {
   const routes: Record<string, ServerBuild["routes"][string]> = {};
@@ -24,28 +24,25 @@ export const registerMetronome = (build: ServerBuild): ServerBuild => {
   }
 
   // Register custom metronome routes
-  const base = "__metronome";
+  const baseUrl = "__metronome";
 
-  routes[`${base}/metronome-$hash[.js]`] = {
-    id: `${base}/metronome-$hash[.js]`,
+  routes[`${baseUrl}/metronome-$hash[.js]`] = {
+    id: `${baseUrl}/metronome-$hash[.js]`,
     parentId: undefined,
-    path: `${base}/metronome-:hash.js`,
+    path: `${baseUrl}/metronome-:hash.js`,
     index: undefined,
     caseSensitive: undefined,
     module: scriptRoute as any,
   };
 
-  routes[`${base}/web-vitals`] = {
-    id: `${base}/web-vitals`,
+  routes[baseUrl] = {
+    id: baseUrl,
     parentId: undefined,
-    path: `${base}/web-vitals`,
+    path: baseUrl,
     index: undefined,
     caseSensitive: undefined,
-    module: webVitalsRoute as any,
+    module: reportRoute as any,
   };
-
-  // routes['__metronome/web-analytics']
-  // routes['__metronome/event']
 
   return { ...build, routes };
 };

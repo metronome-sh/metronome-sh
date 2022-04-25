@@ -25,19 +25,19 @@ const encode = (str: string, key: number) => {
   return chars.join("");
 };
 
-export const encodeObject = (obj: Record<string, any>) => {
+export const encodeObject = <T extends any>(toEncode: T) => {
   const [firstKey, secondKey] = generateKeys();
-  const str = JSON.stringify(obj);
+  const str = JSON.stringify(toEncode);
   return `${encode(str, firstKey)}${encode(str, secondKey)}`;
 };
 
 export const decodeObject = <T extends Record<string, any>>(
-  str: string
+  toDecode: string
 ): T | undefined => {
   const [firstKey, secondKey] = generateKeys();
-  const middle = str.length / 2;
-  const encoded = str.slice(0, middle);
-  const encoded2 = str.slice(middle);
+  const middle = toDecode.length / 2;
+  const encoded = toDecode.slice(0, middle);
+  const encoded2 = toDecode.slice(middle);
 
   // Try to decode the first string
   try {
