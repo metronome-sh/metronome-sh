@@ -18,12 +18,12 @@ module.exports = {
       {
         rules: [
           {
-            search: "__WEB_VITALS_POLYFILL__",
-            replace: webVitalsPolyfill,
-          },
-          {
             search: "__METRONOME_VERSION__",
             replace: version,
+          },
+          {
+            search: "__WEB_VITALS_POLYFILL__",
+            replace: webVitalsPolyfill,
           },
         ],
       },
