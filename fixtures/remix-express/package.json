@@ -22,7 +22,7 @@
     "morgan": "^1.10.0",
     "react": "file:../../node_modules/react",
     "react-dom": "file:../../node_modules/react-dom",
-    "@metronome-sh/node": "file:../../packages/node",
+    "@metronome-sh/express": "file:../../packages/express",
     "@metronome-sh/react": "file:../../packages/react"
   },
   "devDependencies": {

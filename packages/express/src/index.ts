@@ -1,5 +1,4 @@
-export * from "./NodeSpan";
-export * from "./NodeSpanExporter";
+export { createMetronomeGetLoadContext } from "./createMetronomeGetLoadContext";
 export {
   registerMetronome,
   combineGetLoadContexts,
