@@ -1,6 +1,6 @@
 {
   "name": "@metronome-sh/react",
-  "version": "5.0.5",
+  "version": "5.3.0",
   "description": "Metronome - Insights for Remix",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
