@@ -4,9 +4,9 @@ import {
   METRONOME_CONTEXT_KEY,
   METRONOME_VERSION,
 } from "@metronome-sh/runtime";
-import { NodeSpan, SpanName } from "./NodeSpan";
+import { NodeSpan, SpanName } from "@metronome-sh/node";
 import type { ServerBuild } from "@remix-run/node";
-import { NodeSpanExporter } from "./NodeSpanExporter";
+import { NodeSpanExporter } from "@metronome-sh/node";
 
 export const createMetronomeGetLoadContext = (build: ServerBuild) => {
   const exporter = new NodeSpanExporter({

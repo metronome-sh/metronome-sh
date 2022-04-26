@@ -6,7 +6,7 @@ const { createRequestHandler } = require("@remix-run/express");
 const {
   registerMetronome,
   createMetronomeGetLoadContext,
-} = require("@metronome-sh/node");
+} = require("@metronome-sh/express");
 
 const BUILD_DIR = path.join(process.cwd(), "build");
 
