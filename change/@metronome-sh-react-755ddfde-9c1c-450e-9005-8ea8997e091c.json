@@ -1,0 +1,10 @@
+{
+  "type": "patch",
+  "comment": {
+    "title": "",
+    "value": ""
+  },
+  "packageName": "@metronome-sh/react",
+  "email": "ericktamayo@gmail.com",
+  "dependentChangeType": "patch"
+}
