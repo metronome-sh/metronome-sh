@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "added express package",
+  "packageName": "@metronome-sh/express",
+  "email": "ericktamayo@gmail.com",
+  "dependentChangeType": "patch"
+}
