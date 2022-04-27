@@ -1,4 +1,4 @@
-import { VoidFunctionComponent } from "react";
+import type { VoidFunctionComponent } from "react";
 
 const metronomeVersion = "__METRONOME_VERSION__";
 const webVitalsPolyfill = "__WEB_VITALS_POLYFILL__";
