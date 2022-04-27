@@ -1,8 +1,17 @@
 # Change Log - @metronome-sh/cloudflare-pages
 
-This log was last generated on Tue, 26 Apr 2022 00:05:28 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Apr 2022 03:48:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.3.1
+
+Wed, 27 Apr 2022 03:48:54 GMT
+
+### Patches
+
+- Bump @metronome-sh/runtime to v5.3.1
+- Bump @metronome-sh/config to v5.3.1
 
 ## 5.0.5
 

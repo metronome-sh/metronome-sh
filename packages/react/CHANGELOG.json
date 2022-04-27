@@ -2,6 +2,21 @@
   "name": "@metronome-sh/react",
   "entries": [
     {
+      "date": "Wed, 27 Apr 2022 03:48:54 GMT",
+      "tag": "@metronome-sh/react_v5.3.1",
+      "version": "5.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/react",
+            "comment": "Bump @metronome-sh/config to v5.3.1",
+            "commit": "092d61519116681b9e42429410b78bd9d9137323"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 26 Apr 2022 00:05:28 GMT",
       "tag": "@metronome-sh/react_v5.0.5",
       "version": "5.0.5",

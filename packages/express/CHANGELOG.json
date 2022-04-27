@@ -1,0 +1,38 @@
+{
+  "name": "@metronome-sh/express",
+  "entries": [
+    {
+      "date": "Wed, 27 Apr 2022 03:48:54 GMT",
+      "tag": "@metronome-sh/express_v5.3.1",
+      "version": "5.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "ericktamayo@gmail.com",
+            "package": "@metronome-sh/express",
+            "commit": "092d61519116681b9e42429410b78bd9d9137323",
+            "comment": "added express package"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/express",
+            "comment": "Bump @metronome-sh/node to v5.3.1",
+            "commit": "092d61519116681b9e42429410b78bd9d9137323"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/express",
+            "comment": "Bump @metronome-sh/runtime to v5.3.1",
+            "commit": "092d61519116681b9e42429410b78bd9d9137323"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/express",
+            "comment": "Bump @metronome-sh/config to v5.3.1",
+            "commit": "092d61519116681b9e42429410b78bd9d9137323"
+          }
+        ]
+      }
+    }
+  ]
+}
