@@ -2,10 +2,19 @@ import { AbstractSpanExporter } from "@metronome-sh/runtime";
 import { NodeSpan } from "./NodeSpan";
 
 export class NodeSpanExporter extends AbstractSpanExporter {
+  private noApiKeyWarningLogged = false;
+
   send(span: NodeSpan | NodeSpan[]): Promise<void> {
     const apiKey = this.getApiKey();
 
-    if (!apiKey) return Promise.resolve();
+    if (!apiKey) {
+      if (!this.noApiKeyWarningLogged) {
+        // prettier-ignore
+        console.warn("No METRONOME_API_KEY environment variable set. No spans will be sent to Metronome.");
+        this.noApiKeyWarningLogged = true;
+      }
+      return Promise.resolve();
+    }
 
     const spans = Array.isArray(span) ? span : [span];
 

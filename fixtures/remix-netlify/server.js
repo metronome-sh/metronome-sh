@@ -6,7 +6,9 @@ import {
   registerMetronome,
 } from "@metronome-sh/netlify";
 
-const getMetronomeLoadContext = createMetronomeGetLoadContext(build);
+const buildWithMetronome = registerMetronome(build);
+const metronomeGetLoadContext =
+  createMetronomeGetLoadContext(buildWithMetronome);
 
 /*
  * Returns a context object with at most 3 keys:
@@ -48,11 +50,10 @@ function getLoadContext(event, context) {
 }
 
 export const handler = createRequestHandler({
-  build: registerMetronome(build),
-  // getLoadContext,
+  build: buildWithMetronome,
   getLoadContext: combineGetLoadContexts(
     getLoadContext,
-    getMetronomeLoadContext
+    metronomeGetLoadContext
   ),
   mode: process.env.NODE_ENV,
 });
