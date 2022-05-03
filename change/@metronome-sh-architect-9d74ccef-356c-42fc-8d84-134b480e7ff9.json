@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "updated arc env vars",
-  "packageName": "@metronome-sh/architect",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}
