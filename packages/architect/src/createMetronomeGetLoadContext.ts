@@ -19,7 +19,12 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
   const projectMeta = { version: "", hash, metronomeVersion };
 
   return (request: APIGatewayProxyEventV2): ContextWithMetronome => {
-    if (process.env.NODE_ENV !== "production") return {};
+    if (
+      process.env.ARC_ENV !== "production" &&
+      process.env.ARC_ENV !== "staging"
+    ) {
+      return {};
+    }
 
     const { requestContext, queryStringParameters } = request;
 
