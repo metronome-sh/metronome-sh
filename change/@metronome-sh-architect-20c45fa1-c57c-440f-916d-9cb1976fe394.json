@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "removed invariant",
+  "packageName": "@metronome-sh/architect",
+  "email": "ericktamayo@gmail.com",
+  "dependentChangeType": "patch"
+}
