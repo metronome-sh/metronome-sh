@@ -30,11 +30,6 @@ export abstract class AbstractSpanExporter {
     metronomeUrl: string | undefined;
     metronomeDebug: string | undefined;
   }) {
-    if (!apiKey && !noApiKeyWarningLogged) {
-      console.log("[Error] METRONOME_API_KEY environment variable is not set");
-      noApiKeyWarningLogged = true;
-    }
-
     this.apiKey = apiKey;
     this.metronomeUrl = metronomeUrl;
     this.metronomeDebug = metronomeDebug;

@@ -3,6 +3,7 @@ import { CloudflareSpan } from "./CloudflareSpan";
 
 export class CloudflareWorkerSpanExporter extends AbstractSpanExporter {
   protected event?: FetchEvent;
+  private noApiKeyWarningLogged = false;
 
   public setEvent(event: FetchEvent) {
     this.event = event;
@@ -10,7 +11,15 @@ export class CloudflareWorkerSpanExporter extends AbstractSpanExporter {
 
   private async sendSpans(spans: CloudflareSpan[]): Promise<void> {
     const apiKey = this.getApiKey();
-    if (!apiKey) return;
+    if (!apiKey) {
+      if (!this.noApiKeyWarningLogged) {
+        // prettier-ignore
+        console.warn("No METRONOME_API_KEY environment variable set. No spans will be sent to Metronome.");
+        this.noApiKeyWarningLogged = true;
+      }
+
+      return;
+    }
 
     if (this.getDebug()) {
       // prettier-ignore
@@ -29,9 +38,8 @@ export class CloudflareWorkerSpanExporter extends AbstractSpanExporter {
 
   send(span: CloudflareSpan | CloudflareSpan[]): void {
     if (!this.event) {
-      throw new Error(
-        "CloudflareWorkerSpanExporter.send() called without an event"
-      );
+      // prettier-ignore
+      throw new Error("CloudflareWorkerSpanExporter.send() called without an event");
     }
 
     // @remix/server-runtime is getting bundled in the browser

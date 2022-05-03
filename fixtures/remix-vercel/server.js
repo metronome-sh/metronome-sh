@@ -5,10 +5,12 @@ import {
   createMetronomeGetLoadContext,
 } from "@metronome-sh/vercel";
 
-const getLoadContext = createMetronomeGetLoadContext(build);
+const buildWithMetronome = registerMetronome(build);
+const metronomeGetLoadContext =
+  createMetronomeGetLoadContext(buildWithMetronome);
 
 export default createRequestHandler({
-  build: registerMetronome(build),
-  getLoadContext,
+  build: buildWithMetronome,
+  getLoadContext: metronomeGetLoadContext,
   mode: process.env.NODE_ENV,
 });

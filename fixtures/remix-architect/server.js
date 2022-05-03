@@ -5,10 +5,12 @@ import {
   registerMetronome,
 } from "@metronome-sh/architect";
 
-const getLoadContext = createMetronomeGetLoadContext(build);
+const buildWithMetronome = registerMetronome(build);
+const metronomeGetLoadContext =
+  createMetronomeGetLoadContext(buildWithMetronome);
 
 export const handler = createRequestHandler({
-  build: registerMetronome(build),
+  build: buildWithMetronome,
   mode: process.env.NODE_ENV,
-  getLoadContext,
+  getLoadContext: metronomeGetLoadContext,
 });

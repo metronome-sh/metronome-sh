@@ -10,9 +10,10 @@ const {
 
 const BUILD_DIR = path.join(process.cwd(), "build");
 
-const build = require(BUILD_DIR);
+const buildWithMetronome = registerMetronome(require(BUILD_DIR));
 
-const getLoadContext = createMetronomeGetLoadContext(build);
+const metronomeGetLoadContext =
+  createMetronomeGetLoadContext(buildWithMetronome);
 
 const app = express();
 
@@ -40,15 +41,15 @@ app.all(
         purgeRequireCache();
 
         return createRequestHandler({
-          build: registerMetronome(build),
+          build: buildWithMetronome,
           mode: process.env.NODE_ENV,
-          getLoadContext,
+          getLoadContext: metronomeGetLoadContext,
         })(req, res, next);
       }
     : createRequestHandler({
-        build: registerMetronome(build),
+        build: buildWithMetronome,
         mode: process.env.NODE_ENV,
-        getLoadContext,
+        getLoadContext: metronomeGetLoadContext,
       })
 );
 const port = process.env.PORT || 3000;
