@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "updating metronome to not work on dev",
-  "packageName": "@metronome-sh/cloudflare-workers",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}
