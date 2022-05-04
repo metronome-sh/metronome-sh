@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "fix workers apiKey var",
-  "packageName": "@metronome-sh/cloudflare-workers",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}
