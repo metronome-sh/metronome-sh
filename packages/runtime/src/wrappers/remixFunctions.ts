@@ -20,6 +20,8 @@ const wrapRemixFunction = (
       METRONOME_CONTEXT_KEY
     ];
 
+    console.debug(metronomeContext);
+
     if (!metronomeContext) {
       return actionFunction(...args);
     }

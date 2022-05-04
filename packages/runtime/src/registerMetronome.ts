@@ -6,7 +6,6 @@ import { scriptRoute, reportRoute } from "./routes";
 export const registerMetronome = (build: ServerBuild): ServerBuild => {
   const routes: Record<string, ServerBuild["routes"][string]> = {};
 
-  // Wrap routes
   for (const [routeId, route] of Object.entries(build.routes)) {
     const newRoute = { ...route, module: { ...route.module } };
 
