@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "removed debugs",
+  "packageName": "@metronome-sh/runtime",
+  "email": "ericktamayo@gmail.com",
+  "dependentChangeType": "patch"
+}

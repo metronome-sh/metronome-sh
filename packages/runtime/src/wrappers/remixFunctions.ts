@@ -16,8 +16,6 @@ const wrapRemixFunction = (
   return async (...args) => {
     const [{ context }] = args;
 
-    console.debug({ context });
-
     const metronomeContext = (context as ContextWithMetronome)[
       METRONOME_CONTEXT_KEY
     ];
