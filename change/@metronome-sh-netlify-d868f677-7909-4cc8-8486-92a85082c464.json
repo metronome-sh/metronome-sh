@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "removed version from netlify",
-  "packageName": "@metronome-sh/netlify",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}
