@@ -19,6 +19,6 @@ export default {
     }),
     commonjs({ ignoreDynamicRequires: true }),
     json(),
-    production && terser({ mangle: true, compress: { drop_console: true } }),
+    production && terser({ mangle: true }),
   ],
 };
