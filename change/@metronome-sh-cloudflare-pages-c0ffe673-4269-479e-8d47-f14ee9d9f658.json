@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "updated rollup config",
-  "packageName": "@metronome-sh/cloudflare-pages",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}

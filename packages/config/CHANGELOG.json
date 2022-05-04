@@ -2,6 +2,21 @@
   "name": "@metronome-sh/config",
   "entries": [
     {
+      "date": "Wed, 04 May 2022 03:43:09 GMT",
+      "tag": "@metronome-sh/config_v5.3.6",
+      "version": "5.3.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "ericktamayo@gmail.com",
+            "package": "@metronome-sh/config",
+            "commit": "158103e8c88a1b449aeae323974e4809e487c1ff",
+            "comment": "updated rollup config"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 24 Apr 2022 06:25:36 GMT",
       "tag": "@metronome-sh/config_v5.2.0",
       "version": "5.2.0",
