@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "debugging",
-  "packageName": "@metronome-sh/architect",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}
