@@ -19,15 +19,11 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
 
   const projectSrc = process.env.LAMBDA_RUNTIME_DIR;
 
-  const { version } = projectSrc
-    ? require(path.resolve(projectSrc, "package.json"))
-    : { version: undefined };
-
   const metronomeVersion = METRONOME_VERSION;
 
   const { version: hash } = build.assets;
 
-  const projectMeta = { version, hash, metronomeVersion };
+  const projectMeta = { version: "", hash, metronomeVersion };
 
   return (event: HandlerEvent, _: HandlerContext): ContextWithMetronome => {
     if (event.path.includes("__metronome")) {
