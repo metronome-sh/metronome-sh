@@ -19,6 +19,8 @@ export const registerMetronome = (build: ServerBuild): ServerBuild => {
       newRoute.module.loader = wrapLoader(route.module.loader, options);
     }
 
+    console.debug({ newRoute });
+
     routes[routeId] = newRoute;
   }
 
