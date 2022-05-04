@@ -25,7 +25,7 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
     const { request, waitUntil } = event;
 
     const apiKey =
-      typeof METRONOME_URL !== "undefined" ? METRONOME_API_KEY : undefined;
+      typeof METRONOME_API_KEY !== "undefined" ? METRONOME_API_KEY : undefined;
 
     const metronomeUrl =
       typeof METRONOME_URL !== "undefined" ? METRONOME_URL : undefined;
