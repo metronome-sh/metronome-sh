@@ -7,6 +7,8 @@ import {
 } from "@metronome-sh/runtime";
 
 export const createMetronomeGetLoadContext = (build: ServerBuild) => {
+  console.log("CREATED METRONOME GET LOAD CONTEXT");
+
   const exporter = new NodeSpanExporter({
     apiKey: process.env.METRONOME_API_KEY,
     metronomeUrl: process.env.METRONOME_URL,
@@ -19,6 +21,8 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
   const projectMeta = { version: "", hash, metronomeVersion };
 
   return (request: APIGatewayProxyEventV2): ContextWithMetronome => {
+    console.log({ env: process.env });
+
     if (
       process.env.ARC_ENV !== "production" &&
       process.env.ARC_ENV !== "staging"
@@ -29,6 +33,8 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
     const { requestContext, queryStringParameters } = request;
 
     if (requestContext.http.path.includes("__metronome")) {
+      console.log("INTERNAL REQUEST");
+
       return {
         [METRONOME_CONTEXT_KEY]: {
           ...projectMeta,
@@ -51,6 +57,8 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
     const span = new NodeSpan(SpanName.Request, { attributes });
 
     exporter.send(span);
+
+    console.log("EXPORTED SPAN AND PASSED TO CONTEXT");
 
     return {
       [METRONOME_CONTEXT_KEY]: {
