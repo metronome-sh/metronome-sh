@@ -45,8 +45,8 @@ export class NodeSpanExporter extends AbstractSpanExporter {
       spans: spans.map((span) => span.prepared()),
     });
 
-    if (process.env.METRONOME_DEBUG) {
-      console.log(
+    if (this.getDebug()) {
+      console.debug(
         JSON.stringify({ spans: spans.map((span) => span.prepared()) }, null, 2)
       );
     }
@@ -57,14 +57,13 @@ export class NodeSpanExporter extends AbstractSpanExporter {
     // We don't need the response
     return new Promise<void>((resolve) => {
       request.on("error", (error: Error) => {
-        console.log(error);
         resolve();
       });
 
       // 300ms timeout to prevent locking up
       const timeoutId = setTimeout(() => {
         // prettier-ignore
-        console.log("Metronome [warning]: metric data was not sent to metronome after 300 milliseconds timeout");
+        console.warn("Metronome: Metric data was not sent to metronome after 300 milliseconds timeout");
         resolve();
       }, 300);
 
