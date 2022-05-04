@@ -1,8 +1,17 @@
 # Change Log - @metronome-sh/runtime
 
-This log was last generated on Wed, 04 May 2022 03:43:09 GMT and should not be manually modified.
+This log was last generated on Wed, 04 May 2022 03:57:49 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.3.7
+
+Wed, 04 May 2022 03:57:49 GMT
+
+### Patches
+
+- removed some console.logs (ericktamayo@gmail.com)
+- Bump @metronome-sh/config to v5.3.7
 
 ## 5.3.6
 
