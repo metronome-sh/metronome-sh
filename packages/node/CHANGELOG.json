@@ -2,6 +2,27 @@
   "name": "@metronome-sh/node",
   "entries": [
     {
+      "date": "Wed, 04 May 2022 05:08:07 GMT",
+      "tag": "@metronome-sh/node_v5.3.8",
+      "version": "5.3.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/node",
+            "comment": "Bump @metronome-sh/runtime to v5.3.8",
+            "commit": "20dab3f3cd767a2f8e0add026b13b157a947713f"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/node",
+            "comment": "Bump @metronome-sh/config to v5.3.8",
+            "commit": "20dab3f3cd767a2f8e0add026b13b157a947713f"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 04 May 2022 03:57:49 GMT",
       "tag": "@metronome-sh/node_v5.3.7",
       "version": "5.3.7",
