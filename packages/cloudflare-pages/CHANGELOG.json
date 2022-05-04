@@ -2,6 +2,27 @@
   "name": "@metronome-sh/cloudflare-pages",
   "entries": [
     {
+      "date": "Wed, 04 May 2022 05:41:47 GMT",
+      "tag": "@metronome-sh/cloudflare-pages_v5.3.10",
+      "version": "5.3.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/cloudflare-pages",
+            "comment": "Bump @metronome-sh/runtime to v5.3.10",
+            "commit": "3bdf6bff823491c98f59bf33fe0e8926d6a974d7"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/cloudflare-pages",
+            "comment": "Bump @metronome-sh/config to v5.3.10",
+            "commit": "3bdf6bff823491c98f59bf33fe0e8926d6a974d7"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 04 May 2022 05:29:17 GMT",
       "tag": "@metronome-sh/cloudflare-pages_v5.3.9",
       "version": "5.3.9",

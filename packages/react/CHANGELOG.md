@@ -1,8 +1,16 @@
 # Change Log - @metronome-sh/react
 
-This log was last generated on Wed, 04 May 2022 05:29:17 GMT and should not be manually modified.
+This log was last generated on Wed, 04 May 2022 05:41:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.3.10
+
+Wed, 04 May 2022 05:41:47 GMT
+
+### Patches
+
+- Bump @metronome-sh/config to v5.3.10
 
 ## 5.3.9
 
