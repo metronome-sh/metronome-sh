@@ -24,7 +24,7 @@ module.exports = {
     }),
     commonjs({ ignoreDynamicRequires: true }),
     json(),
-    productionEnv && terser({ mangle: true, compress: { drop_console: true } }),
+    productionEnv && terser({ mangle: true }),
   ],
   external: ["dayjs/plugin/utc"],
 };

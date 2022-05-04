@@ -17,7 +17,7 @@ export default {
       transforms: ["typescript", "jsx"],
     }),
     commonjs({ ignoreDynamicRequires: true }),
-    production && terser({ mangle: true, compress: { drop_console: true } }),
+    production && terser({ mangle: true }),
   ],
   external: [
     "@remix-run/node",

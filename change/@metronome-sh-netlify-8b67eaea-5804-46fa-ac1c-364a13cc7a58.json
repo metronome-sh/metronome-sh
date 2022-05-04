@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "updated rollup config",
+  "packageName": "@metronome-sh/netlify",
+  "email": "ericktamayo@gmail.com",
+  "dependentChangeType": "patch"
+}
