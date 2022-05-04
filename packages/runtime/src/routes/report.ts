@@ -43,8 +43,6 @@ export const action: ActionFunction = async ({ request, context }) => {
 
   const report = await decodeObject(text);
 
-  console.log(JSON.stringify(report, null, 2));
-
   if (!is(report, MetronomeReport)) {
     return new Response("", { status: 204 });
   }

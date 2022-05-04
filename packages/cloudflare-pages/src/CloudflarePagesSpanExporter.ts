@@ -23,7 +23,7 @@ export class CloudflarePagesSpanExporter extends AbstractSpanExporter {
 
     if (this.getDebug()) {
       // prettier-ignore
-      console.log(JSON.stringify({ spans: spans.map((span) => span.prepared()) }, null, 2));
+      console.debug(JSON.stringify({ spans: spans.map((span) => span.prepared()) }, null, 2));
     }
     const prepared = JSON.stringify({
       spans: spans.map((span) => span.prepared()),
