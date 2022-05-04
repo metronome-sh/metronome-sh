@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "updated rollup config",
+  "packageName": "@metronome-sh/config",
+  "email": "ericktamayo@gmail.com",
+  "dependentChangeType": "patch"
+}
