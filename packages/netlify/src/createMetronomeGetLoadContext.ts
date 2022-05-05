@@ -1,6 +1,5 @@
 // import { metronomeLoadContext } from "@metronome-sh/runtime";
 import type { ServerBuild } from "@remix-run/server-runtime";
-import path from "path";
 import type { HandlerEvent, HandlerContext } from "@netlify/functions";
 import { NodeSpan, SpanName, NodeSpanExporter } from "@metronome-sh/node";
 import {
@@ -16,8 +15,6 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
     metronomeUrl: process.env.METRONOME_URL,
     metronomeDebug: process.env.METRONOME_DEBUG,
   });
-
-  const projectSrc = process.env.LAMBDA_RUNTIME_DIR;
 
   const metronomeVersion = METRONOME_VERSION;
 
