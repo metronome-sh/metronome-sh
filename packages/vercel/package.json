@@ -1,6 +1,6 @@
 {
   "name": "@metronome-sh/vercel",
-  "version": "5.3.12",
+  "version": "5.3.13",
   "description": "Metronome - Insights for Remix",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -31,12 +31,12 @@
   },
   "homepage": "https://github.com/metronome-sh/metronome-sh#readme",
   "dependencies": {
-    "@metronome-sh/node": "5.3.12",
-    "@metronome-sh/runtime": "5.3.12",
+    "@metronome-sh/node": "5.3.13",
+    "@metronome-sh/runtime": "5.3.13",
     "ts-invariant": "^0.9.4"
   },
   "devDependencies": {
-    "@metronome-sh/config": "5.3.12",
+    "@metronome-sh/config": "5.3.13",
     "@types/node": "^17.0.1",
     "@vercel/node": "^1.8.3",
     "concurrently": "^7.1.0",
