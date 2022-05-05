@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "changes",
+  "packageName": "@metronome-sh/vercel",
+  "email": "ericktamayo@gmail.com",
+  "dependentChangeType": "patch"
+}

@@ -15,9 +15,10 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
     metronomeDebug: process.env.METRONOME_DEBUG,
   });
 
-  const { version } = require(process.env.PWD + "/package.json");
   const { version: hash } = build.assets;
   const metronomeVersion = METRONOME_VERSION;
+
+  const projectMeta = { version: "", hash, metronomeVersion };
 
   return (
     request: VercelRequest,
@@ -26,9 +27,7 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
     if (request.url?.includes("__metronome")) {
       return {
         [METRONOME_CONTEXT_KEY]: {
-          hash,
-          metronomeVersion,
-          version,
+          ...projectMeta,
           exporter,
           SpanClass: NodeSpan,
         },
@@ -66,10 +65,8 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
 
     return {
       [METRONOME_CONTEXT_KEY]: {
+        ...projectMeta,
         rootSpan: span,
-        hash,
-        metronomeVersion,
-        version,
         exporter,
         SpanClass: NodeSpan,
       },
