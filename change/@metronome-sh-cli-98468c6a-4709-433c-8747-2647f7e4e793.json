@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "added cli",
-  "packageName": "@metronome-sh/cli",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}

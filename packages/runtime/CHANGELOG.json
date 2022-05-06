@@ -2,6 +2,21 @@
   "name": "@metronome-sh/runtime",
   "entries": [
     {
+      "date": "Fri, 06 May 2022 06:47:23 GMT",
+      "tag": "@metronome-sh/runtime_v5.4.0",
+      "version": "5.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/runtime",
+            "comment": "Bump @metronome-sh/config to v5.4.0",
+            "commit": "f66730e4e18ce1671c29f8decd18cf36a2eaf04b"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 05 May 2022 04:18:12 GMT",
       "tag": "@metronome-sh/runtime_v5.3.13",
       "version": "5.3.13",

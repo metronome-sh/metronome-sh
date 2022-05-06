@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "added cli",
-  "packageName": "@metronome-sh/cloudflare-pages",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}
