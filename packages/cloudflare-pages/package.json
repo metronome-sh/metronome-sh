@@ -32,6 +32,7 @@
   "homepage": "https://github.com/metronome-sh/metronome-sh#readme",
   "dependencies": {
     "@metronome-sh/runtime": "5.3.13",
+    "@metronome-sh/cli": "5.3.13",
     "ts-invariant": "^0.9.4"
   },
   "devDependencies": {

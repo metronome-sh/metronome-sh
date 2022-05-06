@@ -6,7 +6,7 @@ import { createRequestHandler } from "@remix-run/express";
 import {
   createMetronomeGetLoadContext,
   registerMetronome,
-} from "@metronome-sh/node";
+} from "@metronome-sh/express";
 
 const app = express();
 
@@ -74,16 +74,17 @@ const BUILD_DIR = path.join(process.cwd(), "build");
 
 const build = require(BUILD_DIR);
 
-const getLoadContext = createMetronomeGetLoadContext(build);
+const buildWithMetronome = registerMetronome(build);
+const getLoadContext = createMetronomeGetLoadContext(buildWithMetronome);
 
 app.all(
   "*",
   MODE === "production"
-    ? createRequestHandler({ build: registerMetronome(build), getLoadContext })
+    ? createRequestHandler({ build: buildWithMetronome, getLoadContext })
     : (...args) => {
         purgeRequireCache();
         const requestHandler = createRequestHandler({
-          build: registerMetronome(build),
+          build: buildWithMetronome,
           mode: MODE,
           getLoadContext,
         });
