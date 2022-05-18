@@ -10,7 +10,7 @@ export interface MetronomeWrapperOptions {
 }
 
 const wrapRemixFunction = (
-  actionFunction: ActionFunction | LoaderFunction,
+  remixFunction: ActionFunction | LoaderFunction,
   options: MetronomeWrapperOptions
 ): ActionFunction | LoaderFunction => {
   return async (...args) => {
@@ -21,7 +21,7 @@ const wrapRemixFunction = (
     ];
 
     if (!metronomeContext) {
-      return actionFunction(...args);
+      return remixFunction(...args);
     }
 
     const {
@@ -48,11 +48,13 @@ const wrapRemixFunction = (
     const span = new SpanClass(type, { attributes, parent });
 
     try {
-      const response = await actionFunction(...args);
+      const response = await remixFunction(...args);
+
+      // TODO make a test for this
       span.end({
         attributes: {
-          "http.status.code": response.status,
-          "http.status.text": response.statusText,
+          "http.status.code": response?.status || 204,
+          "http.status.text": response?.statusText || "No Content",
         },
       });
 
