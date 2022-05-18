@@ -1,8 +1,17 @@
 # Change Log - @metronome-sh/node
 
-This log was last generated on Fri, 06 May 2022 06:47:23 GMT and should not be manually modified.
+This log was last generated on Wed, 18 May 2022 06:47:03 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.4.1
+
+Wed, 18 May 2022 06:47:03 GMT
+
+### Patches
+
+- Bump @metronome-sh/runtime to v5.4.1
+- Bump @metronome-sh/config to v5.4.1
 
 ## 5.4.0
 

@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "fixed metronome path",
-  "packageName": "@metronome-sh/runtime",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}

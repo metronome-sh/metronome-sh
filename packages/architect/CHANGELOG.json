@@ -2,6 +2,39 @@
   "name": "@metronome-sh/architect",
   "entries": [
     {
+      "date": "Wed, 18 May 2022 06:47:03 GMT",
+      "tag": "@metronome-sh/architect_v5.4.1",
+      "version": "5.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/architect",
+            "comment": "Bump @metronome-sh/node to v5.4.1",
+            "commit": "9b373a081a55f11a16beec114c06a0728dbfbb01"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/architect",
+            "comment": "Bump @metronome-sh/runtime to v5.4.1",
+            "commit": "9b373a081a55f11a16beec114c06a0728dbfbb01"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/architect",
+            "comment": "Bump @metronome-sh/cli to v5.4.1",
+            "commit": "9b373a081a55f11a16beec114c06a0728dbfbb01"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/architect",
+            "comment": "Bump @metronome-sh/config to v5.4.1",
+            "commit": "9b373a081a55f11a16beec114c06a0728dbfbb01"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 06 May 2022 06:47:23 GMT",
       "tag": "@metronome-sh/architect_v5.4.0",
       "version": "5.4.0",
