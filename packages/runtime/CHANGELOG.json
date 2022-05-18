@@ -2,6 +2,27 @@
   "name": "@metronome-sh/runtime",
   "entries": [
     {
+      "date": "Wed, 18 May 2022 23:23:20 GMT",
+      "tag": "@metronome-sh/runtime_v5.4.2",
+      "version": "5.4.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "ericktamayo@gmail.com",
+            "package": "@metronome-sh/runtime",
+            "commit": "a0e3c6a06eba2c0288381e019b9e8b0148493e58",
+            "comment": "fixes when the remix function doesn't return a response"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/runtime",
+            "comment": "Bump @metronome-sh/config to v5.4.2",
+            "commit": "a0e3c6a06eba2c0288381e019b9e8b0148493e58"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 May 2022 06:47:03 GMT",
       "tag": "@metronome-sh/runtime_v5.4.1",
       "version": "5.4.1",
