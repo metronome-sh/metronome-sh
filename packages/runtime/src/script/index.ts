@@ -38,9 +38,9 @@ const reportMetrics = () => {
   const encoded = encodeObject(queue);
 
   if (navigator.sendBeacon) {
-    navigator.sendBeacon("__metronome", encoded);
+    navigator.sendBeacon("/__metronome", encoded);
   } else {
-    fetch("__metronome", { body: encoded, method: "POST", keepalive: true });
+    fetch("/__metronome", { body: encoded, method: "POST", keepalive: true });
   }
 };
 
