@@ -3,21 +3,29 @@ import {
   ContextWithMetronome,
   METRONOME_CONTEXT_KEY,
   METRONOME_VERSION,
+  GetLoadContextOptions,
+  config,
 } from "@metronome-sh/runtime";
 import { NodeSpan, SpanName } from "@metronome-sh/node";
 import type { ServerBuild } from "@remix-run/node";
 import { NodeSpanExporter } from "@metronome-sh/node";
 
-export const createMetronomeGetLoadContext = (build: ServerBuild) => {
+export const createMetronomeGetLoadContext = (
+  build: ServerBuild,
+  options?: GetLoadContextOptions
+) => {
   const exporter = new NodeSpanExporter({
     apiKey: process.env.METRONOME_API_KEY,
     metronomeUrl: process.env.METRONOME_URL,
     metronomeDebug: process.env.METRONOME_DEBUG,
   });
 
-  const { version } = require(process.env.PWD + "/package.json");
   const { version: hash } = build.assets;
   const metronomeVersion = METRONOME_VERSION;
+
+  const projectMeta = { version: "", hash, metronomeVersion };
+
+  const metronomeConfig = config(options?.configPath);
 
   return (
     request: IncomingMessage,
@@ -27,16 +35,18 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
       return {};
     }
 
-    if (request.url?.includes("__metronome")) {
-      return {
-        [METRONOME_CONTEXT_KEY]: {
-          hash,
-          metronomeVersion,
-          version,
-          exporter,
-          SpanClass: NodeSpan,
-        },
-      };
+    const metronomeContext = {
+      ...projectMeta,
+      exporter,
+      metronomeConfig,
+      SpanClass: NodeSpan,
+    };
+
+    if (
+      request.url?.includes("__metronome") ||
+      metronomeConfig.shouldIgnorePathname(request.url)
+    ) {
+      return { [METRONOME_CONTEXT_KEY]: metronomeContext };
     }
 
     // prettier-ignore
@@ -64,15 +74,6 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
       await exporter.send(span);
     });
 
-    return {
-      [METRONOME_CONTEXT_KEY]: {
-        rootSpan: span,
-        hash,
-        metronomeVersion,
-        version,
-        exporter,
-        SpanClass: NodeSpan,
-      },
-    };
+    return { [METRONOME_CONTEXT_KEY]: { ...metronomeContext, rootSpan: span } };
   };
 };
