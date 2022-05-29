@@ -23,6 +23,10 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
     request: IncomingMessage,
     response: ServerResponse
   ): ContextWithMetronome => {
+    if (process.env.NODE_ENV !== "production") {
+      return {};
+    }
+
     if (request.url?.includes("__metronome")) {
       return {
         [METRONOME_CONTEXT_KEY]: {
@@ -34,10 +38,6 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
         },
       };
     }
-
-    // if (process.env.NODE_ENV !== "production") {
-    //   return {};
-    // }
 
     // prettier-ignore
     const url = new URL(request.url || "/", `http://${request.headers.host || "localhost"}`);

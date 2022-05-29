@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Removed the message in express for web",
+  "packageName": "@metronome-sh/express",
+  "email": "ericktamayo@gmail.com",
+  "dependentChangeType": "patch"
+}
