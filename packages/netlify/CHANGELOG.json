@@ -2,6 +2,39 @@
   "name": "@metronome-sh/netlify",
   "entries": [
     {
+      "date": "Sun, 29 May 2022 15:19:22 GMT",
+      "tag": "@metronome-sh/netlify_v5.4.3",
+      "version": "5.4.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/netlify",
+            "comment": "Bump @metronome-sh/node to v5.4.3",
+            "commit": "1e2d2ade3763d7ba731b145297d7c7cc6cfc1e86"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/netlify",
+            "comment": "Bump @metronome-sh/runtime to v5.4.3",
+            "commit": "1e2d2ade3763d7ba731b145297d7c7cc6cfc1e86"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/netlify",
+            "comment": "Bump @metronome-sh/cli to v5.4.3",
+            "commit": "1e2d2ade3763d7ba731b145297d7c7cc6cfc1e86"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/netlify",
+            "comment": "Bump @metronome-sh/config to v5.4.3",
+            "commit": "1e2d2ade3763d7ba731b145297d7c7cc6cfc1e86"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 18 May 2022 23:23:20 GMT",
       "tag": "@metronome-sh/netlify_v5.4.2",
       "version": "5.4.2",

@@ -1,6 +1,6 @@
 {
   "name": "@metronome-sh/react",
-  "version": "5.4.2",
+  "version": "5.4.3",
   "description": "Metronome - Insights for Remix",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -32,7 +32,7 @@
     "web-vitals": "^2.1.2"
   },
   "devDependencies": {
-    "@metronome-sh/config": "5.4.2",
+    "@metronome-sh/config": "5.4.3",
     "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.9",
     "@babel/plugin-transform-modules-commonjs": "^7.17.9",
