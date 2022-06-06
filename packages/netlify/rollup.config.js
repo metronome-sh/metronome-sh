@@ -4,7 +4,7 @@ import { nodeResolve } from "@rollup/plugin-node-resolve";
 import sucrase from "@rollup/plugin-sucrase";
 import autoExternal from "rollup-plugin-auto-external";
 import { terser } from "rollup-plugin-terser";
-import config from "@metronome-sh/config/rollup";
+import config from "@metronome-sh/dev/rollup";
 
 const production = !process.env.ROLLUP_WATCH;
 

@@ -1,7 +1,7 @@
 import { METRONOME_CONTEXT_KEY } from "./constants";
 import type { AbstractSpan } from "./AbstractSpan";
 import { AbstractSpanExporter } from "./AbstractSpanExporter";
-import type { MetronomeConfigHandler } from "./MetronomeConfigHandler";
+import type { MetronomeConfigHandler } from "@metronome-sh/config";
 
 export type Meta = {
   routeId: string;
@@ -13,18 +13,13 @@ export type ProjectMeta = {
   hash: string;
 };
 
-export interface MetronomeConfig {
-  ignoredRoutes?: (string | RegExp)[];
-  ignoredPathnames?: (string | RegExp)[];
-}
-
 type SpanClass = new (
   ...args: ConstructorParameters<typeof AbstractSpan>
 ) => AbstractSpan;
 
 export interface ContextWithMetronome extends Record<string, any> {
   [METRONOME_CONTEXT_KEY]?: {
-    config?: MetronomeConfigHandler;
+    config: MetronomeConfigHandler;
     exporter: AbstractSpanExporter;
     hash: string;
     metronomeVersion: string;

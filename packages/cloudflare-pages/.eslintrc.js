@@ -1,1 +1,1 @@
-module.exports = require("@metronome/config/project/eslint");
+module.exports = require("@metronome-sh/dev/project/eslint");

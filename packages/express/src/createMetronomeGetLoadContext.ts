@@ -4,11 +4,11 @@ import {
   METRONOME_CONTEXT_KEY,
   METRONOME_VERSION,
   GetLoadContextOptions,
-  MetronomeConfigHandler,
 } from "@metronome-sh/runtime";
 import { NodeSpan, SpanName } from "@metronome-sh/node";
 import type { ServerBuild } from "@remix-run/node";
 import { NodeSpanExporter } from "@metronome-sh/node";
+import { MetronomeConfigHandler } from "@metronome-sh/config";
 import path from "path";
 
 export const createMetronomeGetLoadContext = (
@@ -26,10 +26,10 @@ export const createMetronomeGetLoadContext = (
 
   const projectMeta = { version: "", hash, metronomeVersion };
 
-  const configPath =
-    options?.configPath || path.resolve(process.cwd(), "./metronome.config.js");
-
-  const config = new MetronomeConfigHandler(configPath);
+  const config = new MetronomeConfigHandler(
+    require(options?.configPath ||
+      path.resolve(process.cwd(), "./metronome.config.js"))
+  );
 
   return (
     request: IncomingMessage,
@@ -41,14 +41,14 @@ export const createMetronomeGetLoadContext = (
 
     const metronomeContext = {
       ...projectMeta,
+      config,
       exporter,
-      // metronomeConfig,
       SpanClass: NodeSpan,
     };
 
     if (
-      request.url?.includes("__metronome") //||
-      // metronomeConfig.shouldIgnorePathname(request.url)
+      request.url?.includes("__metronome") ||
+      config.shouldIgnorePath(request.url)
     ) {
       return { [METRONOME_CONTEXT_KEY]: metronomeContext };
     }

@@ -24,7 +24,7 @@ const wrapRemixFunction = (
   options: MetronomeWrapperOptions
 ): ActionFunction | LoaderFunction => {
   return async (...args) => {
-    const [{ context }] = args;
+    const [{ context, request }] = args;
 
     const metronomeContext = (context as ContextWithMetronome)[
       METRONOME_CONTEXT_KEY
@@ -40,9 +40,17 @@ const wrapRemixFunction = (
       version = "",
       SpanClass,
       exporter,
+      config,
     } = metronomeContext;
 
     const { type, routeId } = options;
+
+    if (
+      config.shouldIgnoreRoute(routeId) ||
+      config.shouldIgnorePath(request.url)
+    ) {
+      return remixFunction(...args);
+    }
 
     const attributes = {
       "remix.function": type,

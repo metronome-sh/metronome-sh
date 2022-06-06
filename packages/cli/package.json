@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@metronome-sh/config": "5.4.3",
+    "@metronome-sh/dev": "5.4.3",
     "@types/yargs": "^17.0.10",
     "concurrently": "^7.1.0",
     "typescript": "^4.5.4"

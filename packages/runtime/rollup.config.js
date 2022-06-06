@@ -1,5 +1,5 @@
 import replace from "@rollup/plugin-replace";
-import defaultConfig from "@metronome-sh/config/rollup";
+import defaultConfig from "@metronome-sh/dev/rollup";
 import { version } from "./package.json";
 import fs from "fs";
 import path from "path";

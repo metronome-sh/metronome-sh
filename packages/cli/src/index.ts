@@ -1,6 +1,6 @@
 import yargs from "yargs";
 import patchRemixRunServe from "./commands/patchRemixRunServe";
-import configTestRoute from "./commands/configTestRoute";
+import init from "./commands/init";
 
 yargs
   .scriptName("metronome")
@@ -10,10 +10,11 @@ yargs
     () => null,
     patchRemixRunServe
   )
-  .command(
-    "config test-route <path>",
-    "Tests if a route is ignored by Metronome using the config file",
+  .command<{ route: string }>(
+    "init",
+    "Initializes Metronome by creating a config file",
     () => null,
-    configTestRoute
+    init
   )
-  .help().argv;
+  .help()
+  .parse();

@@ -4,4 +4,4 @@ export {
   combineGetLoadContexts,
 } from "@metronome-sh/runtime";
 
-export type { MetronomeConfig } from "@metronome-sh/runtime";
+export type { MetronomeConfig } from "@metronome-sh/config";
