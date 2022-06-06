@@ -4,9 +4,11 @@ import {
   ContextWithMetronome,
   GetLoadContextOptions,
   METRONOME_CONTEXT_KEY,
+  METRONOME_VERSION,
 } from "@metronome-sh/runtime";
 import { MetronomeConfigHandler } from "@metronome-sh/config";
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
+import fs from "fs";
 import path from "path";
 
 export const createMetronomeGetLoadContext = (
@@ -20,13 +22,13 @@ export const createMetronomeGetLoadContext = (
   });
 
   const { version: hash } = build.assets;
-  const { version: metronomeVersion } = require("../package.json");
 
-  const projectMeta = { version: "", hash, metronomeVersion };
+  const configPath =
+    options?.configPath ||
+    path.resolve(process.cwd(), "../metronome.config.js");
 
   const config = new MetronomeConfigHandler(
-    require(options?.configPath ||
-      path.resolve(process.cwd(), "./metronome.config.js"))
+    fs.existsSync(configPath) ? require(configPath) : undefined
   );
 
   return (request: APIGatewayProxyEventV2): ContextWithMetronome => {
@@ -37,17 +39,18 @@ export const createMetronomeGetLoadContext = (
       return {};
     }
 
+    const metronomeContext = {
+      config,
+      exporter,
+      hash,
+      metronomeVersion: METRONOME_VERSION,
+      SpanClass: NodeSpan,
+    };
+
     const { requestContext, queryStringParameters } = request;
 
-    if (requestContext.http.path.includes("__metronome")) {
-      return {
-        [METRONOME_CONTEXT_KEY]: {
-          ...projectMeta,
-          config,
-          exporter,
-          SpanClass: NodeSpan,
-        },
-      };
+    if (config.shouldIgnorePath(requestContext.http.path)) {
+      return { [METRONOME_CONTEXT_KEY]: metronomeContext };
     }
 
     const attributes = {
@@ -64,14 +67,6 @@ export const createMetronomeGetLoadContext = (
 
     exporter.send(span);
 
-    return {
-      [METRONOME_CONTEXT_KEY]: {
-        ...projectMeta,
-        config,
-        exporter,
-        rootSpan: span,
-        SpanClass: NodeSpan,
-      },
-    };
+    return { [METRONOME_CONTEXT_KEY]: { ...metronomeContext, rootSpan: span } };
   };
 };

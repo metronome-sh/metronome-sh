@@ -40,6 +40,8 @@ export class MetronomeConfigHandler {
   public shouldIgnorePath(urlString?: string): boolean {
     if (!urlString) return false;
 
+    if (urlString.includes("__metronome")) return true;
+
     if (this.ignoredPathnameCache[urlString]) {
       return this.ignoredPathnameCache[urlString];
     }

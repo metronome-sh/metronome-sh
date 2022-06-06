@@ -37,7 +37,6 @@ const wrapRemixFunction = (
     const {
       metronomeVersion = "",
       hash = "",
-      version = "",
       SpanClass,
       exporter,
       config,
@@ -55,7 +54,6 @@ const wrapRemixFunction = (
     const attributes = {
       "remix.function": type,
       "remix.route": routeId,
-      "app.version": version,
       "app.hash": hash,
       "metronome.version": metronomeVersion,
     };

@@ -30,6 +30,7 @@ describe.concurrent("MetronomeConfigHandler", () => {
     [undefined, [], false],
     ["/", [], false],
     ["/", ["/"], true],
+    ["/__metronome", [], true],
     ["/healthcheck", ["/healthcheck"], true],
     ["/projects/1/settings", ["/projects/1/settings"], true],
     ["/projects/1/settings", ["/projects/2/settings"], false],
