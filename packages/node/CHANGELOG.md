@@ -1,8 +1,18 @@
 # Change Log - @metronome-sh/node
 
-This log was last generated on Sun, 29 May 2022 15:19:22 GMT and should not be manually modified.
+This log was last generated on Tue, 07 Jun 2022 21:19:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.5.0
+
+Tue, 07 Jun 2022 21:19:37 GMT
+
+### Minor changes
+
+- Added ability to configure Metronome client (ericktamayo@gmail.com)
+- Bump @metronome-sh/runtime to v5.5.0
+- Bump @metronome-sh/config to v5.5.0
 
 ## 5.4.3
 

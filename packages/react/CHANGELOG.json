@@ -2,6 +2,27 @@
   "name": "@metronome-sh/react",
   "entries": [
     {
+      "date": "Tue, 07 Jun 2022 21:19:37 GMT",
+      "tag": "@metronome-sh/react_v5.5.0",
+      "version": "5.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "ericktamayo@gmail.com",
+            "package": "@metronome-sh/react",
+            "commit": "af61c75b39f50c04be64304991f282035f723c08",
+            "comment": "Added ability to configure Metronome client"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/react",
+            "comment": "Bump @metronome-sh/config to v5.5.0",
+            "commit": "af61c75b39f50c04be64304991f282035f723c08"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 29 May 2022 15:19:22 GMT",
       "tag": "@metronome-sh/react_v5.4.3",
       "version": "5.4.3",

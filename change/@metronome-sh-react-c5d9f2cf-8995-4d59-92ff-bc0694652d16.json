@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Added ability to configure Metronome client",
-  "packageName": "@metronome-sh/react",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}

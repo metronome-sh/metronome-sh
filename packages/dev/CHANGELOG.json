@@ -1,6 +1,21 @@
 {
-  "name": "@metronome-sh/config",
+  "name": "@metronome-sh/dev",
   "entries": [
+    {
+      "date": "Tue, 07 Jun 2022 21:19:37 GMT",
+      "tag": "@metronome-sh/dev_v5.5.0",
+      "version": "5.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "ericktamayo@gmail.com",
+            "package": "@metronome-sh/dev",
+            "commit": "af61c75b39f50c04be64304991f282035f723c08",
+            "comment": "Added ability to configure Metronome client"
+          }
+        ]
+      }
+    },
     {
       "date": "Wed, 04 May 2022 03:43:09 GMT",
       "tag": "@metronome-sh/config_v5.3.6",
