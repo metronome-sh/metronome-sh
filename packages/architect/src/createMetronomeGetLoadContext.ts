@@ -8,8 +8,6 @@ import {
 } from "@metronome-sh/runtime";
 import { MetronomeConfigHandler } from "@metronome-sh/config";
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
-import fs from "fs";
-import path from "path";
 
 export const createMetronomeGetLoadContext = (
   build: ServerBuild,
