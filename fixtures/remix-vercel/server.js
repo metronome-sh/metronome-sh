@@ -5,9 +5,13 @@ import {
   createMetronomeGetLoadContext,
 } from "@metronome-sh/vercel";
 
+import * as metronomeConfig from "./metronome.config.js";
+
 const buildWithMetronome = registerMetronome(build);
-const metronomeGetLoadContext =
-  createMetronomeGetLoadContext(buildWithMetronome);
+const metronomeGetLoadContext = createMetronomeGetLoadContext(
+  buildWithMetronome,
+  { config: metronomeConfig }
+);
 
 export default createRequestHandler({
   build: buildWithMetronome,

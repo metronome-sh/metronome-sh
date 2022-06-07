@@ -6,9 +6,13 @@ import {
   registerMetronome,
 } from "@metronome-sh/netlify";
 
+import metronomeConfig from "./metronome.config.js";
+
 const buildWithMetronome = registerMetronome(build);
-const metronomeGetLoadContext =
-  createMetronomeGetLoadContext(buildWithMetronome);
+const metronomeGetLoadContext = createMetronomeGetLoadContext(
+  buildWithMetronome,
+  { config: metronomeConfig }
+);
 
 /*
  * Returns a context object with at most 3 keys:
