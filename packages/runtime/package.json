@@ -15,8 +15,7 @@
     "dev": "concurrently \"npm:dev:*\"",
     "dev:typings": "tsc --declaration --emitDeclarationOnly -p ./tsconfig.json --outDir dist/ --watch",
     "dev:rollup": "wait-on dist/script/index.js && rollup -c --watch",
-    "dev:script": "rollup -c rollup.config.script.js --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:script": "rollup -c rollup.config.script.js --watch"
   },
   "keywords": [
     "metronome",

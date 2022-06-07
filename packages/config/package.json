@@ -14,7 +14,7 @@
     "dev": "concurrently \"npm:dev:*\"",
     "dev:typings": "tsc --declaration --emitDeclarationOnly -p ./tsconfig.json --outDir dist/ --watch",
     "dev:rollup": "rollup -c --watch",
-    "test": "vitest",
+    "test": "vitest run",
     "coverage": "vitest run --coverage"
   },
   "keywords": [

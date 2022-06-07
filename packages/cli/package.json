@@ -16,8 +16,7 @@
     "build:rollup": "rollup -c",
     "dev": "concurrently \"npm:dev:*\"",
     "dev:typings": "tsc --declaration --emitDeclarationOnly -p ./tsconfig.json --outDir dist/ --watch",
-    "dev:rollup": "rollup -c --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:rollup": "rollup -c --watch"
   },
   "keywords": [
     "metronome",
