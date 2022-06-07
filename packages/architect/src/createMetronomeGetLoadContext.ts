@@ -13,7 +13,7 @@ import path from "path";
 
 export const createMetronomeGetLoadContext = (
   build: ServerBuild,
-  options?: GetLoadContextOptions
+  options?: Omit<GetLoadContextOptions, "configPath">
 ) => {
   const exporter = new NodeSpanExporter({
     apiKey: process.env.METRONOME_API_KEY,
@@ -23,13 +23,7 @@ export const createMetronomeGetLoadContext = (
 
   const { version: hash } = build.assets;
 
-  const configPath =
-    options?.configPath ||
-    path.resolve(process.cwd(), "../metronome.config.js");
-
-  const config = new MetronomeConfigHandler(
-    fs.existsSync(configPath) ? require(configPath) : undefined
-  );
+  const config = new MetronomeConfigHandler(options?.config);
 
   return (request: APIGatewayProxyEventV2): ContextWithMetronome => {
     if (
