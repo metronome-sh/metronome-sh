@@ -1,8 +1,20 @@
 # Change Log - @metronome-sh/vercel
 
-This log was last generated on Tue, 07 Jun 2022 21:19:37 GMT and should not be manually modified.
+This log was last generated on Tue, 07 Jun 2022 22:02:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.5.1
+
+Tue, 07 Jun 2022 22:02:02 GMT
+
+### Patches
+
+- Bump @metronome-sh/config to v5.5.1
+- Bump @metronome-sh/cli to v5.5.1
+- Bump @metronome-sh/node to v5.5.1
+- Bump @metronome-sh/runtime to v5.5.1
+- Bump @metronome-sh/dev to v5.5.1
 
 ## 5.5.0
 
