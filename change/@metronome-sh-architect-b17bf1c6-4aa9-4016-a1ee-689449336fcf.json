@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fixed architect config export",
+  "packageName": "@metronome-sh/architect",
+  "email": "ericktamayo@gmail.com",
+  "dependentChangeType": "patch"
+}
