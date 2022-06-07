@@ -1,5 +1,7 @@
+import { MetronomeConfigHandler } from "@metronome-sh/config";
 import {
   ContextWithMetronome,
+  GetLoadContextOptions,
   METRONOME_CONTEXT_KEY,
   METRONOME_VERSION,
   SpanName,
@@ -8,14 +10,19 @@ import type { ServerBuild } from "@remix-run/server-runtime";
 import { CloudflarePagesSpan } from "./CloudflarePagesSpan";
 import { CloudflarePagesSpanExporter } from "./CloudflarePagesSpanExporter";
 
-export const createMetronomeGetLoadContext = (build: ServerBuild) => {
-  const metronomeVersion = METRONOME_VERSION;
-
+export const createMetronomeGetLoadContext = (
+  build: ServerBuild,
+  options?: Omit<GetLoadContextOptions, "configPath">
+) => {
   const { version: hash } = build.assets;
 
-  const projectMeta = { version: "", hash, metronomeVersion };
+  const config = new MetronomeConfigHandler(options?.config);
 
   return (context: EventContext<any, any, any>): ContextWithMetronome => {
+    if (!!options?.mode && options.mode === "development") {
+      return {};
+    }
+
     const { env, request } = context;
 
     const exporter = new CloudflarePagesSpanExporter({
@@ -26,20 +33,22 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
 
     exporter.setEventContext(context);
 
-    if (request.url.includes("__metronome")) {
-      return {
-        [METRONOME_CONTEXT_KEY]: {
-          ...projectMeta,
-          exporter,
-          SpanClass: CloudflarePagesSpan,
-        },
-      };
-    }
+    const metronomeContext = {
+      config,
+      exporter,
+      hash,
+      metronomeVersion: METRONOME_VERSION,
+      SpanClass: CloudflarePagesSpan,
+    };
 
     const url = new URL(
       request.url || "/",
       `http://${request.headers.get("host") || "localhost"}`
     );
+
+    if (config.shouldIgnorePath(url.pathname)) {
+      return { [METRONOME_CONTEXT_KEY]: metronomeContext };
+    }
 
     const requestType = url.searchParams.has("_data") ? "data" : "document";
 
@@ -54,13 +63,6 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
 
     exporter.send(span);
 
-    return {
-      [METRONOME_CONTEXT_KEY]: {
-        rootSpan: span,
-        ...projectMeta,
-        exporter,
-        SpanClass: CloudflarePagesSpan,
-      },
-    };
+    return { [METRONOME_CONTEXT_KEY]: { ...metronomeContext, rootSpan: span } };
   };
 };

@@ -6,10 +6,17 @@ import {
   registerMetronome,
 } from "@metronome-sh/cloudflare-pages";
 
+import metronomeConfig from "./metronome.config.js";
+
 const buildWithMetronome = registerMetronome(build);
 
-const metronomeGetLoadContext =
-  createMetronomeGetLoadContext(buildWithMetronome);
+const metronomeGetLoadContext = createMetronomeGetLoadContext(
+  buildWithMetronome,
+  {
+    config: metronomeConfig,
+    mode: process.env.NODE_ENV,
+  }
+);
 
 const handleRequest = createPagesFunctionHandler({
   build: buildWithMetronome,

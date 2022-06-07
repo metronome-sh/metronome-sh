@@ -3,7 +3,7 @@ import json from "@rollup/plugin-json";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import sucrase from "@rollup/plugin-sucrase";
 import { terser } from "rollup-plugin-terser";
-import defaultConfig from "@metronome-sh/config/rollup";
+import defaultConfig from "@metronome-sh/dev/rollup";
 
 const production = !process.env.ROLLUP_WATCH;
 

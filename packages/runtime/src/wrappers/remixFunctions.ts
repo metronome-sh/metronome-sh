@@ -1,8 +1,18 @@
 import { SpanName } from "../AbstractSpan";
 import type { ContextWithMetronome } from "../types";
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
-import { isResponse } from "@remix-run/server-runtime/responses";
 import { METRONOME_CONTEXT_KEY } from "../constants";
+
+// https://github.com/remix-run/remix/blob/973cd68528c8c58679a5b2d974ae8cefde0db455/packages/remix-server-runtime/responses.ts#L54
+function isResponse(value: any): value is Response {
+  return (
+    value != null &&
+    typeof value.status === "number" &&
+    typeof value.statusText === "string" &&
+    typeof value.headers === "object" &&
+    typeof value.body !== "undefined"
+  );
+}
 
 export interface MetronomeWrapperOptions {
   type: SpanName.Action | SpanName.Loader;
@@ -14,7 +24,7 @@ const wrapRemixFunction = (
   options: MetronomeWrapperOptions
 ): ActionFunction | LoaderFunction => {
   return async (...args) => {
-    const [{ context }] = args;
+    const [{ context, request }] = args;
 
     const metronomeContext = (context as ContextWithMetronome)[
       METRONOME_CONTEXT_KEY
@@ -27,17 +37,23 @@ const wrapRemixFunction = (
     const {
       metronomeVersion = "",
       hash = "",
-      version = "",
       SpanClass,
       exporter,
+      config,
     } = metronomeContext;
 
     const { type, routeId } = options;
 
+    if (
+      config.shouldIgnoreRoute(routeId) ||
+      config.shouldIgnorePath(request.url)
+    ) {
+      return remixFunction(...args);
+    }
+
     const attributes = {
       "remix.function": type,
       "remix.route": routeId,
-      "app.version": version,
       "app.hash": hash,
       "metronome.version": metronomeVersion,
     };

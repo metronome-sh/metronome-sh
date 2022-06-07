@@ -12,7 +12,7 @@ function isRemixServeInstalled() {
 
 function isRemixServeAlreadyPatched() {
   const source = fs.readFileSync(remixServeIndexPath, "utf8");
-  return source.includes("metronome-sh");
+  return source === SERVER_STUB;
 }
 
 export default function patchRemixRunServe() {
@@ -38,7 +38,18 @@ export default function patchRemixRunServe() {
 }
 
 const SERVER_STUB = `
+/**
+ * @remix-run/serve v1.5.1
+ *
+ * Copyright (c) Remix Software Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.md file in the root directory of this source tree.
+ *
+ * @license MIT
+ */
 'use strict';
+
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var express = require('express');
@@ -46,6 +57,7 @@ var compression = require('compression');
 var morgan = require('morgan');
 var express$1 = require('@remix-run/express');
 var {registerMetronome,createMetronomeGetLoadContext} = require('@metronome-sh/express');
+var path = require('path');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -66,8 +78,9 @@ function createApp(buildPath, mode = "production") {
   }));
   app.use(morgan__default["default"]("tiny"));
 
+  var configPath = path.resolve(process.cwd(), './metronome.config.js');
   var buildWithMetronome = registerMetronome(require(buildPath));
-  var getLoadContext = createMetronomeGetLoadContext(buildWithMetronome);
+  var getLoadContext = createMetronomeGetLoadContext(buildWithMetronome, { configPath });
 
   app.all("*", mode === "production" ? express$1.createRequestHandler({
     build: buildWithMetronome,
@@ -76,7 +89,7 @@ function createApp(buildPath, mode = "production") {
   }) : (req, res, next) => {
     // require cache is purged in @remix-run/dev where the file watcher is
     var buildWithMetronome = registerMetronome(require(buildPath));
-    var getLoadContext = createMetronomeGetLoadContext(buildWithMetronome);
+    var getLoadContext = createMetronomeGetLoadContext(buildWithMetronome, { configPath });
 
     return express$1.createRequestHandler({
       build: buildWithMetronome,

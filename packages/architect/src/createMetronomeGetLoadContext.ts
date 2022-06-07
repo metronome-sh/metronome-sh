@@ -1,12 +1,20 @@
 import type { ServerBuild } from "@remix-run/server-runtime";
-import type { APIGatewayProxyEventV2 } from "aws-lambda";
 import { NodeSpan, SpanName, NodeSpanExporter } from "@metronome-sh/node";
 import {
   ContextWithMetronome,
+  GetLoadContextOptions,
   METRONOME_CONTEXT_KEY,
+  METRONOME_VERSION,
 } from "@metronome-sh/runtime";
+import { MetronomeConfigHandler } from "@metronome-sh/config";
+import type { APIGatewayProxyEventV2 } from "aws-lambda";
+import fs from "fs";
+import path from "path";
 
-export const createMetronomeGetLoadContext = (build: ServerBuild) => {
+export const createMetronomeGetLoadContext = (
+  build: ServerBuild,
+  options?: GetLoadContextOptions
+) => {
   const exporter = new NodeSpanExporter({
     apiKey: process.env.METRONOME_API_KEY,
     metronomeUrl: process.env.METRONOME_URL,
@@ -14,9 +22,14 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
   });
 
   const { version: hash } = build.assets;
-  const { version: metronomeVersion } = require("../package.json");
 
-  const projectMeta = { version: "", hash, metronomeVersion };
+  const configPath =
+    options?.configPath ||
+    path.resolve(process.cwd(), "../metronome.config.js");
+
+  const config = new MetronomeConfigHandler(
+    fs.existsSync(configPath) ? require(configPath) : undefined
+  );
 
   return (request: APIGatewayProxyEventV2): ContextWithMetronome => {
     if (
@@ -26,16 +39,18 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
       return {};
     }
 
+    const metronomeContext = {
+      config,
+      exporter,
+      hash,
+      metronomeVersion: METRONOME_VERSION,
+      SpanClass: NodeSpan,
+    };
+
     const { requestContext, queryStringParameters } = request;
 
-    if (requestContext.http.path.includes("__metronome")) {
-      return {
-        [METRONOME_CONTEXT_KEY]: {
-          ...projectMeta,
-          exporter,
-          SpanClass: NodeSpan,
-        },
-      };
+    if (config.shouldIgnorePath(requestContext.http.path)) {
+      return { [METRONOME_CONTEXT_KEY]: metronomeContext };
     }
 
     const attributes = {
@@ -52,13 +67,6 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
 
     exporter.send(span);
 
-    return {
-      [METRONOME_CONTEXT_KEY]: {
-        rootSpan: span,
-        ...projectMeta,
-        exporter,
-        SpanClass: NodeSpan,
-      },
-    };
+    return { [METRONOME_CONTEXT_KEY]: { ...metronomeContext, rootSpan: span } };
   };
 };

@@ -1,5 +1,7 @@
+import { MetronomeConfigHandler } from "@metronome-sh/config";
 import {
   ContextWithMetronome,
+  GetLoadContextOptions,
   METRONOME_CONTEXT_KEY,
   METRONOME_VERSION,
   SpanName,
@@ -14,15 +16,20 @@ declare global {
   var METRONOME_DEBUG: string | undefined;
 }
 
-export const createMetronomeGetLoadContext = (build: ServerBuild) => {
-  const metronomeVersion = METRONOME_VERSION;
-
+export const createMetronomeGetLoadContext = (
+  build: ServerBuild,
+  options?: Omit<GetLoadContextOptions, "configPath">
+) => {
   const { version: hash } = build.assets;
 
-  const projectMeta = { version: "", hash, metronomeVersion };
+  const config = new MetronomeConfigHandler(options?.config);
 
   return (event: FetchEvent): ContextWithMetronome => {
-    const { request, waitUntil } = event;
+    if (!!options?.mode && options.mode === "development") {
+      return {};
+    }
+
+    const { request } = event;
 
     const apiKey =
       typeof METRONOME_API_KEY !== "undefined" ? METRONOME_API_KEY : undefined;
@@ -41,20 +48,22 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
 
     exporter.setEvent(event);
 
-    if (request.url.includes("__metronome")) {
-      return {
-        [METRONOME_CONTEXT_KEY]: {
-          ...projectMeta,
-          exporter,
-          SpanClass: CloudflareSpan,
-        },
-      };
-    }
+    const metronomeContext = {
+      config,
+      exporter,
+      hash,
+      metronomeVersion: METRONOME_VERSION,
+      SpanClass: CloudflareSpan,
+    };
 
     const url = new URL(
       request.url || "/",
       `http://${request.headers.get("host") || "localhost"}`
     );
+
+    if (config.shouldIgnorePath(url.pathname)) {
+      return { [METRONOME_CONTEXT_KEY]: metronomeContext };
+    }
 
     const requestType = url.searchParams.has("_data") ? "data" : "document";
 
@@ -69,13 +78,6 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
 
     exporter.send(span);
 
-    return {
-      [METRONOME_CONTEXT_KEY]: {
-        rootSpan: span,
-        ...projectMeta,
-        exporter,
-        SpanClass: CloudflareSpan,
-      },
-    };
+    return { [METRONOME_CONTEXT_KEY]: { ...metronomeContext, rootSpan: span } };
   };
 };

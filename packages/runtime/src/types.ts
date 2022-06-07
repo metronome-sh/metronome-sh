@@ -1,8 +1,11 @@
-import { Infer } from "superstruct";
 import { METRONOME_CONTEXT_KEY } from "./constants";
 import type { AbstractSpan } from "./AbstractSpan";
 import { AbstractSpanExporter } from "./AbstractSpanExporter";
-import { WebVital } from "./schemas";
+import type {
+  MetronomeConfig,
+  MetronomeConfigHandler,
+} from "@metronome-sh/config";
+
 export type Meta = {
   routeId: string;
 } & ProjectMeta;
@@ -13,15 +16,23 @@ export type ProjectMeta = {
   hash: string;
 };
 
+type SpanClass = new (
+  ...args: ConstructorParameters<typeof AbstractSpan>
+) => AbstractSpan;
+
 export interface ContextWithMetronome extends Record<string, any> {
   [METRONOME_CONTEXT_KEY]?: {
+    config: MetronomeConfigHandler;
+    exporter: AbstractSpanExporter;
     hash: string;
     metronomeVersion: string;
     rootSpan?: AbstractSpan;
-    version: string;
-    exporter: AbstractSpanExporter;
-    SpanClass: new (
-      ...args: ConstructorParameters<typeof AbstractSpan>
-    ) => AbstractSpan;
+    SpanClass: SpanClass;
   };
+}
+
+export interface GetLoadContextOptions {
+  configPath?: string;
+  config?: MetronomeConfig;
+  mode?: string;
 }

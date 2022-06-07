@@ -12,7 +12,7 @@ function createWebVitalSpans(
   userAgent: string | null = ""
 ): AbstractSpan[] {
   // prettier-ignore
-  const { version = "", metronomeVersion = "", hash = "", SpanClass } = metronomeContext;
+  const { metronomeVersion = "", hash = "", SpanClass } = metronomeContext;
 
   return webVitals.map((webVital) => {
     const { connection, metric, routeId, routePath, pathname } = webVital;
@@ -28,7 +28,6 @@ function createWebVitalSpans(
       "vital.name": name,
       "vital.value": value,
       "vital.id": id,
-      "app.version": version,
       "app.hash": hash,
       "metronome.version": metronomeVersion,
     };

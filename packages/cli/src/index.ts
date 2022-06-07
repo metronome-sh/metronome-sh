@@ -1,5 +1,6 @@
 import yargs from "yargs";
 import patchRemixRunServe from "./commands/patchRemixRunServe";
+import init from "./commands/init";
 
 yargs
   .scriptName("metronome")
@@ -9,4 +10,11 @@ yargs
     () => null,
     patchRemixRunServe
   )
-  .help().argv;
+  .command<{ route: string }>(
+    "init",
+    "Initializes Metronome by creating a config file",
+    () => null,
+    init
+  )
+  .help()
+  .parse();

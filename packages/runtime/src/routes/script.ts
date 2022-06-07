@@ -5,7 +5,7 @@ export const loader: LoaderFunction = async () => {
     status: 200,
     headers: {
       "content-type": "application/javascript; charset=UTF-8",
-      // TODO cache this
+      "cache-control": "max-age=31536000, immutable",
     },
   });
 };

@@ -7,7 +7,7 @@
   "scripts": {
     "build": "remix build",
     "dev:remix": "cross-env NODE_ENV=production METRONOME_API_KEY=cl26o928710842cuc4dwslf3q METRONOME_DEBUG=true METRONOME_URL=http://metronome.local:3000 remix watch",
-    "dev:arc": "cross-env NODE_ENV=production METRONOME_API_KEY=cl26o928710842cuc4dwslf3q METRONOME_DEBUG=true METRONOME_URL=http://metronome.local:3000 PORT=3002 arc sandbox",
+    "dev:arc": "cross-env ARC_ENV=production NODE_ENV=production METRONOME_API_KEY=cl26o928710842cuc4dwslf3q METRONOME_DEBUG=true METRONOME_URL=http://metronome.local:3000 PORT=3002 arc sandbox",
     "dev": "remix build && run-p dev:*",
     "start": "cross-env NODE_ENV=production arc sandbox"
   },

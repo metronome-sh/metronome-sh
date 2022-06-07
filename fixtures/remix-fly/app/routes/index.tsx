@@ -1,3 +1,13 @@
+import type { ActionFunction, LoaderFunction } from "@remix-run/node";
+
+export const loader: LoaderFunction = async () => {
+  return { hello: "world" };
+};
+
+export const action: ActionFunction = async () => {
+  return {};
+};
+
 export default function Index() {
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>

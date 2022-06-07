@@ -1,42 +1,46 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import type { ServerBuild } from "@remix-run/server-runtime";
-import type { ContextWithMetronome } from "@metronome-sh/runtime";
+import type {
+  ContextWithMetronome,
+  GetLoadContextOptions,
+} from "@metronome-sh/runtime";
 import { NodeSpan, SpanName, NodeSpanExporter } from "@metronome-sh/node";
 
 import {
   METRONOME_CONTEXT_KEY,
   METRONOME_VERSION,
 } from "@metronome-sh/runtime";
+import { MetronomeConfigHandler } from "@metronome-sh/config";
 
-export const createMetronomeGetLoadContext = (build: ServerBuild) => {
+export const createMetronomeGetLoadContext = (
+  build: ServerBuild,
+  options?: Omit<GetLoadContextOptions, "configPath">
+) => {
   const exporter = new NodeSpanExporter({
     apiKey: process.env.METRONOME_API_KEY,
     metronomeUrl: process.env.METRONOME_URL,
     metronomeDebug: process.env.METRONOME_DEBUG,
   });
 
-  const { version: hash } = build.assets;
-  const metronomeVersion = METRONOME_VERSION;
+  const config = new MetronomeConfigHandler(options?.config);
 
-  const projectMeta = { version: "", hash, metronomeVersion };
+  const { version: hash } = build.assets;
 
   return (
     request: VercelRequest,
     response: VercelResponse
   ): ContextWithMetronome => {
-    if (request.url?.includes("__metronome")) {
-      return {
-        [METRONOME_CONTEXT_KEY]: {
-          ...projectMeta,
-          exporter,
-          SpanClass: NodeSpan,
-        },
-      };
-    }
+    const metronomeContext = {
+      config,
+      exporter,
+      hash,
+      metronomeVersion: METRONOME_VERSION,
+      SpanClass: NodeSpan,
+    };
 
-    // if (process.env.NODE_ENV !== "production") {
-    //   return {};
-    // }
+    if (config.shouldIgnorePath(request.url)) {
+      return { [METRONOME_CONTEXT_KEY]: metronomeContext };
+    }
 
     // prettier-ignore
     const url = new URL(request.url || "/", `http://${request.headers.host || "localhost"}`);
@@ -63,13 +67,6 @@ export const createMetronomeGetLoadContext = (build: ServerBuild) => {
       await exporter.send(span);
     });
 
-    return {
-      [METRONOME_CONTEXT_KEY]: {
-        ...projectMeta,
-        rootSpan: span,
-        exporter,
-        SpanClass: NodeSpan,
-      },
-    };
+    return { [METRONOME_CONTEXT_KEY]: { ...metronomeContext, rootSpan: span } };
   };
 };
