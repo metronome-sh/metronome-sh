@@ -8,7 +8,7 @@ import {
 import { NodeSpan, SpanName } from "@metronome-sh/node";
 import type { ServerBuild } from "@remix-run/node";
 import { NodeSpanExporter } from "@metronome-sh/node";
-import { MetronomeConfigHandler } from "@metronome-sh/config";
+import { MetronomeConfig, MetronomeConfigHandler } from "@metronome-sh/config";
 import fs from "fs";
 import path from "path";
 
@@ -27,9 +27,13 @@ export const createMetronomeGetLoadContext = (
   const configPath =
     options?.configPath || path.resolve(process.cwd(), "./metronome.config.js");
 
-  const config = new MetronomeConfigHandler(
-    fs.existsSync(configPath) ? require(configPath) : undefined
-  );
+  const metronomeConfig = options?.config
+    ? options.config
+    : fs.existsSync(configPath)
+    ? (require(configPath) as MetronomeConfig)
+    : undefined;
+
+  const config = new MetronomeConfigHandler(metronomeConfig);
 
   return (
     request: IncomingMessage,
