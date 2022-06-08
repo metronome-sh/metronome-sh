@@ -1,7 +1,5 @@
 import type { MetronomeConfig } from "./types";
-import path from "path";
-
-const defaultConfig: MetronomeConfig = {};
+const defaultConfig: MetronomeConfig = require("./metronome.config.js");
 
 export class MetronomeConfigHandler {
   public config: MetronomeConfig;
@@ -65,5 +63,9 @@ export class MetronomeConfigHandler {
     this.ignoredPathnameCache[urlString] = isIgnored;
 
     return isIgnored;
+  }
+
+  public shouldIgnoreMethod(method?: string): boolean {
+    return method?.toLowerCase() === "head" && !!this.config.ignoreHeadMethod;
   }
 }

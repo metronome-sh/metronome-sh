@@ -39,7 +39,10 @@ export const createMetronomeGetLoadContext = (
     request: IncomingMessage,
     response: ServerResponse
   ): ContextWithMetronome => {
-    if (process.env.NODE_ENV !== "production") {
+    if (
+      config.shouldIgnoreMethod(request.method) ||
+      process.env.NODE_ENV !== "production"
+    ) {
       return {};
     }
 

@@ -30,6 +30,10 @@ export const createMetronomeGetLoadContext = (
     request: VercelRequest,
     response: VercelResponse
   ): ContextWithMetronome => {
+    if (config.shouldIgnoreMethod(request.method)) {
+      return {};
+    }
+
     const metronomeContext = {
       config,
       exporter,

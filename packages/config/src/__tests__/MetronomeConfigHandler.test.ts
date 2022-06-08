@@ -45,4 +45,20 @@ describe.concurrent("MetronomeConfigHandler", () => {
       expect(config.shouldIgnorePath(pathname as any)).toBe(ignored);
     }
   );
+
+  it("Should ignore head requests if ignoreHeadMethod is true", async () => {
+    const config = new MetronomeConfigHandler({ ignoreHeadMethod: true });
+    expect(config.shouldIgnoreMethod()).toBe(false);
+    expect(config.shouldIgnoreMethod("head")).toBe(true);
+    expect(config.shouldIgnoreMethod("Head")).toBe(true);
+    expect(config.shouldIgnoreMethod("HEAD")).toBe(true);
+  });
+
+  it("Should not ignore head requests if ignoreHeadMethod is false", async () => {
+    const config = new MetronomeConfigHandler({ ignoreHeadMethod: false });
+    expect(config.shouldIgnoreMethod()).toBe(false);
+    expect(config.shouldIgnoreMethod("head")).toBe(false);
+    expect(config.shouldIgnoreMethod("Head")).toBe(false);
+    expect(config.shouldIgnoreMethod("HEAD")).toBe(false);
+  });
 });
