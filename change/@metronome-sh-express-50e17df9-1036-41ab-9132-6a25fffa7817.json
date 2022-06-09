@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "now head method can be ignored",
-  "packageName": "@metronome-sh/express",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}

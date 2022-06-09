@@ -1,8 +1,24 @@
 # Change Log - @metronome-sh/netlify
 
-This log was last generated on Wed, 08 Jun 2022 06:31:59 GMT and should not be manually modified.
+This log was last generated on Thu, 09 Jun 2022 04:17:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.5.3
+
+Thu, 09 Jun 2022 04:17:42 GMT
+
+### Minor changes
+
+- now head method can be ignored (ericktamayo@gmail.com)
+
+### Patches
+
+- Bump @metronome-sh/config to v5.5.3
+- Bump @metronome-sh/cli to v5.5.3
+- Bump @metronome-sh/node to v5.5.3
+- Bump @metronome-sh/runtime to v5.5.3
+- Bump @metronome-sh/dev to v5.5.3
 
 ## 5.5.2
 

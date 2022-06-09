@@ -2,6 +2,53 @@
   "name": "@metronome-sh/express",
   "entries": [
     {
+      "date": "Thu, 09 Jun 2022 04:17:42 GMT",
+      "tag": "@metronome-sh/express_v5.5.3",
+      "version": "5.5.3",
+      "comments": {
+        "minor": [
+          {
+            "author": "ericktamayo@gmail.com",
+            "package": "@metronome-sh/express",
+            "commit": "8056be96592e7eab6b979acccf72c466bd1d8f33",
+            "comment": "now head method can be ignored"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/express",
+            "comment": "Bump @metronome-sh/config to v5.5.3",
+            "commit": "8056be96592e7eab6b979acccf72c466bd1d8f33"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/express",
+            "comment": "Bump @metronome-sh/cli to v5.5.3",
+            "commit": "8056be96592e7eab6b979acccf72c466bd1d8f33"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/express",
+            "comment": "Bump @metronome-sh/node to v5.5.3",
+            "commit": "8056be96592e7eab6b979acccf72c466bd1d8f33"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/express",
+            "comment": "Bump @metronome-sh/runtime to v5.5.3",
+            "commit": "8056be96592e7eab6b979acccf72c466bd1d8f33"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/express",
+            "comment": "Bump @metronome-sh/dev to v5.5.3",
+            "commit": "8056be96592e7eab6b979acccf72c466bd1d8f33"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 08 Jun 2022 06:31:59 GMT",
       "tag": "@metronome-sh/express_v5.5.2",
       "version": "5.5.2",

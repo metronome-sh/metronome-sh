@@ -2,6 +2,21 @@
   "name": "@metronome-sh/config",
   "entries": [
     {
+      "date": "Thu, 09 Jun 2022 04:17:42 GMT",
+      "tag": "@metronome-sh/config_v5.5.3",
+      "version": "5.5.3",
+      "comments": {
+        "minor": [
+          {
+            "author": "ericktamayo@gmail.com",
+            "package": "@metronome-sh/config",
+            "commit": "8056be96592e7eab6b979acccf72c466bd1d8f33",
+            "comment": "now head method can be ignored"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 07 Jun 2022 21:19:37 GMT",
       "tag": "@metronome-sh/config_v5.5.0",
       "version": "5.5.0",
