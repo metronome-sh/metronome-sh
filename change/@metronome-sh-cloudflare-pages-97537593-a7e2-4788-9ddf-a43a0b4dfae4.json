@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "now head method can be ignored",
+  "packageName": "@metronome-sh/cloudflare-pages",
+  "email": "ericktamayo@gmail.com",
+  "dependentChangeType": "patch"
+}

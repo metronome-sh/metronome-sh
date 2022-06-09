@@ -25,7 +25,10 @@ export const createMetronomeGetLoadContext = (
   const config = new MetronomeConfigHandler(options?.config);
 
   return (event: FetchEvent): ContextWithMetronome => {
-    if (!!options?.mode && options.mode === "development") {
+    if (
+      config.shouldIgnoreMethod(event.request.method) ||
+      (!!options?.mode && options.mode === "development")
+    ) {
       return {};
     }
 

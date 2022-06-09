@@ -26,6 +26,14 @@ export const createMetronomeGetLoadContext = (
   const { version: hash } = build.assets;
 
   return (event: HandlerEvent, _: HandlerContext): ContextWithMetronome => {
+    if (
+      config.shouldIgnoreMethod(event.httpMethod) ||
+      process.env.NODE_ENV === "development" ||
+      (!!options?.mode && options.mode === "development")
+    ) {
+      return {};
+    }
+
     const metronomeContext = {
       config,
       exporter,

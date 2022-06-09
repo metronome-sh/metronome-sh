@@ -25,8 +25,9 @@ export const createMetronomeGetLoadContext = (
 
   return (request: APIGatewayProxyEventV2): ContextWithMetronome => {
     if (
-      process.env.ARC_ENV !== "production" &&
-      process.env.ARC_ENV !== "staging"
+      config.shouldIgnoreMethod(request.requestContext.http.method) ||
+      (process.env.ARC_ENV !== "production" &&
+        process.env.ARC_ENV !== "staging")
     ) {
       return {};
     }
