@@ -125,7 +125,7 @@ export abstract class AbstractSpan {
     this.event({
       name: error.name,
       message: error.message,
-      strack: error.stack,
+      stack: error.stack,
       ...(attributes ? attributes : {}),
     });
 
