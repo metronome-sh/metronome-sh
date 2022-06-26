@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fixed error where the parent request was not being assigned correctly",
+  "packageName": "@metronome-sh/runtime",
+  "email": "ericktamayo@gmail.com",
+  "dependentChangeType": "patch"
+}

@@ -57,6 +57,7 @@ export abstract class AbstractSpan {
     // prettier-ignore
     this.startNano = startTime !== undefined ? BigInt(startTime) : this.getStartTime();
     this.attributes = attributes;
+    this.parent = parent;
   }
 
   private generateId() {
@@ -124,6 +125,7 @@ export abstract class AbstractSpan {
     this.event({
       name: error.name,
       message: error.message,
+      strack: error.stack,
       ...(attributes ? attributes : {}),
     });
 
