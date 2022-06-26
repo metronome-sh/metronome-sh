@@ -2,6 +2,45 @@
   "name": "@metronome-sh/express",
   "entries": [
     {
+      "date": "Sun, 26 Jun 2022 05:23:50 GMT",
+      "tag": "@metronome-sh/express_v5.5.4",
+      "version": "5.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/express",
+            "comment": "Bump @metronome-sh/config to v5.5.4",
+            "commit": "7e4fbf2e38127ca8c28669670cd54d703b7be7d8"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/express",
+            "comment": "Bump @metronome-sh/cli to v5.5.4",
+            "commit": "7e4fbf2e38127ca8c28669670cd54d703b7be7d8"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/express",
+            "comment": "Bump @metronome-sh/node to v5.5.4",
+            "commit": "7e4fbf2e38127ca8c28669670cd54d703b7be7d8"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/express",
+            "comment": "Bump @metronome-sh/runtime to v5.5.4",
+            "commit": "7e4fbf2e38127ca8c28669670cd54d703b7be7d8"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/express",
+            "comment": "Bump @metronome-sh/dev to v5.5.4",
+            "commit": "7e4fbf2e38127ca8c28669670cd54d703b7be7d8"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 09 Jun 2022 04:17:42 GMT",
       "tag": "@metronome-sh/express_v5.5.3",
       "version": "5.5.3",

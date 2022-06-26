@@ -1,8 +1,20 @@
 # Change Log - @metronome-sh/express
 
-This log was last generated on Thu, 09 Jun 2022 04:17:42 GMT and should not be manually modified.
+This log was last generated on Sun, 26 Jun 2022 05:23:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.5.4
+
+Sun, 26 Jun 2022 05:23:50 GMT
+
+### Patches
+
+- Bump @metronome-sh/config to v5.5.4
+- Bump @metronome-sh/cli to v5.5.4
+- Bump @metronome-sh/node to v5.5.4
+- Bump @metronome-sh/runtime to v5.5.4
+- Bump @metronome-sh/dev to v5.5.4
 
 ## 5.5.3
 
