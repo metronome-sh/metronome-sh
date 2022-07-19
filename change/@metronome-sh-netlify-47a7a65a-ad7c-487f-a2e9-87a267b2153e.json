@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "now we can track the stack trace",
-  "packageName": "@metronome-sh/netlify",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}
