@@ -2,6 +2,45 @@
   "name": "@metronome-sh/architect",
   "entries": [
     {
+      "date": "Tue, 19 Jul 2022 21:12:00 GMT",
+      "tag": "@metronome-sh/architect_v5.6.0",
+      "version": "5.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "ericktamayo@gmail.com",
+            "package": "@metronome-sh/architect",
+            "commit": "1953eac99b1825a8062b0c950985d153e25a44cd",
+            "comment": "Updated dependencies"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/architect",
+            "comment": "Bump @metronome-sh/config to v5.6.0",
+            "commit": "1953eac99b1825a8062b0c950985d153e25a44cd"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/architect",
+            "comment": "Bump @metronome-sh/cli to v5.6.0",
+            "commit": "1953eac99b1825a8062b0c950985d153e25a44cd"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/architect",
+            "comment": "Bump @metronome-sh/node to v5.6.0",
+            "commit": "1953eac99b1825a8062b0c950985d153e25a44cd"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/architect",
+            "comment": "Bump @metronome-sh/runtime to v5.6.0",
+            "commit": "1953eac99b1825a8062b0c950985d153e25a44cd"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 19 Jul 2022 19:03:22 GMT",
       "tag": "@metronome-sh/architect_v5.5.6",
       "version": "5.5.6",

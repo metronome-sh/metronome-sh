@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Updated dependencies",
-  "packageName": "@metronome-sh/react",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}

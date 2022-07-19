@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Updated dependencies",
-  "packageName": "@metronome-sh/runtime",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}
