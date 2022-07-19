@@ -91,6 +91,7 @@ export abstract class AbstractSpan {
       this.setAttributes({
         "internal.error": true,
         "http.status.code": 500,
+        "http.status.message": error.message,
       }).recordException(error);
     }
 

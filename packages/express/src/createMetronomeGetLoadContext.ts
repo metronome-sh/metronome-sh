@@ -64,6 +64,7 @@ export const createMetronomeGetLoadContext = (
     const requestType = url.searchParams.has("_data") ? "data" : "document";
 
     const attributes = {
+      "metronome.version": METRONOME_VERSION,
       "http.method": request.method,
       "http.url": request.url,
       "remix.runtime": "node",

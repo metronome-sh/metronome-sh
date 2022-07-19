@@ -52,6 +52,7 @@ export const createMetronomeGetLoadContext = (
         : "data";
 
     const attributes = {
+      "metronome.version": METRONOME_VERSION,
       "http.method": event.httpMethod,
       "http.path": event.path,
       "remix.runtime": "netlify",
