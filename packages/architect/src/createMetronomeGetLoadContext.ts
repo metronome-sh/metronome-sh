@@ -47,6 +47,7 @@ export const createMetronomeGetLoadContext = (
     }
 
     const attributes = {
+      "metronome.version": METRONOME_VERSION,
       "http.method": requestContext.http.method,
       "http.path": requestContext.http.path,
       "remix.runtime": "architect",
