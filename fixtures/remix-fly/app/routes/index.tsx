@@ -1,6 +1,9 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 
 export const loader: LoaderFunction = async () => {
+  // Wait 2000ms
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
+
   return { hello: "world" };
 };
 

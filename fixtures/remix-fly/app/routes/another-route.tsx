@@ -1,11 +1,14 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 
 export const loader: LoaderFunction = async () => {
-  throw new Error("Loader Error");
+  // Wait 2000ms
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+
+  return { hello: "world" };
 };
 
 export const action: ActionFunction = async () => {
-  throw new Error("Action Error");
+  return {};
 };
 
 export default function Index() {

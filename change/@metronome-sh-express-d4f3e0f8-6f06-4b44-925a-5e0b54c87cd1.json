@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Updated dependencies",
+  "packageName": "@metronome-sh/express",
+  "email": "ericktamayo@gmail.com",
+  "dependentChangeType": "patch"
+}
