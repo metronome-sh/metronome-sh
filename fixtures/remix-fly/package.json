@@ -8,20 +8,21 @@
     "build": "remix build",
     "deploy": "fly deploy --remote-only",
     "dev": "remix dev",
-    "start": "NODE_ENV=production METRONOME_API_KEY=cl4ku7z520612n3uc5h4u0i3x METRONOME_DEBUG=true METRONOME_URL=http://metronome.local:3000 PORT=3002 remix-serve build"
+    "start-dev": "NODE_ENV=production METRONOME_API_KEY=cl5h1k8jq0061fjucc0n5i5ot METRONOME_DEBUG=true METRONOME_URL=http://metronome.local:3000 PORT=3002 remix-serve build",
+    "start": "NODE_ENV=production METRONOME_API_KEY=cl5lccv250259f0kq84wi13e3  METRONOME_URL=https://staging-metronome-web.fly.dev METRONOME_DEBUG=true PORT=3002 remix-serve build"
   },
   "dependencies": {
-    "@remix-run/node": "^1.4.3",
-    "@remix-run/react": "^1.4.3",
-    "@remix-run/serve": "^1.4.3",
+    "@remix-run/node": "^1.6.5",
+    "@remix-run/react": "^1.6.5",
+    "@remix-run/serve": "^1.6.5",
     "react": "file:../../node_modules/react",
     "react-dom": "file:../../node_modules/react-dom",
     "@metronome-sh/express": "file:../../packages/express",
     "@metronome-sh/react": "file:../../packages/react"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.4.3",
-    "@remix-run/eslint-config": "^1.4.3",
+    "@remix-run/dev": "^1.6.5",
+    "@remix-run/eslint-config": "^1.6.5",
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
     "eslint": "^8.11.0",

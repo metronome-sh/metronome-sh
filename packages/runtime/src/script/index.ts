@@ -1,6 +1,6 @@
 import { getLCP, getFID, getCLS, getTTFB, getFCP } from "web-vitals/base";
 import type { ReportHandler } from "web-vitals";
-import type { EntryContext } from "@remix-run/react/entry";
+import type { EntryContext } from "@remix-run/react/dist/entry";
 import { encodeObject } from "../routes/helpers";
 import type { MetronomeReport } from "../schemas";
 import type { Infer } from "superstruct";
