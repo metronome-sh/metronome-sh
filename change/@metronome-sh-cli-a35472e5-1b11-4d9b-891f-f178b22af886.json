@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "fixed patch",
+  "packageName": "@metronome-sh/cli",
+  "email": "ericktamayo@gmail.com",
+  "dependentChangeType": "patch"
+}
