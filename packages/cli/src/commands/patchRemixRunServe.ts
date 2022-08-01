@@ -3,7 +3,7 @@ import path from "path";
 
 const remixServeIndexPath = path.join(
   process.cwd(),
-  "node_modules/@remix-run/serve/index.js"
+  "node_modules/@remix-run/serve/dist/index.js"
 );
 
 function isRemixServeInstalled() {
