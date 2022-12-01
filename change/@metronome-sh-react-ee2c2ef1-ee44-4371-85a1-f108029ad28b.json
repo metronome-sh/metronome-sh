@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "added nonce support",
-  "packageName": "@metronome-sh/react",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}

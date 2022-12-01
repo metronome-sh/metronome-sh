@@ -1,8 +1,19 @@
 # Change Log - @metronome-sh/cloudflare-workers
 
-This log was last generated on Mon, 01 Aug 2022 20:41:48 GMT and should not be manually modified.
+This log was last generated on Thu, 01 Dec 2022 18:48:38 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.7.0
+
+Thu, 01 Dec 2022 18:48:38 GMT
+
+### Minor changes
+
+- Bump @metronome-sh/config to v5.7.0
+- Bump @metronome-sh/cli to v5.7.0
+- Bump @metronome-sh/runtime to v5.7.0
+- Bump @metronome-sh/dev to v5.7.0
 
 ## 5.6.1
 
