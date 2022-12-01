@@ -7,6 +7,7 @@
   "scripts": {
     "build": "remix build",
     "deploy": "fly deploy --remote-only",
+    "postinstall": "metronome patch @remix-run/serve",
     "dev": "remix dev",
     "start:dev": "NODE_ENV=production METRONOME_API_KEY=key_wNJT6cyhjpTKZlLg0fbi METRONOME_URL=http://localhost:3003/v1/process METRONOME_DEBUG=true PORT=3002 remix-serve build",
     "start:prod": "NODE_ENV=production METRONOME_API_KEY=key_wNJT6cyhjpTKZlLg0fbi METRONOME_URL=https://metronome-metrics.onrender.com/v1/process METRONOME_DEBUG=true PORT=3002 remix-serve build"
