@@ -1,8 +1,19 @@
 # Change Log - @metronome-sh/architect
 
-This log was last generated on Thu, 01 Dec 2022 18:48:38 GMT and should not be manually modified.
+This log was last generated on Tue, 06 Dec 2022 18:36:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.7.1
+
+Tue, 06 Dec 2022 18:36:59 GMT
+
+### Patches
+
+- Bump @metronome-sh/config to v5.7.1
+- Bump @metronome-sh/cli to v5.7.1
+- Bump @metronome-sh/node to v5.7.1
+- Bump @metronome-sh/runtime to v5.7.1
 
 ## 5.7.0
 
