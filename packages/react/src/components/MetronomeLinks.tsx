@@ -15,6 +15,7 @@ export const MetronomeLinks: VoidFunctionComponent<MetronomeLinksProps> =
         return (
           <>
             <script
+              nonce={nonce}
               dangerouslySetInnerHTML={{
                 __html: webVitalsPolyfill,
               }}
