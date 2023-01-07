@@ -2,6 +2,33 @@
   "name": "@metronome-sh/runtime",
   "entries": [
     {
+      "date": "Sat, 07 Jan 2023 22:16:35 GMT",
+      "tag": "@metronome-sh/runtime_v5.7.2",
+      "version": "5.7.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "ericktamayo@gmail.com",
+            "package": "@metronome-sh/runtime",
+            "commit": "3bd121d23701f5fea4a331abc7c0c30a5cde0b29",
+            "comment": "fixes 404 bug for web vitals"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/runtime",
+            "comment": "Bump @metronome-sh/config to v5.7.2",
+            "commit": "3bd121d23701f5fea4a331abc7c0c30a5cde0b29"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/runtime",
+            "comment": "Bump @metronome-sh/dev to v5.7.2",
+            "commit": "3bd121d23701f5fea4a331abc7c0c30a5cde0b29"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 06 Dec 2022 18:36:59 GMT",
       "tag": "@metronome-sh/runtime_v5.7.1",
       "version": "5.7.1",

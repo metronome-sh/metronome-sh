@@ -2,6 +2,45 @@
   "name": "@metronome-sh/vercel",
   "entries": [
     {
+      "date": "Sat, 07 Jan 2023 22:16:35 GMT",
+      "tag": "@metronome-sh/vercel_v5.7.2",
+      "version": "5.7.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/vercel",
+            "comment": "Bump @metronome-sh/config to v5.7.2",
+            "commit": "3bd121d23701f5fea4a331abc7c0c30a5cde0b29"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/vercel",
+            "comment": "Bump @metronome-sh/cli to v5.7.2",
+            "commit": "3bd121d23701f5fea4a331abc7c0c30a5cde0b29"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/vercel",
+            "comment": "Bump @metronome-sh/node to v5.7.2",
+            "commit": "3bd121d23701f5fea4a331abc7c0c30a5cde0b29"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/vercel",
+            "comment": "Bump @metronome-sh/runtime to v5.7.2",
+            "commit": "3bd121d23701f5fea4a331abc7c0c30a5cde0b29"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/vercel",
+            "comment": "Bump @metronome-sh/dev to v5.7.2",
+            "commit": "3bd121d23701f5fea4a331abc7c0c30a5cde0b29"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 06 Dec 2022 18:36:59 GMT",
       "tag": "@metronome-sh/vercel_v5.7.1",
       "version": "5.7.1",

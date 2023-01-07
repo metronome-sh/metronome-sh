@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "fixes 404 bug for web vitals",
-  "packageName": "@metronome-sh/runtime",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}
