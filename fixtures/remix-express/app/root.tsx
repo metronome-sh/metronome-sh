@@ -1,5 +1,4 @@
 import type { MetaFunction } from "@remix-run/node";
-import { MetronomeLinks } from "@metronome-sh/react";
 import {
   Links,
   LiveReload,
@@ -8,6 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { MetronomeLinks } from "@metronome-sh/react";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",

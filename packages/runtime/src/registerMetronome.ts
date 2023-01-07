@@ -24,10 +24,10 @@ export const registerMetronome = (build: ServerBuild): ServerBuild => {
   // Register custom metronome routes
   const baseUrl = "__metronome";
 
-  routes[`${baseUrl}/metronome-$hash[.js]`] = {
-    id: `${baseUrl}/metronome-$hash[.js]`,
+  routes[`${baseUrl}/$hash[.js]`] = {
+    id: `${baseUrl}/$hash[.js]`,
     parentId: undefined,
-    path: `${baseUrl}/metronome-:hash.js`,
+    path: `${baseUrl}/:hash.js`,
     index: undefined,
     caseSensitive: undefined,
     module: scriptRoute as any,
