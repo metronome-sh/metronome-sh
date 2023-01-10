@@ -1,21 +1,21 @@
 import { getLCP, getFID, getCLS, getTTFB, getFCP } from "web-vitals/base";
 import type { ReportHandler } from "web-vitals";
-import type { EntryContext } from "@remix-run/react/dist/entry";
 import { encodeObject } from "../routes/helpers";
 import type { MetronomeReport } from "../schemas";
 import type { Infer } from "superstruct";
+import type { RouteModules } from "@remix-run/server-runtime/dist/routeModules";
 
 declare global {
   interface Window {
     __metronomeQueue: Infer<typeof MetronomeReport>;
+    __metronomeLoaded: boolean;
+    __remixRouteModules: RouteModules<any>;
   }
 }
 
 window.__metronomeQueue = {
   webVitals: [],
 };
-
-const remixContext = (window as any).__remixContext as EntryContext;
 
 const getQueueEntriesCount = (queue: typeof window.__metronomeQueue) => {
   return Object.values(queue).reduce((acc, items) => acc + items.length, 0);
@@ -53,16 +53,13 @@ const enqueueWebVital: ReportHandler = ({ name, value, id }) => {
     (navigator as any).mozConnection ||
     (navigator as any).webkitConnection;
 
-  const { matches } = remixContext;
-
-  const entryRoute = [...matches].pop()!;
+  const routeId = Object.keys(window.__remixRouteModules).pop()!;
 
   const webVital = {
     metric: { name, value, id },
     connection: connection?.effectiveType || "unknown",
-    routeId: entryRoute.route.id,
-    routePath: entryRoute.route.path,
-    pathname: entryRoute.pathname,
+    routeId,
+    pathname: new URL(window.location.href).pathname,
   };
 
   enqueue("webVitals", webVital);
@@ -80,8 +77,18 @@ addEventListener("pagehide", () => {
   reportMetrics();
 });
 
-getLCP(enqueueWebVital);
-getFID(enqueueWebVital);
-getCLS(enqueueWebVital);
-getTTFB(enqueueWebVital);
-getFCP(enqueueWebVital);
+window.__metronomeLoaded = false;
+
+let waitForRemixIntervalId = setInterval(() => {
+  if (window.__remixRouteModules) {
+    clearInterval(waitForRemixIntervalId);
+    getLCP(enqueueWebVital);
+    getFID(enqueueWebVital);
+    getCLS(enqueueWebVital);
+    getTTFB(enqueueWebVital);
+    getFCP(enqueueWebVital);
+    window.__metronomeLoaded = true;
+  }
+}, 1000);
+
+
