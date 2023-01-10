@@ -34,10 +34,10 @@
     "@metronome-sh/cli": "5.7.2",
     "@metronome-sh/node": "5.7.2",
     "@metronome-sh/runtime": "5.7.2",
-    "@remix-run/architect": ">=1.6.5"
+    "@remix-run/architect": ">=1.10.0"
   },
   "devDependencies": {
-    "@remix-run/server-runtime": ">=1.6.5",
+    "@remix-run/server-runtime": ">=1.10.0",
     "@types/aws-lambda": "^8.10.94",
     "@types/node": "^17.0.1",
     "concurrently": "^7.1.0",
