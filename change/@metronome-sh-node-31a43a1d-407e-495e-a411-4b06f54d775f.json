@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Support for Remix 1.10.0",
-  "packageName": "@metronome-sh/node",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}

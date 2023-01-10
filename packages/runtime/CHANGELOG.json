@@ -2,6 +2,33 @@
   "name": "@metronome-sh/runtime",
   "entries": [
     {
+      "date": "Tue, 10 Jan 2023 23:26:54 GMT",
+      "tag": "@metronome-sh/runtime_v5.8.0",
+      "version": "5.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "ericktamayo@gmail.com",
+            "package": "@metronome-sh/runtime",
+            "commit": "de40e8b268b47ff8a61933514ea46be0a00f35e7",
+            "comment": "Support for Remix 1.10.0"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/runtime",
+            "comment": "Bump @metronome-sh/config to v5.8.0",
+            "commit": "de40e8b268b47ff8a61933514ea46be0a00f35e7"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/runtime",
+            "comment": "Bump @metronome-sh/dev to v5.8.0",
+            "commit": "de40e8b268b47ff8a61933514ea46be0a00f35e7"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 07 Jan 2023 22:16:35 GMT",
       "tag": "@metronome-sh/runtime_v5.7.2",
       "version": "5.7.2",

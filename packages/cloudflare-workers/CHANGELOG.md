@@ -1,8 +1,20 @@
 # Change Log - @metronome-sh/cloudflare-workers
 
-This log was last generated on Sat, 07 Jan 2023 22:16:35 GMT and should not be manually modified.
+This log was last generated on Tue, 10 Jan 2023 23:26:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.8.0
+
+Tue, 10 Jan 2023 23:26:54 GMT
+
+### Minor changes
+
+- Support for Remix 1.10.0 (ericktamayo@gmail.com)
+- Bump @metronome-sh/config to v5.8.0
+- Bump @metronome-sh/cli to v5.8.0
+- Bump @metronome-sh/runtime to v5.8.0
+- Bump @metronome-sh/dev to v5.8.0
 
 ## 5.7.2
 

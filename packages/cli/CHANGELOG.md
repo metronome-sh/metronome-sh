@@ -1,8 +1,17 @@
 # Change Log - @metronome-sh/cli
 
-This log was last generated on Sat, 07 Jan 2023 22:16:35 GMT and should not be manually modified.
+This log was last generated on Tue, 10 Jan 2023 23:26:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.8.0
+
+Tue, 10 Jan 2023 23:26:54 GMT
+
+### Minor changes
+
+- Bump @metronome-sh/config to v5.8.0
+- Bump @metronome-sh/dev to v5.8.0
 
 ## 5.7.2
 
