@@ -1,6 +1,6 @@
 {
   "name": "@metronome-sh/node",
-  "version": "5.8.0",
+  "version": "5.8.1",
   "description": "Metronome - Insights for Remix",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -29,10 +29,10 @@
   },
   "homepage": "https://github.com/metronome-sh/metronome-sh#readme",
   "dependencies": {
-    "@metronome-sh/runtime": "5.8.0"
+    "@metronome-sh/runtime": "5.8.1"
   },
   "devDependencies": {
-    "@metronome-sh/config": "5.8.0",
+    "@metronome-sh/config": "5.8.1",
     "@remix-run/dev": ">=1.10.0",
     "@remix-run/node": ">=1.10.0",
     "@rollup/plugin-replace": "^4.0.0",

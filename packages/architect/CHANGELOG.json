@@ -2,6 +2,39 @@
   "name": "@metronome-sh/architect",
   "entries": [
     {
+      "date": "Fri, 20 Jan 2023 16:57:32 GMT",
+      "tag": "@metronome-sh/architect_v5.8.1",
+      "version": "5.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/architect",
+            "comment": "Bump @metronome-sh/config to v5.8.1",
+            "commit": "a1b65d7a7e757d7800a0a60c48ae1b05c2c15f88"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/architect",
+            "comment": "Bump @metronome-sh/cli to v5.8.1",
+            "commit": "a1b65d7a7e757d7800a0a60c48ae1b05c2c15f88"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/architect",
+            "comment": "Bump @metronome-sh/node to v5.8.1",
+            "commit": "a1b65d7a7e757d7800a0a60c48ae1b05c2c15f88"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/architect",
+            "comment": "Bump @metronome-sh/runtime to v5.8.1",
+            "commit": "a1b65d7a7e757d7800a0a60c48ae1b05c2c15f88"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 10 Jan 2023 23:26:54 GMT",
       "tag": "@metronome-sh/architect_v5.8.0",
       "version": "5.8.0",

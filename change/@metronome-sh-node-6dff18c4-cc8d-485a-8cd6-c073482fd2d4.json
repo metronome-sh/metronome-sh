@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "wrap console.warn",
-  "packageName": "@metronome-sh/node",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}

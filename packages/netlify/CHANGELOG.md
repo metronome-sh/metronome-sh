@@ -1,8 +1,20 @@
 # Change Log - @metronome-sh/netlify
 
-This log was last generated on Tue, 10 Jan 2023 23:26:54 GMT and should not be manually modified.
+This log was last generated on Fri, 20 Jan 2023 16:57:32 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.8.1
+
+Fri, 20 Jan 2023 16:57:32 GMT
+
+### Patches
+
+- Bump @metronome-sh/config to v5.8.1
+- Bump @metronome-sh/cli to v5.8.1
+- Bump @metronome-sh/node to v5.8.1
+- Bump @metronome-sh/runtime to v5.8.1
+- Bump @metronome-sh/dev to v5.8.1
 
 ## 5.8.0
 
