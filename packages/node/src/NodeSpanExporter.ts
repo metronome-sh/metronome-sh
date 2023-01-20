@@ -60,12 +60,15 @@ export class NodeSpanExporter extends AbstractSpanExporter {
         resolve();
       });
 
-      // 300ms timeout to prevent locking up
+      // Prevent locking up the thread too much time
+      const TIMEOUT = 400;
       const timeoutId = setTimeout(() => {
         // prettier-ignore
-        console.warn("Metronome: Metric data was not sent to metronome after 300 milliseconds timeout");
+        if (this.getDebug()) {
+          console.warn(`Metronome: Metric data was not sent to metronome after ${TIMEOUT} milliseconds timeout`);
+        }
         resolve();
-      }, 300);
+      }, TIMEOUT);
 
       request.end(() => {
         clearTimeout(timeoutId);
