@@ -29,7 +29,7 @@ export class CloudflareWorkerSpanExporter extends AbstractSpanExporter {
       spans: spans.map((span) => span.prepared()),
     });
 
-    await fetch(`${this.getUrl()}/insights`, {
+    await fetch(this.getUrl(), {
       method: "POST",
       body: prepared,
       headers: { "Content-Type": "application/json", ApiKey: apiKey },

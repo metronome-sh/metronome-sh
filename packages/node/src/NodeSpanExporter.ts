@@ -28,12 +28,12 @@ export class NodeSpanExporter extends AbstractSpanExporter {
     const http = require("http");
     const https = require("https");
 
-    const { hostname, protocol, port } = new URL(this.getUrl());
+    const { hostname, protocol, port, pathname } = new URL(this.getUrl());
 
     const options = {
       hostname,
+      path: pathname,
       port,
-      path: "/insights",
       method: "POST",
       headers: { "Content-Type": "application/json", ApiKey: apiKey },
     };
