@@ -14,7 +14,7 @@ export abstract class AbstractSpanExporter {
   }
 
   protected getUrl(): string {
-    return this.metronomeUrl ?? "https://metrics.metronome.sh/v1/process";
+    return this.metronomeUrl ?? "https://metrics.metronome.sh";
   }
 
   protected getDebug(): boolean {
