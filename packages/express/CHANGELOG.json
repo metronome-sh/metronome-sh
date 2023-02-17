@@ -2,6 +2,45 @@
   "name": "@metronome-sh/express",
   "entries": [
     {
+      "date": "Fri, 17 Feb 2023 05:31:36 GMT",
+      "tag": "@metronome-sh/express_v6.0.0",
+      "version": "6.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/express",
+            "comment": "Bump @metronome-sh/config to v6.0.0",
+            "commit": "2a461beb69ab69fcc3d22b6aef768f357ceae242"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/express",
+            "comment": "Bump @metronome-sh/cli to v6.0.0",
+            "commit": "2a461beb69ab69fcc3d22b6aef768f357ceae242"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/express",
+            "comment": "Bump @metronome-sh/node to v6.0.0",
+            "commit": "2a461beb69ab69fcc3d22b6aef768f357ceae242"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/express",
+            "comment": "Bump @metronome-sh/runtime to v6.0.0",
+            "commit": "2a461beb69ab69fcc3d22b6aef768f357ceae242"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/express",
+            "comment": "Bump @metronome-sh/dev to v6.0.0",
+            "commit": "2a461beb69ab69fcc3d22b6aef768f357ceae242"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 20 Jan 2023 16:57:32 GMT",
       "tag": "@metronome-sh/express_v5.8.1",
       "version": "5.8.1",

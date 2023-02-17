@@ -1,8 +1,18 @@
 # Change Log - @metronome-sh/node
 
-This log was last generated on Fri, 20 Jan 2023 16:57:32 GMT and should not be manually modified.
+This log was last generated on Fri, 17 Feb 2023 05:31:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.0.0
+
+Fri, 17 Feb 2023 05:31:36 GMT
+
+### Major changes
+
+- compatibility with metronome.sh v3 web app (ericktamayo@gmail.com)
+- Bump @metronome-sh/runtime to v6.0.0
+- Bump @metronome-sh/config to v6.0.0
 
 ## 5.8.1
 

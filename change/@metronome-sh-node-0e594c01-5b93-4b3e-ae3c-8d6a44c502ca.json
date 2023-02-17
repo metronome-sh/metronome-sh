@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "compatibility with metronome.sh v3 web app",
-  "packageName": "@metronome-sh/node",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}

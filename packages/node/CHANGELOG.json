@@ -2,6 +2,33 @@
   "name": "@metronome-sh/node",
   "entries": [
     {
+      "date": "Fri, 17 Feb 2023 05:31:36 GMT",
+      "tag": "@metronome-sh/node_v6.0.0",
+      "version": "6.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "ericktamayo@gmail.com",
+            "package": "@metronome-sh/node",
+            "commit": "2a461beb69ab69fcc3d22b6aef768f357ceae242",
+            "comment": "compatibility with metronome.sh v3 web app"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/node",
+            "comment": "Bump @metronome-sh/runtime to v6.0.0",
+            "commit": "2a461beb69ab69fcc3d22b6aef768f357ceae242"
+          },
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/node",
+            "comment": "Bump @metronome-sh/config to v6.0.0",
+            "commit": "2a461beb69ab69fcc3d22b6aef768f357ceae242"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 20 Jan 2023 16:57:32 GMT",
       "tag": "@metronome-sh/node_v5.8.1",
       "version": "5.8.1",
