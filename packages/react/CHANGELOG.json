@@ -2,6 +2,21 @@
   "name": "@metronome-sh/react",
   "entries": [
     {
+      "date": "Fri, 17 Feb 2023 05:39:53 GMT",
+      "tag": "@metronome-sh/react_v6.0.1",
+      "version": "6.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@metronome-sh/react",
+            "comment": "Bump @metronome-sh/config to v6.0.1",
+            "commit": "5886bad8f7f69666f9be637a5b47818b9cbfc28a"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 17 Feb 2023 05:31:36 GMT",
       "tag": "@metronome-sh/react_v6.0.0",
       "version": "6.0.0",

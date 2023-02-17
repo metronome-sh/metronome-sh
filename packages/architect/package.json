@@ -1,6 +1,6 @@
 {
   "name": "@metronome-sh/architect",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "description": "Metronome - Insights for Remix",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -30,10 +30,10 @@
   },
   "homepage": "https://github.com/metronome-sh/metronome-sh#readme",
   "dependencies": {
-    "@metronome-sh/config": "6.0.0",
-    "@metronome-sh/cli": "6.0.0",
-    "@metronome-sh/node": "6.0.0",
-    "@metronome-sh/runtime": "6.0.0",
+    "@metronome-sh/config": "6.0.1",
+    "@metronome-sh/cli": "6.0.1",
+    "@metronome-sh/node": "6.0.1",
+    "@metronome-sh/runtime": "6.0.1",
     "@remix-run/architect": ">=1.10.0"
   },
   "devDependencies": {

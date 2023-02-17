@@ -1,8 +1,17 @@
 # Change Log - @metronome-sh/cli
 
-This log was last generated on Fri, 17 Feb 2023 05:31:36 GMT and should not be manually modified.
+This log was last generated on Fri, 17 Feb 2023 05:39:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.0.1
+
+Fri, 17 Feb 2023 05:39:53 GMT
+
+### Patches
+
+- Bump @metronome-sh/config to v6.0.1
+- Bump @metronome-sh/dev to v6.0.1
 
 ## 6.0.0
 
