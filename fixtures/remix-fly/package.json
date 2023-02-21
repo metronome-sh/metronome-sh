@@ -9,8 +9,8 @@
     "deploy": "fly deploy --remote-only",
     "postinstall": "metronome patch @remix-run/serve",
     "dev": "remix dev",
-    "start:dev": "NODE_ENV=production METRONOME_API_KEY=ckucijpqg1812811issmv0bqr3y METRONOME_URL=http://localhost:3003/v1/process METRONOME_DEBUG=true PORT=3002 remix-serve build",
-    "start:prod": "NODE_ENV=production METRONOME_API_KEY=ak_LRGSbjiOobWP8wOzxSzD METRONOME_URL=https://metronome-metrics.onrender.com/v1/process METRONOME_DEBUG=true PORT=3002 remix-serve build"
+    "start:dev": "NODE_ENV=production METRONOME_API_KEY=ak_RuX6WHb2n52dowciOwW3 METRONOME_URL=http://localhost:3003/v1/process METRONOME_DEBUG=true PORT=3002 remix-serve build",
+    "start:prod": "NODE_ENV=production METRONOME_API_KEY=ak_RuX6WHb2n52dowciOwW3 METRONOME_URL=https://metronome-metrics.onrender.com/v1/process METRONOME_DEBUG=true PORT=3002 remix-serve build"
   },
   "dependencies": {
     "@remix-run/node": "^1.6.5",

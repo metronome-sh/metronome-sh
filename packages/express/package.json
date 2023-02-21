@@ -38,10 +38,14 @@
   },
   "devDependencies": {
     "@metronome-sh/dev": "6.0.1",
-    "@remix-run/server-runtime": ">=1.10.0",
-    "@remix-run/node": ">=1.10.0",
+    "@metronome-sh/express": ">=1.13.0",
+    "@remix-run/server-runtime": ">=1.13.0",
+    "@remix-run/node": ">=1.13.0",
     "@types/node": "^17.0.1",
     "concurrently": "^7.1.0",
     "typescript": "^4.5.4"
+  },
+  "peerDependencies": {
+    "@metronome-sh/express": ">=1.13.0"
   }
 }
