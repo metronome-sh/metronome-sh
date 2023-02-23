@@ -1,14 +1,14 @@
 {
   "name": "metronome-sh",
-  "version": "5.0.0",
+  "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/**"
   ],
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
-    "test": "turbo run test --parallel",
-    "lint": "turbo run lint",
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "test": "turbo test",
+    "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "clean": "find . '(' -name \"node_modules\" -o -name \"build\" -o -name \"dist\" -o -name \".cache\" -o -name \".turbo\" ')' -type d -prune -exec rm -rf '{}' +",
     "beachball:change": "beachball change",
@@ -17,15 +17,13 @@
     "beachball:bump": "beachball bump"
   },
   "devDependencies": {
-    "@metronome-sh/config": "file:packages/config",
     "beachball": "^2.21.0",
     "prettier": "^2.5.1",
-    "turbo": "latest",
+    "turbo": "^1.7.4",
     "vitest": "^0.14.0"
   },
   "engines": {
     "npm": ">=7.0.0",
     "node": ">=14.0.0"
-  },
-  "packageManager": "npm@8.5.1"
+  }
 }

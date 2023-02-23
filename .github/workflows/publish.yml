@@ -21,13 +21,13 @@ jobs:
           node-version: 16
 
       - name: Install deps
-        uses: bahmutov/npm-install@v1
+        run: yarn
 
       - name: Bump versions
-        run: npx beachball bump
+        run: yarn beachball bump
 
       - name: Build
-        run: npm run build
+        run: yarn run build
 
       - name: Reset bump
         run: git checkout -- .
@@ -36,4 +36,4 @@ jobs:
         run: git config user.email = "erick@metronome.sh" && git config user.name = "Erick Tamayo" && git remote set-url origin https://ericktamayo:${{ secrets.GH_TOKEN }}@github.com/metronome-sh/metronome-sh.git
 
       - name: Publish to NPM
-        run: npx beachball publish -n ${{ secrets.NPM_TOKEN }} --yes
+        run: yarn beachball publish -n ${{ secrets.NPM_TOKEN }} --yes

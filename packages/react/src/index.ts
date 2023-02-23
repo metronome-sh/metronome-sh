@@ -1,1 +1,1 @@
-export { MetronomeLinks, MetronomeProvider } from "./components";
+export { MetronomeLinks, Metronome } from "./components";

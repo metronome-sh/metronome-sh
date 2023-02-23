@@ -1,1 +1,0 @@
-export { MetronomeProvider } from "./MetronomeProvider";

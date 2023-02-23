@@ -1,5 +1,5 @@
 import type { RouteModules } from "@remix-run/server-runtime/dist/routeModules";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "@remix-run/react";
 
 declare global {
@@ -13,15 +13,11 @@ declare global {
 export function useRemixInternals() {
   const location = useLocation();
 
-  const routeIdRef = useRef<string>();
+  const [routeId, setRouteId] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    routeIdRef.current = Object.keys(window.__remixRouteModules).pop()!;
-  }, [location.pathname]);
+    setRouteId(Object.keys(window.__remixRouteModules).pop()!);
+  }, [location.pathname, location.search]);
 
-  console.log({ routeId: routeIdRef.current });
-
-  return {
-    routeId: routeIdRef.current,
-  };
+  return { routeId };
 }
