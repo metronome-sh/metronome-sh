@@ -1,0 +1,1 @@
+export { useGetRouteId } from "./useGetRouteId";

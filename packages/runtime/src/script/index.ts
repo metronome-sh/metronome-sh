@@ -1,28 +1,26 @@
 import { getLCP, getFID, getCLS, getTTFB, getFCP } from "web-vitals/base";
 import type { ReportHandler } from "web-vitals";
 import { encodeObject } from "../routes/helpers";
-import type { MetronomeReport } from "../schemas";
 import type { Infer } from "superstruct";
 import type { RouteModules } from "@remix-run/server-runtime/dist/routeModules";
 
 declare global {
   interface Window {
-    __metronomeQueue: Infer<typeof MetronomeReport>;
+    __metronomeQueue: any;
     __metronomeLoaded: boolean;
     __remixRouteModules: RouteModules<any>;
   }
 }
 
-window.__metronomeQueue = {
-  webVitals: [],
-};
+window.__metronomeQueue = [];
 
 const getQueueEntriesCount = (queue: typeof window.__metronomeQueue) => {
-  return Object.values(queue).reduce((acc, items) => acc + items.length, 0);
+  return window.__metronomeQueue.length;
+  // return Object.values(queue).reduce((acc, items) => acc + items.length, 0);
 };
 
 const enqueue = (key: keyof typeof window.__metronomeQueue, data: any) => {
-  window.__metronomeQueue[key].push(data);
+  window.__metronomeQueue.push(data);
 
   if (getQueueEntriesCount(window.__metronomeQueue) >= 10) {
     reportMetrics();
@@ -31,7 +29,7 @@ const enqueue = (key: keyof typeof window.__metronomeQueue, data: any) => {
 
 const reportMetrics = () => {
   const queue = window.__metronomeQueue;
-  window.__metronomeQueue = { webVitals: [] };
+  // window.__metronomeQueue = { webVitals: [] };
 
   if (getQueueEntriesCount(queue) === 0) return;
 
@@ -62,7 +60,7 @@ const enqueueWebVital: ReportHandler = ({ name, value, id }) => {
     pathname: new URL(window.location.href).pathname,
   };
 
-  enqueue("webVitals", webVital);
+  // enqueue("webVitals", webVital);
 };
 
 addEventListener("visibilitychange", () => {
@@ -90,5 +88,3 @@ let waitForRemixIntervalId = setInterval(() => {
     window.__metronomeLoaded = true;
   }
 }, 1000);
-
-

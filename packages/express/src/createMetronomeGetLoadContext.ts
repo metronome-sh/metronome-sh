@@ -12,10 +12,10 @@ import { MetronomeConfig, MetronomeConfigHandler } from "@metronome-sh/config";
 import fs from "fs";
 import path from "path";
 
-export const createMetronomeGetLoadContext = (
+export function createMetronomeGetLoadContext(
   build: ServerBuild,
   options?: GetLoadContextOptions
-) => {
+) {
   const exporter = new NodeSpanExporter({
     apiKey: process.env.METRONOME_API_KEY,
     metronomeUrl: process.env.METRONOME_URL,
@@ -86,4 +86,4 @@ export const createMetronomeGetLoadContext = (
 
     return { [METRONOME_CONTEXT_KEY]: { ...metronomeContext, rootSpan: span } };
   };
-};
+}

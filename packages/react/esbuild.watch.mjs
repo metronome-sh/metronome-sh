@@ -17,4 +17,4 @@ await Promise.all([esmContext.rebuild(), cjsContext.rebuild()]);
 
 await Promise.all([esmContext.watch(), cjsContext.watch()]);
 
-console.log(" 👀 Watching for changes...");
+console.log("👀 Watching for changes...");

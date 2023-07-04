@@ -5,9 +5,9 @@ import { readFile } from "fs/promises";
 import packageJson from "./package.json" assert { type: "json" };
 
 // prettier-ignore
-const webVitalsPolyfillPath = await import.meta.resolve("web-vitals/dist/polyfill.js");
+// const webVitalsPolyfillPath = await import.meta.resolve("web-vitals/dist/polyfill.js");
 // prettier-ignore
-const webVitalsPolyfill = await readFile(webVitalsPolyfillPath.replace('file://', ''), "utf8");
+// const webVitalsPolyfill = await readFile(webVitalsPolyfillPath.replace('file://', ''), "utf8");
 
 /**
  * @type {import('esbuild').BuildOptions}
@@ -15,12 +15,15 @@ const webVitalsPolyfill = await readFile(webVitalsPolyfillPath.replace('file://'
 export const esbuildConfig = {
   entryPoints: ["src/index.ts"],
   bundle: true,
+  treeShaking: true,
+  platform: "node",
   sourcemap: true,
   packages: "external",
+  target: "node14",
   plugins: [
     replace({
       "process.env.METRONOME_VERSION": JSON.stringify(packageJson.version),
-      "process.env.WEB_VITALS_POLYFILL": JSON.stringify(webVitalsPolyfill),
+      // "process.env.WEB_VITALS_POLYFILL": JSON.stringify(webVitalsPolyfill),
     }),
   ],
 };

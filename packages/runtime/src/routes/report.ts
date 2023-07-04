@@ -2,13 +2,12 @@ import type { ActionFunction } from "@remix-run/server-runtime";
 import { decodeObject } from "./helpers";
 import { ContextWithMetronome } from "../types";
 import { METRONOME_CONTEXT_KEY } from "../constants";
-import { MetronomeReport, WebVital } from "../schemas";
 import { Infer, is } from "superstruct";
 import { AbstractSpan, SpanName } from "../AbstractSpan";
 
 function createWebVitalSpans(
   metronomeContext: ContextWithMetronome,
-  webVitals: Infer<typeof WebVital>[],
+  webVitals: any[],
   userAgent: string | null = ""
 ): AbstractSpan[] {
   // prettier-ignore
@@ -42,9 +41,9 @@ export const action: ActionFunction = async ({ request, context }) => {
 
   const report = await decodeObject(text);
 
-  if (!is(report, MetronomeReport)) {
-    return new Response("", { status: 204 });
-  }
+  // if (!is(report, MetronomeReport)) {
+  // return new Response("", { status: 204 });
+  // }
 
   const metronomeContext = (context as ContextWithMetronome)[
     METRONOME_CONTEXT_KEY
@@ -56,13 +55,13 @@ export const action: ActionFunction = async ({ request, context }) => {
 
   const { exporter } = metronomeContext;
 
-  const webVitalSpans = createWebVitalSpans(
-    metronomeContext,
-    report.webVitals,
-    request.headers.get("User-Agent")
-  );
+  // const webVitalSpans = createWebVitalSpans(
+  //   metronomeContext,
+  //   report.webVitals,
+  //   request.headers.get("User-Agent")
+  // );
 
-  await exporter.send(webVitalSpans);
+  // await exporter.send(webVitalSpans);
 
   return new Response("", { status: 204 });
 };

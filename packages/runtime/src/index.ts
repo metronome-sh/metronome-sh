@@ -13,3 +13,10 @@ export type {
   Meta,
   ProjectMeta,
 } from "./types";
+
+export type {
+  WebVitalEventStructType,
+  PageViewEventStructType,
+  BrowserDataStructType,
+  MetronomeEventStructType,
+} from "./structs";

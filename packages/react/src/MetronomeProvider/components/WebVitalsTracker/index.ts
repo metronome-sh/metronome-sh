@@ -1,0 +1,1 @@
+export { WebVitalsTracker } from "./WebVitalsTracker";

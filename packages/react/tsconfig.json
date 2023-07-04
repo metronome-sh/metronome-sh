@@ -3,6 +3,9 @@
   "exclude": ["dist", "build", "node_modules"],
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "compilerOptions": {
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "module": "esnext",
+    "target": "ESNext",
+    "moduleResolution": "Node"
   }
 }
