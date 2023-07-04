@@ -3,12 +3,13 @@ import { useRemixManifest } from "../useRemixManifest";
 import { useCallback, useMemo } from "react";
 
 export function useGetRouteId() {
-  const manifest = useRemixManifest();
-
   const routeMap = useMemo(() => {
-    if (!manifest) return {};
+    if (!window.__remixManifest) {
+      console.warn("Metronome: Remix manifest was not loaded");
+      return {};
+    }
 
-    const routeIdPathMap = Object.entries(manifest.routes).reduce(
+    const routeIdPathMap = Object.entries(window.__remixManifest.routes).reduce(
       (acc, [routeId, route]) => {
         if (!route.path && route.index && route.parentId) {
           return {
@@ -27,7 +28,7 @@ export function useGetRouteId() {
     );
 
     return routeIdPathMap;
-  }, [manifest]);
+  }, []);
 
   const location = useLocation();
 

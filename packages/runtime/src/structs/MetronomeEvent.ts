@@ -16,22 +16,33 @@ export const BrowserDataStruct = object({
   screen: string(),
   referrer: string(),
   hostname: string(),
+  language: string(),
+  connection: string(),
 });
 
 export const WebVitalEventStruct = object({
   type: literal("web-vital"),
   data: object({
     metric: object({
+      id: string(),
       name: enums(["CLS", "FID", "TTFB", "LCP", "FCP"]),
       value: number(),
-      id: string(),
+      rating: enums(["good", "needs-improvement", "poor"]),
+      navigationType: enums([
+        "navigate",
+        "reload",
+        "back-forward",
+        "back-forward-cache",
+        "prerender",
+        "restore",
+      ]),
     }),
     browser: BrowserDataStruct,
   }),
 });
 
 export const PageViewEventStruct = object({
-  type: literal("page-view"),
+  type: literal("pageview"),
   data: object({
     browser: BrowserDataStruct,
   }),
