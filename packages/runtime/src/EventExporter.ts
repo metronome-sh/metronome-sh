@@ -1,6 +1,5 @@
 import { OriginatedEvent } from "./OriginatedEvent";
 import { ClientEvent, ServerEvent } from "./runtime.types";
-import {} from "lz-string";
 
 export abstract class EventExporter {
   private apiKey: string | undefined;
