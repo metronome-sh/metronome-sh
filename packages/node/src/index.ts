@@ -1,5 +1,6 @@
 export * from "./NodeSpan";
-export * from "./NodeSpanExporter";
+export { NodeExporter } from "./NodeExporter";
+export { NodeOriginatedServerEvent } from "./NodeOriginatedServerEvent";
 export {
   registerMetronome,
   combineGetLoadContexts,

@@ -1,5 +1,5 @@
 import { SpanName } from "../AbstractSpan";
-import type { ContextWithMetronome } from "../types";
+import type { ContextWithMetronome } from "../runtime.types";
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
 import { METRONOME_CONTEXT_KEY } from "../constants";
 
@@ -37,7 +37,7 @@ const wrapRemixFunction = (
     const {
       metronomeVersion = "",
       hash = "",
-      SpanClass,
+      OriginatedServerEventClass,
       exporter,
       config,
     } = metronomeContext;
@@ -61,20 +61,22 @@ const wrapRemixFunction = (
     const parent = (context as ContextWithMetronome)[METRONOME_CONTEXT_KEY]
       ?.rootSpan;
 
-    const span = new SpanClass(type, { attributes, parent });
+    // const event = OriginatedServerEventClass();
+
+    // const span = new SpanClass(type, { attributes, parent });
 
     try {
       const response = await remixFunction(...args);
 
       // TODO make a test for this
-      span.end({
-        attributes: {
-          "http.status.code": response?.status || 204,
-          "http.status.text": response?.statusText || "No Content",
-        },
-      });
+      // span.end({
+      //   attributes: {
+      //     "http.status.code": response?.status || 204,
+      //     "http.status.text": response?.statusText || "No Content",
+      //   },
+      // });
 
-      await exporter.send(span);
+      // await exporter.send(span);
 
       return response;
     } catch (error) {
@@ -83,9 +85,9 @@ const wrapRemixFunction = (
         throw error;
       }
 
-      span.end({ error: error as Error });
+      // span.end({ error: error as Error });
 
-      await exporter.send(span);
+      // await exporter.send(span);
 
       throw error;
     }

@@ -1,8 +1,8 @@
-import { MetronomeEventStructType } from "@metronome-sh/runtime";
+import { ClientEvent } from "@metronome-sh/runtime";
 import { useCallback } from "react";
 
 export function useQueue() {
-  const enqueue = useCallback((event: MetronomeEventStructType) => {
+  const enqueue = useCallback((event: ClientEvent) => {
     // Make sure we have a queue
     if (!window.__metronomeQueue) {
       window.__metronomeQueue = [];

@@ -1,10 +1,13 @@
-import type { RouteModules } from "@remix-run/server-runtime/dist/routeModules";
-import type { MetronomeEventStructType } from "@metronome-sh/runtime";
-import type { UNSAFE_RouteManifest } from "@remix-run/react";
+import type { ClientEvent } from "@metronome-sh/runtime";
+import type {
+  UNSAFE_RouteManifest,
+  UNSAFE_RouteModules,
+} from "@remix-run/react";
 
 declare global {
   interface Window {
-    __metronomeQueue?: MetronomeEventStructType[];
+    __metronomeQueue?: ClientEvent[];
     __remixManifest: UNSAFE_RouteManifest<unknown>;
+    __remixRouteModules: UNSAFE_RouteModules;
   }
 }

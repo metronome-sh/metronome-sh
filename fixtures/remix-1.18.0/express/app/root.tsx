@@ -8,13 +8,13 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import { MetronomeProvider } from "@metronome-sh/react";
+import { withMetronome } from "@metronome-sh/react";
 
 export const links: LinksFunction = () => [
   // ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
 
-export default function App() {
+export function App() {
   return (
     <html lang="en">
       <head>
@@ -24,9 +24,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <MetronomeProvider>
-          <Outlet />
-        </MetronomeProvider>
+        <Outlet />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
@@ -34,3 +32,5 @@ export default function App() {
     </html>
   );
 }
+
+export default withMetronome(App);

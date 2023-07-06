@@ -1,9 +1,8 @@
 export { AbstractSpan, SpanName } from "./AbstractSpan";
-export { AbstractSpanExporter } from "./AbstractSpanExporter";
 export { combineGetLoadContexts } from "./combineGetLoadContexts";
 export { METRONOME_CONTEXT_KEY, METRONOME_VERSION } from "./constants";
 export { registerMetronome } from "./registerMetronome";
-export { reportRoute, scriptRoute } from "./routes";
+export { reportRoute } from "./routes";
 
 export type { SpanEvent } from "./AbstractSpan";
 export type { GenericGetLoadContextFunction } from "./combineGetLoadContexts";
@@ -12,11 +11,15 @@ export type {
   GetLoadContextOptions,
   Meta,
   ProjectMeta,
-} from "./types";
+  WebVitalEvent,
+  PageviewEvent,
+  BrowserData,
+  ClientEvent,
+  ServerEvent,
+  RemixData,
+  Event,
+} from "./runtime.types";
 
-export type {
-  WebVitalEventStructType,
-  PageViewEventStructType,
-  BrowserDataStructType,
-  MetronomeEventStructType,
-} from "./structs";
+export { OriginatedEvent } from "./OriginatedEvent";
+export { EventExporter } from "./EventExporter";
+export { OriginatedServerEvent } from "./OriginatedServerEvent";

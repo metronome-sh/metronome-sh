@@ -1,12 +1,10 @@
 import * as fs from "node:fs";
-
-import { createRequestHandler } from "@remix-run/express";
 import { broadcastDevReady, installGlobals } from "@remix-run/node";
 import chokidar from "chokidar";
 import compression from "compression";
 import express from "express";
 import morgan from "morgan";
-import { registerMetronome } from "@metronome-sh/express";
+import { createRequestHandler } from "@metronome-sh/express";
 
 installGlobals();
 
@@ -14,11 +12,8 @@ const BUILD_PATH = "./build/index.js";
 /**
  * @type { import('@remix-run/node').ServerBuild | Promise<import('@remix-run/node').ServerBuild> }
  */
-let build = registerMetronome(await import(BUILD_PATH));
-
-// const metronomeGetLoadContext = createMetronomeGetLoadContext(build, {
-//   config: require("./metronome.config.js"),
-// });
+let build = await import(BUILD_PATH);
+let metronome = await import("./metronome.config.js");
 
 const app = express();
 
@@ -46,7 +41,7 @@ app.all(
     : createRequestHandler({
         build,
         mode: process.env.NODE_ENV,
-        // getLoadContext: metronomeGetLoadContext,
+        metronome,
       })
 );
 
@@ -76,7 +71,7 @@ function createDevRequestHandler() {
       return createRequestHandler({
         build: await build,
         mode: "development",
-        // getLoadContext: metronomeGetLoadContext,
+        metronome,
       })(req, res, next);
     } catch (error) {
       next(error);

@@ -1,7 +1,6 @@
 import { useLocation } from "@remix-run/react";
 import { FunctionComponent, useEffect, useRef } from "react";
-import { useGetRouteId, useGetBrowserData } from "../../hooks";
-import { useQueue } from "../../hooks/useQueue/useQueue";
+import { useQueue, useGetBrowserData, useGetRemixData } from "../hooks";
 
 export type PageViewTrackerProps = {
   doNotTrack?: boolean;
@@ -14,28 +13,28 @@ export const PageViewTracker: FunctionComponent<PageViewTrackerProps> = ({
 
   const location = useLocation();
 
-  const getRouteId = useGetRouteId();
-
   const getBrowserData = useGetBrowserData();
+
+  const getRemixData = useGetRemixData();
 
   const { enqueue } = useQueue();
 
   useEffect(() => {
     if (doNotTrack) return;
 
-    const { key, pathname } = location;
+    const { key } = location;
 
-    const routeId = getRouteId({ pathname });
+    const remix = getRemixData();
 
-    if (lastLocationKey.current === key || !routeId) return;
+    if (lastLocationKey.current === key || !remix.routeId) return;
 
     enqueue({
       type: "pageview",
-      data: { browser: getBrowserData() },
+      data: { browser: getBrowserData(), timestamp: Date.now(), remix },
     });
 
     lastLocationKey.current = key;
-  }, [location, getBrowserData, getRouteId, doNotTrack]);
+  }, [location, getBrowserData, getRemixData, doNotTrack]);
 
   return null;
 };

@@ -1,1 +1,0 @@
-export { useGetBrowserData } from "./useGetBrowserData";

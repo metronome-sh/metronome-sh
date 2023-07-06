@@ -1,6 +1,6 @@
 import type { ServerBuild } from "@remix-run/server-runtime";
 import { wrapAction, wrapLoader } from "./wrappers";
-import { scriptRoute, reportRoute } from "./routes";
+import { reportRoute } from "./routes";
 
 export const registerMetronome = (build: ServerBuild): ServerBuild => {
   const routes: Record<string, ServerBuild["routes"][string]> = {};
@@ -21,17 +21,8 @@ export const registerMetronome = (build: ServerBuild): ServerBuild => {
     routes[routeId] = newRoute;
   }
 
-  // Register custom metronome routes
+  // Register custom metronome route
   const baseUrl = "__metronome";
-
-  routes[`${baseUrl}/$hash[.js]`] = {
-    id: `${baseUrl}/$hash[.js]`,
-    parentId: undefined,
-    path: `${baseUrl}/:hash.js`,
-    index: undefined,
-    caseSensitive: undefined,
-    module: scriptRoute as any,
-  };
 
   routes[baseUrl] = {
     id: baseUrl,

@@ -31,7 +31,7 @@ export const encodeObject = <T extends any>(toEncode: T) => {
   return `${encode(str, firstKey)}${encode(str, secondKey)}`;
 };
 
-export const decodeObject = <T extends Record<string, any>>(
+export const decodeObject = <T extends any>(
   toDecode: string
 ): T | undefined => {
   const [firstKey, secondKey] = generateKeys();

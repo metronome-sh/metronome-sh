@@ -16,7 +16,8 @@
     "beachball:check": "beachball check",
     "beachball:publish": "beachball publish --yes",
     "beachball:bump": "beachball bump",
-    "react": "yarn workspace @metronome-sh/react"
+    "react": "yarn workspace @metronome-sh/react",
+    "runtime": "yarn workspace @metronome-sh/runtime"
   },
   "devDependencies": {
     "beachball": "^2.21.0",

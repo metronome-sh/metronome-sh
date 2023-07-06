@@ -1,7 +1,14 @@
 import { FunctionComponent, useEffect, useRef } from "react";
-import { onLCP, onFID, onCLS, onTTFB, onFCP, type Metric } from "web-vitals";
-import { useQueue } from "../../hooks/useQueue/useQueue";
-import { useGetBrowserData } from "../../hooks";
+import {
+  onLCP,
+  onFID,
+  onCLS,
+  onTTFB,
+  onFCP,
+  onINP,
+  type Metric,
+} from "web-vitals";
+import { useQueue, useGetBrowserData, useGetRemixData } from "../hooks";
 
 export type WebVitalsTrackerProps = {
   doNotTrack?: boolean;
@@ -11,7 +18,10 @@ export const WebVitalsTracker: FunctionComponent<WebVitalsTrackerProps> = ({
   doNotTrack,
 }) => {
   const { enqueue } = useQueue();
+
   const getBrowserData = useGetBrowserData();
+
+  const getRemixData = useGetRemixData();
 
   const mounted = useRef(false);
 
@@ -22,14 +32,16 @@ export const WebVitalsTracker: FunctionComponent<WebVitalsTrackerProps> = ({
       enqueue({
         type: "web-vital",
         data: {
-          browser: getBrowserData(),
+          timestamp: Date.now(),
           metric: {
             id: metric.id,
             name: metric.name,
-            navigationType: metric.navigationType,
-            rating: metric.rating,
             value: metric.value,
+            rating: metric.rating,
+            navigationType: metric.navigationType,
           },
+          browser: getBrowserData(),
+          remix: getRemixData(),
         },
       });
     }
@@ -39,6 +51,7 @@ export const WebVitalsTracker: FunctionComponent<WebVitalsTrackerProps> = ({
     onFID(enqueueWebVital);
     onCLS(enqueueWebVital);
     onTTFB(enqueueWebVital);
+    onINP(enqueueWebVital);
 
     mounted.current = true;
   }, [enqueue, getBrowserData, doNotTrack]);

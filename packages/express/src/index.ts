@@ -1,7 +1,2 @@
-export { createMetronomeGetLoadContext } from "./createMetronomeGetLoadContext";
-export {
-  registerMetronome,
-  combineGetLoadContexts,
-} from "@metronome-sh/runtime";
-
+export { createRequestHandler } from "./createRequestHandler";
 export type { MetronomeConfig } from "@metronome-sh/config";

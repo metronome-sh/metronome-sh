@@ -1,8 +1,8 @@
 /**
- * @type {import('@metronome-sh/config').MetronomeConfig}
+ * @type {import('@metronome-sh/express').MetronomeConfig}
  */
-module.exports = {
+export default {
   ignoredRoutes: [],
   ignoredPathnames: ["/healthcheck"],
-  ignoreHeadMethod: true,
+  ignoreHeadMethod: false,
 };

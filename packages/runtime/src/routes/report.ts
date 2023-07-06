@@ -1,49 +1,22 @@
 import type { ActionFunction } from "@remix-run/server-runtime";
 import { decodeObject } from "./helpers";
-import { ContextWithMetronome } from "../types";
-import { METRONOME_CONTEXT_KEY } from "../constants";
-import { Infer, is } from "superstruct";
-import { AbstractSpan, SpanName } from "../AbstractSpan";
-
-function createWebVitalSpans(
-  metronomeContext: ContextWithMetronome,
-  webVitals: any[],
-  userAgent: string | null = ""
-): AbstractSpan[] {
-  // prettier-ignore
-  const { metronomeVersion = "", hash = "", SpanClass } = metronomeContext;
-
-  return webVitals.map((webVital) => {
-    const { connection, metric, routeId, routePath, pathname } = webVital;
-
-    const { name, value, id } = metric;
-
-    const attributes = {
-      "device.ua": userAgent,
-      "device.connection": connection || "unknown",
-      "remix.route.id": routeId,
-      "remix.route.path": routePath,
-      "remix.pathname": pathname,
-      "vital.name": name,
-      "vital.value": value,
-      "vital.id": id,
-      "app.hash": hash,
-      "metronome.version": metronomeVersion,
-    };
-
-    // prettier-ignore
-    return new SpanClass(SpanName.WebVital, { attributes, startTime: 0 }).end({ endTime: 0 });
-  });
-}
+import { ContextWithMetronome } from "../runtime.types";
+import { METRONOME_CONTEXT_KEY, METRONOME_VERSION } from "../constants";
+import { ClientEventSchemaArray } from "../schemas";
+import { OriginatedClientEvent } from "../OriginatedClientEvent";
 
 export const action: ActionFunction = async ({ request, context }) => {
   const text = await request.text();
 
-  const report = await decodeObject(text);
+  const events = await decodeObject(text);
 
-  // if (!is(report, MetronomeReport)) {
-  // return new Response("", { status: 204 });
-  // }
+  const result = ClientEventSchemaArray.safeParse(events);
+
+  if (!result.success) {
+    // prettier-ignore
+    console.log("Metronome: Invalid event", JSON.stringify(events), result.error);
+    return new Response("", { status: 204 });
+  }
 
   const metronomeContext = (context as ContextWithMetronome)[
     METRONOME_CONTEXT_KEY
@@ -53,15 +26,19 @@ export const action: ActionFunction = async ({ request, context }) => {
     return new Response("", { status: 204 });
   }
 
-  const { exporter } = metronomeContext;
+  const { adapter, exporter, ip } = metronomeContext;
 
-  // const webVitalSpans = createWebVitalSpans(
-  //   metronomeContext,
-  //   report.webVitals,
-  //   request.headers.get("User-Agent")
-  // );
+  const ua = request.headers.get("User-Agent") || "";
 
-  // await exporter.send(webVitalSpans);
+  const identifier = { ip, ua };
+
+  const metronome = { version: METRONOME_VERSION, adapter };
+
+  const instances = result.data.map(
+    (event) => new OriginatedClientEvent({ event, identifier, metronome })
+  );
+
+  await exporter.send(instances);
 
   return new Response("", { status: 204 });
 };

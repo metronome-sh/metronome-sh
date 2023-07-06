@@ -1,0 +1,34 @@
+import { FunctionComponent, useEffect, useRef } from "react";
+import { useQueue, useGetBrowserData, useGetRemixData } from "../hooks";
+
+export const ErrorTracker: FunctionComponent = () => {
+  const queue = useQueue();
+  const getBrowserData = useGetBrowserData();
+  const getRemixData = useGetRemixData();
+  const mounted = useRef(false);
+
+  useEffect(() => {
+    if (mounted.current) return;
+
+    function eventHandler(event: ErrorEvent) {
+      const { message, filename, lineno, colno, error } = event;
+      const { stack } = error;
+
+      queue.enqueue({
+        type: "client-error",
+        data: {
+          timestamp: Date.now(),
+          error: { message, filename, lineno, colno, stack },
+          remix: getRemixData(),
+          browser: getBrowserData(),
+        },
+      });
+    }
+
+    window.addEventListener("error", eventHandler);
+
+    mounted.current = true;
+  }, [getBrowserData, getRemixData, queue]);
+
+  return null;
+};

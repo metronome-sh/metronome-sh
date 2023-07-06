@@ -3,36 +3,24 @@ import {
   ContextWithMetronome,
   METRONOME_CONTEXT_KEY,
   METRONOME_VERSION,
-  GetLoadContextOptions,
 } from "@metronome-sh/runtime";
 import { NodeSpan, SpanName } from "@metronome-sh/node";
 import type { ServerBuild } from "@remix-run/node";
-import { NodeSpanExporter } from "@metronome-sh/node";
+import { NodeExporter, NodeOriginatedServerEvent } from "@metronome-sh/node";
 import { MetronomeConfig, MetronomeConfigHandler } from "@metronome-sh/config";
-import fs from "fs";
-import path from "path";
 
 export function createMetronomeGetLoadContext(
   build: ServerBuild,
-  options?: GetLoadContextOptions
+  metronomeConfig?: MetronomeConfig
 ) {
-  const exporter = new NodeSpanExporter({
+  const exporter = new NodeExporter({
     apiKey: process.env.METRONOME_API_KEY,
     metronomeUrl: process.env.METRONOME_URL,
     metronomeDebug: process.env.METRONOME_DEBUG,
+    metronomeSuppressWarnings: process.env.METRONOME_SUPPRESS_WARNINGS,
   });
 
   const { version: hash } = build.assets;
-
-  const configPath =
-    options?.configPath || path.resolve(process.cwd(), "./metronome.config.js");
-
-  const metronomeConfig = options?.config
-    ? options.config
-    : fs.existsSync(configPath)
-    ? (require(configPath) as MetronomeConfig)
-    : undefined;
-
   const config = new MetronomeConfigHandler(metronomeConfig);
 
   return (
@@ -40,19 +28,28 @@ export function createMetronomeGetLoadContext(
     response: ServerResponse
   ): ContextWithMetronome => {
     if (
-      config.shouldIgnoreMethod(request.method) ||
-      process.env.NODE_ENV !== "production"
+      (config.shouldIgnoreMethod(request.method) ||
+        process.env.NODE_ENV !== "production") &&
+      process.env.METRONOME_BYPASS !== "true"
     ) {
       return {};
     }
 
-    const metronomeContext = {
-      config,
-      exporter,
-      hash,
-      metronomeVersion: METRONOME_VERSION,
-      SpanClass: NodeSpan,
-    };
+    const ip =
+      (request.headers["x-forwarded-for"] as string) ||
+      request.socket.remoteAddress ||
+      "";
+
+    const metronomeContext: ContextWithMetronome[typeof METRONOME_CONTEXT_KEY] =
+      {
+        adapter: "express",
+        config,
+        exporter,
+        hash,
+        ip,
+        metronomeVersion: METRONOME_VERSION,
+        OriginatedServerEventClass: NodeOriginatedServerEvent,
+      };
 
     if (config.shouldIgnorePath(request.url)) {
       return { [METRONOME_CONTEXT_KEY]: metronomeContext };
@@ -81,7 +78,7 @@ export function createMetronomeGetLoadContext(
         },
       });
 
-      await exporter.send(span);
+      // await exporter.send(span);
     });
 
     return { [METRONOME_CONTEXT_KEY]: { ...metronomeContext, rootSpan: span } };
