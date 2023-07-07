@@ -1,6 +1,6 @@
 import { useMemo, type FunctionComponent } from "react";
 import { QueueManager } from "./components/QueueManager";
-import { PageViewTracker } from "./components/PageViewTracker";
+import { WebAnalyticsTracker } from "./components/WebAnalyticsTracker";
 import { WebVitalsTracker } from "./components/WebVitalsTracker";
 import { ErrorTracker } from "./components/ErrorTracker";
 import { useLoaderData } from "@remix-run/react";
@@ -17,7 +17,7 @@ export function withMetronome(App: FunctionComponent) {
       <>
         <QueueManager />
         <ErrorTracker />
-        <PageViewTracker doNotTrack={doNotTrack} />
+        <WebAnalyticsTracker doNotTrack={doNotTrack} />
         <WebVitalsTracker doNotTrack={doNotTrack} />
         <App {...props} />
       </>

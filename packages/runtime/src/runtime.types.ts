@@ -11,26 +11,13 @@ import {
   ClientErrorEventSchema,
   ClientEventSchema,
   EventSchema,
+  NavigateAwayEventSchema,
   PageviewEventSchema,
   RemixDataSchema,
   RequestEventSchema,
   WebVitalEventSchema,
 } from "./schemas";
 import { OriginatedServerEvent } from "./OriginatedServerEvent";
-
-export type Meta = {
-  routeId: string;
-} & ProjectMeta;
-
-export type ProjectMeta = {
-  metronomeVersion: string;
-  version: string;
-  hash: string;
-};
-
-type SpanClass = new (
-  ...args: ConstructorParameters<typeof AbstractSpan>
-) => AbstractSpan;
 
 type OriginatedServerEventClass = new (
   ...args: ConstructorParameters<typeof OriginatedServerEvent>
@@ -68,6 +55,7 @@ export type MetronomeInfo = { adapter: string; version: string };
 export type WebVitalEvent = z.infer<typeof WebVitalEventSchema>;
 export type PageviewEvent = z.infer<typeof PageviewEventSchema>;
 export type ClientErrorEvent = z.infer<typeof ClientErrorEventSchema>;
+export type NavigateAwayEvent = z.infer<typeof NavigateAwayEventSchema>;
 
 export type ClientEvent = z.infer<typeof ClientEventSchema>;
 

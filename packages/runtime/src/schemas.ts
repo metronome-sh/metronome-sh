@@ -24,6 +24,15 @@ export const PageviewEventSchema = z.object({
   }),
 });
 
+export const NavigateAwayEventSchema = z.object({
+  type: z.literal("navigate-away"),
+  data: z.object({
+    timestamp: z.number(),
+    browser: BrowserDataSchema,
+    remix: RemixDataSchema,
+  }),
+});
+
 export const WebVitalEventSchema = z.object({
   type: z.literal("web-vital"),
   data: z.object({
@@ -74,6 +83,7 @@ export const ClientEventSchema = z.union([
   WebVitalEventSchema,
   PageviewEventSchema,
   ClientErrorEventSchema,
+  NavigateAwayEventSchema,
 ]);
 
 export const ServerEventSchema = RequestEventSchema; // union soon
