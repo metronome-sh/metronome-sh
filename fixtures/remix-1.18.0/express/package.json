@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "remix build",
-    "dev": "cross-env METRONOME_API_KEY=apikey METRONOME_BYPASS=true METRONOME_API_KEY=ak_RuX6WHb2n52dowciOwW3 METRONOME_URL=http://localhost:3004/v1/process METRONOME_DEBUG=true PORT=3002 remix dev -c \"node server.js\"",
-    "start": "cross-env METRONOME_API_KEY=apikey NODE_ENV=production METRONOME_BYPASS=true METRONOME_API_KEY=ak_RuX6WHb2n52dowciOwW3 METRONOME_URL=http://localhost:3004/v1/process METRONOME_DEBUG=true PORT=3002 node ./server.js",
+    "dev": "cross-env METRONOME_API_KEY=ckucijpqg1812811issmv0bqr3y METRONOME_BYPASS=true METRONOME_URL=http://localhost:3004/v1/process METRONOME_DEBUG=true PORT=3002 remix dev -c \"node server.js\"",
+    "start": "cross-env METRONOME_API_KEY=ckucijpqg1812811issmv0bqr3y NODE_ENV=production METRONOME_BYPASS=true METRONOME_URL=http://localhost:3004/v1/process METRONOME_DEBUG=true PORT=3002 node ./server.js",
     "typecheck": "tsc"
   },
   "dependencies": {

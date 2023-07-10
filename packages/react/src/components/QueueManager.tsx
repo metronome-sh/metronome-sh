@@ -41,7 +41,7 @@ export const QueueManager: FunctionComponent = () => {
       report();
     });
 
-    intervalId.current = setInterval(report, 30000);
+    intervalId.current = setInterval(report, 5000);
 
     // Flush the queue
     return () => {

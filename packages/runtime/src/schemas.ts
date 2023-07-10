@@ -2,15 +2,17 @@ import { z } from "zod";
 
 export const BrowserDataSchema = z.object({
   pathname: z.string(),
+  query: z.string(),
   screen: z.string(),
   referrer: z.string(),
   hostname: z.string(),
   language: z.string(),
   connection: z.string(),
+  deviceCategory: z.string(),
 });
 
 export const RemixDataSchema = z.object({
-  version: z.string(),
+  hash: z.string(),
   routeId: z.string(),
   routePath: z.string().optional(),
 });

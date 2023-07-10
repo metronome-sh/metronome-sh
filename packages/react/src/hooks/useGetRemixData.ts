@@ -26,8 +26,9 @@ export function useGetRemixData() {
 
   const getRouteData = useCallback((): RemixData => {
     const route = routes[currentRemixRouteId || ""];
+
     const data = {
-      version: window.__remixManifest.version,
+      hash: window.__remixManifest.version,
       routeId: route.id,
       routePath: route.path || "",
     };
