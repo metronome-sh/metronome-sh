@@ -1,5 +1,5 @@
-import { useLocation } from "@remix-run/react";
-import { FunctionComponent, useEffect, useRef } from "react";
+import { useBeforeUnload, useLocation } from "@remix-run/react";
+import { FunctionComponent, useCallback, useEffect, useRef } from "react";
 import { useQueue, useGetBrowserData, useGetRemixData } from "../hooks";
 import { NavigateAwayEvent } from "@metronome-sh/runtime";
 import { stringify } from "../hooks/helpers";
@@ -8,9 +8,16 @@ export type WebAnalyticsTrackerProps = {
   doNotTrack?: boolean;
 };
 
+const metronomeLsKey = "__metronome__v2__";
+
 export const WebAnalyticsTracker: FunctionComponent<
   WebAnalyticsTrackerProps
 > = ({ doNotTrack }) => {
+  const id = useRef<string>(
+    Math.random().toString(36).substring(2, 10) +
+      Math.random().toString(36).substring(2, 10)
+  );
+
   const lastLocationKey = useRef<string | null>();
 
   const location = useLocation();
@@ -38,10 +45,38 @@ export const WebAnalyticsTracker: FunctionComponent<
     lastLocationKey.current = key;
   }, [location, getBrowserData, getRemixData, doNotTrack]);
 
-  useEffect(() => {
-    if (doNotTrack) return;
+  const getLocalStorage = useCallback(() => {
+    try {
+      const metronomeLs = JSON.parse(
+        localStorage.getItem(metronomeLsKey) || '{ "ids": [] }'
+      ) as { ids: string[] };
 
-    function handleOnBeforeUnload() {
+      if (Array.isArray(metronomeLs.ids)) return metronomeLs;
+
+      return { ids: [] };
+    } catch (error) {
+      return { ids: [] };
+    }
+  }, []);
+
+  const setLocalStorage = useCallback((metronomeLs: { ids: string[] }) => {
+    localStorage.setItem(metronomeLsKey, JSON.stringify(metronomeLs));
+  }, []);
+
+  useEffect(() => {
+    const metronomeLs = getLocalStorage();
+    metronomeLs.ids = [...new Set([...metronomeLs.ids, id.current])];
+    setLocalStorage(metronomeLs);
+  }, []);
+
+  useBeforeUnload(
+    useCallback(() => {
+      const metronomeLs = getLocalStorage();
+      metronomeLs.ids = metronomeLs.ids.filter((w) => w !== id.current);
+      setLocalStorage(metronomeLs);
+
+      if (doNotTrack || metronomeLs.ids.length > 0) return;
+
       const event: NavigateAwayEvent = {
         type: "navigate-away",
         data: {
@@ -50,24 +85,9 @@ export const WebAnalyticsTracker: FunctionComponent<
           remix: getRemixData(),
         },
       };
-
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon("/__metronome", stringify([event]));
-      } else {
-        fetch("/__metronome", {
-          body: stringify([event]),
-          method: "POST",
-          keepalive: true,
-        });
-      }
-    }
-
-    window.addEventListener("beforeunload", handleOnBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleOnBeforeUnload);
-    };
-  }, [getRemixData, getBrowserData, enqueue, doNotTrack]);
+      navigator.sendBeacon?.("/__metronome", stringify([event]));
+    }, [doNotTrack, getRemixData, getBrowserData])
+  );
 
   return null;
 };
