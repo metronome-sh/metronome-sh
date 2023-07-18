@@ -1,38 +1,34 @@
 import { METRONOME_CONTEXT_KEY } from "./constants";
-import type { AbstractSpan } from "./AbstractSpan";
 import type {
   MetronomeConfig,
   MetronomeConfigHandler,
 } from "@metronome-sh/config";
 import type { EventExporter } from "./EventExporter";
 import { z } from "zod";
+
 import {
   BrowserDataSchema,
-  ClientErrorEventSchema,
-  ClientEventSchema,
-  EventSchema,
-  NavigateAwayEventSchema,
-  PageviewEventSchema,
+  ClientErrorIncomingEventSchema,
+  NavigateAwayIncomingEventSchema,
+  PageviewIncomingEventSchema,
   RemixDataSchema,
-  RequestEventSchema,
-  WebVitalEventSchema,
-} from "./schemas";
-import { OriginatedServerEvent } from "./OriginatedServerEvent";
+  RemixFunctionEvent,
+  WebVitalIncomingEventSchema,
+} from "./events";
 
-type OriginatedServerEventClass = new (
-  ...args: ConstructorParameters<typeof OriginatedServerEvent>
-) => OriginatedServerEvent;
+type RemixFunctionEventClass = new (
+  ...args: ConstructorParameters<typeof RemixFunctionEvent>
+) => RemixFunctionEvent;
 
 export interface ContextWithMetronome extends Record<string, any> {
   [METRONOME_CONTEXT_KEY]?: {
+    adapter: string;
     hash: string;
     metronomeVersion: string;
-    adapter: string;
     ip: string;
     config: MetronomeConfigHandler;
     exporter: EventExporter;
-    rootSpan?: AbstractSpan;
-    OriginatedServerEventClass: OriginatedServerEventClass;
+    RemixFunctionEventClass: RemixFunctionEventClass;
   };
 }
 
@@ -42,29 +38,24 @@ export interface GetLoadContextOptions {
   mode?: string;
 }
 
-export enum EventOrigin {
-  Client = "client",
-  Server = "server",
-}
-
-export type Identifier = { ip: string; ua: string | null };
-
-export type MetronomeInfo = { adapter: string; version: string };
-
-// Client events
-export type WebVitalEvent = z.infer<typeof WebVitalEventSchema>;
-export type PageviewEvent = z.infer<typeof PageviewEventSchema>;
-export type ClientErrorEvent = z.infer<typeof ClientErrorEventSchema>;
-export type NavigateAwayEvent = z.infer<typeof NavigateAwayEventSchema>;
-
-export type ClientEvent = z.infer<typeof ClientEventSchema>;
-
-// Server events
 export type BrowserData = z.infer<typeof BrowserDataSchema>;
 export type RemixData = z.infer<typeof RemixDataSchema>;
-export type RequestEvent = z.infer<typeof RequestEventSchema>;
 
-export type ServerEvent = z.infer<typeof RequestEventSchema>;
+export type PageviewIncomingEventData = z.infer<
+  typeof PageviewIncomingEventSchema
+>;
+export type WebVitalIncomingEventData = z.infer<
+  typeof WebVitalIncomingEventSchema
+>;
+export type ClientErrorIncomingEventData = z.infer<
+  typeof ClientErrorIncomingEventSchema
+>;
+export type NavigateAwayIncomingEventData = z.infer<
+  typeof NavigateAwayIncomingEventSchema
+>;
 
-// Generic event
-export type Event = z.infer<typeof EventSchema>;
+export type IncomingEventData =
+  | PageviewIncomingEventData
+  | WebVitalIncomingEventData
+  | ClientErrorIncomingEventData
+  | NavigateAwayIncomingEventData;

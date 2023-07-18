@@ -23,7 +23,6 @@ export const esbuildConfig = {
   plugins: [
     replace({
       "process.env.METRONOME_VERSION": JSON.stringify(packageJson.version),
-      // "process.env.WEB_VITALS_POLYFILL": JSON.stringify(webVitalsPolyfill),
     }),
   ],
 };

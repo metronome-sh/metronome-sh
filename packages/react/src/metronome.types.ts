@@ -1,4 +1,4 @@
-import type { ClientEvent } from "@metronome-sh/runtime";
+import type { IncomingEventData } from "@metronome-sh/runtime";
 import type {
   UNSAFE_RouteManifest,
   UNSAFE_RouteModules,
@@ -6,7 +6,7 @@ import type {
 
 declare global {
   interface Window {
-    __metronomeQueue?: ClientEvent[];
+    __metronomeQueue?: IncomingEventData[];
     __remixManifest: UNSAFE_RouteManifest<unknown>;
     __remixRouteModules: UNSAFE_RouteModules;
   }

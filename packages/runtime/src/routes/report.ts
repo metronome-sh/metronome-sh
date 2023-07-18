@@ -2,15 +2,27 @@ import type { ActionFunction } from "@remix-run/server-runtime";
 import { decodeObject } from "./helpers";
 import { ContextWithMetronome } from "../runtime.types";
 import { METRONOME_CONTEXT_KEY, METRONOME_VERSION } from "../constants";
-import { ClientEventSchemaArray } from "../schemas";
-import { OriginatedClientEvent } from "../OriginatedClientEvent";
+import { z } from "zod";
+
+import {
+  PageviewEvent,
+  PageviewIncomingEventSchema,
+  WebVitalEvent,
+  WebVitalIncomingEventSchema,
+  ClientErrorEvent,
+  ClientErrorIncomingEventSchema,
+  NavigateAwayEvent,
+  NavigateAwayIncomingEventSchema,
+} from "../events";
+
+// import { OriginatedClientEvent } from "../OriginatedClientEvent";
 
 export const action: ActionFunction = async ({ request, context }) => {
   const text = await request.text();
 
   const events = await decodeObject(text);
 
-  const result = ClientEventSchemaArray.safeParse(events);
+  const result = z.array(z.any()).safeParse(events);
 
   if (!result.success) {
     // prettier-ignore
@@ -34,9 +46,29 @@ export const action: ActionFunction = async ({ request, context }) => {
 
   const metronome = { version: METRONOME_VERSION, adapter };
 
-  const instances = result.data.map(
-    (event) => new OriginatedClientEvent({ event, identifier, metronome })
-  );
+  const instances = result.data.map((incoming) => {
+    if (PageviewEvent.isIncomingPageviewEvent(incoming)) {
+      const { name, ...rest } = incoming;
+      return new PageviewEvent({ ...rest, ...metronome, ...identifier });
+    }
+
+    if (NavigateAwayEvent.isIncomingNavigateAwayEvent(incoming)) {
+      const { name, ...rest } = incoming;
+      return new NavigateAwayEvent({ ...rest, ...metronome, ...identifier });
+    }
+
+    if (ClientErrorEvent.isIncomingClientErrorEvent(incoming)) {
+      const { name, ...rest } = incoming;
+      return new ClientErrorEvent({ ...rest, ...metronome, ...identifier });
+    }
+
+    if (WebVitalEvent.isIncomingWebVitalEvent(incoming)) {
+      const { name, ...rest } = incoming;
+      return new WebVitalEvent({ ...rest, ...metronome, ...identifier });
+    }
+
+    throw new Response("", { status: 204 });
+  });
 
   await exporter.send(instances);
 

@@ -15,13 +15,11 @@ export const ErrorTracker: FunctionComponent = () => {
       const { stack } = error;
 
       queue.enqueue({
-        type: "client-error",
-        data: {
-          timestamp: Date.now(),
-          error: { message, filename, lineno, colno, stack },
-          remix: getRemixData(),
-          browser: getBrowserData(),
-        },
+        name: "client-error",
+        timestamp: Date.now(),
+        error: { message, filename, lineno, colno, stack },
+        ...getRemixData(),
+        ...getBrowserData(),
       });
     }
 

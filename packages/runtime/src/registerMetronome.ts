@@ -8,7 +8,7 @@ export const registerMetronome = (build: ServerBuild): ServerBuild => {
   for (const [routeId, route] of Object.entries(build.routes)) {
     const newRoute = { ...route, module: { ...route.module } };
 
-    const wrapperOptions = { routeId };
+    const wrapperOptions = { routeId, routePath: route.path };
 
     if (route.module.action) {
       newRoute.module.action = wrapAction(route.module.action, wrapperOptions);

@@ -3,10 +3,10 @@ import {
   ContextWithMetronome,
   METRONOME_CONTEXT_KEY,
   METRONOME_VERSION,
+  RequestEvent,
 } from "@metronome-sh/runtime";
-import { NodeSpan, SpanName } from "@metronome-sh/node";
 import type { ServerBuild } from "@remix-run/node";
-import { NodeExporter, NodeOriginatedServerEvent } from "@metronome-sh/node";
+import { NodeExporter, NodeRemixFunctionEvent } from "@metronome-sh/node";
 import { MetronomeConfig, MetronomeConfigHandler } from "@metronome-sh/config";
 
 export function createMetronomeGetLoadContext(
@@ -48,7 +48,7 @@ export function createMetronomeGetLoadContext(
         hash,
         ip,
         metronomeVersion: METRONOME_VERSION,
-        OriginatedServerEventClass: NodeOriginatedServerEvent,
+        RemixFunctionEventClass: NodeRemixFunctionEvent,
       };
 
     if (config.shouldIgnorePath(request.url)) {
@@ -60,27 +60,30 @@ export function createMetronomeGetLoadContext(
 
     const requestType = url.searchParams.has("_data") ? "data" : "document";
 
-    const attributes = {
-      "metronome.version": METRONOME_VERSION,
-      "http.method": request.method,
-      "http.url": request.url,
-      "remix.runtime": "node",
-      "remix.request.type": requestType,
-    };
-
-    const span = new NodeSpan(SpanName.Request, { attributes });
-
-    response.once("finish", async () => {
-      span.end({
-        attributes: {
-          "http.status.code": response.statusCode,
-          "http.status.message": response.statusMessage,
-        },
-      });
-
-      // await exporter.send(span);
+    const event = new RequestEvent({
+      adapter: "express",
+      duration: 0n,
+      errored: false,
+      method: request.method!,
+      pathname: url.pathname,
+      statusCode: 200,
+      version: METRONOME_VERSION,
+      hash,
+      timestamp: Date.now(),
+      startTime: process.hrtime.bigint(),
+      type: requestType,
     });
 
-    return { [METRONOME_CONTEXT_KEY]: { ...metronomeContext, rootSpan: span } };
+    response.once("finish", async () => {
+      event.update({
+        errored: response.statusCode >= 400 && response.statusCode < 600,
+        statusCode: response.statusCode,
+        duration: process.hrtime.bigint() - event.details.startTime,
+      });
+
+      await exporter.send([event]);
+    });
+
+    return { [METRONOME_CONTEXT_KEY]: { ...metronomeContext } };
   };
 }

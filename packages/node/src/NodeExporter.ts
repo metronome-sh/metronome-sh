@@ -1,12 +1,9 @@
-import {
-  ClientEvent,
-  ServerEvent,
-  EventExporter,
-  OriginatedEvent,
-} from "@metronome-sh/runtime";
+import { EventExporter, MetronomeEvent } from "@metronome-sh/runtime";
 
 export class NodeExporter extends EventExporter {
-  send(events: OriginatedEvent<ClientEvent | ServerEvent>[]): Promise<void> {
+  send(
+    eventOrEvents: MetronomeEvent<any> | MetronomeEvent<any>[]
+  ): Promise<void> {
     const apiKey = this.getApiKey();
 
     if (!apiKey) return Promise.resolve();
@@ -28,7 +25,14 @@ export class NodeExporter extends EventExporter {
       ? https.request(options)
       : http.request(options);
 
-    const data = this.encode(events);
+    const events = Array.isArray(eventOrEvents)
+      ? eventOrEvents
+      : [eventOrEvents];
+
+    // bigint serialization
+    const data = JSON.stringify(events, (_, v) => {
+      return typeof v === "bigint" ? v.toString() : v;
+    });
 
     if (this.getDebug()) {
       console.debug("Sending data to Metronome");

@@ -1,22 +1,30 @@
 import { useBeforeUnload, useLocation } from "@remix-run/react";
 import { FunctionComponent, useCallback, useEffect, useRef } from "react";
 import { useQueue, useGetBrowserData, useGetRemixData } from "../hooks";
-import { NavigateAwayEvent } from "@metronome-sh/runtime";
+import {
+  NavigateAwayIncomingEventData,
+  PageviewIncomingEventData,
+} from "@metronome-sh/runtime";
 import { stringify } from "../hooks/helpers";
+import { METRONOME_VERSION } from "../constants";
 
 export type WebAnalyticsTrackerProps = {
   doNotTrack?: boolean;
 };
 
-const metronomeLsKey = "__metronome__v2__";
+const metronomeLsKey = `__metronome__${METRONOME_VERSION.replace(/\./g, "_")}`;
+
+type WindowId = { id: string; ts: number };
+type WindowIds = WindowId[];
+type MetronomeLsData = { ids: WindowIds };
 
 export const WebAnalyticsTracker: FunctionComponent<
   WebAnalyticsTrackerProps
 > = ({ doNotTrack }) => {
-  const id = useRef<string>(
-    Math.random().toString(36).substring(2, 10) +
-      Math.random().toString(36).substring(2, 10)
-  );
+  const windowId = useRef<WindowId>({
+    id: Math.random().toString(36).substring(2, 10),
+    ts: Date.now(),
+  });
 
   const lastLocationKey = useRef<string | null>();
 
@@ -37,19 +45,23 @@ export const WebAnalyticsTracker: FunctionComponent<
 
     if (lastLocationKey.current === key || !remix.routeId) return;
 
-    enqueue({
-      type: "pageview",
-      data: { browser: getBrowserData(), timestamp: Date.now(), remix },
-    });
+    const pageViewIncomingEventData: PageviewIncomingEventData = {
+      name: "pageview",
+      timestamp: Date.now(),
+      ...getBrowserData(),
+      ...remix,
+    };
+
+    enqueue(pageViewIncomingEventData);
 
     lastLocationKey.current = key;
   }, [location, getBrowserData, getRemixData, doNotTrack]);
 
-  const getLocalStorage = useCallback(() => {
+  const getLocalStorage = useCallback((): MetronomeLsData => {
     try {
       const metronomeLs = JSON.parse(
         localStorage.getItem(metronomeLsKey) || '{ "ids": [] }'
-      ) as { ids: string[] };
+      ) as { ids: { id: string; ts: number }[] };
 
       if (Array.isArray(metronomeLs.ids)) return metronomeLs;
 
@@ -59,32 +71,45 @@ export const WebAnalyticsTracker: FunctionComponent<
     }
   }, []);
 
-  const setLocalStorage = useCallback((metronomeLs: { ids: string[] }) => {
+  const setLocalStorage = useCallback((metronomeLs: MetronomeLsData) => {
     localStorage.setItem(metronomeLsKey, JSON.stringify(metronomeLs));
   }, []);
 
   useEffect(() => {
     const metronomeLs = getLocalStorage();
-    metronomeLs.ids = [...new Set([...metronomeLs.ids, id.current])];
+
+    metronomeLs.ids = [
+      ...metronomeLs.ids.filter((i) => i.id !== windowId.current.id),
+      windowId.current,
+    ];
+
     setLocalStorage(metronomeLs);
   }, []);
 
   useBeforeUnload(
     useCallback(() => {
       const metronomeLs = getLocalStorage();
-      metronomeLs.ids = metronomeLs.ids.filter((w) => w !== id.current);
+
+      // Clean up old window ids that are older than 30 minutes
+      metronomeLs.ids = metronomeLs.ids.filter((w) => {
+        return (
+          w.id !== windowId.current.id || w.ts - Date.now() > 1000 * 60 * 30
+        );
+      });
+
+      console.log(JSON.stringify({ windowId, metronomeLs }, null, 2));
+
       setLocalStorage(metronomeLs);
 
       if (doNotTrack || metronomeLs.ids.length > 0) return;
 
-      const event: NavigateAwayEvent = {
-        type: "navigate-away",
-        data: {
-          browser: getBrowserData(),
-          timestamp: Date.now(),
-          remix: getRemixData(),
-        },
+      const event: NavigateAwayIncomingEventData = {
+        name: "navigate-away",
+        timestamp: Date.now(),
+        ...getRemixData(),
+        ...getBrowserData(),
       };
+
       navigator.sendBeacon?.("/__metronome", stringify([event]));
     }, [doNotTrack, getRemixData, getBrowserData])
   );

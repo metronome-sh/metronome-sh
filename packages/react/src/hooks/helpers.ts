@@ -1,8 +1,8 @@
-import { ClientEvent } from "@metronome-sh/runtime";
+import { IncomingEventData } from "@metronome-sh/runtime";
 
 const n = 138;
 
-export function stringify(queue: ClientEvent[]) {
+export function stringify(queue: IncomingEventData[]) {
   const str = JSON.stringify(queue);
   const date = new Date();
   const first = date.getUTCHours() + date.getUTCMinutes();

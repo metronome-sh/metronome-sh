@@ -24,6 +24,9 @@ export default function Index() {
         <li>
           <Link to="/client-error">client-error</Link>
         </li>
+        <li>
+          <Link to="/loader-error">loader-error</Link>
+        </li>
       </ul>
     </div>
   );

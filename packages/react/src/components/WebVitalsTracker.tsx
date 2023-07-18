@@ -9,6 +9,7 @@ import {
   type Metric,
 } from "web-vitals";
 import { useQueue, useGetBrowserData, useGetRemixData } from "../hooks";
+import { WebVitalIncomingEventData } from "@metronome-sh/runtime";
 
 export type WebVitalsTrackerProps = {
   doNotTrack?: boolean;
@@ -29,21 +30,21 @@ export const WebVitalsTracker: FunctionComponent<WebVitalsTrackerProps> = ({
     if (doNotTrack || mounted.current) return;
 
     function enqueueWebVital(metric: Metric) {
-      enqueue({
-        type: "web-vital",
-        data: {
-          timestamp: Date.now(),
-          metric: {
-            id: metric.id,
-            name: metric.name,
-            value: metric.value,
-            rating: metric.rating,
-            navigationType: metric.navigationType,
-          },
-          browser: getBrowserData(),
-          remix: getRemixData(),
+      const webVitalIncomingEventData: WebVitalIncomingEventData = {
+        name: "web-vital",
+        timestamp: Date.now(),
+        metric: {
+          id: metric.id,
+          name: metric.name,
+          value: metric.value,
+          rating: metric.rating,
+          navigationType: metric.navigationType,
         },
-      });
+        ...getBrowserData(),
+        ...getRemixData(),
+      };
+
+      enqueue(webVitalIncomingEventData);
     }
 
     onLCP(enqueueWebVital);

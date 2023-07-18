@@ -9,16 +9,21 @@ export type {
   GetLoadContextOptions,
   BrowserData,
   RemixData,
-  WebVitalEvent,
-  PageviewEvent,
-  ClientErrorEvent,
-  NavigateAwayEvent,
-  RequestEvent,
-  ClientEvent,
-  ServerEvent,
-  Event,
+  PageviewIncomingEventData,
+  WebVitalIncomingEventData,
+  ClientErrorIncomingEventData,
+  NavigateAwayIncomingEventData,
+  IncomingEventData,
 } from "./runtime.types";
 
-export { OriginatedEvent } from "./OriginatedEvent";
+export {
+  RequestEvent,
+  MetronomeEvent,
+  ClientErrorEvent,
+  WebVitalEvent,
+  PageviewEvent,
+  NavigateAwayEvent,
+  RemixFunctionEvent,
+} from "./events";
+
 export { EventExporter } from "./EventExporter";
-export { OriginatedServerEvent } from "./OriginatedServerEvent";

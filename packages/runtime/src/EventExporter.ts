@@ -1,5 +1,4 @@
-import { OriginatedEvent } from "./OriginatedEvent";
-import { ClientEvent, ServerEvent } from "./runtime.types";
+import { MetronomeEvent } from "./events";
 
 export abstract class EventExporter {
   private apiKey: string | undefined;
@@ -10,7 +9,7 @@ export abstract class EventExporter {
   protected noApiKeyWarningLogged = false;
 
   abstract send(
-    events: OriginatedEvent<ClientEvent | ServerEvent>[]
+    events: MetronomeEvent<any> | MetronomeEvent<any>[]
   ): Promise<void>;
 
   constructor({
@@ -49,9 +48,5 @@ export abstract class EventExporter {
 
   protected getDebug(): boolean {
     return this.metronomeDebug === "true";
-  }
-
-  protected encode(events: OriginatedEvent<ClientEvent | ServerEvent>[]) {
-    return JSON.stringify(events);
   }
 }
