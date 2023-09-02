@@ -43,7 +43,7 @@ export abstract class EventExporter {
   }
 
   protected getUrl(): string {
-    return this.metronomeUrl ?? "https://metrics.metronome.sh/v1/process";
+    return this.metronomeUrl ?? "https://new-metrics.metronome.sh/v1/process";
   }
 
   protected getDebug(): boolean {

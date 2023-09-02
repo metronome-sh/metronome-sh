@@ -1,0 +1,16 @@
+{
+  "mode": "pre",
+  "tag": "next",
+  "initialVersions": {
+    "@metronome-sh/cli": "7.0.5",
+    "@metronome-sh/config": "7.0.5",
+    "@metronome-sh/dev": "7.0.5",
+    "@metronome-sh/express": "7.0.5",
+    "@metronome-sh/node": "7.0.5",
+    "@metronome-sh/react": "7.0.5",
+    "@metronome-sh/runtime": "7.0.5"
+  },
+  "changesets": [
+    "tough-humans-love"
+  ]
+}

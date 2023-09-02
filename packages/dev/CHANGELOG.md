@@ -1,5 +1,11 @@
 # Change Log - @metronome-sh/dev
 
+## 7.1.0-next.0
+
+### Minor Changes
+
+- Updated beta metrics url
+
 This log was last generated on Tue, 07 Jun 2022 21:19:37 GMT and should not be manually modified.
 
 <!-- Start content -->

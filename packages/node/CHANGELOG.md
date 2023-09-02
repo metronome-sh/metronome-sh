@@ -1,5 +1,16 @@
 # Change Log - @metronome-sh/node
 
+## 7.1.0-next.0
+
+### Minor Changes
+
+- Updated beta metrics url
+
+### Patch Changes
+
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.0
+
 This log was last generated on Sat, 02 Sep 2023 15:42:20 GMT and should not be manually modified.
 
 <!-- Start content -->
