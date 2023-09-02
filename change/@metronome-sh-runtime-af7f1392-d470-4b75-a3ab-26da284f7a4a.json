@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "metronome next",
+  "packageName": "@metronome-sh/runtime",
+  "email": "ericktamayo@gmail.com",
+  "dependentChangeType": "patch"
+}
