@@ -35,7 +35,7 @@ export class NodeExporter extends EventExporter {
     });
 
     if (this.getDebug()) {
-      console.debug("Sending data to Metronome");
+      console.debug(`Sending data to ${this.getUrl()}`);
       console.log(data);
     }
 

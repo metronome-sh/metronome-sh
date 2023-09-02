@@ -16,11 +16,6 @@ export {
   WebVitalEventSchema,
   WebVitalIncomingEventSchema,
 } from "./WebVitalEvent";
-export {
-  NavigateAwayEvent,
-  NavigateAwayEventSchema,
-  NavigateAwayIncomingEventSchema,
-} from "./NavigateAwayEvent";
 
 export {
   BrowserDataSchema,

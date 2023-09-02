@@ -9,7 +9,6 @@ import { z } from "zod";
 import {
   BrowserDataSchema,
   ClientErrorIncomingEventSchema,
-  NavigateAwayIncomingEventSchema,
   PageviewIncomingEventSchema,
   RemixDataSchema,
   RemixFunctionEvent,
@@ -50,12 +49,8 @@ export type WebVitalIncomingEventData = z.infer<
 export type ClientErrorIncomingEventData = z.infer<
   typeof ClientErrorIncomingEventSchema
 >;
-export type NavigateAwayIncomingEventData = z.infer<
-  typeof NavigateAwayIncomingEventSchema
->;
 
 export type IncomingEventData =
   | PageviewIncomingEventData
   | WebVitalIncomingEventData
-  | ClientErrorIncomingEventData
-  | NavigateAwayIncomingEventData;
+  | ClientErrorIncomingEventData;

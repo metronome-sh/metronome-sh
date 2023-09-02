@@ -4,18 +4,7 @@ import { ContextWithMetronome } from "../runtime.types";
 import { METRONOME_CONTEXT_KEY, METRONOME_VERSION } from "../constants";
 import { z } from "zod";
 
-import {
-  PageviewEvent,
-  PageviewIncomingEventSchema,
-  WebVitalEvent,
-  WebVitalIncomingEventSchema,
-  ClientErrorEvent,
-  ClientErrorIncomingEventSchema,
-  NavigateAwayEvent,
-  NavigateAwayIncomingEventSchema,
-} from "../events";
-
-// import { OriginatedClientEvent } from "../OriginatedClientEvent";
+import { PageviewEvent, WebVitalEvent, ClientErrorEvent } from "../events";
 
 export const action: ActionFunction = async ({ request, context }) => {
   const text = await request.text();
@@ -50,11 +39,6 @@ export const action: ActionFunction = async ({ request, context }) => {
     if (PageviewEvent.isIncomingPageviewEvent(incoming)) {
       const { name, ...rest } = incoming;
       return new PageviewEvent({ ...rest, ...metronome, ...identifier });
-    }
-
-    if (NavigateAwayEvent.isIncomingNavigateAwayEvent(incoming)) {
-      const { name, ...rest } = incoming;
-      return new NavigateAwayEvent({ ...rest, ...metronome, ...identifier });
     }
 
     if (ClientErrorEvent.isIncomingClientErrorEvent(incoming)) {

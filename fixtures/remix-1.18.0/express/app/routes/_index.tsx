@@ -9,6 +9,9 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export function loader() {
+  // wait a second to simulate an async loader
+  // new Promise((resolve) => setTimeout(resolve, 1000));
+
   return { date: new Date() };
 }
 
@@ -26,6 +29,9 @@ export default function Index() {
         </li>
         <li>
           <Link to="/loader-error">loader-error</Link>
+        </li>
+        <li>
+          <Link to="/id/foo">id: foo</Link>
         </li>
       </ul>
     </div>

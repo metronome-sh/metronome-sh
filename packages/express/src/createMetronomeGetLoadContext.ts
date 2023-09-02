@@ -58,6 +58,8 @@ export function createMetronomeGetLoadContext(
     // prettier-ignore
     const url = new URL(request.url || "/", `http://${request.headers.host || "localhost"}`);
 
+    const ua = request.headers["user-agent"] ?? "";
+
     const requestType = url.searchParams.has("_data") ? "data" : "document";
 
     const event = new RequestEvent({
@@ -69,6 +71,8 @@ export function createMetronomeGetLoadContext(
       statusCode: 200,
       version: METRONOME_VERSION,
       hash,
+      ip,
+      ua,
       timestamp: Date.now(),
       startTime: process.hrtime.bigint(),
       type: requestType,

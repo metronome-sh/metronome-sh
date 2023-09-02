@@ -12,7 +12,6 @@ export type {
   PageviewIncomingEventData,
   WebVitalIncomingEventData,
   ClientErrorIncomingEventData,
-  NavigateAwayIncomingEventData,
   IncomingEventData,
 } from "./runtime.types";
 
@@ -22,7 +21,6 @@ export {
   ClientErrorEvent,
   WebVitalEvent,
   PageviewEvent,
-  NavigateAwayEvent,
   RemixFunctionEvent,
 } from "./events";
 

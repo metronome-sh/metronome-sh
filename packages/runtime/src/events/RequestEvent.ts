@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MetronomeDataSchema } from "./sharedSchemas";
+import { IdentifierSchema, MetronomeDataSchema } from "./sharedSchemas";
 import { MetronomeEvent } from "./MetronomeEvent";
 
 export const RequestEventSchema = z
@@ -14,7 +14,8 @@ export const RequestEventSchema = z
     pathname: z.string(),
     type: z.enum(["data", "document"]),
   })
-  .merge(MetronomeDataSchema);
+  .merge(MetronomeDataSchema)
+  .merge(IdentifierSchema);
 
 export class RequestEvent extends MetronomeEvent<
   z.infer<typeof RequestEventSchema>

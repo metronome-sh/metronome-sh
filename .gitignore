@@ -34,3 +34,6 @@ yarn-error.log*
 .turbo
 
 playground
+
+__old_fixtures
+__old_packages
