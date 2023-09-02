@@ -1,4 +1,0 @@
-[vars]
-METRONOME_API_KEY='ak_MhtWWsheUTu0FsUg4vWP'
-METRONOME_URL='http://localhost:3003/v1/process'
-METRONOME_DEBUG='true'
