@@ -1,6 +1,10 @@
 {
   "name": "metronome-sh",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/metronome-sh/metronome-sh"
+  },
   "workspaces": [
     "packages/**"
   ],
@@ -17,6 +21,8 @@
     "bb:publish": "beachball publish --yes",
     "bb:bump": "beachball bump",
     "bb:change:next": "beachball change --branch next",
+    "bb:check:next": "beachball check --branch next",
+    "bb:publish:next": "beachball publish --yes --branch next",
     "react": "yarn workspace @metronome-sh/react",
     "runtime": "yarn workspace @metronome-sh/runtime"
   },
