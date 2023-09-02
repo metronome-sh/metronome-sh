@@ -6,7 +6,13 @@ module.exports = {
   groups: [
     {
       name: "all",
-      include: ["packages/*"],
+      include: [
+        "packages/*",
+        "package.json",
+        "beachball.config.js",
+        "turbo.json",
+        "yarn.lock",
+      ],
     },
   ],
   access: "public",
