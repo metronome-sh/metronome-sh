@@ -16,6 +16,7 @@
     "bb:check": "beachball check",
     "bb:publish": "beachball publish --yes",
     "bb:bump": "beachball bump",
+    "bb:change:next": "beachball change --branch next",
     "react": "yarn workspace @metronome-sh/react",
     "runtime": "yarn workspace @metronome-sh/runtime"
   },
