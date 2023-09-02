@@ -22,7 +22,7 @@
     "bb:bump": "beachball bump",
     "bb:change:next": "beachball change --branch next",
     "bb:check:next": "beachball check --branch next",
-    "bb:publish:next": "beachball publish --yes --branch next",
+    "bb:publish:next": "beachball publish --yes --branch next --type prerelease --prerelease-name beta",
     "react": "yarn workspace @metronome-sh/react",
     "runtime": "yarn workspace @metronome-sh/runtime"
   },
