@@ -29,7 +29,7 @@ export class NodeExporter extends EventExporter {
       ? eventOrEvents
       : [eventOrEvents];
 
-    // bigint serialization
+    // bigint serialization.
     const data = JSON.stringify(events, (_, v) => {
       return typeof v === "bigint" ? v.toString() : v;
     });
