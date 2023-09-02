@@ -30,4 +30,4 @@ jobs:
         run: git config user.email = "erick@metronome.sh" && git config user.name = "Erick Tamayo" && git remote set-url origin https://ericktamayo:${{ secrets.GH_TOKEN }}@github.com/metronome-sh/metronome-sh.git
 
       - name: Publish to NPM
-        run: yarn beachball publish -n ${{ secrets.NPM_TOKEN }} --tag next --yes
+        run: yarn beachball publish -n ${{ secrets.NPM_TOKEN }} --tag next --yes --branch next
