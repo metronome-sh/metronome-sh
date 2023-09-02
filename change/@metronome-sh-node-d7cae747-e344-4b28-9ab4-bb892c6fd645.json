@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "metronome next",
-  "packageName": "@metronome-sh/node",
-  "email": "ericktamayo@gmail.com",
-  "dependentChangeType": "patch"
-}
