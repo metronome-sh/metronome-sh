@@ -2,17 +2,12 @@
  * @type {import('beachball').BeachballConfig}
  */
 module.exports = {
+  prereleasePrefix: "beta",
   bumpDeps: true,
   groups: [
     {
       name: "all",
-      include: [
-        "packages/*",
-        "package.json",
-        "beachball.config.js",
-        "turbo.json",
-        "yarn.lock",
-      ],
+      include: ["packages/*"],
     },
   ],
   access: "public",
