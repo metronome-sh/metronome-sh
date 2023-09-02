@@ -1,6 +1,6 @@
 {
   "name": "@metronome-sh/dev",
-  "version": "6.0.2",
+  "version": "7.0.5",
   "source": "src/index.ts",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
