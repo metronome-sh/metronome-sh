@@ -11,6 +11,7 @@ assignees: ''
 
 - Operating System: 
 - Browser:
+- Remix version:
 - Remix adapter:
 - Metronome version:
 
@@ -33,9 +34,9 @@ What should have happened?
 
 What actually happened?
 
-## Screenshots
+## Screenshots/Logs
 
-Please attach screenshots if applicable and helpful to explain your problem.
+Please attach screenshots or logs if applicable and helpful to explain your problem.
 
 ## Severity
 
