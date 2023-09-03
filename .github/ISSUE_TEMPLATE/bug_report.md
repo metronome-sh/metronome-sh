@@ -1,38 +1,50 @@
 ---
 name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
+about: Use this template to report bugs during the open beta phase.
+title: '[BUG]'
+labels: 'bug'
 assignees: ErickTamayo
 
 ---
+## Description
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+Please provide a detailed description of the bug.
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+## Environment
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+- Operating System: 
+- Browser:
+- Remix version:
+- Remix adapter:
+- Metronome package version (eg: 7.1.0-next.2):
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+## Steps to Reproduce
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+1. 
+2. 
+3. 
+4. 
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+## Expected Behavior
 
-**Additional context**
-Add any other context about the problem here.
+What should have happened?
+
+## Actual Behavior
+
+What actually happened?
+
+## Screenshots/Logs
+
+Please attach screenshots or logs if applicable and helpful to explain your problem.
+   
+```
+
+```
+
+## Severity
+
+How critical is this issue? 
+- [ ] Critical (The product is unusable)
+- [ ] High (Blocks you from using the product to its fullest)
+- [ ] Moderate (Inconvenient but usable)
+- [ ] Low (Not urgent)
