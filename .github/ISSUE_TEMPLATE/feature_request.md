@@ -1,20 +1,31 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
-assignees: ''
+about: Use this template to suggest new features or ideas during the open beta phase.
+title: '[FEATURE REQUEST]'
+labels: 'feature-request'
+assignees: ErickTamayo
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+## Feature Description
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+Please provide a detailed description of the feature or idea you're proposing.
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+## Problem/Situation
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+What problem or situation will this feature solve?
+
+## Proposed Solution
+
+Do you have any idea how to implement the feature?
+
+## Additional Context
+
+Add any other context about the feature request or idea here.
+
+## Importance
+
+How important is this feature for you?
+- [ ] Must have
+- [ ] Nice to have
+- [ ] Enhancement
