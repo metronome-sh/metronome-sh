@@ -1,5 +1,13 @@
 # Change Log - @metronome-sh/runtime
 
+## 7.1.0-next.1
+
+### Patch Changes
+
+- Updated request header parsing for ip
+- Updated dependencies
+  - @metronome-sh/config@7.1.0-next.1
+
 ## 7.1.0-next.0
 
 ### Minor Changes

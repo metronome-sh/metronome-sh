@@ -1,5 +1,16 @@
 # Change Log - @metronome-sh/express
 
+## 7.1.0-next.1
+
+### Patch Changes
+
+- Updated request header parsing for ip
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.1
+  - @metronome-sh/config@7.1.0-next.1
+  - @metronome-sh/node@7.1.0-next.1
+  - @metronome-sh/cli@7.1.0-next.1
+
 ## 7.1.0-next.0
 
 ### Minor Changes

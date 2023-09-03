@@ -1,5 +1,11 @@
 # Change Log - @metronome-sh/react
 
+## 7.1.0-next.1
+
+### Patch Changes
+
+- Updated request header parsing for ip
+
 ## 7.1.0-next.0
 
 ### Minor Changes

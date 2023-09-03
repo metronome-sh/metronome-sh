@@ -35,10 +35,13 @@ export function createMetronomeGetLoadContext(
       return {};
     }
 
-    const ip =
-      (request.headers["x-forwarded-for"] as string) ||
-      request.socket.remoteAddress ||
-      "";
+    let ip = "";
+
+    if (request.headers["x-forwarded-for"]) {
+      ip = (request.headers["x-forwarded-for"] as string[])[0];
+    } else if (request.socket.remoteAddress) {
+      ip = request.socket.remoteAddress;
+    }
 
     const metronomeContext: ContextWithMetronome[typeof METRONOME_CONTEXT_KEY] =
       {
