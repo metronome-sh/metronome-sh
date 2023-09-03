@@ -1,5 +1,28 @@
 # Change Log - @metronome-sh/dev
 
+## 7.2.0-next.0
+
+### Minor Changes
+
+- 626a5c4: Updated beta metrics url
+
+## 7.1.0
+
+### Minor Changes
+
+- 626a5c4: Updated beta metrics url
+
+### Patch Changes
+
+- a30d619: Updated request header parsing for ip
+- Fixes to header
+
+## 7.1.0-next.2
+
+### Patch Changes
+
+- Fixes to header
+
 ## 7.1.0-next.1
 
 ### Patch Changes

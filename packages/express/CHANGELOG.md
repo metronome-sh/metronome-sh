@@ -1,5 +1,48 @@
 # Change Log - @metronome-sh/express
 
+## 7.2.0-next.0
+
+### Minor Changes
+
+- 626a5c4: Updated beta metrics url
+
+### Patch Changes
+
+- Updated dependencies [626a5c4]
+  - @metronome-sh/runtime@7.2.0-next.0
+  - @metronome-sh/config@7.2.0-next.0
+  - @metronome-sh/node@7.2.0-next.0
+  - @metronome-sh/cli@7.2.0-next.0
+
+## 7.1.0
+
+### Minor Changes
+
+- 626a5c4: Updated beta metrics url
+
+### Patch Changes
+
+- a30d619: Updated request header parsing for ip
+- Fixes to header
+- Updated dependencies [a30d619]
+- Updated dependencies
+- Updated dependencies [626a5c4]
+  - @metronome-sh/runtime@7.1.0
+  - @metronome-sh/config@7.1.0
+  - @metronome-sh/node@7.1.0
+  - @metronome-sh/cli@7.1.0
+
+## 7.1.0-next.2
+
+### Patch Changes
+
+- Fixes to header
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.2
+  - @metronome-sh/config@7.1.0-next.2
+  - @metronome-sh/node@7.1.0-next.2
+  - @metronome-sh/cli@7.1.0-next.2
+
 ## 7.1.0-next.1
 
 ### Patch Changes
