@@ -1,6 +1,6 @@
 {
   "name": "@metronome-sh/react",
-  "version": "7.1.0-next.3",
+  "version": "7.1.0-next.4",
   "description": "Metronome - Insights for Remix",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -34,8 +34,8 @@
     "web-vitals": "^3.3.2"
   },
   "devDependencies": {
-    "@metronome-sh/config": "7.1.0-next.3",
-    "@metronome-sh/runtime": "7.1.0-next.3",
+    "@metronome-sh/config": "7.1.0-next.4",
+    "@metronome-sh/runtime": "7.1.0-next.4",
     "@remix-run/react": "^1.18.0",
     "@remix-run/server-runtime": "^1.18.0",
     "@rollup/plugin-replace": "^4.0.0",

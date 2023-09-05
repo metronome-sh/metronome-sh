@@ -7,11 +7,15 @@ import {
 } from "@metronome-sh/runtime";
 import type { ServerBuild } from "@remix-run/node";
 import { NodeExporter, NodeRemixFunctionEvent } from "@metronome-sh/node";
-import { MetronomeConfig, MetronomeConfigHandler } from "@metronome-sh/config";
+import { MetronomeConfigHandler } from "@metronome-sh/config";
+import { createRemixRequest } from "@remix-run/express/dist/server";
+import type * as express from "express";
+
+let config: MetronomeConfigHandler;
 
 export function createMetronomeGetLoadContext(
   build: ServerBuild,
-  metronomeConfig?: MetronomeConfig
+  configPath?: string | null
 ) {
   const exporter = new NodeExporter({
     apiKey: process.env.METRONOME_API_KEY,
@@ -21,16 +25,22 @@ export function createMetronomeGetLoadContext(
   });
 
   const { version: hash } = build.assets;
-  const config = new MetronomeConfigHandler(metronomeConfig);
 
-  return (
-    request: IncomingMessage,
-    response: ServerResponse
-  ): ContextWithMetronome => {
+  return async (
+    request: express.Request,
+    response: express.Response
+  ): Promise<ContextWithMetronome> => {
+    if (!config) {
+      config = new MetronomeConfigHandler(
+        configPath ? (await import(configPath))?.default || {} : undefined
+      );
+    }
+
+    // prettier-ignore
     if (
-      (config.shouldIgnoreMethod(request.method) ||
-        process.env.NODE_ENV !== "production") &&
-      process.env.METRONOME_BYPASS !== "true"
+      config.shouldIgnoreMethod(request.method) ||
+      (process.env.NODE_ENV !== "production" && process.env.METRONOME_BYPASS !== "true") ||
+      (await config.shoudNotTrack(createRemixRequest(request, response) as any))
     ) {
       return {};
     }

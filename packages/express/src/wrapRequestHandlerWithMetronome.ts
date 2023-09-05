@@ -1,33 +1,33 @@
 import { registerMetronome } from "@metronome-sh/runtime";
+import { findConfigFile } from "@metronome-sh/config";
 import { createMetronomeGetLoadContext } from "./createMetronomeGetLoadContext";
 import type { createRequestHandler as createRequestHandlerRemix } from "@remix-run/express";
-import type { MetronomeConfig } from "@metronome-sh/config";
 
 /**
- * Wrap express createRequestHandler with Metronome.
- * @param params
+ * Wraps express `createRequestHandler` from `@remix-run/express` with Metronome.
  * @returns RequestHandler
  */
 export function wrapRequestHandlerWithMetronome(
-  createRequestHandler: typeof createRequestHandlerRemix,
-  metronome?: MetronomeConfig
+  createRequestHandler: typeof createRequestHandlerRemix
 ): typeof createRequestHandlerRemix {
   return (...args: Parameters<typeof createRequestHandlerRemix>) => {
     const [{ build, getLoadContext, mode }] = args;
     const metronomeBuild = registerMetronome(build);
 
+    const configPath = findConfigFile([process.cwd(), __dirname]);
+
     const metronomeGetLoadContext = createMetronomeGetLoadContext(
       metronomeBuild,
-      metronome
+      configPath
     );
 
     return createRequestHandler({
       build: metronomeBuild,
       mode,
-      getLoadContext: (res, req) => {
+      getLoadContext: async (res, req) => {
         return {
           ...(getLoadContext?.(res, req) || {}),
-          ...metronomeGetLoadContext(res, req),
+          ...(await metronomeGetLoadContext(res, req)),
         };
       },
     });

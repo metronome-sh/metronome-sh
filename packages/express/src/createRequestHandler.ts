@@ -4,9 +4,7 @@ import { wrapRequestHandlerWithMetronome } from "./wrapRequestHandlerWithMetrono
 
 type MetronomeCreateRequestHandlerParams = Parameters<
   typeof createRequestHandlerRemix
->[0] & {
-  metronome?: MetronomeConfig;
-};
+>;
 
 /**
  * createRequestHandler enhanced with Metronome.
@@ -14,12 +12,7 @@ type MetronomeCreateRequestHandlerParams = Parameters<
  * @returns RequestHandler
  */
 export function createRequestHandler(
-  params: MetronomeCreateRequestHandlerParams
+  ...params: MetronomeCreateRequestHandlerParams
 ) {
-  const { metronome, ...rest } = params;
-
-  return wrapRequestHandlerWithMetronome(
-    createRequestHandlerRemix,
-    metronome
-  )(rest);
+  return wrapRequestHandlerWithMetronome(createRequestHandlerRemix)(...params);
 }

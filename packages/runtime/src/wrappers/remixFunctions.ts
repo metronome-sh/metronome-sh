@@ -43,6 +43,10 @@ const wrapRemixFunction = (
       config,
     } = metronomeContext;
 
+    if (await config.shoudNotTrack(request)) {
+      return remixFunction(...args);
+    }
+
     const { type, routeId, routePath } = options;
 
     const ua = request.headers.get("User-Agent") || "";

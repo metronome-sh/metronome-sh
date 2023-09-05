@@ -27,7 +27,11 @@ export const action: ActionFunction = async ({ request, context }) => {
     return new Response("", { status: 204 });
   }
 
-  const { adapter, exporter, ip } = metronomeContext;
+  const { adapter, exporter, ip, config } = metronomeContext;
+
+  if (await config.shoudNotTrack(request)) {
+    return new Response("", { status: 204 });
+  }
 
   const ua = request.headers.get("User-Agent") || "";
 

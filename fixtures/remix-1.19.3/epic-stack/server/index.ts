@@ -1,7 +1,7 @@
 import crypto from 'crypto'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { wrapRequestHandlerWithMetronome } from '@metronome-sh/express'
+import { wrapRequestHandlerWithMetronome, compose } from '@metronome-sh/express'
 import {
 	createRequestHandler as _createRequestHandler,
 	type RequestHandler,
@@ -31,16 +31,10 @@ installGlobals()
 
 const MODE = process.env.NODE_ENV
 
-// const createRequestHandler = wrapExpressCreateRequestHandler(
-// 	_createRequestHandler,
-// )
-
-const createRequestHandler = [
-	wrapExpressCreateRequestHandler, // Sentry
-	wrapRequestHandlerWithMetronome, // Metronome
-].reduce((current, wrapper) => {
-	return wrapper(current)
-}, _createRequestHandler)
+const createRequestHandler = compose(
+	wrapExpressCreateRequestHandler,
+	wrapRequestHandlerWithMetronome,
+)(_createRequestHandler)
 
 const BUILD_PATH = '../build/index.js'
 

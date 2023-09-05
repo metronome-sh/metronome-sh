@@ -68,4 +68,9 @@ export class MetronomeConfigHandler {
   public shouldIgnoreMethod(method?: string): boolean {
     return method?.toLowerCase() === "head" && !!this.config.ignoreHeadMethod;
   }
+
+  public async shoudNotTrack(request: Request) {
+    if (!this.config.doNotTrack) return false;
+    return this.config.doNotTrack?.(request);
+  }
 }
