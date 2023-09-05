@@ -1,5 +1,13 @@
 # @metronome-sh/runtime
 
+## 7.1.0-next.7
+
+### Patch Changes
+
+- Improved doNotTrack
+- Updated dependencies
+  - @metronome-sh/config@7.1.0-next.7
+
 ## 7.1.0-next.6
 
 ### Patch Changes

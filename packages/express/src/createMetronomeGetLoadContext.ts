@@ -40,8 +40,8 @@ export function createMetronomeGetLoadContext(
 
     // prettier-ignore
     if (
-      config.shouldIgnoreMethod(request.method) ||
       (process.env.NODE_ENV !== "production" && process.env.METRONOME_BYPASS !== "true") ||
+      config.shouldIgnoreMethod(request.method) ||
       (await config.shoudNotTrack(createRemixRequest(request, response) as any))
     ) {
       return {};
@@ -50,7 +50,7 @@ export function createMetronomeGetLoadContext(
     let ip = "";
 
     if (request.headers["x-forwarded-for"]) {
-      ip = (request.headers["x-forwarded-for"] as string[])[0];
+      ip = (request.headers["x-forwarded-for"] as string).split(",")[0];
     } else if (request.socket.remoteAddress) {
       ip = request.socket.remoteAddress;
     }

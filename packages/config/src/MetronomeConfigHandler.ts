@@ -76,6 +76,12 @@ export class MetronomeConfigHandler {
 
   public async shoudNotTrack(request: Request) {
     if (!this.config.doNotTrack) return false;
-    return this.config.doNotTrack?.(request);
+    try {
+      return this.config.doNotTrack?.(request);
+    } catch (error) {
+      console.log("[metronome] Error in doNotTrack function");
+      console.error(error);
+      return false;
+    }
   }
 }
