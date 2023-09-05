@@ -1,4 +1,4 @@
-import { type MetronomeConfig } from "@metronome/config";
+import { type MetronomeConfig } from "@metronome-sh/config";
 
 export default {
   ignoredRoutes: [],
