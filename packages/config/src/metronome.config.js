@@ -5,7 +5,7 @@ module.exports = {
   ignoredRoutes: [],
   ignoredPathnames: ["/healthcheck"],
   ignoreHeadMethod: true,
-  doNotTrack: (request) => {
+  doNotTrack: async (request) => {
     // Track all events
     return false;
   },

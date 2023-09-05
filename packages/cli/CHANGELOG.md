@@ -1,5 +1,11 @@
 # @metronome-sh/cli
 
+## 7.1.0-next.6
+
+### Patch Changes
+
+- Updated ts template
+
 ## 7.1.0-next.5
 
 ### Patch Changes

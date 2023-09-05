@@ -5,7 +5,7 @@ export default {
   ignoredPathnames: ["/healthcheck"],
   ignoreHeadMethod: true,
   // @ts-ignore
-  doNotTrack: (request) => {
+  doNotTrack: async (request) => {
     // Track all events
     return false;
   },

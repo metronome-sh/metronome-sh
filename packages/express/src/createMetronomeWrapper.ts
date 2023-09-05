@@ -19,7 +19,9 @@ export function createMetronomeWrapper(
       const [{ build, getLoadContext, mode }] = args;
       const metronomeBuild = registerMetronome(build);
 
-      const configPath = findConfigFile([process.cwd(), __dirname]);
+      const configPath = metronome
+        ? undefined
+        : findConfigFile([process.cwd(), __dirname]);
 
       const metronomeGetLoadContext = createMetronomeGetLoadContext(
         metronomeBuild,
