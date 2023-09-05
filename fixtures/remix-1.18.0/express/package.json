@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "remix build",
-    "dev": "cross-env METRONOME_API_KEY=ak_aQsJIPCDoz9ZR4kYtJnqBV6Prn METRONOME_BYPASS=true METRONOME_URL=http://localhost:3004/v1/process METRONOME_DEBUG=true PORT=3002 remix dev -c \"node server.js\"",
+    "dev": "cross-env METRONOME_API_KEY=ak_UkiaDIdPMqciCteWZt7r5o0CWoFbUc METRONOME_BYPASS=true METRONOME_URL=http://localhost:3004/v1/process METRONOME_DEBUG=true PORT=3002 remix dev -c \"node server.js\"",
     "start": "cross-env METRONOME_API_KEY=ak_hiojHH8VAftUK3lsIoRzLbg5rx NODE_ENV=production METRONOME_BYPASS=true METRONOME_URL=http://localhost:3004/v1/process METRONOME_DEBUG=true PORT=3002 node ./server.js",
     "start:prod": "cross-env METRONOME_API_KEY=ak_hxbKz6ekrndKI9M2VIkjARzeBs NODE_ENV=production METRONOME_URL=https://metrics-metronome-sh.fly.dev/v1/process METRONOME_DEBUG=true PORT=3002 node ./server.js",
     "typecheck": "tsc"
