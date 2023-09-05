@@ -10,6 +10,11 @@ export class MetronomeConfigHandler {
     this.config = { ...defaultConfig, ...config };
   }
 
+  public async load() {
+    const loader = await import("metronome.config" as any);
+    console.log({ loader });
+  }
+
   public shouldIgnoreRoute(routeId: string): boolean {
     if (this.ignoredRouteCache[routeId]) {
       return this.ignoredRouteCache[routeId];

@@ -1,5 +1,10 @@
 {
   "extends": "@metronome-sh/dev/tsconfig.json",
-  "exclude": ["node_modules", "**/__tests__"],
+  "exclude": [
+    "node_modules",
+    "**/__tests__",
+    "./src/metronome.config.ts",
+    "./src/metronome.config.js"
+  ],
   "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

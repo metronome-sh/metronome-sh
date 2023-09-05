@@ -7,7 +7,7 @@ import {
 } from "@metronome-sh/runtime";
 import type { ServerBuild } from "@remix-run/node";
 import { NodeExporter, NodeRemixFunctionEvent } from "@metronome-sh/node";
-import { MetronomeConfigHandler } from "@metronome-sh/config";
+import { MetronomeConfig, MetronomeConfigHandler } from "@metronome-sh/config";
 import { createRemixRequest } from "@remix-run/express/dist/server";
 import type * as express from "express";
 
@@ -15,7 +15,10 @@ let config: MetronomeConfigHandler;
 
 export function createMetronomeGetLoadContext(
   build: ServerBuild,
-  configPath?: string | null
+  {
+    configPath,
+    metronome,
+  }: { configPath?: string | null; metronome?: MetronomeConfig }
 ) {
   const exporter = new NodeExporter({
     apiKey: process.env.METRONOME_API_KEY,
@@ -31,9 +34,8 @@ export function createMetronomeGetLoadContext(
     response: express.Response
   ): Promise<ContextWithMetronome> => {
     if (!config) {
-      config = new MetronomeConfigHandler(
-        configPath ? (await import(configPath))?.default || {} : undefined
-      );
+      // prettier-ignore
+      config = new MetronomeConfigHandler(metronome ?? (configPath ? (await import(configPath))?.default || {} : undefined));
     }
 
     // prettier-ignore

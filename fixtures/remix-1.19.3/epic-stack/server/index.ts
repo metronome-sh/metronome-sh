@@ -1,7 +1,7 @@
 import crypto from 'crypto'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { wrapRequestHandlerWithMetronome, compose } from '@metronome-sh/express'
+import { createMetronomeWrapper, compose } from '@metronome-sh/express'
 import {
 	createRequestHandler as _createRequestHandler,
 	type RequestHandler,
@@ -26,6 +26,7 @@ import morgan from 'morgan'
 // @ts-ignore - this file may not exist if you haven't built yet, but it will
 // definitely exist by the time the dev or prod server actually runs.
 import * as remixBuild from '#build/index.js'
+import metronome from '../metronome.config.ts'
 
 installGlobals()
 
@@ -33,7 +34,7 @@ const MODE = process.env.NODE_ENV
 
 const createRequestHandler = compose(
 	wrapExpressCreateRequestHandler,
-	wrapRequestHandlerWithMetronome,
+	createMetronomeWrapper(metronome),
 )(_createRequestHandler)
 
 const BUILD_PATH = '../build/index.js'

@@ -22,7 +22,10 @@ export default {
     json(),
     production && terser({ mangle: true }),
     copy({
-      targets: [{ src: "src/metronome.config.js", dest: "dist" }],
+      targets: [
+        { src: "src/metronome.config.js", dest: "dist" },
+        { src: "src/metronome.config.ts", dest: "dist" },
+      ],
     }),
   ],
 };
