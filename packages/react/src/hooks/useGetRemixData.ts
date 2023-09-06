@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from "react";
-import { RemixData } from "@metronome-sh/runtime";
+import { type RemixData } from "@metronome-sh/runtime";
 
 export function useGetRemixData() {
   const routes = useMemo(() => {
@@ -12,6 +12,34 @@ export function useGetRemixData() {
 
     return window.__remixManifest.routes;
   }, []);
+
+  const getFullPath = useCallback(
+    (key: keyof typeof routes) => {
+      if (!routes[key]) {
+        throw new Error(`Invalid key: ${key}`);
+      }
+
+      let path: string[] = [];
+      let route = routes[key];
+      let visited = new Set();
+
+      while (route) {
+        path = [route.path || "", ...path];
+
+        if (!route.parentId || visited.has(route.parentId)) break;
+
+        // This should never happen, but just to prevent infinite loops
+        visited.add(route.parentId);
+
+        route = routes[route.parentId];
+      }
+
+      const fullPath = path.join("/");
+
+      return fullPath;
+    },
+    [routes]
+  );
 
   const currentRemixRouteId = useMemo(() => {
     if (typeof window === "undefined") return "";
@@ -30,11 +58,11 @@ export function useGetRemixData() {
     const data = {
       hash: window.__remixManifest.version,
       routeId: route.id,
-      routePath: route.path || "",
+      routePath: getFullPath(route.id),
     };
 
     return data;
-  }, [routes, currentRemixRouteId]);
+  }, [routes, currentRemixRouteId, getFullPath]);
 
   return getRouteData;
 }

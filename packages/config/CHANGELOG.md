@@ -1,5 +1,11 @@
 # @metronome-sh/config
 
+## 7.1.0-next.9
+
+### Patch Changes
+
+- Updated things
+
 ## 7.1.0-next.8
 
 ### Patch Changes

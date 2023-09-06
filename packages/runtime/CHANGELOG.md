@@ -1,5 +1,13 @@
 # @metronome-sh/runtime
 
+## 7.1.0-next.9
+
+### Patch Changes
+
+- Updated things
+- Updated dependencies
+  - @metronome-sh/config@7.1.0-next.9
+
 ## 7.1.0-next.8
 
 ### Patch Changes

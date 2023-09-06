@@ -10,9 +10,6 @@ export type WebAnalyticsTrackerProps = {
 
 const metronomeLsKey = `__metronome__${METRONOME_VERSION.replace(/\./g, "_")}`;
 
-type WindowId = { id: string; ts: number };
-type WindowIds = WindowId[];
-
 export const WebAnalyticsTracker: FunctionComponent<
   WebAnalyticsTrackerProps
 > = ({ doNotTrack }) => {
