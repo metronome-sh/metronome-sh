@@ -33,6 +33,12 @@ export default function Index() {
         <li>
           <Link to="/id/foo">id: foo</Link>
         </li>
+        <li>
+          <Link to="throw-response">throw-response</Link>
+        </li>
+        <li>
+          <Link to="throw-redirect">throw-redirect</Link>
+        </li>
       </ul>
     </div>
   );

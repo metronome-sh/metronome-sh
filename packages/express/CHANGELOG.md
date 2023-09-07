@@ -1,5 +1,16 @@
 # @metronome-sh/express
 
+## 7.1.0-next.10
+
+### Patch Changes
+
+- Fixed routePath
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.10
+  - @metronome-sh/config@7.1.0-next.10
+  - @metronome-sh/node@7.1.0-next.10
+  - @metronome-sh/cli@7.1.0-next.10
+
 ## 7.1.0-next.9
 
 ### Patch Changes

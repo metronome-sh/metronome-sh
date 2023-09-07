@@ -1,5 +1,13 @@
 # @metronome-sh/runtime
 
+## 7.1.0-next.10
+
+### Patch Changes
+
+- Fixed routePath
+- Updated dependencies
+  - @metronome-sh/config@7.1.0-next.10
+
 ## 7.1.0-next.9
 
 ### Patch Changes

@@ -77,9 +77,10 @@ export class MetronomeConfigHandler {
   public async shoudNotTrack(request: Request) {
     if (!this.config.doNotTrack) return false;
     try {
-      return this.config.doNotTrack?.(request);
+      return await this.config.doNotTrack?.(request);
     } catch (error) {
-      console.log("[metronome] Error in doNotTrack function");
+      // prettier-ignore
+      console.log("[metronome] the doNotTrack function in your config file threw an error, ignoring...");
       console.error(error);
       return false;
     }

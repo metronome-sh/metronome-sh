@@ -94,6 +94,7 @@ const wrapRemixFunction = (
     } catch (error) {
       // TODO track response throwing :)
       if (isResponse(error)) {
+        console.log({ error });
         throw error;
       }
 
