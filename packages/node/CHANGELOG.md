@@ -1,5 +1,13 @@
 # @metronome-sh/node
 
+## 7.1.0-next.11
+
+### Patch Changes
+
+- Fixed doNotTrack error handling
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.11
+
 ## 7.1.0-next.10
 
 ### Patch Changes
