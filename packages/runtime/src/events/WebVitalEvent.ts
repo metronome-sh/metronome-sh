@@ -4,7 +4,6 @@ import {
   BrowserDataSchema,
   IdentifierSchema,
   MetronomeDataSchema,
-  RemixDataSchema,
 } from "./sharedSchemas";
 
 export const WebVitalEventSchema = z
@@ -20,7 +19,6 @@ export const WebVitalEventSchema = z
     }),
   })
   .merge(BrowserDataSchema)
-  .merge(RemixDataSchema)
   .merge(IdentifierSchema)
   .merge(MetronomeDataSchema);
 

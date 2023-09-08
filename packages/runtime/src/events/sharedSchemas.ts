@@ -11,12 +11,6 @@ export const BrowserDataSchema = z.object({
   deviceCategory: z.string(),
 });
 
-export const RemixDataSchema = z.object({
-  hash: z.string(),
-  routeId: z.string(),
-  routePath: z.string().optional(),
-});
-
 export const IdentifierSchema = z.object({
   ip: z.string(),
   ua: z.string(),

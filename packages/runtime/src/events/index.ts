@@ -21,5 +21,4 @@ export {
   BrowserDataSchema,
   IdentifierSchema,
   MetronomeDataSchema,
-  RemixDataSchema,
 } from "./sharedSchemas";

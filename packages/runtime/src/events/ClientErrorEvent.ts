@@ -4,7 +4,6 @@ import {
   BrowserDataSchema,
   IdentifierSchema,
   MetronomeDataSchema,
-  RemixDataSchema,
 } from "./sharedSchemas";
 
 export const ClientErrorEventSchema = z
@@ -19,7 +18,6 @@ export const ClientErrorEventSchema = z
     }),
   })
   .merge(BrowserDataSchema)
-  .merge(RemixDataSchema)
   .merge(IdentifierSchema)
   .merge(MetronomeDataSchema);
 

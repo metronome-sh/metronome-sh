@@ -1,12 +1,10 @@
 export { METRONOME_CONTEXT_KEY, METRONOME_VERSION } from "./constants";
 export { registerMetronome } from "./registerMetronome";
-export { reportRoute } from "./routes";
 
 export type {
   ContextWithMetronome,
   GetLoadContextOptions,
   BrowserData,
-  RemixData,
   PageviewIncomingEventData,
   WebVitalIncomingEventData,
   ClientErrorIncomingEventData,

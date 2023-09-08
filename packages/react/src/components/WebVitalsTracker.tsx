@@ -8,7 +8,7 @@ import {
   onINP,
   type Metric,
 } from "web-vitals";
-import { useQueue, useGetBrowserData, useGetRemixData } from "../hooks";
+import { useQueue, useGetBrowserData } from "../hooks";
 import { WebVitalIncomingEventData } from "@metronome-sh/runtime";
 
 export type WebVitalsTrackerProps = {
@@ -21,8 +21,6 @@ export const WebVitalsTracker: FunctionComponent<WebVitalsTrackerProps> = ({
   const { enqueue } = useQueue();
 
   const getBrowserData = useGetBrowserData();
-
-  const getRemixData = useGetRemixData();
 
   const mounted = useRef(false);
 
@@ -41,7 +39,6 @@ export const WebVitalsTracker: FunctionComponent<WebVitalsTrackerProps> = ({
           navigationType: metric.navigationType,
         },
         ...getBrowserData(),
-        ...getRemixData(),
       };
 
       enqueue(webVitalIncomingEventData);

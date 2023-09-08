@@ -36,7 +36,7 @@ export class NodeExporter extends EventExporter {
 
     if (this.getDebug()) {
       console.debug(`Sending data to ${this.getUrl()}`);
-      console.log(data);
+      console.log(JSON.stringify(JSON.parse(data), null, 2));
     }
 
     request.write(data, "utf-8");

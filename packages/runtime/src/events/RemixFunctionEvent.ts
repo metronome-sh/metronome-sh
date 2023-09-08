@@ -1,10 +1,5 @@
 import { z } from "zod";
-import {
-  IdentifierSchema,
-  MetronomeDataSchema,
-  MetronomeEvent,
-  RemixDataSchema,
-} from ".";
+import { IdentifierSchema, MetronomeDataSchema, MetronomeEvent } from ".";
 
 export const RemixFunctionEventSchema = z
   .object({
@@ -18,7 +13,6 @@ export const RemixFunctionEventSchema = z
     httpPathname: z.string(),
   })
   .merge(IdentifierSchema)
-  .merge(RemixDataSchema)
   .merge(MetronomeDataSchema);
 
 type RemixFunctionData = z.infer<typeof RemixFunctionEventSchema>;

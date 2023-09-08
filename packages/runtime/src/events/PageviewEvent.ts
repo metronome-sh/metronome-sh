@@ -4,7 +4,6 @@ import {
   BrowserDataSchema,
   IdentifierSchema,
   MetronomeDataSchema,
-  RemixDataSchema,
 } from "./sharedSchemas";
 
 export const PageviewEventSchema = z
@@ -12,7 +11,6 @@ export const PageviewEventSchema = z
     timestamp: z.number(),
   })
   .merge(BrowserDataSchema)
-  .merge(RemixDataSchema)
   .merge(IdentifierSchema)
   .merge(MetronomeDataSchema);
 

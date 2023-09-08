@@ -10,7 +10,6 @@ import {
   BrowserDataSchema,
   ClientErrorIncomingEventSchema,
   PageviewIncomingEventSchema,
-  RemixDataSchema,
   RemixFunctionEvent,
   WebVitalIncomingEventSchema,
 } from "./events";
@@ -38,7 +37,6 @@ export interface GetLoadContextOptions {
 }
 
 export type BrowserData = z.infer<typeof BrowserDataSchema>;
-export type RemixData = z.infer<typeof RemixDataSchema>;
 
 export type PageviewIncomingEventData = z.infer<
   typeof PageviewIncomingEventSchema
@@ -54,3 +52,22 @@ export type IncomingEventData =
   | PageviewIncomingEventData
   | WebVitalIncomingEventData
   | ClientErrorIncomingEventData;
+
+export type RouteMap = Record<
+  string,
+  {
+    id: string;
+    parentId: string | undefined;
+    path: string | undefined;
+  }
+>;
+
+export type RegexpRouteMap = Record<
+  string,
+  {
+    id: string;
+    parentId: string | undefined;
+    path: string | undefined;
+    regexp: RegExp;
+  }
+>;

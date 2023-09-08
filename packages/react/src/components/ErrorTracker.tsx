@@ -1,10 +1,9 @@
 import { FunctionComponent, useEffect, useRef } from "react";
-import { useQueue, useGetBrowserData, useGetRemixData } from "../hooks";
+import { useQueue, useGetBrowserData } from "../hooks";
 
 export const ErrorTracker: FunctionComponent = () => {
   const queue = useQueue();
   const getBrowserData = useGetBrowserData();
-  const getRemixData = useGetRemixData();
   const mounted = useRef(false);
 
   useEffect(() => {
@@ -18,7 +17,6 @@ export const ErrorTracker: FunctionComponent = () => {
         name: "client-error",
         timestamp: Date.now(),
         error: { message, filename, lineno, colno, stack },
-        ...getRemixData(),
         ...getBrowserData(),
       });
     }
@@ -26,7 +24,7 @@ export const ErrorTracker: FunctionComponent = () => {
     window.addEventListener("error", eventHandler);
 
     mounted.current = true;
-  }, [getBrowserData, getRemixData, queue]);
+  }, [getBrowserData, queue]);
 
   return null;
 };
