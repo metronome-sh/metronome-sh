@@ -1,5 +1,11 @@
 # @metronome-sh/react
 
+## 7.1.0-next.16
+
+### Patch Changes
+
+- corrected dev mdode
+
 ## 7.1.0-next.15
 
 ### Patch Changes

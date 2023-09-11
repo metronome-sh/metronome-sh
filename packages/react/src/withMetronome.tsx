@@ -9,7 +9,7 @@ export const withMetronome =
   process.env.NODE_ENV === "development"
     ? (App: FunctionComponent) => {
         return function Metronome(props: any) {
-          <App {...props} />;
+          return <App {...props} />;
         };
       }
     : (App: FunctionComponent) => {
