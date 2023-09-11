@@ -1,5 +1,16 @@
 # @metronome-sh/express
 
+## 7.1.0-next.13
+
+### Patch Changes
+
+- Fixed inconsistencies while getting remix data from the client
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.13
+  - @metronome-sh/config@7.1.0-next.13
+  - @metronome-sh/node@7.1.0-next.13
+  - @metronome-sh/cli@7.1.0-next.13
+
 ## 7.1.0-next.12
 
 ### Patch Changes

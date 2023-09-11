@@ -33,7 +33,7 @@ export function createMetronomeWrapper(
         mode,
         getLoadContext: async (res, req) => {
           return {
-            ...(getLoadContext?.(res, req) || {}),
+            ...((await getLoadContext?.(res, req)) || {}),
             ...(await metronomeGetLoadContext(res, req)),
           };
         },
