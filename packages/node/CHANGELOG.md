@@ -1,5 +1,13 @@
 # @metronome-sh/node
 
+## 7.1.0-next.14
+
+### Patch Changes
+
+- Fixed to load correctly the context when its an async function
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.14
+
 ## 7.1.0-next.13
 
 ### Patch Changes

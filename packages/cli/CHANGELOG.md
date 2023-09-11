@@ -1,5 +1,11 @@
 # @metronome-sh/cli
 
+## 7.1.0-next.14
+
+### Patch Changes
+
+- Fixed to load correctly the context when its an async function
+
 ## 7.1.0-next.13
 
 ### Patch Changes

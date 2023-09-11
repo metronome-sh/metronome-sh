@@ -13,7 +13,12 @@ export function withMetronome(App: FunctionComponent) {
       return data?.doNotTrack === true;
     }, [data?.doNotTrack]);
 
-    return (
+    if (process.env.NODE_ENV === "development") {
+    }
+
+    return process.env.NODE_ENV === "development" ? (
+      <App {...props} />
+    ) : (
       <>
         <QueueManager />
         <ErrorTracker />
