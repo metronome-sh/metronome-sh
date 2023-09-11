@@ -1,5 +1,13 @@
 # @metronome-sh/runtime
 
+## 7.1.0-next.15
+
+### Patch Changes
+
+- Now the client doesn't emit any events in dev mode
+- Updated dependencies
+  - @metronome-sh/config@7.1.0-next.15
+
 ## 7.1.0-next.14
 
 ### Patch Changes
