@@ -1,5 +1,13 @@
 # @metronome-sh/node
 
+## 7.1.0-next.18
+
+### Patch Changes
+
+- Fixed config file resolution bug
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.18
+
 ## 7.1.0-next.17
 
 ### Patch Changes

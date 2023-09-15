@@ -13,7 +13,7 @@ const BUILD_PATH = "./build/index.js";
  * @type { import('@remix-run/node').ServerBuild | Promise<import('@remix-run/node').ServerBuild> }
  */
 let build = await import(BUILD_PATH);
-let metronome = await import("./metronome.config.js");
+// let metronome = await import("./metronome.config.js");
 
 const app = express();
 
@@ -41,7 +41,7 @@ app.all(
     : createRequestHandler({
         build,
         mode: process.env.NODE_ENV,
-        metronome,
+        // metronome,
       })
 );
 
@@ -71,7 +71,7 @@ function createDevRequestHandler() {
       return createRequestHandler({
         build: await build,
         mode: "development",
-        metronome,
+        // metronome,
       })(req, res, next);
     } catch (error) {
       next(error);

@@ -1,5 +1,11 @@
 # @metronome-sh/dev
 
+## 7.1.0-next.18
+
+### Patch Changes
+
+- Fixed config file resolution bug
+
 ## 7.1.0-next.17
 
 ### Patch Changes
