@@ -1,5 +1,16 @@
 # @metronome-sh/express
 
+## 7.1.0-next.17
+
+### Patch Changes
+
+- Bug fixes
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.17
+  - @metronome-sh/config@7.1.0-next.17
+  - @metronome-sh/node@7.1.0-next.17
+  - @metronome-sh/cli@7.1.0-next.17
+
 ## 7.1.0-next.16
 
 ### Patch Changes

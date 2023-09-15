@@ -1,5 +1,11 @@
 # @metronome-sh/dev
 
+## 7.1.0-next.17
+
+### Patch Changes
+
+- Bug fixes
+
 ## 7.1.0-next.16
 
 ### Patch Changes
