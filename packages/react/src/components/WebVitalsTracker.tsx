@@ -7,7 +7,7 @@ import {
   onFCP,
   onINP,
   type Metric,
-} from "web-vitals";
+} from "web-vitals/attribution";
 import { useQueue, useGetBrowserData } from "../hooks";
 import { WebVitalIncomingEventData } from "@metronome-sh/runtime";
 
@@ -28,6 +28,8 @@ export const WebVitalsTracker: FunctionComponent<WebVitalsTrackerProps> = ({
     if (doNotTrack || mounted.current) return;
 
     function enqueueWebVital(metric: Metric) {
+      console.log({ metric });
+
       const webVitalIncomingEventData: WebVitalIncomingEventData = {
         name: "web-vital",
         timestamp: Date.now(),

@@ -1,5 +1,6 @@
 import { build } from "esbuild";
 import { replace } from "esbuild-plugin-replace";
+import { copy } from "esbuild-plugin-copy";
 
 import packageJson from "./package.json" assert { type: "json" };
 
@@ -15,18 +16,20 @@ export const esbuildConfig = {
     replace({
       "process.env.METRONOME_VERSION": JSON.stringify(packageJson.version),
     }),
+    copy({
+      resolveFrom: "cwd",
+      assets: {
+        from: ["./src/metronome.config.*"],
+        to: ["./dist/cjs"],
+      },
+      watch: true,
+    }),
   ],
+  platform: "node",
 };
 
 (async () =>
   await Promise.all([
-    build({
-      ...esbuildConfig,
-      plugins: [
-        ...esbuildConfig.plugins,
-        replace({ "process.env.METRONOME_DEVELOPMENT": false }),
-      ],
-      format: "cjs",
-      outdir: "dist/cjs",
-    }),
+    // build({ ...esbuildConfig, format: "esm", outdir: "dist/esm" }),
+    build({ ...esbuildConfig, format: "cjs", outdir: "dist/cjs" }),
   ]))();

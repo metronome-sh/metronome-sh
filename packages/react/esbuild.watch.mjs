@@ -2,15 +2,15 @@ import { context } from "esbuild";
 import { esbuildConfig } from "./esbuild.mjs";
 
 const esmContext = await context({
-  ...esbuildConfig,
+  ...esbuildConfig({ dev: true }),
   format: "esm",
   outdir: "dist/esm",
 });
 
 const cjsContext = await context({
-  ...esbuildConfig,
-  format: "cjs",
-  outdir: "dist/cjs",
+  ...esbuildConfig({ dev: true }),
+  format: "esm",
+  outdir: "dist/esm",
 });
 
 await Promise.all([esmContext.rebuild(), cjsContext.rebuild()]);

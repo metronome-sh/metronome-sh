@@ -1,4 +1,3 @@
-import type { ServerResponse, IncomingMessage } from "http";
 import {
   ContextWithMetronome,
   METRONOME_CONTEXT_KEY,
@@ -20,12 +19,14 @@ export function createMetronomeGetLoadContext(
     metronome,
   }: { configPath?: string | null; metronome?: MetronomeConfig }
 ) {
-  const exporter = new NodeExporter({
+  console.log({
     apiKey: process.env.METRONOME_API_KEY,
     metronomeUrl: process.env.METRONOME_URL,
     metronomeDebug: process.env.METRONOME_DEBUG,
     metronomeSuppressWarnings: process.env.METRONOME_SUPPRESS_WARNINGS,
   });
+
+  let exporter: NodeExporter;
 
   const { version: hash } = build.assets;
 
@@ -37,6 +38,34 @@ export function createMetronomeGetLoadContext(
       // prettier-ignore
       config = new MetronomeConfigHandler(metronome ?? (configPath ? (await import(configPath))?.default || {} : undefined));
     }
+
+    if (!exporter) {
+      exporter = new NodeExporter({
+        endpoint: config.getEndpoint(),
+        apiKey: process.env.METRONOME_API_KEY,
+        metronomeDebug: process.env.METRONOME_DEBUG,
+        metronomeSuppressWarnings: process.env.METRONOME_SUPPRESS_WARNINGS,
+      });
+    }
+
+    console.log({
+      evaluation:
+        (process.env.NODE_ENV !== "production" &&
+          process.env.METRONOME_BYPASS !== "true") ||
+        config.shouldIgnoreMethod(request.method) ||
+        (await config.shoudNotTrack(
+          createRemixRequest(request, response) as any
+        )),
+      NODE_ENV: process.env.NODE_ENV,
+      METRONOME_BYPASS: process.env.METRONOME_BYPASS,
+      check:
+        process.env.NODE_ENV !== "production" &&
+        process.env.METRONOME_BYPASS !== "true",
+      shouldIgnoreMethod: config.shouldIgnoreMethod(request.method),
+      shoudNotTrack: await config.shoudNotTrack(
+        createRemixRequest(request, response) as any
+      ),
+    });
 
     // prettier-ignore
     if (

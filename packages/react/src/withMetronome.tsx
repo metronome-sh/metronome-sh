@@ -4,17 +4,18 @@ import { WebAnalyticsTracker } from "./components/WebAnalyticsTracker";
 import { WebVitalsTracker } from "./components/WebVitalsTracker";
 import { ErrorTracker } from "./components/ErrorTracker";
 import { useLoaderData } from "@remix-run/react";
+import { METRONOME_DEVELOPMENT } from "./constants";
 
 export const withMetronome =
-  process.env.NODE_ENV === "development"
-    ? (App: FunctionComponent) => {
+  process.env.NODE_ENV === "development" && !METRONOME_DEVELOPMENT
+    ? (App: () => JSX.Element) => {
         return function Metronome(props: any) {
           return <App {...props} />;
         };
       }
-    : (App: FunctionComponent) => {
+    : (App: () => JSX.Element) => {
         return function Metronome(props: any) {
-          const data = useLoaderData();
+          const data = useLoaderData<any>();
 
           const doNotTrack = useMemo(() => {
             return data?.doNotTrack === true;

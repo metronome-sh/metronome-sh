@@ -82,8 +82,11 @@ const wrapRemixFunction = (
       const response = await remixFunction(...args);
 
       event.update({
-        httpStatusCode: response?.status || 213,
-        httpStatusText: response?.statusText || "Undefined response",
+        httpStatusCode: response instanceof Response ? response?.status : 200,
+        httpStatusText:
+          response instanceof Response
+            ? response?.statusText
+            : "null_or_undefined",
       });
 
       event.end();

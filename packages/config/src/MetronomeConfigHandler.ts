@@ -10,8 +10,8 @@ export class MetronomeConfigHandler {
     this.config = { ...defaultConfig, ...config };
   }
 
-  public async load() {
-    const loader = await import("metronome.config" as any);
+  public getEndpoint(): string {
+    return this.config.endpoint || "https://metrics.metronome.sh/v1/process";
   }
 
   public shouldIgnoreRoute(routeId: string): boolean {

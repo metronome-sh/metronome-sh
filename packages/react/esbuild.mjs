@@ -1,34 +1,31 @@
 import { build } from "esbuild";
 import { replace } from "esbuild-plugin-replace";
-import { readFile } from "fs/promises";
 
 import packageJson from "./package.json" assert { type: "json" };
-
-// prettier-ignore
-// const webVitalsPolyfillPath = await import.meta.resolve("web-vitals/dist/polyfill.js");
-// prettier-ignore
-// const webVitalsPolyfill = await readFile(webVitalsPolyfillPath.replace('file://', ''), "utf8");
 
 /**
  * @type {import('esbuild').BuildOptions}
  */
-export const esbuildConfig = {
-  entryPoints: ["src/index.ts"],
-  bundle: true,
-  treeShaking: true,
-  platform: "node",
-  sourcemap: true,
-  packages: "external",
-  target: "node14",
-  plugins: [
-    replace({
-      "process.env.METRONOME_VERSION": JSON.stringify(packageJson.version),
-    }),
-  ],
+export const esbuildConfig = (options) => {
+  return {
+    entryPoints: ["src/index.ts"],
+    bundle: true,
+    treeShaking: true,
+    platform: "node",
+    sourcemap: true,
+    packages: "external",
+    target: "node14",
+    plugins: [
+      replace({
+        "process.env.METRONOME_VERSION": JSON.stringify(packageJson.version),
+        "process.env.METRONOME_DEVELOPMENT": JSON.stringify(!!options?.dev),
+      }),
+    ],
+  };
 };
 
 (async () =>
   await Promise.all([
-    build({ ...esbuildConfig, format: "esm", outdir: "dist/esm" }),
-    build({ ...esbuildConfig, format: "cjs", outdir: "dist/cjs" }),
+    build({ ...esbuildConfig(), format: "esm", outdir: "dist/esm" }),
+    build({ ...esbuildConfig(), format: "cjs", outdir: "dist/cjs" }),
   ]))();

@@ -1,8 +1,8 @@
 import { MetronomeEvent } from "./events";
 
 export abstract class EventExporter {
+  private endpoint: string;
   private apiKey: string | undefined;
-  private metronomeUrl: string | undefined;
   private metronomeDebug: string | undefined;
   private metronomeSuppressWarnings: string | undefined;
 
@@ -13,18 +13,18 @@ export abstract class EventExporter {
   ): Promise<void>;
 
   constructor({
+    endpoint,
     apiKey,
-    metronomeUrl,
     metronomeDebug,
     metronomeSuppressWarnings,
   }: {
+    endpoint: string;
     apiKey: string | undefined;
-    metronomeUrl: string | undefined;
     metronomeDebug: string | undefined;
     metronomeSuppressWarnings: string | undefined;
   }) {
     this.apiKey = apiKey;
-    this.metronomeUrl = metronomeUrl;
+    this.endpoint = endpoint;
     this.metronomeDebug = metronomeDebug;
     this.metronomeSuppressWarnings = metronomeSuppressWarnings;
   }
@@ -43,7 +43,7 @@ export abstract class EventExporter {
   }
 
   protected getUrl(): string {
-    return this.metronomeUrl ?? "https://new-metrics.metronome.sh/v1/process";
+    return this.endpoint;
   }
 
   protected getDebug(): boolean {
