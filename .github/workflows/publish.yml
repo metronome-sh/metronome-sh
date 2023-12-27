@@ -39,7 +39,7 @@ jobs:
         run: |
           npx @changesets/cli version
           git add .
-          git commit -m "version changeset"
+          git commit -m "version changeset [skip actions]"
 
       - name: Build
         run: pnpm run build
@@ -55,5 +55,5 @@ jobs:
       - name: Push Changes
         run: |
           git add .
-          git commit -m "updated pnpm-lock.yaml"
+          git commit -m "updated pnpm-lock.yaml [skip actions]"
           git push
