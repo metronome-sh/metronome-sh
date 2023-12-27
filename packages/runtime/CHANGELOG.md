@@ -1,5 +1,13 @@
 # @metronome-sh/runtime
 
+## 7.2.3
+
+### Patch Changes
+
+- a1012f5: bump
+- Updated dependencies [a1012f5]
+  - @metronome-sh/config@7.2.3
+
 ## 7.2.2
 
 ### Patch Changes

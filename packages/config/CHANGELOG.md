@@ -1,5 +1,11 @@
 # @metronome-sh/config
 
+## 7.2.3
+
+### Patch Changes
+
+- a1012f5: bump
+
 ## 7.2.2
 
 ### Patch Changes
