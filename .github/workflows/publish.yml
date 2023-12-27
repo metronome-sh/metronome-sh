@@ -48,6 +48,9 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Push Changes
+        uses: actions/checkout@v2
+        with:
+          token: ${{secrets.PAT}}
         run: git push
 
       - name: Create GitHub Release
