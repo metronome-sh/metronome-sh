@@ -1,365 +1,174 @@
-# Change Log - @metronome-sh/node
+# @metronome-sh/node
 
-This log was last generated on Fri, 17 Feb 2023 05:39:53 GMT and should not be manually modified.
+## 7.1.0
 
-<!-- Start content -->
+### Minor Changes
 
-## 6.0.1
+- 626a5c4: Updated beta metrics url
 
-Fri, 17 Feb 2023 05:39:53 GMT
+### Patch Changes
 
-### Patches
+- 2df89b7: Fixed ip header parsing
+- 728c593: Fixed to load correctly the context when its an async function
+- a30d619: Updated request header parsing for ip
+- 059112d: Updated ts template
+- b52e217: corrected dev mdode
+- 8dd4481: Remove console logs
+- 07a86c8: Updated things
+- 4d508f7: Fixed doNotTrack error handling
+- 9275919: Fixed config file
+- 87926b0: Now the client doesn't emit any events in dev mode
+- 5f7f809: Improved doNotTrack
+- 6bbe180: Bug fixes
+- 19120e4: Fixed config file resolution bug
+- 816a228: Fixed routePath
+- 0c9beab: Fixed inconsistencies while getting remix data from the client
+- f23ac95: Added support for epic-stack
+- bbf5056: Changed how the wrapper is created. TS config now can be used
+- Updated dependencies [2df89b7]
+- Updated dependencies [728c593]
+- Updated dependencies [a30d619]
+- Updated dependencies [059112d]
+- Updated dependencies [b52e217]
+- Updated dependencies [8dd4481]
+- Updated dependencies [07a86c8]
+- Updated dependencies [4d508f7]
+- Updated dependencies [9275919]
+- Updated dependencies [87926b0]
+- Updated dependencies [5f7f809]
+- Updated dependencies [6bbe180]
+- Updated dependencies [19120e4]
+- Updated dependencies [816a228]
+- Updated dependencies [0c9beab]
+- Updated dependencies [f23ac95]
+- Updated dependencies [bbf5056]
+- Updated dependencies [626a5c4]
+  - @metronome-sh/runtime@7.1.0
 
-- Bump @metronome-sh/runtime to v6.0.1
-- Bump @metronome-sh/config to v6.0.1
+## 7.1.0-next.18
 
-## 6.0.0
+### Patch Changes
 
-Fri, 17 Feb 2023 05:31:36 GMT
+- Fixed config file resolution bug
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.18
 
-### Major changes
+## 7.1.0-next.17
 
-- compatibility with metronome.sh v3 web app (ericktamayo@gmail.com)
-- Bump @metronome-sh/runtime to v6.0.0
-- Bump @metronome-sh/config to v6.0.0
+### Patch Changes
 
-## 5.8.1
+- Bug fixes
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.17
 
-Fri, 20 Jan 2023 16:57:32 GMT
+## 7.1.0-next.16
 
-### Patches
+### Patch Changes
 
-- wrap console.warn (ericktamayo@gmail.com)
-- Bump @metronome-sh/runtime to v5.8.1
-- Bump @metronome-sh/config to v5.8.1
+- corrected dev mdode
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.16
 
-## 5.8.0
+## 7.1.0-next.15
 
-Tue, 10 Jan 2023 23:26:54 GMT
+### Patch Changes
 
-### Minor changes
+- Now the client doesn't emit any events in dev mode
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.15
 
-- Support for Remix 1.10.0 (ericktamayo@gmail.com)
-- Bump @metronome-sh/runtime to v5.8.0
-- Bump @metronome-sh/config to v5.8.0
+## 7.1.0-next.14
 
-## 5.7.2
+### Patch Changes
 
-Sat, 07 Jan 2023 22:16:35 GMT
+- Fixed to load correctly the context when its an async function
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.14
 
-### Patches
+## 7.1.0-next.13
 
-- Bump @metronome-sh/runtime to v5.7.2
-- Bump @metronome-sh/config to v5.7.2
+### Patch Changes
 
-## 5.7.1
+- Fixed inconsistencies while getting remix data from the client
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.13
 
-Tue, 06 Dec 2022 18:36:59 GMT
+## 7.1.0-next.12
 
-### Patches
+### Patch Changes
 
-- Bump @metronome-sh/runtime to v5.7.1
-- Bump @metronome-sh/config to v5.7.1
+- Remove console logs
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.12
 
-## 5.7.0
+## 7.1.0-next.11
 
-Thu, 01 Dec 2022 18:48:38 GMT
+### Patch Changes
 
-### Minor changes
+- Fixed doNotTrack error handling
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.11
 
-- Bump @metronome-sh/runtime to v5.7.0
-- Bump @metronome-sh/config to v5.7.0
+## 7.1.0-next.10
 
-## 5.6.1
+### Patch Changes
 
-Mon, 01 Aug 2022 20:41:48 GMT
+- Fixed routePath
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.10
 
-### Patches
+## 7.1.0-next.9
 
-- Bump @metronome-sh/runtime to v5.6.1
-- Bump @metronome-sh/config to v5.6.1
+### Patch Changes
 
-## 5.6.0
+- Updated things
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.9
 
-Tue, 19 Jul 2022 21:12:00 GMT
+## 7.1.0-next.8
 
-### Minor changes
+### Patch Changes
 
-- Updated dependencies (ericktamayo@gmail.com)
-- Bump @metronome-sh/runtime to v5.6.0
-- Bump @metronome-sh/config to v5.6.0
+- Fixed ip header parsing
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.8
 
-## 5.5.6
+## 7.1.0-next.7
 
-Tue, 19 Jul 2022 19:03:22 GMT
+### Patch Changes
 
-### Patches
+- Improved doNotTrack
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.7
 
-- Bump @metronome-sh/runtime to v5.5.6
-- Bump @metronome-sh/config to v5.5.6
+## 7.1.0-next.6
 
-## 5.5.5
+### Patch Changes
 
-Sun, 26 Jun 2022 06:46:55 GMT
+- Updated ts template
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.6
 
-### Patches
+## 7.1.0-next.5
 
-- Bump @metronome-sh/runtime to v5.5.5
-- Bump @metronome-sh/config to v5.5.5
+### Patch Changes
 
-## 5.5.4
+- Changed how the wrapper is created. TS config now can be used
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.5
 
-Sun, 26 Jun 2022 05:23:50 GMT
+## 7.1.0-next.4
 
-### Patches
+### Patch Changes
 
-- Bump @metronome-sh/runtime to v5.5.4
-- Bump @metronome-sh/config to v5.5.4
+- Fixed config file
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.4
 
-## 5.5.3
+## 7.1.0-next.3
 
-Thu, 09 Jun 2022 04:17:42 GMT
+### Patch Changes
 
-### Patches
-
-- Bump @metronome-sh/runtime to v5.5.3
-- Bump @metronome-sh/config to v5.5.3
-
-## 5.5.2
-
-Wed, 08 Jun 2022 06:31:59 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.5.2
-- Bump @metronome-sh/config to v5.5.2
-
-## 5.5.1
-
-Tue, 07 Jun 2022 22:02:02 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.5.1
-- Bump @metronome-sh/config to v5.5.1
-
-## 5.5.0
-
-Tue, 07 Jun 2022 21:19:37 GMT
-
-### Minor changes
-
-- Added ability to configure Metronome client (ericktamayo@gmail.com)
-- Bump @metronome-sh/runtime to v5.5.0
-- Bump @metronome-sh/config to v5.5.0
-
-## 5.4.3
-
-Sun, 29 May 2022 15:19:22 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.4.3
-- Bump @metronome-sh/config to v5.4.3
-
-## 5.4.2
-
-Wed, 18 May 2022 23:23:20 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.4.2
-- Bump @metronome-sh/config to v5.4.2
-
-## 5.4.1
-
-Wed, 18 May 2022 06:47:03 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.4.1
-- Bump @metronome-sh/config to v5.4.1
-
-## 5.4.0
-
-Fri, 06 May 2022 06:47:23 GMT
-
-### Minor changes
-
-- Bump @metronome-sh/runtime to v5.4.0
-- Bump @metronome-sh/config to v5.4.0
-
-## 5.3.13
-
-Thu, 05 May 2022 04:18:12 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.3.13
-- Bump @metronome-sh/config to v5.3.13
-
-## 5.3.12
-
-Wed, 04 May 2022 23:30:51 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.3.12
-- Bump @metronome-sh/config to v5.3.12
-
-## 5.3.11
-
-Wed, 04 May 2022 19:14:57 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.3.11
-- Bump @metronome-sh/config to v5.3.11
-
-## 5.3.10
-
-Wed, 04 May 2022 05:41:47 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.3.10
-- Bump @metronome-sh/config to v5.3.10
-
-## 5.3.9
-
-Wed, 04 May 2022 05:29:17 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.3.9
-- Bump @metronome-sh/config to v5.3.9
-
-## 5.3.8
-
-Wed, 04 May 2022 05:08:07 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.3.8
-- Bump @metronome-sh/config to v5.3.8
-
-## 5.3.7
-
-Wed, 04 May 2022 03:57:49 GMT
-
-### Patches
-
-- removed some console.logs (ericktamayo@gmail.com)
-- Bump @metronome-sh/runtime to v5.3.7
-- Bump @metronome-sh/config to v5.3.7
-
-## 5.3.6
-
-Wed, 04 May 2022 03:43:09 GMT
-
-### Patches
-
-- updated rollup config (ericktamayo@gmail.com)
-- Bump @metronome-sh/runtime to v5.3.6
-- Bump @metronome-sh/config to v5.3.6
-
-## 5.3.5
-
-Wed, 04 May 2022 03:28:28 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.3.5
-- Bump @metronome-sh/config to v5.3.5
-
-## 5.3.4
-
-Tue, 03 May 2022 23:42:46 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.3.4
-- Bump @metronome-sh/config to v5.3.4
-
-## 5.3.3
-
-Tue, 03 May 2022 23:27:14 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.3.3
-- Bump @metronome-sh/config to v5.3.3
-
-## 5.3.2
-
-Tue, 03 May 2022 23:02:52 GMT
-
-### Patches
-
-- updating metronome to not work on dev (ericktamayo@gmail.com)
-- Bump @metronome-sh/runtime to v5.3.2
-- Bump @metronome-sh/config to v5.3.2
-
-## 5.3.1
-
-Wed, 27 Apr 2022 03:48:54 GMT
-
-### Patches
-
-- added express package (ericktamayo@gmail.com)
-- Bump @metronome-sh/runtime to v5.3.1
-- Bump @metronome-sh/config to v5.3.1
-
-## 5.0.5
-
-Tue, 26 Apr 2022 00:05:28 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.0.5
-- Bump @metronome-sh/config to v5.2.2
-
-## 5.0.4
-
-Mon, 25 Apr 2022 23:56:07 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.0.4
-- Bump @metronome-sh/config to v5.2.1
-
-## 5.0.3
-
-Mon, 25 Apr 2022 23:38:47 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.0.3
-
-## 5.0.2
-
-Sun, 24 Apr 2022 06:25:36 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.0.2
-- Bump @metronome-sh/config to v5.2.0
-
-## 5.0.1
-
-Sun, 24 Apr 2022 05:58:20 GMT
-
-### Patches
-
-- Bump @metronome-sh/runtime to v5.0.1
-- Bump @metronome-sh/config to v5.1.0
-
-## 5.0.0
-
-Sun, 24 Apr 2022 04:22:15 GMT
-
-### Major changes
-
-- A better way to integrate Metronome with the Remix adapters (ericktamayo@gmail.com)
-- Bump @metronome-sh/runtime to v5.0.0
-- Bump @metronome-sh/config to v5.0.0
+- Added support for epic-stack
+- Updated dependencies
+  - @metronome-sh/runtime@7.1.0-next.3

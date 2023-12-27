@@ -1,14 +1,22 @@
 import type { ServerBuild } from "@remix-run/server-runtime";
 import { wrapAction, wrapLoader } from "./wrappers";
-import { scriptRoute, reportRoute } from "./routes";
+import { createReportRouteModule } from "./createReportRouteModule";
+import { RouteMap } from "./runtime.types";
 
 export const registerMetronome = (build: ServerBuild): ServerBuild => {
+  const routeMap: RouteMap = {};
   const routes: Record<string, ServerBuild["routes"][string]> = {};
 
   for (const [routeId, route] of Object.entries(build.routes)) {
+    routeMap[routeId] = {
+      id: routeId,
+      parentId: route.parentId,
+      path: route.path,
+    };
+
     const newRoute = { ...route, module: { ...route.module } };
 
-    const wrapperOptions = { routeId };
+    const wrapperOptions = { routeId, routePath: route.path };
 
     if (route.module.action) {
       newRoute.module.action = wrapAction(route.module.action, wrapperOptions);
@@ -21,17 +29,8 @@ export const registerMetronome = (build: ServerBuild): ServerBuild => {
     routes[routeId] = newRoute;
   }
 
-  // Register custom metronome routes
+  // Register custom metronome route
   const baseUrl = "__metronome";
-
-  routes[`${baseUrl}/$hash[.js]`] = {
-    id: `${baseUrl}/$hash[.js]`,
-    parentId: undefined,
-    path: `${baseUrl}/:hash.js`,
-    index: undefined,
-    caseSensitive: undefined,
-    module: scriptRoute as any,
-  };
 
   routes[baseUrl] = {
     id: baseUrl,
@@ -39,7 +38,7 @@ export const registerMetronome = (build: ServerBuild): ServerBuild => {
     path: baseUrl,
     index: undefined,
     caseSensitive: undefined,
-    module: reportRoute as any,
+    module: createReportRouteModule({ routeMap, hash: build.assets.version }),
   };
 
   return { ...build, routes };

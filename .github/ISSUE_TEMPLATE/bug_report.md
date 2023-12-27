@@ -1,11 +1,14 @@
 ---
-name: Bug Report
+name: Bug report
 about: Use this template to report bugs during the open beta phase.
-title: "[BUG]"
-labels: bug
-assignees: ''
+title: '[BUG]'
+labels: 'bug'
+assignees: ErickTamayo
 
 ---
+## Description
+
+Please provide a detailed description of the bug.
 
 ## Environment
 
@@ -13,11 +16,7 @@ assignees: ''
 - Browser:
 - Remix version:
 - Remix adapter:
-- Metronome version:
-
-## Description
-
-Please provide a detailed description of the bug.
+- Metronome client version:
 
 ## Steps to Reproduce
 
@@ -37,6 +36,10 @@ What actually happened?
 ## Screenshots/Logs
 
 Please attach screenshots or logs if applicable and helpful to explain your problem.
+   
+```
+
+```
 
 ## Severity
 

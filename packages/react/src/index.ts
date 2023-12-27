@@ -1,1 +1,2 @@
-export { MetronomeLinks } from "./components";
+export { withMetronome } from "./withMetronome";
+export { compose } from "./utils/compose";

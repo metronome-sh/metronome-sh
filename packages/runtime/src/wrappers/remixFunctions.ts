@@ -1,7 +1,6 @@
-import { SpanName } from "../AbstractSpan";
-import type { ContextWithMetronome } from "../types";
+import type { ContextWithMetronome } from "../runtime.types";
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
-import { METRONOME_CONTEXT_KEY } from "../constants";
+import { METRONOME_CONTEXT_KEY, METRONOME_VERSION } from "../constants";
 
 // https://github.com/remix-run/remix/blob/973cd68528c8c58679a5b2d974ae8cefde0db455/packages/remix-server-runtime/responses.ts#L54
 function isResponse(value: any): value is Response {
@@ -15,8 +14,9 @@ function isResponse(value: any): value is Response {
 }
 
 export interface MetronomeWrapperOptions {
-  type: SpanName.Action | SpanName.Loader;
+  type: "action" | "loader";
   routeId: string;
+  routePath?: string;
 }
 
 const wrapRemixFunction = (
@@ -35,14 +35,23 @@ const wrapRemixFunction = (
     }
 
     const {
-      metronomeVersion = "",
+      ip,
+      adapter,
       hash = "",
-      SpanClass,
+      RemixFunctionEventClass,
       exporter,
       config,
     } = metronomeContext;
 
-    const { type, routeId } = options;
+    if (await config.shoudNotTrack(request)) {
+      return remixFunction(...args);
+    }
+
+    const { type, routeId, routePath } = options;
+
+    const ua = request.headers.get("User-Agent") || "";
+
+    const identifier = { ip, ua };
 
     if (
       config.shouldIgnoreRoute(routeId) ||
@@ -51,30 +60,38 @@ const wrapRemixFunction = (
       return remixFunction(...args);
     }
 
-    const attributes = {
-      "remix.function": type,
-      "remix.route": routeId,
-      "app.hash": hash,
-      "metronome.version": metronomeVersion,
+    const details = {
+      timestamp: Date.now(),
+      duration: 0n,
+      errored: false,
+      httpMethod: request.method,
+      httpStatusCode: 200,
+      httpStatusText: "OK",
+      httpPathname: new URL(request.url).pathname,
+      version: METRONOME_VERSION,
+      adapter,
+      routeId,
+      routePath: routePath || "",
+      hash,
+      ...identifier,
     };
 
-    const parent = (context as ContextWithMetronome)[METRONOME_CONTEXT_KEY]
-      ?.rootSpan;
-
-    const span = new SpanClass(type, { attributes, parent });
+    const event = new RemixFunctionEventClass(type, details);
 
     try {
       const response = await remixFunction(...args);
 
-      // TODO make a test for this
-      span.end({
-        attributes: {
-          "http.status.code": response?.status || 204,
-          "http.status.text": response?.statusText || "No Content",
-        },
+      event.update({
+        httpStatusCode: response instanceof Response ? response?.status : 200,
+        httpStatusText:
+          response instanceof Response
+            ? response?.statusText
+            : "null_or_undefined",
       });
 
-      await exporter.send(span);
+      event.end();
+
+      await exporter.send(event);
 
       return response;
     } catch (error) {
@@ -83,9 +100,15 @@ const wrapRemixFunction = (
         throw error;
       }
 
-      span.end({ error: error as Error });
+      event.update({
+        errored: true,
+        httpStatusCode: 513,
+        httpStatusText: "Remix function error",
+      });
 
-      await exporter.send(span);
+      event.end();
+
+      await exporter.send(event);
 
       throw error;
     }
@@ -97,7 +120,7 @@ export const wrapAction = (
   options: Omit<MetronomeWrapperOptions, "type">
 ) => {
   return wrapRemixFunction(actionFunction, {
-    type: SpanName.Action,
+    type: "action",
     ...options,
   });
 };
@@ -107,7 +130,7 @@ export const wrapLoader = (
   options: Omit<MetronomeWrapperOptions, "type">
 ) => {
   return wrapRemixFunction(loaderFunction, {
-    type: SpanName.Loader,
+    type: "loader",
     ...options,
   });
 };

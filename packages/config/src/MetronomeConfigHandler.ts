@@ -10,6 +10,10 @@ export class MetronomeConfigHandler {
     this.config = { ...defaultConfig, ...config };
   }
 
+  public getEndpoint(): string {
+    return this.config.endpoint || "https://v4.metrics.metronome.sh/v4/process";
+  }
+
   public shouldIgnoreRoute(routeId: string): boolean {
     if (this.ignoredRouteCache[routeId]) {
       return this.ignoredRouteCache[routeId];
@@ -67,5 +71,17 @@ export class MetronomeConfigHandler {
 
   public shouldIgnoreMethod(method?: string): boolean {
     return method?.toLowerCase() === "head" && !!this.config.ignoreHeadMethod;
+  }
+
+  public async shoudNotTrack(request: Request) {
+    if (!this.config.doNotTrack) return false;
+    try {
+      return await this.config.doNotTrack?.(request);
+    } catch (error) {
+      // prettier-ignore
+      console.log("[metronome] the doNotTrack function in your config file threw an error, ignoring...");
+      console.error(error);
+      return false;
+    }
   }
 }

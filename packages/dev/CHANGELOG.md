@@ -1,45 +1,123 @@
-# Change Log - @metronome-sh/dev
+# @metronome-sh/dev
 
-This log was last generated on Tue, 07 Jun 2022 21:19:37 GMT and should not be manually modified.
+## 7.1.0
 
-<!-- Start content -->
+### Minor Changes
 
-## 5.5.0
+- 626a5c4: Updated beta metrics url
 
-Tue, 07 Jun 2022 21:19:37 GMT
+### Patch Changes
 
-### Minor changes
+- 2df89b7: Fixed ip header parsing
+- 728c593: Fixed to load correctly the context when its an async function
+- a30d619: Updated request header parsing for ip
+- 059112d: Updated ts template
+- b52e217: corrected dev mdode
+- 8dd4481: Remove console logs
+- 07a86c8: Updated things
+- 4d508f7: Fixed doNotTrack error handling
+- 9275919: Fixed config file
+- 87926b0: Now the client doesn't emit any events in dev mode
+- 5f7f809: Improved doNotTrack
+- 6bbe180: Bug fixes
+- 19120e4: Fixed config file resolution bug
+- 816a228: Fixed routePath
+- 0c9beab: Fixed inconsistencies while getting remix data from the client
+- f23ac95: Added support for epic-stack
+- bbf5056: Changed how the wrapper is created. TS config now can be used
 
-- Added ability to configure Metronome client (ericktamayo@gmail.com)
+## 7.1.0-next.18
 
-## 5.3.6
+### Patch Changes
 
-Wed, 04 May 2022 03:43:09 GMT
+- Fixed config file resolution bug
 
-### Patches
+## 7.1.0-next.17
 
-- updated rollup config (ericktamayo@gmail.com)
+### Patch Changes
 
-## 5.2.0
+- Bug fixes
 
-Sun, 24 Apr 2022 06:25:36 GMT
+## 7.1.0-next.16
 
-### Minor changes
+### Patch Changes
 
-- make bump build (ericktamayo@gmail.com)
+- corrected dev mdode
 
-## 5.1.0
+## 7.1.0-next.15
 
-Sun, 24 Apr 2022 05:58:20 GMT
+### Patch Changes
 
-### Minor changes
+- Now the client doesn't emit any events in dev mode
 
-- Deploy (ericktamayo@gmail.com)
+## 7.1.0-next.14
 
-## 5.0.0
+### Patch Changes
 
-Sun, 24 Apr 2022 04:22:15 GMT
+- Fixed to load correctly the context when its an async function
 
-### Major changes
+## 7.1.0-next.13
 
-- A better way to integrate Metronome with the Remix adapters (ericktamayo@gmail.com)
+### Patch Changes
+
+- Fixed inconsistencies while getting remix data from the client
+
+## 7.1.0-next.12
+
+### Patch Changes
+
+- Remove console logs
+
+## 7.1.0-next.11
+
+### Patch Changes
+
+- Fixed doNotTrack error handling
+
+## 7.1.0-next.10
+
+### Patch Changes
+
+- Fixed routePath
+
+## 7.1.0-next.9
+
+### Patch Changes
+
+- Updated things
+
+## 7.1.0-next.8
+
+### Patch Changes
+
+- Fixed ip header parsing
+
+## 7.1.0-next.7
+
+### Patch Changes
+
+- Improved doNotTrack
+
+## 7.1.0-next.6
+
+### Patch Changes
+
+- Updated ts template
+
+## 7.1.0-next.5
+
+### Patch Changes
+
+- Changed how the wrapper is created. TS config now can be used
+
+## 7.1.0-next.4
+
+### Patch Changes
+
+- Fixed config file
+
+## 7.1.0-next.3
+
+### Patch Changes
+
+- Added support for epic-stack
