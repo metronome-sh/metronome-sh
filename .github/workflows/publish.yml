@@ -19,21 +19,27 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install deps
-        run: yarn
+        run: pnpm install
 
-      - name: Bump versions
-        run: yarn beachball bump
+      - name: Changeset Version
+        run: |
+          npx @changesets/cli version
+          git add .
+          git commit -m "version changeset"
 
       - name: Build
-        run: yarn run build
-
-      - name: Reset bump
-        run: git checkout -- .
+        run: pnpm run build
 
       - name: Set Git Authentication
-        run: git config user.email = "erick@metronome.sh" && git config user.name = "Erick Tamayo" && git remote set-url origin https://ericktamayo:${{ secrets.GH_TOKEN }}@github.com/metronome-sh/metronome-sh.git
+        run: |
+          git config user.email = "erick@metronome.sh"
+          git config user.name = "Erick Tamayo"
+          git remote set-url origin https://ericktamayo:${{ secrets.GH_TOKEN }}@github.com/metronome-sh/metronome-sh.git
 
-      - name: Publish to NPM
-        run: yarn beachball publish -n ${{ secrets.NPM_TOKEN }} --yes
+      - name: Publish to npm
+        run: pnpm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

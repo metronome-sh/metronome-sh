@@ -1,5 +1,31 @@
 # @metronome-sh/dev
 
+## 7.1.0
+
+### Minor Changes
+
+- 626a5c4: Updated beta metrics url
+
+### Patch Changes
+
+- 2df89b7: Fixed ip header parsing
+- 728c593: Fixed to load correctly the context when its an async function
+- a30d619: Updated request header parsing for ip
+- 059112d: Updated ts template
+- b52e217: corrected dev mdode
+- 8dd4481: Remove console logs
+- 07a86c8: Updated things
+- 4d508f7: Fixed doNotTrack error handling
+- 9275919: Fixed config file
+- 87926b0: Now the client doesn't emit any events in dev mode
+- 5f7f809: Improved doNotTrack
+- 6bbe180: Bug fixes
+- 19120e4: Fixed config file resolution bug
+- 816a228: Fixed routePath
+- 0c9beab: Fixed inconsistencies while getting remix data from the client
+- f23ac95: Added support for epic-stack
+- bbf5056: Changed how the wrapper is created. TS config now can be used
+
 ## 7.1.0-next.18
 
 ### Patch Changes
