@@ -50,7 +50,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Rerun pnpm install
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: Push Changes
         run: |
