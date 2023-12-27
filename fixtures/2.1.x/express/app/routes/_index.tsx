@@ -7,6 +7,12 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export async function loader() {
+  // wait for a second
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  return { message: "Hello from the server!" };
+}
+
 export default function Index() {
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>

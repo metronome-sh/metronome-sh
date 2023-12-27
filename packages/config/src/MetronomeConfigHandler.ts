@@ -11,7 +11,7 @@ export class MetronomeConfigHandler {
   }
 
   public getEndpoint(): string {
-    return this.config.endpoint || "https://metrics.metronome.sh/v1/process";
+    return this.config.endpoint || "https://v4.metrics.metronome.sh/v4/process";
   }
 
   public shouldIgnoreRoute(routeId: string): boolean {

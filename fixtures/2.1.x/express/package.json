@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "remix build",
-    "dev": "cross-env METRONOME_API_KEY=ak_poCucloltflyMYjcHj1HnQyGHmdeO9 METRONOME_BYPASS=true METRONOME_DEBUG=true PORT=3002 remix dev --manual -c \"node --watch-path server.js --watch server.js\"",
-    "start": "cross-env NODE_ENV=production METRONOME_API_KEY=ak_poCucloltflyMYjcHj1HnQyGHmdeO9 METRONOME_BYPASS=true METRONOME_DEBUG=true PORT=3002 node ./server.js",
+    "dev": "cross-env METRONOME_API_KEY=ak_PVILYHXxEaVmljwFVXjhbztt9ooe8ZtEWr0gLczh METRONOME_BYPASS=true METRONOME_DEBUG=true PORT=3002 remix dev --manual -c \"node --watch-path server.js --watch server.js\"",
+    "start": "cross-env NODE_ENV=production METRONOME_API_KEY=ak_PVILYHXxEaVmljwFVXjhbztt9ooe8ZtEWr0gLczh METRONOME_BYPASS=true METRONOME_DEBUG=true PORT=3002 node ./server.js",
     "typecheck": "tsc"
   },
   "dependencies": {

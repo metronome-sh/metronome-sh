@@ -1,7 +1,6 @@
 import { type MetronomeConfig } from "@metronome-sh/config";
 
 export default {
-  endpoint: null,
   ignoredRoutes: [],
   ignoredPathnames: ["/healthcheck"],
   ignoreHeadMethod: true,

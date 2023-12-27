@@ -1,11 +1,11 @@
 import { context } from "esbuild";
 import { esbuildConfig } from "./esbuild.mjs";
 
-const esmContext = await context({
-  ...esbuildConfig,
-  format: "esm",
-  outdir: "dist/esm",
-});
+// const esmContext = await context({
+//   ...esbuildConfig,
+//   format: "esm",
+//   outdir: "dist/esm",
+// });
 
 const cjsContext = await context({
   ...esbuildConfig,
