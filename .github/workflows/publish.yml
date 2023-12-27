@@ -49,5 +49,11 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Rerun pnpm install
+        run: pnpm install
+
       - name: Push Changes
-        run: git push
+        run: |
+          git add .
+          git commit -m "updated pnpm-lock.yaml"
+          git push
