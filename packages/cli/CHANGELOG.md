@@ -1,5 +1,11 @@
 # @metronome-sh/cli
 
+## 7.2.1
+
+### Patch Changes
+
+- 89d0add: fixes
+
 ## 7.2.0
 
 ### Minor Changes

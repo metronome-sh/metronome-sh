@@ -1,5 +1,16 @@
 # @metronome-sh/express
 
+## 7.2.1
+
+### Patch Changes
+
+- 89d0add: fixes
+- Updated dependencies [89d0add]
+  - @metronome-sh/cli@7.2.1
+  - @metronome-sh/config@7.2.1
+  - @metronome-sh/node@7.2.1
+  - @metronome-sh/runtime@7.2.1
+
 ## 7.2.0
 
 ### Minor Changes
