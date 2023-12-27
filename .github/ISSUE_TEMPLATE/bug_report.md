@@ -16,7 +16,7 @@ Please provide a detailed description of the bug.
 - Browser:
 - Remix version:
 - Remix adapter:
-- Metronome package version (eg: 7.1.0-next.2):
+- Metronome client version:
 
 ## Steps to Reproduce
 
