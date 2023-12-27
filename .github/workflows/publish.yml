@@ -27,6 +27,12 @@ jobs:
       - name: Install deps
         run: pnpm install
 
+      - name: Set Git Authentication
+        run: |
+          git config user.email = "erick@metronome.sh"
+          git config user.name = "Erick Tamayo"
+          git remote set-url origin https://ericktamayo:${{ secrets.GH_TOKEN }}@github.com/metronome-sh/metronome-sh.git
+
       - name: Changeset Version
         run: |
           npx @changesets/cli version
@@ -35,12 +41,6 @@ jobs:
 
       - name: Build
         run: pnpm run build
-
-      - name: Set Git Authentication
-        run: |
-          git config user.email = "erick@metronome.sh"
-          git config user.name = "Erick Tamayo"
-          git remote set-url origin https://ericktamayo:${{ secrets.GH_TOKEN }}@github.com/metronome-sh/metronome-sh.git
 
       - name: Publish to npm
         run: pnpm publish
