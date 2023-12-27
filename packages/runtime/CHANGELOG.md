@@ -1,5 +1,18 @@
 # @metronome-sh/runtime
 
+## 7.2.0
+
+### Minor Changes
+
+- bc9f7bb: v7 publish to npm
+
+### Patch Changes
+
+- 05fd48b: fixes
+- Updated dependencies [bc9f7bb]
+- Updated dependencies [05fd48b]
+  - @metronome-sh/config@7.2.0
+
 ## 7.1.0
 
 ### Minor Changes
