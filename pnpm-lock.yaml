@@ -108,10 +108,10 @@ importers:
         version: 17.7.2
     devDependencies:
       '@metronome-sh/config':
-        specifier: 7.1.0-next.18
+        specifier: 7.1.0
         version: link:../config
       '@metronome-sh/dev':
-        specifier: 7.1.0-next.18
+        specifier: 7.1.0
         version: link:../dev
       '@rollup/plugin-commonjs':
         specifier: ^21.0.2
@@ -232,23 +232,23 @@ importers:
   packages/express:
     dependencies:
       '@metronome-sh/cli':
-        specifier: 7.1.0-next.18
+        specifier: 7.1.0
         version: link:../cli
       '@metronome-sh/config':
-        specifier: 7.1.0-next.18
+        specifier: 7.1.0
         version: link:../config
       '@metronome-sh/node':
-        specifier: 7.1.0-next.18
+        specifier: 7.1.0
         version: link:../node
       '@metronome-sh/runtime':
-        specifier: 7.1.0-next.18
+        specifier: 7.1.0
         version: link:../runtime
       ts-invariant:
         specifier: ^0.9.4
         version: 0.9.4
     devDependencies:
       '@metronome-sh/dev':
-        specifier: 7.1.0-next.18
+        specifier: 7.1.0
         version: link:../dev
       '@remix-run/express':
         specifier: ^2.1.0
@@ -284,14 +284,14 @@ importers:
   packages/node:
     dependencies:
       '@metronome-sh/runtime':
-        specifier: 7.1.0-next.18
+        specifier: 7.1.0
         version: link:../runtime
       web-vitals:
         specifier: ^3.5.0
         version: 3.5.0
     devDependencies:
       '@metronome-sh/config':
-        specifier: 7.1.0-next.18
+        specifier: 7.1.0
         version: link:../config
       '@remix-run/dev':
         specifier: ^2.1.0
@@ -325,10 +325,10 @@ importers:
         version: 3.5.0
     devDependencies:
       '@metronome-sh/config':
-        specifier: 7.1.0-next.18
+        specifier: 7.1.0
         version: link:../config
       '@metronome-sh/runtime':
-        specifier: 7.1.0-next.18
+        specifier: 7.1.0
         version: link:../runtime
       '@remix-run/react':
         specifier: ^2.1.0
@@ -370,7 +370,7 @@ importers:
   packages/runtime:
     dependencies:
       '@metronome-sh/config':
-        specifier: 7.1.0-next.18
+        specifier: 7.1.0
         version: link:../config
       concurrently:
         specifier: ^7.1.0
@@ -401,7 +401,7 @@ importers:
         version: 3.22.4
     devDependencies:
       '@metronome-sh/dev':
-        specifier: 7.1.0-next.18
+        specifier: 7.1.0
         version: link:../dev
       '@remix-run/dev':
         specifier: ^2.1.0
