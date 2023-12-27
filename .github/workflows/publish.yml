@@ -34,10 +34,7 @@ jobs:
           git remote set-url origin https://ericktamayo:${{ secrets.GH_TOKEN }}@github.com/metronome-sh/metronome-sh.git
 
       - name: Changeset Version
-        run: |
-          npx @changesets/cli version
-          git add .
-          git commit -m "version changeset"
+        run: npx @changesets/cli version
 
       - name: Build
         run: pnpm run build
@@ -46,3 +43,19 @@ jobs:
         run: pnpm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Commit and Push Changes
+        run: |
+          git add .
+          git commit -m "chore: release new versions"
+          git push
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
