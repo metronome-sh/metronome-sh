@@ -3,9 +3,17 @@ import { wrapAction, wrapLoader } from "./wrappers";
 import { createReportRouteModule } from "./createReportRouteModule";
 import { RouteMap } from "./runtime.types";
 
-export const registerMetronome = (build: ServerBuild): ServerBuild => {
+export function registerMetronome(
+  build: ServerBuild | (() => Promise<ServerBuild>)
+): ServerBuild {
   const routeMap: RouteMap = {};
   const routes: Record<string, ServerBuild["routes"][string]> = {};
+
+  if (typeof build === "function") {
+    throw new Error(
+      "registerMetronome does not support async build functions yet"
+    );
+  }
 
   for (const [routeId, route] of Object.entries(build.routes)) {
     routeMap[routeId] = {
@@ -38,8 +46,11 @@ export const registerMetronome = (build: ServerBuild): ServerBuild => {
     path: baseUrl,
     index: undefined,
     caseSensitive: undefined,
-    module: createReportRouteModule({ routeMap, hash: build.assets.version }),
+    module: createReportRouteModule({
+      routeMap,
+      hash: build.assets.version,
+    }),
   };
 
   return { ...build, routes };
-};
+}

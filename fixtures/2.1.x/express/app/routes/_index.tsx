@@ -1,5 +1,4 @@
 import type { MetaFunction } from "@remix-run/node";
-
 export const meta: MetaFunction = () => {
   return [
     { title: "New Remix App" },
@@ -7,10 +6,12 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export async function loader() {
-  // wait for a second
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  return { message: "Hello from the server!" };
+export function loader() {
+  return { date: new Date() };
+}
+
+export function action() {
+  return null;
 }
 
 export default function Index() {
