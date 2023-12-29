@@ -1,5 +1,19 @@
 # @metronome-sh/express
 
+## 7.3.0
+
+### Minor Changes
+
+- c6bfc5a: Updated peer deps
+
+### Patch Changes
+
+- Updated dependencies [c6bfc5a]
+  - @metronome-sh/cli@7.3.0
+  - @metronome-sh/config@7.3.0
+  - @metronome-sh/node@7.3.0
+  - @metronome-sh/runtime@7.3.0
+
 ## 7.2.3
 
 ### Patch Changes

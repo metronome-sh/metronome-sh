@@ -1,5 +1,11 @@
 # @metronome-sh/dev
 
+## 7.3.0
+
+### Minor Changes
+
+- c6bfc5a: Updated peer deps
+
 ## 7.2.3
 
 ### Patch Changes

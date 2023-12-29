@@ -1,5 +1,16 @@
 # @metronome-sh/runtime
 
+## 7.3.0
+
+### Minor Changes
+
+- c6bfc5a: Updated peer deps
+
+### Patch Changes
+
+- Updated dependencies [c6bfc5a]
+  - @metronome-sh/config@7.3.0
+
 ## 7.2.3
 
 ### Patch Changes
