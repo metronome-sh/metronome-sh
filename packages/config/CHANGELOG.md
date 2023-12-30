@@ -1,5 +1,11 @@
 # @metronome-sh/config
 
+## 7.3.1
+
+### Patch Changes
+
+- 44513dd: Now passes a cloned request to the doNotTrack function in the metronome.config
+
 ## 7.3.0
 
 ### Minor Changes

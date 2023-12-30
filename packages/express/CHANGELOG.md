@@ -1,5 +1,16 @@
 # @metronome-sh/express
 
+## 7.3.1
+
+### Patch Changes
+
+- 44513dd: Now passes a cloned request to the doNotTrack function in the metronome.config
+- Updated dependencies [44513dd]
+  - @metronome-sh/cli@7.3.1
+  - @metronome-sh/config@7.3.1
+  - @metronome-sh/node@7.3.1
+  - @metronome-sh/runtime@7.3.1
+
 ## 7.3.0
 
 ### Minor Changes
