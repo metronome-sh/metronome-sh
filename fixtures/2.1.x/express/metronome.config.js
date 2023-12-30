@@ -1,6 +1,6 @@
 /** @type {import('@metronome-sh/config').MetronomeConfig} */
 export default {
-  endpoint: "http://localhost:3004",
+  // endpoint: "http://localhost:3004",
   ignoredRoutes: [],
   ignoredPathnames: ["/healthcheck"],
   ignoreHeadMethod: true,

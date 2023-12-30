@@ -7,7 +7,7 @@
     "build": "remix build",
     "dev": "cross-env  METRONOME_API_KEY=ak_Ai92o7DEVfjKr7MOlDHxfmX6SZZS9yjsvU2k2OKc METRONOME_DEBUG=true PORT=3005 METRONOME_BYPASS=true remix dev --manual -c \"node --watch-path server.js --watch server.js\"",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "start": "cross-env NODE_ENV=production METRONOME_API_KEY=ak_Ai92o7DEVfjKr7MOlDHxfmX6SZZS9yjsvU2k2OKc METRONOME_DEBUG=true PORT=3005 node ./server.js",
+    "start": "cross-env NODE_ENV=production METRONOME_API_KEY=ak_UYTKCIjzt18z4mrJLoH60iMDfRGLvgXZE210DK0E METRONOME_DEBUG=true PORT=3005 node ./server.js",
     "typecheck": "tsc"
   },
   "dependencies": {

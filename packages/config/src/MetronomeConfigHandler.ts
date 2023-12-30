@@ -50,7 +50,10 @@ export class MetronomeConfigHandler {
       return this.ignoredPathnameCache[urlString];
     }
 
-    const url = new URL(urlString, "http://localhost");
+    const url = new URL(
+      urlString,
+      urlString.startsWith("http") ? undefined : "http://localhost"
+    );
 
     const isIgnored = !!this.config.ignoredPathnames?.some(
       (ignoredPathname) => {
@@ -72,13 +75,16 @@ export class MetronomeConfigHandler {
   }
 
   public shouldIgnoreMethod(method?: string): boolean {
-    return method?.toLowerCase() === "head" && !!this.config.ignoreHeadMethod;
+    return (
+      method?.toLowerCase() === "head" && Boolean(this.config.ignoreHeadMethod)
+    );
   }
 
   public async shoudNotTrack(request: Request) {
     if (!this.config.doNotTrack) return false;
+
     try {
-      return await this.config.doNotTrack?.(request);
+      return await this.config.doNotTrack?.(request.clone());
     } catch (error) {
       // prettier-ignore
       console.log("[metronome] the doNotTrack function in your config file threw an error, ignoring...");
