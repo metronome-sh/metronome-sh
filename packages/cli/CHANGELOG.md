@@ -1,5 +1,11 @@
 # @metronome-sh/cli
 
+## 7.3.2
+
+### Patch Changes
+
+- 4ee6717: Now make sure that all the instances that shoudNotTrack function are paseed are cloned requests or created requests
+
 ## 7.3.1
 
 ### Patch Changes
