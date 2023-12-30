@@ -43,7 +43,7 @@ const wrapRemixFunction = (
       config,
     } = metronomeContext;
 
-    if (await config.shoudNotTrack(request)) {
+    if (await config.shoudNotTrack(request.clone())) {
       return remixFunction(...args);
     }
 

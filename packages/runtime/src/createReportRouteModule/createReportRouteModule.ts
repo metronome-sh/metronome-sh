@@ -33,6 +33,7 @@ export const createReportRouteModule = ({
   hash: string;
 }): ServerRouteModule => {
   const action: ActionFunction = async ({ request, context }) => {
+    const clonedRequest = request.clone();
     const text = await request.text();
 
     const events = await decodeObject(text);
@@ -55,7 +56,7 @@ export const createReportRouteModule = ({
 
     const { adapter, exporter, ip, config } = metronomeContext;
 
-    if (await config.shoudNotTrack(request)) {
+    if (await config.shoudNotTrack(clonedRequest)) {
       return new Response("", { status: 204 });
     }
 
