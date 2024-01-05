@@ -82,11 +82,10 @@ const wrapRemixFunction = (
       const response = await remixFunction(...args);
 
       event.update({
-        httpStatusCode: response instanceof Response ? response?.status : 200,
-        httpStatusText:
-          response instanceof Response
-            ? response?.statusText
-            : "null_or_undefined",
+        httpStatusCode: isResponse(response) ? response.status : 200,
+        httpStatusText: isResponse(response)
+          ? response.statusText
+          : "null_or_undefined",
       });
 
       event.end();
@@ -94,23 +93,33 @@ const wrapRemixFunction = (
       await exporter.send(event);
 
       return response;
-    } catch (error) {
-      // TODO track response throwing :)
-      if (isResponse(error)) {
-        throw error;
+    } catch (throwable) {
+      if (isResponse(throwable)) {
+        event.update({
+          httpStatusCode: throwable ? throwable.status : 200,
+          httpStatusText: throwable
+            ? throwable.statusText
+            : "null_or_undefined",
+        });
+
+        event.end();
+
+        await exporter.send(event);
+
+        throw throwable;
+      } else {
+        event.update({
+          errored: true,
+          httpStatusCode: 513,
+          httpStatusText: "Remix function error",
+        });
+
+        event.end();
       }
-
-      event.update({
-        errored: true,
-        httpStatusCode: 513,
-        httpStatusText: "Remix function error",
-      });
-
-      event.end();
 
       await exporter.send(event);
 
-      throw error;
+      throw throwable;
     }
   };
 };
