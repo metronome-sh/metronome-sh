@@ -1,5 +1,11 @@
 # @metronome-sh/cli
 
+## 7.3.3
+
+### Patch Changes
+
+- 282e49d: fix: now catches responses correctly
+
 ## 7.3.2
 
 ### Patch Changes

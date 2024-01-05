@@ -1,5 +1,13 @@
 # @metronome-sh/node
 
+## 7.3.3
+
+### Patch Changes
+
+- 282e49d: fix: now catches responses correctly
+- Updated dependencies [282e49d]
+  - @metronome-sh/runtime@7.3.3
+
 ## 7.3.2
 
 ### Patch Changes
