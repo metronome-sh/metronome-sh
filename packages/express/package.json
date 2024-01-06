@@ -10,6 +10,7 @@
   "bin": {
     "metronome": "./cli.js"
   },
+  "sideEffects": false,
   "scripts": {
     "build:esbuild": "node --experimental-import-meta-resolve esbuild.mjs",
     "build:typings": "tsc --pretty --declaration --emitDeclarationOnly --outDir dist/",

@@ -1,4 +1,5 @@
 import {
+  AsyncLocalStore,
   ContextWithMetronome,
   METRONOME_CONTEXT_KEY,
   METRONOME_VERSION,
@@ -7,7 +8,6 @@ import {
 import type { ServerBuild } from "@remix-run/node";
 import { NodeExporter, NodeRemixFunctionEvent } from "@metronome-sh/node";
 import { MetronomeConfig, MetronomeConfigHandler } from "@metronome-sh/config";
-import { createRemixRequest } from "@remix-run/express/dist/server";
 import type * as express from "express";
 
 let config: MetronomeConfigHandler;
@@ -17,7 +17,12 @@ export function createMetronomeGetLoadContext(
   {
     configPath,
     metronome,
-  }: { configPath?: string | null; metronome?: MetronomeConfig }
+    asyncLocalStorageGetter,
+  }: {
+    configPath?: string | null;
+    metronome?: MetronomeConfig;
+    asyncLocalStorageGetter: () => AsyncLocalStore | undefined;
+  }
 ) {
   if (process.env.METRONOME_DEBUG === "true") {
     console.log({
@@ -53,8 +58,7 @@ export function createMetronomeGetLoadContext(
     // prettier-ignore
     if (
       (process.env.NODE_ENV !== "production" && process.env.METRONOME_BYPASS !== "true") ||
-      config.shouldIgnoreMethod(request.method) ||
-      (await config.shoudNotTrack(createRemixRequest(request, response) as any))
+      config.shouldIgnoreMethod(request.method)
     ) {
       return {};
     }
@@ -106,6 +110,8 @@ export function createMetronomeGetLoadContext(
     });
 
     response.once("finish", async () => {
+      if (asyncLocalStorageGetter()?.doNotTrack ?? false) return;
+
       event.update({
         errored: response.statusCode >= 400 && response.statusCode < 600,
         statusCode: response.statusCode,

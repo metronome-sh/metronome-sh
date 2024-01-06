@@ -1,11 +1,18 @@
 import { FunctionComponent, useCallback, useEffect, useRef } from "react";
 import { stringify } from "../hooks/helpers";
+import { useMetronomeContext } from "../metronomeContext";
 
 export const QueueManager: FunctionComponent = () => {
   const intervalId = useRef<NodeJS.Timer | undefined>(undefined);
 
+  const { doNotTrack } = useMetronomeContext();
+
   const report = useCallback(() => {
-    if (!window.__metronomeQueue || window.__metronomeQueue.length === 0) {
+    if (
+      !window.__metronomeQueue ||
+      window.__metronomeQueue.length === 0 ||
+      doNotTrack
+    ) {
       return;
     }
 
@@ -26,29 +33,35 @@ export const QueueManager: FunctionComponent = () => {
       window.__metronomeQueue = [];
     }
 
-    // Window events
-    addEventListener("visibilitychange", () => {
+    if (doNotTrack) return;
+
+    const visibilityChangeCallback = () => {
       if (document.visibilityState === "hidden") {
         report();
       }
-    });
+    };
 
-    addEventListener("pagehide", () => {
-      report();
-    });
+    // Window events
+    addEventListener("visibilitychange", visibilityChangeCallback);
 
-    addEventListener("beforeunload", () => {
-      report();
-    });
+    addEventListener("pagehide", report);
+
+    addEventListener("beforeunload", report);
 
     intervalId.current = setInterval(report, 5000);
 
     // Flush the queue
     return () => {
       clearInterval(intervalId.current);
-      report();
+      removeEventListener("visibilitychange", visibilityChangeCallback);
+      removeEventListener("pagehide", report);
+      removeEventListener("beforeunload", report);
+
+      // if (doNotTrack) return;
+
+      // report();
     };
-  }, []);
+  }, [report, doNotTrack]);
 
   return null;
 };

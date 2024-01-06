@@ -1,10 +1,11 @@
-import { useMemo, type FunctionComponent } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { QueueManager } from "./components/QueueManager";
 import { WebAnalyticsTracker } from "./components/WebAnalyticsTracker";
 import { WebVitalsTracker } from "./components/WebVitalsTracker";
 import { ErrorTracker } from "./components/ErrorTracker";
-import { useLoaderData } from "@remix-run/react";
 import { METRONOME_DEVELOPMENT } from "./constants";
+import { useLocation } from "@remix-run/react";
+import { MetronomeContext } from "./metronomeContext";
 
 export const withMetronome =
   process.env.NODE_ENV === "development" && !METRONOME_DEVELOPMENT
@@ -15,20 +16,32 @@ export const withMetronome =
       }
     : (App: () => JSX.Element) => {
         return function Metronome(props: any) {
-          const data = useLoaderData<any>();
+          // const doNotTrack = useMemo(() => {
+          //   try {
+          //     const cookieValue = document.cookie
+          //       .split("; ")
+          //       .find((row) => row.startsWith("__metronome="));
 
-          const doNotTrack = useMemo(() => {
-            return data?.doNotTrack === true;
-          }, [data?.doNotTrack]);
+          //     const data = cookieValue
+          //       ? JSON.parse(decodeURIComponent(cookieValue.split("=")[1]))
+          //       : null;
+
+          //     return data ? data.dnt : false;
+          //   } catch (error) {
+          //     return false;
+          //   }
+          // }, []);
+
+          const [doNotTrack, setDoNotTrack] = useState(false);
 
           return (
-            <>
+            <MetronomeContext.Provider value={{ doNotTrack, setDoNotTrack }}>
               <QueueManager />
               <ErrorTracker />
-              <WebAnalyticsTracker doNotTrack={doNotTrack} />
-              <WebVitalsTracker doNotTrack={doNotTrack} />
+              <WebAnalyticsTracker />
+              <WebVitalsTracker />
               <App {...props} />
-            </>
+            </MetronomeContext.Provider>
           );
         };
       };

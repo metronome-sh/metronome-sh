@@ -71,3 +71,15 @@ export type RegexpRouteMap = Record<
     regexp: RegExp;
   }
 >;
+
+export type AsyncLocalStore = {
+  traceId: string;
+  doNotTrack: boolean;
+};
+
+export interface MetronomeWrapperOptions {
+  type: "action" | "loader";
+  routeId: string;
+  routePath?: string;
+  asyncLocalStorageGetter: () => AsyncLocalStore | undefined;
+}

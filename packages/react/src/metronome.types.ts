@@ -13,3 +13,7 @@ declare global {
     __remixContext: UNSAFE_RemixContextObject;
   }
 }
+
+export type MetronomeContextValue = {
+  doNotTrack: boolean;
+};

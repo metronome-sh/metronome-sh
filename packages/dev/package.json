@@ -8,6 +8,7 @@
     "eslint.js",
     "rollup.js"
   ],
+  "sideEffects": false,
   "license": "MIT",
   "scripts": {},
   "devDependencies": {

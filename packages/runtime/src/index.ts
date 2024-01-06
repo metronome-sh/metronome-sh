@@ -1,3 +1,5 @@
+import StateManager from "./StateManager";
+
 export { METRONOME_CONTEXT_KEY, METRONOME_VERSION } from "./constants";
 export { registerMetronome } from "./registerMetronome";
 
@@ -9,6 +11,7 @@ export type {
   WebVitalIncomingEventData,
   ClientErrorIncomingEventData,
   IncomingEventData,
+  AsyncLocalStore,
 } from "./runtime.types";
 
 export {

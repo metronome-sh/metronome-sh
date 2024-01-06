@@ -10,17 +10,14 @@ import {
 } from "web-vitals/attribution";
 import { useQueue, useGetBrowserData } from "../hooks";
 import { WebVitalIncomingEventData } from "@metronome-sh/runtime";
+import { useMetronomeContext } from "../metronomeContext";
 
-export type WebVitalsTrackerProps = {
-  doNotTrack?: boolean;
-};
-
-export const WebVitalsTracker: FunctionComponent<WebVitalsTrackerProps> = ({
-  doNotTrack,
-}) => {
+export const WebVitalsTracker: FunctionComponent = () => {
   const { enqueue } = useQueue();
 
   const getBrowserData = useGetBrowserData();
+
+  const { doNotTrack } = useMetronomeContext();
 
   const mounted = useRef(false);
 
@@ -28,8 +25,6 @@ export const WebVitalsTracker: FunctionComponent<WebVitalsTrackerProps> = ({
     if (doNotTrack || mounted.current) return;
 
     function enqueueWebVital(metric: Metric) {
-      console.log({ metric });
-
       const webVitalIncomingEventData: WebVitalIncomingEventData = {
         name: "web-vital",
         timestamp: Date.now(),

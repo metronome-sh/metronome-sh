@@ -1,10 +1,11 @@
 import type { ServerBuild } from "@remix-run/server-runtime";
 import { wrapAction, wrapLoader } from "./wrappers";
 import { createReportRouteModule } from "./createReportRouteModule";
-import { RouteMap } from "./runtime.types";
+import { AsyncLocalStore, RouteMap } from "./runtime.types";
 
 export function registerMetronome(
-  build: ServerBuild | (() => Promise<ServerBuild>)
+  build: ServerBuild | (() => Promise<ServerBuild>),
+  asyncLocalStorageGetter: () => AsyncLocalStore | undefined
 ): ServerBuild {
   const routeMap: RouteMap = {};
   const routes: Record<string, ServerBuild["routes"][string]> = {};
@@ -24,7 +25,11 @@ export function registerMetronome(
 
     const newRoute = { ...route, module: { ...route.module } };
 
-    const wrapperOptions = { routeId, routePath: route.path };
+    const wrapperOptions = {
+      routeId,
+      routePath: route.path,
+      asyncLocalStorageGetter,
+    };
 
     if (route.module.action) {
       newRoute.module.action = wrapAction(route.module.action, wrapperOptions);

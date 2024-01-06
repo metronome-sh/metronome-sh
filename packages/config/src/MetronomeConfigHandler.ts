@@ -81,15 +81,8 @@ export class MetronomeConfigHandler {
   }
 
   public async shoudNotTrack(request: Request) {
-    if (!this.config.doNotTrack) return false;
-
-    try {
-      return await this.config.doNotTrack?.(request);
-    } catch (error) {
-      // prettier-ignore
-      console.log("[metronome] the doNotTrack function in your config file threw an error, ignoring...");
-      console.error(error);
-      return false;
-    }
+    console.error(
+      "shoudNotTrack is deprecated. Use unstable_doNotTrack in your loader/action instead."
+    );
   }
 }

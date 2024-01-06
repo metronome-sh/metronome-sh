@@ -10,6 +10,7 @@
   "bin": {
     "metronome": "dist/index.js"
   },
+  "sideEffects": false,
   "scripts": {
     "build": "concurrently \"npm:build:*\"",
     "build:typings": "tsc --declaration --emitDeclarationOnly -p ./tsconfig.json --outDir dist/",

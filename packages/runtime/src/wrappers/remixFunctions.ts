@@ -1,6 +1,10 @@
-import type { ContextWithMetronome } from "../runtime.types";
+import type {
+  ContextWithMetronome,
+  MetronomeWrapperOptions,
+} from "../runtime.types";
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
 import { METRONOME_CONTEXT_KEY, METRONOME_VERSION } from "../constants";
+import StateManager from "../StateManager";
 
 // https://github.com/remix-run/remix/blob/973cd68528c8c58679a5b2d974ae8cefde0db455/packages/remix-server-runtime/responses.ts#L54
 function isResponse(value: any): value is Response {
@@ -11,12 +15,6 @@ function isResponse(value: any): value is Response {
     typeof value.headers === "object" &&
     typeof value.body !== "undefined"
   );
-}
-
-export interface MetronomeWrapperOptions {
-  type: "action" | "loader";
-  routeId: string;
-  routePath?: string;
 }
 
 const wrapRemixFunction = (
@@ -90,10 +88,16 @@ const wrapRemixFunction = (
 
       event.end();
 
-      await exporter.send(event);
+      if (!options.asyncLocalStorageGetter()?.doNotTrack) {
+        await exporter.send(event);
+      }
 
       return response;
     } catch (throwable) {
+      // if (StateManager.instance().wasDoNotTrackCalled()) {
+      //   throw throwable;
+      // }
+
       if (isResponse(throwable)) {
         event.update({
           httpStatusCode: throwable ? throwable.status : 200,
