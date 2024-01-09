@@ -83,11 +83,24 @@ export class MetronomeConfigHandler {
   public async shoudNotTrack(request: Request) {
     if (!this.config.doNotTrack) return false;
 
+    const doNotTrackTimeout = 5000;
+
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(
+        () => reject(new Error(`Timeout ${doNotTrackTimeout}ms exceeded`)),
+        doNotTrackTimeout
+      );
+    });
+
     try {
-      return await this.config.doNotTrack?.(request);
+      return await Promise.race([
+        this.config.doNotTrack(request),
+        timeoutPromise,
+      ]);
     } catch (error) {
-      // prettier-ignore
-      console.log("[metronome] the doNotTrack function in your config file threw an error, ignoring...");
+      console.log(
+        "[metronome] the doNotTrack function in your config file threw an error"
+      );
       console.error(error);
       return false;
     }
