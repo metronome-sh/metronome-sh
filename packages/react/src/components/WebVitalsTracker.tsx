@@ -28,8 +28,6 @@ export const WebVitalsTracker: FunctionComponent<WebVitalsTrackerProps> = ({
     if (doNotTrack || mounted.current) return;
 
     function enqueueWebVital(metric: Metric) {
-      console.log({ metric });
-
       const webVitalIncomingEventData: WebVitalIncomingEventData = {
         name: "web-vital",
         timestamp: Date.now(),
