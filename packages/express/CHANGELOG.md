@@ -1,5 +1,16 @@
 # @metronome-sh/express
 
+## 8.0.1
+
+### Patch Changes
+
+- a10eaba: Removed a console.log
+- Updated dependencies [a10eaba]
+  - @metronome-sh/cli@8.0.1
+  - @metronome-sh/config@8.0.1
+  - @metronome-sh/node@8.0.1
+  - @metronome-sh/runtime@8.0.1
+
 ## 8.0.0
 
 ### Major Changes

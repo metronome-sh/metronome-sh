@@ -1,5 +1,13 @@
 # @metronome-sh/runtime
 
+## 8.0.1
+
+### Patch Changes
+
+- a10eaba: Removed a console.log
+- Updated dependencies [a10eaba]
+  - @metronome-sh/config@8.0.1
+
 ## 8.0.0
 
 ### Major Changes

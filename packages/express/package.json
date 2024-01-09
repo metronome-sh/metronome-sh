@@ -1,6 +1,6 @@
 {
   "name": "@metronome-sh/express",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "description": "Metronome - Insights for Remix",
   "main": "dist/cjs/index.js",
   "types": "dist/index.d.ts",
@@ -33,14 +33,14 @@
   },
   "homepage": "https://github.com/metronome-sh/metronome-sh#readme",
   "dependencies": {
-    "@metronome-sh/cli": "8.0.0",
-    "@metronome-sh/config": "8.0.0",
-    "@metronome-sh/node": "8.0.0",
-    "@metronome-sh/runtime": "8.0.0",
+    "@metronome-sh/cli": "8.0.1",
+    "@metronome-sh/config": "8.0.1",
+    "@metronome-sh/node": "8.0.1",
+    "@metronome-sh/runtime": "8.0.1",
     "ts-invariant": "^0.9.4"
   },
   "devDependencies": {
-    "@metronome-sh/dev": "8.0.0",
+    "@metronome-sh/dev": "8.0.1",
     "@remix-run/express": "^2.4.0",
     "@remix-run/node": "^2.4.0",
     "@remix-run/server-runtime": "^2.4.0",
