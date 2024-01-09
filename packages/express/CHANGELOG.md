@@ -1,5 +1,19 @@
 # @metronome-sh/express
 
+## 8.0.0
+
+### Major Changes
+
+- 9042ca2: The doNotTrack function in the metronome.config.js has a timeout of 5000ms
+
+### Patch Changes
+
+- Updated dependencies [9042ca2]
+  - @metronome-sh/cli@8.0.0
+  - @metronome-sh/config@8.0.0
+  - @metronome-sh/node@8.0.0
+  - @metronome-sh/runtime@8.0.0
+
 ## 7.3.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @metronome-sh/react
 
+## 8.0.0
+
+### Major Changes
+
+- 9042ca2: The doNotTrack function in the metronome.config.js has a timeout of 5000ms
+
 ## 7.3.3
 
 ### Patch Changes
