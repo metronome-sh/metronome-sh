@@ -1,4 +1,5 @@
-import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
+
 export const meta: MetaFunction = () => {
   return [
     { title: "New Remix App" },
@@ -6,13 +7,12 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export function loader({ request }: LoaderFunctionArgs) {
-  console.log({ request });
-  return { date: new Date() };
+export async function loader() {
+  return { message: "Hello World!" };
 }
 
-export function action() {
-  return null;
+export async function action() {
+  return { foo: "Bar" };
 }
 
 export default function Index() {
