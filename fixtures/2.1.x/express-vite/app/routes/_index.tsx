@@ -1,4 +1,9 @@
-import type { MetaFunction } from "@remix-run/node";
+import {
+  defer,
+  json,
+  LoaderFunctionArgs,
+  type MetaFunction,
+} from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
   return [
@@ -7,12 +12,19 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export async function loader() {
-  return { message: "Hello World!" };
+export async function loader({ request }: LoaderFunctionArgs) {
+  // console.log({ headers: request.headers, url: request.url });
+  // Resolve in 5 seconds
+  const foo = new Promise((resolve) => setTimeout(() => resolve("bar"), 3000));
+
+  return defer(
+    { message: "Hello World!", foo },
+    { headers: { "x-foo": "bar" } }
+  );
 }
 
 export async function action() {
-  return { foo: "Bar" };
+  return json({ foo: "Bar" });
 }
 
 export default function Index() {

@@ -34,6 +34,13 @@
   },
   "homepage": "https://github.com/metronome-sh/metronome-sh#readme",
   "dependencies": {
+    "@opentelemetry/api": "^1.7.0",
+    "@opentelemetry/resources": "^1.19.0",
+    "@opentelemetry/sdk-trace-base": "^1.19.0",
+    "@opentelemetry/sdk-trace-node": "^1.19.0",
+    "@opentelemetry/sdk-trace-web": "^1.19.0",
+    "@opentelemetry/semantic-conventions": "^1.19.0",
+    "is-ip": "^5.0.1",
     "magic-string": "^0.30.5",
     "superjson": "^2.2.1",
     "ts-invariant": "^0.9.4"
@@ -49,6 +56,7 @@
   },
   "peerDependencies": {
     "@remix-run/react": "^2.4.0",
+    "@remix-run/server-runtime": "^2.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

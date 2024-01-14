@@ -9,6 +9,7 @@ export default defineConfig({
     tsconfigPaths(),
     metronome({
       ignoredRoutes: ["/healthcheck", /task/],
+      // headersAllowlist: "all",
     }),
   ],
 });

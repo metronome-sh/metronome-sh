@@ -1,12 +1,11 @@
 import { PluginOption } from "vite";
 import MagicString from "magic-string";
 import superjson from "superjson";
+import { MetronomeConfig } from "../types";
+import fs from "fs";
+import path from "path";
 
-export interface MetronomeConfig {
-  endpoint?: string | null;
-  ignoredRoutes?: (string | RegExp)[];
-  ignoredPathnames?: (string | RegExp)[];
-}
+let remixPackages: Record<string, string> = {};
 
 export function metronome(config?: MetronomeConfig): PluginOption {
   return {
@@ -32,13 +31,34 @@ export function metronome(config?: MetronomeConfig): PluginOption {
 
       const regex = /const routes = \{([\s\S]*?)\};/m;
 
-      const configString = superjson.stringify(config);
+      const configString = superjson.stringify({ ...config, remixPackages });
 
       magicString.replace(regex, (match, p1) => {
-        return `const routes = registerMetronome({${p1}}, '${configString}');`;
+        return `const routes = registerMetronome({${p1}}, { version: serverManifest['version'] }, '${configString}');`;
       });
 
       file.code = magicString.toString();
     },
+    configResolved(config) {
+      if (Object.values(remixPackages).length !== 0) return;
+
+      const root = config.root;
+
+      const packageJsonPath = path.resolve(root, "package.json");
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
+
+      remixPackages = Object.fromEntries(
+        Object.entries(packageJson.dependencies ?? {})
+          .filter(([key]) => key.includes("@remix-run/"))
+          .map(([key, value]) => [`remix.package.${key.split("/")[1]}`, value])
+      ) as Record<string, string>;
+    },
+    // transform(code, id) {
+    //   console.log({ id });
+    //   return {
+    //     code,
+    //     map: null, // Provide a source map if needed
+    //   };
+    // },
   };
 }

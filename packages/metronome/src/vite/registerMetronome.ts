@@ -1,14 +1,44 @@
-// import type { ServerBuild } from "@remix-run/server-runtime";
-// import { wrapAction, wrapLoader } from "./wrappers";
-// import { createReportRouteModule } from "./createReportRouteModule";
-// import { RouteMap } from "./runtime.types";
 import superjson from "superjson";
-import { MetronomeConfig } from "./plugin";
+import { MetronomeConfigWithRemixPackages, RouteMap, Routes } from "../types";
+import { wrapAction, wrapLoader } from "./wrapRemixFunction";
+import { startInstrumentation } from "./instrumentation";
+import {} from "@remix-run/server-runtime";
 
-export function registerMetronome(routes: any[], configString: string) {
-  const config = superjson.parse(configString) as MetronomeConfig;
+export function registerMetronome(
+  routes: Routes,
+  remixConfig: { version: string },
+  configString: string
+): Routes {
+  startInstrumentation();
 
-  console.log({ config });
+  const config = superjson.parse(
+    configString
+  ) as MetronomeConfigWithRemixPackages;
+
+  const routeMap: RouteMap = {};
+
+  for (const [routeId, route] of Object.entries(routes)) {
+    routeMap[routeId] = {
+      id: routeId,
+      parentId: route.parentId,
+      path: route.path,
+    };
+
+    const newRoute = { ...route, module: { ...route.module } };
+    const wrapperOptions = {
+      routeId,
+      routePath: route.path,
+      config,
+      ...remixConfig,
+    };
+    if (route.module.action) {
+      newRoute.module.action = wrapAction(route.module.action, wrapperOptions);
+    }
+    if (route.module.loader) {
+      newRoute.module.loader = wrapLoader(route.module.loader, wrapperOptions);
+    }
+    routes[routeId] = newRoute;
+  }
 
   return routes;
   // const routeMap: RouteMap = {};
