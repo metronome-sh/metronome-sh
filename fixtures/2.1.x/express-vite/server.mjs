@@ -1,6 +1,7 @@
 import { createRequestHandler } from "@remix-run/express";
 import { installGlobals } from "@remix-run/node";
 import express from "express";
+import { createMetronomeMiddleware } from "metronome-sh/express";
 
 installGlobals();
 
@@ -19,10 +20,9 @@ const app = express();
 if (viteDevServer) {
   app.use(viteDevServer.middlewares);
 } else {
-  app.use(
-    "/assets",
-    express.static("build/client/assets", { immutable: true, maxAge: "1y" })
-  );
+  app.use("/assets", express.static("build/client/assets", { immutable: true, maxAge: "1y" }));
+
+  app.use(createMetronomeMiddleware(await import("./build/server/index.js")));
 }
 app.use(express.static("build/client", { maxAge: "1h" }));
 

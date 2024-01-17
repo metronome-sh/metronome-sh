@@ -1,1 +1,1 @@
-export const foo = "bar";
+export { withMetronome } from "./withMetronome";

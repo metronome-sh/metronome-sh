@@ -6,8 +6,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { withMetronome } from "metronome-sh/react";
 
-export default function App() {
+function App() {
   return (
     <html lang="en">
       <head>
@@ -25,3 +26,5 @@ export default function App() {
     </html>
   );
 }
+
+export default withMetronome(App);

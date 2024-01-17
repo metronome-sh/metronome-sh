@@ -8,8 +8,9 @@ export default defineConfig({
     remix(),
     tsconfigPaths(),
     metronome({
-      ignoredRoutes: ["/healthcheck", /task/],
-      // headersAllowlist: "all",
+      debug: true,
+      endpoint: "http://localhost:3004",
+      apiKey: "ak_5SF7iqbgeoY1ZHMKKesrPpLh8AsXXCV1SYCBiPJL",
     }),
   ],
 });

@@ -1,19 +1,16 @@
-import superjson from "superjson";
-import { MetronomeConfigWithRemixPackages, RouteMap, Routes } from "../types";
-import { wrapAction, wrapLoader } from "./wrapRemixFunction";
-import { startInstrumentation } from "./instrumentation";
-import {} from "@remix-run/server-runtime";
+import { MetronomeInternalConfig, RouteMap, Routes } from "../common/types";
+import { wrapRemixFunction } from "./wrapRemixFunction";
+import { createClientReportRouteModule } from "./createClientReportRouteModule";
+import { type AssetsManifest } from "@remix-run/server-runtime/dist/entry";
 
 export function registerMetronome(
   routes: Routes,
-  remixConfig: { version: string },
-  configString: string
+  assetsManifest: AssetsManifest,
+  config: MetronomeInternalConfig
 ): Routes {
-  startInstrumentation();
-
-  const config = superjson.parse(
-    configString
-  ) as MetronomeConfigWithRemixPackages;
+  if (!config.apiKey) {
+    config.apiKey = process.env.METRONOME_API_KEY;
+  }
 
   const routeMap: RouteMap = {};
 
@@ -25,57 +22,44 @@ export function registerMetronome(
     };
 
     const newRoute = { ...route, module: { ...route.module } };
+
     const wrapperOptions = {
       routeId,
       routePath: route.path,
       config,
-      ...remixConfig,
+      assetsManifest,
     };
+
     if (route.module.action) {
-      newRoute.module.action = wrapAction(route.module.action, wrapperOptions);
+      newRoute.module.action = wrapRemixFunction(route.module.action, {
+        type: "action",
+        ...wrapperOptions,
+      });
     }
     if (route.module.loader) {
-      newRoute.module.loader = wrapLoader(route.module.loader, wrapperOptions);
+      newRoute.module.loader = wrapRemixFunction(route.module.loader, {
+        type: "loader",
+        ...wrapperOptions,
+      });
     }
     routes[routeId] = newRoute;
   }
 
+  // Register custom metronome route
+  const baseUrl = "__metronome";
+
+  routes[baseUrl] = {
+    id: baseUrl,
+    parentId: undefined,
+    path: baseUrl,
+    index: undefined,
+    caseSensitive: undefined,
+    module: createClientReportRouteModule({
+      routeMap,
+      config,
+      assetsManifest,
+    }),
+  };
+
   return routes;
-  // const routeMap: RouteMap = {};
-  // const routes: Record<string, ServerBuild["routes"][string]> = {};
-  // if (typeof build === "function") {
-  //   throw new Error(
-  //     "registerMetronome does not support async build functions yet"
-  //   );
-  // }
-  // for (const [routeId, route] of Object.entries(build.routes)) {
-  //   routeMap[routeId] = {
-  //     id: routeId,
-  //     parentId: route.parentId,
-  //     path: route.path,
-  //   };
-  //   const newRoute = { ...route, module: { ...route.module } };
-  //   const wrapperOptions = { routeId, routePath: route.path };
-  //   if (route.module.action) {
-  //     newRoute.module.action = wrapAction(route.module.action, wrapperOptions);
-  //   }
-  //   if (route.module.loader) {
-  //     newRoute.module.loader = wrapLoader(route.module.loader, wrapperOptions);
-  //   }
-  //   routes[routeId] = newRoute;
-  // }
-  // // Register custom metronome route
-  // const baseUrl = "__metronome";
-  // routes[baseUrl] = {
-  //   id: baseUrl,
-  //   parentId: undefined,
-  //   path: baseUrl,
-  //   index: undefined,
-  //   caseSensitive: undefined,
-  //   module: createReportRouteModule({
-  //     routeMap,
-  //     hash: build.assets.version,
-  //   }),
-  // };
-  // return { ...build, routes };
 }

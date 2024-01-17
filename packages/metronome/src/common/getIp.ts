@@ -1,7 +1,8 @@
 // Borrowed from:
 // https://github.com/sergiodxa/remix-utils/blob/main/src/server/get-client-ip-address.ts
+import { type Request as ExpressRequest } from "express";
 
-const headerNames = Object.freeze([
+const headerNames = [
   "X-Client-IP",
   "X-Forwarded-For",
   "HTTP-X-Forwarded-For",
@@ -16,7 +17,7 @@ const headerNames = Object.freeze([
   "Forwarded",
   "DO-Connecting-IP" /** Digital ocean app platform */,
   "oxygen-buyer-ip" /** Shopify oxygen platform */,
-] as const);
+] as const;
 
 const isIp = (input: string): boolean => {
   const ipRegex =
@@ -24,20 +25,41 @@ const isIp = (input: string): boolean => {
   return ipRegex.test(input);
 };
 
-export function getIp(request: Request): string | null {
+function isExpressRequest(
+  request: Request | ExpressRequest
+): request is ExpressRequest {
+  return typeof (request as ExpressRequest).originalUrl !== "undefined";
+}
+
+export function getIp(request: Request | ExpressRequest): string | null {
   const headers = request.headers;
 
   let ipAddress = headerNames
     .flatMap((headerName) => {
-      let value = headers.get(headerName);
-      if (headerName === "Forwarded") {
-        return parseForwardedHeader(value);
+      let value: null | string | string[] | undefined;
+
+      if (isExpressRequest(request)) {
+        value = request.headers[headerName];
+      } else {
+        value = request.headers.get(headerName);
       }
-      if (!value?.includes(",")) return value;
-      return value.split(",").map((ip) => ip.trim());
+
+      if (headerName === "Forwarded") {
+        return parseForwardedHeader(typeof value === "string" ? value : null);
+      }
+
+      if (!value) return;
+
+      if (typeof value === "string" && !value.includes(",")) {
+        return value;
+      }
+
+      return typeof value === "string"
+        ? value.split(",").map((ip) => ip.trim())
+        : value;
     })
     .find((ip) => {
-      if (ip === null) return false;
+      if (ip === null || typeof ip === "undefined") return false;
       return isIp(ip);
     });
 
