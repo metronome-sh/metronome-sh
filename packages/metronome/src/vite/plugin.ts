@@ -25,7 +25,7 @@ export function metronome(metronomeConfig?: MetronomeConfig): PluginOption {
 
         const magicString = new MagicString(file.code);
 
-        magicString.prepend(`import { registerMetronome } from 'metronome-sh/vite';\n`);
+        magicString.prepend(`import { registerMetronome } from "metronome-sh/vite";\n`);
 
         const regex = /const routes = \{([\s\S]*?)\};/m;
 

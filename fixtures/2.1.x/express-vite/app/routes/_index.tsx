@@ -9,7 +9,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   // Resolve in 5 seconds
   // const foo = new Promise((resolve) => setTimeout(() => resolve("bar"), 3000));
 
-  throw new Error("This is an error");
+  // throw new Error("This is an error");
 
   return defer({ message: "Hello World!" }, { headers: { "x-foo": "bar" } });
 }
