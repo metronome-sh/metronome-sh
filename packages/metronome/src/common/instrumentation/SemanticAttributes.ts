@@ -1,6 +1,7 @@
 export enum SemanticAttributes {
   AppHostname = "app.hostname",
   AppVersion = "app.version",
+  AppErrored = "app.errored",
   ClientAddress = "client.address",
   ClientConnection = "client.connection",
   ClientDeviceCategory = "client.device_category",
@@ -19,8 +20,10 @@ export enum SemanticAttributes {
   HttpPathname = "http.pathname",
   HttpStatusCode = "http.status_code",
   MetronomeVersion = "metronome.version",
+  MetronomeAdapter = "metronome.adapter",
   RemixDeferred = "remix.deferred",
   RemixFunction = "remix.function",
+  RemixRequestType = "remix.request_type",
   RemixRouteId = "remix.route_id",
   RemixRoutePath = "remix.route_path",
   RemixThrownResponse = "remix.thrown_response",

@@ -1,4 +1,4 @@
-import type { ActionFunction } from "@remix-run/server-runtime";
+import type { ActionFunction, ActionFunctionArgs } from "@remix-run/server-runtime";
 import { getIp } from "../common/getIp";
 
 import { METRONOME_VERSION } from "../common/constants";
@@ -91,6 +91,13 @@ export const createClientReportRouteModule = ({
             [SemanticAttributes.ClientAddress]: ip,
             [SemanticAttributes.UserAgentOriginal]: request.headers.get("user-agent") ?? "",
             [SemanticAttributes.UrlQuery]: url.search,
+            [SemanticAttributes.ClientScreen]: pvResult.data.screen,
+            [SemanticAttributes.ClientReferrer]: pvResult.data.referrer,
+            [SemanticAttributes.AppHostname]: url.hostname,
+            [SemanticAttributes.ClientLanguage]: pvResult.data.language,
+            [SemanticAttributes.ClientConnection]: pvResult.data.connection,
+            [SemanticAttributes.ClientDeviceCategory]: pvResult.data.deviceCategory,
+            [SemanticAttributes.HttpPathname]: pvResult.data.pathname,
             ...remixAttributes,
             ...config.remixPackages,
           })
@@ -138,5 +145,16 @@ export const createClientReportRouteModule = ({
     return new Response("", { status: 204 });
   };
 
-  return { action, default: undefined };
+  return {
+    action,
+    // action: async (args: ActionFunctionArgs) => {
+    //   try {
+    //     return await action(args);
+    //   } catch (error) {
+    //     console.error("Metronome: failed to process events", error);
+    //     return new Response("", { status: 204 });
+    //   }
+    // },
+    default: undefined,
+  };
 };

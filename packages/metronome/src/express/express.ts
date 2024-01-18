@@ -8,6 +8,7 @@ import { getIp } from "../common/getIp";
 import { METRONOME_VERSION } from "../common/constants";
 import { MetronomeInternalConfig } from "src/common/types";
 import { invariant } from "ts-invariant";
+import { SemanticAttributes } from "../common/instrumentation/SemanticAttributes";
 
 export function createMetronomeMiddleware(build: any) {
   const config = build.metronome as MetronomeInternalConfig;
@@ -26,18 +27,25 @@ export function createMetronomeMiddleware(build: any) {
 
     const ip = getIp(req) ?? "0.0.0.0.";
 
+    const url = new URL(req.url || "/", `http://${req.headers.host || "localhost"}`);
+
     const attributes = {
-      "metronome.adapter": "express",
-      "http.method": req.method.toUpperCase(),
-      "url.full": req.url,
-      "metronome.version": METRONOME_VERSION,
-      "client.address": ip,
-      "user_agent.original": req.headers["user-agent"] ?? "",
+      [SemanticAttributes.MetronomeAdapter]: "express",
+      [SemanticAttributes.HttpMethod]: req.method.toUpperCase(),
+      [SemanticAttributes.UrlFull]: req.url,
+      [SemanticAttributes.MetronomeVersion]: METRONOME_VERSION,
+      [SemanticAttributes.ClientAddress]: ip,
+      [SemanticAttributes.UserAgentOriginal]: req.headers["user-agent"] ?? "",
+      [SemanticAttributes.RemixRequestType]: url.searchParams.has("_data") ? "data" : "document",
+      [SemanticAttributes.HttpPathname]: url.pathname,
     };
 
     tracer().startActiveSpan("request", { attributes }, (span) => {
       res.on("finish", () => {
-        span.setAttributes(tracer().getAsyncLocalStore()?.requestResolvedAttributes ?? {});
+        span.setAttributes({
+          ...(tracer().getAsyncLocalStore()?.requestResolvedAttributes ?? {}),
+          [SemanticAttributes.HttpStatusCode]: res.statusCode,
+        });
         span.end();
       });
       next();

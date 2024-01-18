@@ -23,7 +23,7 @@ export function useGetBrowserData() {
     }
 
     return {
-      pathname: location.pathname,
+      pathname: location.pathname ?? "",
       url: window.location.href,
       hostname: window.location.hostname,
       referrer: document.referrer,

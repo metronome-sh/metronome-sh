@@ -2,16 +2,14 @@ import { SemanticAttributes } from "./instrumentation/SemanticAttributes";
 import { RegexpRouteMap, RouteMap } from "./types";
 import { pathToRegexp } from "path-to-regexp";
 
-function getCurrentUtcHourShift(): number {
+function getCurrentUtcHour(): number {
   const now = new Date();
-  const hour = now.getUTCHours();
-  const minute = now.getUTCMinutes();
-  return hour + Math.floor(minute / 15);
+  return now.getUTCHours();
 }
 
 export function obfuscate(inputObj: object): string {
   const inputStr = JSON.stringify(inputObj);
-  const shift = getCurrentUtcHourShift();
+  const shift = getCurrentUtcHour();
 
   return inputStr
     .split("")
@@ -19,15 +17,17 @@ export function obfuscate(inputObj: object): string {
     .join("");
 }
 
-export function deobfuscate<T extends object = {}>(
-  input: string
-): T | undefined {
-  // Tolerate a drift of up to 1 hour and 15 minutes
-  const possibleShifts = [] as number[];
-  for (let i = 0; i <= 4; i++) {
-    // Adjust 4 to the number of minute segments you use
-    possibleShifts.push((getCurrentUtcHourShift() - i + 24) % 24);
+export function deobfuscate<T extends object = {}>(input: string): T | undefined {
+  function rotateArray(arr: number[], n: number) {
+    const prevIndex = n - 1 < 0 ? arr.length - 1 : n - 1;
+    const nextPart = arr.slice(n + 1).concat(arr.slice(0, prevIndex));
+    return [arr[n], arr[prevIndex]].concat(nextPart);
   }
+
+  const possibleShifts = rotateArray(
+    Array.from(Array(24), (_, i) => i),
+    getCurrentUtcHour()
+  );
 
   for (const shift of possibleShifts) {
     const attempt = input
@@ -95,14 +95,12 @@ export function getRemixAttributes({
   [SemanticAttributes.RemixRoutePath]: string;
   [SemanticAttributes.AppVersion]: string;
 } {
-  const found = Object.values(toRegexpRouteMap(routeMap)).find(
-    ({ regexp, id }) => {
-      // Skip root route
-      if (id === "root") return false;
+  const found = Object.values(toRegexpRouteMap(routeMap)).find(({ regexp, id }) => {
+    // Skip root route
+    if (id === "root") return false;
 
-      return regexp.test(path);
-    }
-  );
+    return regexp.test(path);
+  });
 
   if (!found)
     return {

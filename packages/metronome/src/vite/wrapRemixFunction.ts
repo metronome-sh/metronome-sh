@@ -170,6 +170,11 @@ export const wrapRemixFunction = (
       [SemanticAttributes.RemixRouteId]: options.routeId,
       [SemanticAttributes.RemixRoutePath]: options.routePath ?? "",
       [SemanticAttributes.RemixFunction]: options.type,
+      [SemanticAttributes.MetronomeAdapter]: "vite",
+      [SemanticAttributes.HttpPathname]: new URL(
+        request.url,
+        `http://${request.headers.get("host") ?? "localhost"}`
+      ).pathname,
       ...options.config.remixPackages,
     };
 
@@ -220,6 +225,8 @@ export const wrapRemixFunction = (
 
         return result;
       } catch (throwable) {
+        span.setAttribute(SemanticAttributes.AppErrored, true);
+
         if (isResponse(throwable)) {
           span.setAttribute(SemanticAttributes.HttpStatusCode, throwable.status);
           span.setAttribute(SemanticAttributes.RemixThrownResponse, true);

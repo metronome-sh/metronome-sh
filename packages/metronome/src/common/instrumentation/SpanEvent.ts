@@ -26,4 +26,12 @@ export class SpanEvent {
   getName(): string {
     return this.name;
   }
+
+  toObject() {
+    return {
+      name: this.name,
+      attributes: this.attributes,
+      timestamp: this.timestamp,
+    };
+  }
 }

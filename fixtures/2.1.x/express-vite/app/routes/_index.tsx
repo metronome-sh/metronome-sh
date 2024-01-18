@@ -1,26 +1,17 @@
-import {
-  defer,
-  json,
-  LoaderFunctionArgs,
-  type MetaFunction,
-} from "@remix-run/node";
+import { defer, json, LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
-  return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
-  ];
+  return [{ title: "New Remix App" }, { name: "description", content: "Welcome to Remix!" }];
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   // console.log({ headers: request.headers, url: request.url });
   // Resolve in 5 seconds
-  const foo = new Promise((resolve) => setTimeout(() => resolve("bar"), 3000));
+  // const foo = new Promise((resolve) => setTimeout(() => resolve("bar"), 3000));
 
-  return defer(
-    { message: "Hello World!", foo },
-    { headers: { "x-foo": "bar" } }
-  );
+  throw new Error("This is an error");
+
+  return defer({ message: "Hello World!" }, { headers: { "x-foo": "bar" } });
 }
 
 export async function action() {
@@ -33,20 +24,12 @@ export default function Index() {
       <h1>Welcome to Remix</h1>
       <ul>
         <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
+          <a target="_blank" href="https://remix.run/tutorials/blog" rel="noreferrer">
             15m Quickstart Blog Tutorial
           </a>
         </li>
         <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer"
-          >
+          <a target="_blank" href="https://remix.run/tutorials/jokes" rel="noreferrer">
             Deep Dive Jokes App Tutorial
           </a>
         </li>
