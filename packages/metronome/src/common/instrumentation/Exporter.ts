@@ -36,16 +36,14 @@ export abstract class Exporter {
     try {
       const request = protocol.startsWith("https") ? https.request(options) : http.request(options);
 
-      request.write(data, "utf-8");
-
       request.on("error", (error: Error) => {
         if (this.config.debug) {
           console.error(`Metronome: Metric data was not sent to metronome`);
           console.error(error);
         }
-
-        request.removeAllListeners();
       });
+
+      request.write(data, "utf-8");
 
       request.end(() => {
         request.removeAllListeners();

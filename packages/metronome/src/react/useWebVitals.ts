@@ -1,15 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useGetBrowserData } from "./useGetBrowserData";
 import type { useQueue } from "./useQueue";
-import {
-  onLCP,
-  onFID,
-  onCLS,
-  onTTFB,
-  onFCP,
-  onINP,
-  type Metric,
-} from "web-vitals/attribution";
+import { onLCP, onFID, onCLS, onTTFB, onFCP, onINP, type Metric } from "web-vitals/attribution";
 
 export function useWebVitals(enqueue: ReturnType<typeof useQueue>["enqueue"]) {
   const mounted = useRef(false);
@@ -32,6 +24,7 @@ export function useWebVitals(enqueue: ReturnType<typeof useQueue>["enqueue"]) {
         ...getBrowserData(),
       };
 
+      console.log(webVitalMetric);
       enqueue(webVitalMetric);
     }
 

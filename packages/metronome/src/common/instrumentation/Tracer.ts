@@ -42,14 +42,23 @@ export class Tracer {
     return asyncLocalStorage.getStore();
   }
 
-  public createHistogram(name: string, attributes?: Record<string, OtelAttribute>) {
-    const metric = new Metric(name, { type: "histogram", attributes });
+  public createHistogram(
+    name: string,
+    options?: { attributes?: Record<string, OtelAttribute>; id?: string }
+  ) {
+    const metric = new Metric(name, {
+      type: "histogram",
+      ...(options ?? {}),
+    });
     metric.addOnRecordListener(() => this.exportMetric(metric));
     return metric;
   }
 
-  public createCounter(name: string, attributes?: Record<string, OtelAttribute>) {
-    const metric = new Metric(name, { type: "counter", attributes });
+  public createCounter(
+    name: string,
+    options?: { attributes?: Record<string, OtelAttribute>; id?: string }
+  ) {
+    const metric = new Metric(name, { type: "counter", ...(options ?? {}) });
     metric.addOnRecordListener(() => this.exportMetric(metric));
     return metric;
   }

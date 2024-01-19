@@ -42,6 +42,7 @@ export function registerMetronome(
         ...wrapperOptions,
       });
     }
+
     routes[routeId] = newRoute;
   }
 

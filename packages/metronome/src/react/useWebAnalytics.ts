@@ -3,9 +3,7 @@ import { useEffect, useRef } from "react";
 import { useGetBrowserData } from "./useGetBrowserData";
 import { useQueue } from "./useQueue";
 
-export function useWebAnalytics(
-  enqueue: ReturnType<typeof useQueue>["enqueue"]
-) {
+export function useWebAnalytics(enqueue: ReturnType<typeof useQueue>["enqueue"]) {
   const lastLocationKey = useRef<string | null>();
 
   const location = useLocation();

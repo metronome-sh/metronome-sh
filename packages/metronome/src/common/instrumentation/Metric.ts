@@ -14,22 +14,20 @@ export class Metric {
   constructor(
     readonly name: string,
     options?: Partial<{
+      id?: string;
       unit?: string;
       type: "counter" | "gauge" | "histogram";
       attributes: Record<string, OtelAttribute>;
     }>
   ) {
-    this.id = crypto.randomBytes(8).toString("hex").toLowerCase();
+    this.id = options?.id ?? crypto.randomBytes(8).toString("hex").toLowerCase();
     this.unit = options?.unit ?? "";
     this.type = options?.type ?? "counter";
     this.attributes = options?.attributes ?? {};
     this.timestamp = Date.now();
   }
 
-  public record(
-    value: number,
-    attributes: Record<string, OtelAttribute>
-  ): Metric {
+  public record(value: number, attributes: Record<string, OtelAttribute>): Metric {
     if (this.isDisposed) {
       throw new Error("Metric is disposed, cannot record.");
     }

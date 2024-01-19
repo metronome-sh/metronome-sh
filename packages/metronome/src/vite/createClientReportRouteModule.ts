@@ -29,15 +29,19 @@ export const createClientReportRouteModule = ({
     const ip = getIp(request) ?? "0.0.0.0";
 
     if (!events) {
-      console.warn("Metronome: couldn't process events");
-      return new Response("", { status: 204 });
+      if (config.debug) {
+        console.warn("Metronome: couldn't process events");
+      }
+      return new Response(null, { status: 204 });
     }
 
     const result = z.array(z.any()).safeParse(events);
 
     if (!result.success) {
-      console.warn("Metronome: Invalid event(s)", JSON.stringify(events));
-      return new Response("", { status: 204 });
+      if (config.debug) {
+        console.warn("Metronome: Invalid event(s)", JSON.stringify(events));
+      }
+      return new Response(null, { status: 204 });
     }
 
     result.data.forEach((incoming) => {
@@ -51,7 +55,7 @@ export const createClientReportRouteModule = ({
       const wvResult = WebVitalSchema.safeParse(incoming);
       if (wvResult.success) {
         const { data } = wvResult;
-        const metric = tracer().createHistogram(data.metric.name);
+        const metric = tracer().createHistogram(data.metric.name, { id: data.metric.id });
 
         metric
           .record(data.metric.value, {
@@ -142,19 +146,11 @@ export const createClientReportRouteModule = ({
       }
     });
 
-    return new Response("", { status: 204 });
+    return new Response(null, { status: 204 });
   };
 
   return {
     action,
-    // action: async (args: ActionFunctionArgs) => {
-    //   try {
-    //     return await action(args);
-    //   } catch (error) {
-    //     console.error("Metronome: failed to process events", error);
-    //     return new Response("", { status: 204 });
-    //   }
-    // },
     default: undefined,
   };
 };
