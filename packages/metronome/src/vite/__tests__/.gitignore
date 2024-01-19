@@ -1,1 +1,2 @@
-.remix/*
+/.remix/*
+!/.remix/.gitkeep

@@ -18,7 +18,7 @@ export const createClientReportRouteModule = ({
   config,
 }: {
   routeMap: RouteMap;
-  assetsManifest: AssetsManifest;
+  assetsManifest: Pick<AssetsManifest, "version">;
   config: MetronomeInternalConfig;
 }): ServerRouteModule => {
   const action: ActionFunction = async ({ request }) => {

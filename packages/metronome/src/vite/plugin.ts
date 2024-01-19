@@ -11,7 +11,7 @@ export function metronome(metronomeConfig?: MetronomeConfig): PluginOption {
     {
       apply: "build",
       name: "metronome",
-      generateBundle(options, bundle) {
+      generateBundle(_, bundle) {
         const serverBuild = Object.entries(bundle).find(([, value]) => {
           const facadeModuleId = (value as any)?.facadeModuleId;
           return facadeModuleId?.includes("virtual:remix/server-build");

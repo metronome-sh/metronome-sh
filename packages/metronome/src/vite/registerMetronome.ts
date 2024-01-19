@@ -5,7 +5,7 @@ import { type AssetsManifest } from "@remix-run/server-runtime/dist/entry";
 
 export function registerMetronome(
   routes: Routes,
-  assetsManifest: AssetsManifest,
+  assetsManifest: Pick<AssetsManifest, "version">,
   config: MetronomeInternalConfig
 ): Routes {
   if (!config.apiKey) {

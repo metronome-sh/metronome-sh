@@ -36,7 +36,7 @@ export interface MetronomeWrapperOptions {
   routeId: string;
   routePath?: string;
   config: MetronomeInternalConfig;
-  assetsManifest: AssetsManifest;
+  assetsManifest: Pick<AssetsManifest, "version">;
 }
 
 export type RegexpRouteMap = Record<
