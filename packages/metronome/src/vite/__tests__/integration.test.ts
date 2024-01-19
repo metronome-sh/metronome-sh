@@ -19,7 +19,8 @@ export default defineConfig({
 
 async function install({ template, dirname }: { template: string; dirname: string }) {
   await $$`rm -rf ${dirname}`;
-  await $$`npx --yes create-remix@latest --template ${template} --no-install --yes ${dirname}`;
+  // For some reason npx has a weird interaction with create-remix in setting up the dirname
+  await $$`pnpm dlx create-remix@latest --template ${template} --no-install --yes ${dirname}`;
 
   const packageJsonPath = path.join(tmpDir, dirname, "package.json");
   const packageJson = JSON.parse(await fs.readFile(packageJsonPath, "utf-8"));
