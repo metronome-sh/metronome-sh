@@ -1,7 +1,5 @@
-import { renderHook, act } from "@testing-library/react";
-import { useQueue } from "../useQueue";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import * as helpersModule from "../../common/helpers";
+import { renderHook } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
 import { useDoNotTrack } from "../useDoNotTrack";
 
 const sendBeaconMock = vi.fn();
