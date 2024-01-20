@@ -115,9 +115,38 @@ describe("createClientReportRouteModule", () => {
 
     expect((response as Response)?.status).toBe(204);
 
-    // prettier-ignore
-    const sentToMetrics = [{"name":"web-vital","details":{"timestamp":579506400100,"name":"FCP","value":145.89999997615814,"rating":"good","navigationType":"reload","hash":"1.0.0","routeId":"routes/_index","routePath":"/","ip":"127.0.0.1","ua":"test-ua","pathname":"/","query":"?","screen":"1512x982","referrer":"","hostname":"localhost","language":"en-US","connection":"4g","deviceCategory":"desktop","metric":{"id":"v3-1705647112777-8438382070669","name":"FCP","value":145.89999997615814,"rating":"good","navigationType":"reload"}}}];
-    await expect(onMockRequest).toHaveBeenEventuallyCalledWith(sentToMetrics);
+    await expect(onMockRequest).toHaveBeenEventuallyCalledWith([
+      {
+        name: "web-vital",
+        details: {
+          timestamp: 579506400000,
+          name: "FCP",
+          value: 145.89999997615814,
+          rating: "good",
+          navigationType: "reload",
+          hash: "1.0.0",
+          routeId: "routes/_index",
+          routePath: "/",
+          ip: "127.0.0.1",
+          ua: "test-ua",
+          pathname: "/",
+          query: "?",
+          screen: "1512x982",
+          referrer: "",
+          hostname: "localhost",
+          language: "en-US",
+          connection: "4g",
+          deviceCategory: "desktop",
+          metric: {
+            id: "v3-1705647112777-8438382070669",
+            name: "FCP",
+            value: 145.89999997615814,
+            rating: "good",
+            navigationType: "reload",
+          },
+        },
+      },
+    ]);
   });
 
   it.todo("should report metrics when receiving a client error request");
