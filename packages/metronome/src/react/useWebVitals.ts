@@ -1,16 +1,35 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGetBrowserData } from "./useGetBrowserData";
 import type { useQueue } from "./useQueue";
-import { onLCP, onFID, onCLS, onTTFB, onFCP, onINP, type Metric } from "web-vitals/attribution";
+import { METRONOME_VERSION } from "../common/constants";
+import type * as WebVitals from "web-vitals/attribution";
+
+declare global {
+  interface Window {
+    _webVitals?: typeof WebVitals;
+  }
+}
 
 export function useWebVitals(enqueue: ReturnType<typeof useQueue>["enqueue"]) {
-  const mounted = useRef(false);
   const getBrowserData = useGetBrowserData();
+  const [webVitalScriptLoaded, setWebVitalScriptLoaded] = useState(false);
 
   useEffect(() => {
-    if (mounted.current) return;
+    const handleOnLoad = () => {
+      window._webVitals = window.webVitals as unknown as typeof WebVitals;
+      setWebVitalScriptLoaded(true);
+    };
 
-    function enqueueWebVital(metric: Metric) {
+    const script = document.createElement("script");
+    script.src = `/__metronome/web-vitals/${METRONOME_VERSION}`;
+    script.onload = handleOnLoad;
+    document.head.appendChild(script);
+  }, []);
+
+  useEffect(() => {
+    if (!webVitalScriptLoaded || typeof window._webVitals === "undefined") return;
+
+    function enqueueWebVital(metric: WebVitals.Metric) {
       const webVitalMetric = {
         name: "web-vital",
         timestamp: Date.now(),
@@ -24,17 +43,14 @@ export function useWebVitals(enqueue: ReturnType<typeof useQueue>["enqueue"]) {
         ...getBrowserData(),
       };
 
-      console.log(webVitalMetric);
       enqueue(webVitalMetric);
     }
 
-    onLCP(enqueueWebVital);
-    onFCP(enqueueWebVital);
-    onFID(enqueueWebVital);
-    onCLS(enqueueWebVital);
-    onTTFB(enqueueWebVital);
-    onINP(enqueueWebVital);
-
-    mounted.current = true;
-  }, [enqueue, getBrowserData]);
+    window._webVitals.onFCP(enqueueWebVital);
+    window._webVitals.onFCP(enqueueWebVital);
+    window._webVitals.onFID(enqueueWebVital);
+    window._webVitals.onCLS(enqueueWebVital);
+    window._webVitals.onTTFB(enqueueWebVital);
+    window._webVitals.onINP(enqueueWebVital);
+  }, [webVitalScriptLoaded]);
 }

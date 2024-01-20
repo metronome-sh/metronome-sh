@@ -1,12 +1,4 @@
-import {
-  Links,
-  LiveReload,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "@remix-run/react";
-import { withMetronome } from "metronome-sh/react";
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 
 function App() {
   return (
@@ -27,4 +19,4 @@ function App() {
   );
 }
 
-export default withMetronome(App);
+export default App;

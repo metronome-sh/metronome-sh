@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, test } from "vitest";
+import { describe, expect, test } from "vitest";
 import { $ } from "execa";
 import fs from "fs/promises";
 import path from "path";

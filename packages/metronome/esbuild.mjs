@@ -1,6 +1,17 @@
 import { build } from "esbuild";
 import { replace } from "esbuild-plugin-replace";
 import packageJson from "./package.json" assert { type: "json" };
+import path from "path";
+import fs from "fs";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const webVitalsAttributes = fs.readFileSync(
+  path.resolve(__dirname, "./node_modules/web-vitals/dist/web-vitals.iife.js"),
+  "utf-8"
+);
 
 const replaceAsyncStoragePlugin = {
   name: "replace-async-storage",
@@ -21,6 +32,7 @@ const commonConfig = {
   plugins: [
     replace({
       "process.env.METRONOME_VERSION": JSON.stringify(packageJson.version),
+      "process.env.METRONOME_WEB_VITALS": JSON.stringify(webVitalsAttributes),
     }),
     replaceAsyncStoragePlugin,
   ],
@@ -44,6 +56,9 @@ export const viteConfig = {
   format: "esm",
   outfile: "dist/esm/vite.js",
   platform: "node",
+  define: {
+    "process.env.METRONOME_WEB_VITALS": "process.env.METRONOME_WEB_VITALS",
+  },
 };
 
 export const serverConfig = {

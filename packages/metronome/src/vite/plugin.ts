@@ -56,6 +56,18 @@ export function metronome(metronomeConfig?: MetronomeConfig): PluginOption {
           endpoint: metronomeConfig?.endpoint ?? "https://metrics.metronome.sh",
         };
       },
+      transform(code, id) {
+        if (id.includes("root.tsx")) {
+          const magicString = new MagicString(code);
+          magicString.prepend(`import { withMetronome } from "metronome-sh/react";\n`);
+
+          const withMetronomeRegex = /export default (\w+);/;
+
+          magicString.replace(withMetronomeRegex, "export default withMetronome($1);");
+
+          return { code: magicString.toString() };
+        }
+      },
     },
   ];
 }

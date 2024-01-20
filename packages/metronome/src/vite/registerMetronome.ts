@@ -2,6 +2,7 @@ import { MetronomeInternalConfig, RouteMap, Routes } from "../common/types";
 import { wrapRemixFunction } from "./wrapRemixFunction";
 import { createClientReportRouteModule } from "./createClientReportRouteModule";
 import { type AssetsManifest } from "@remix-run/server-runtime/dist/entry";
+import * as webVitalsModule from "./webVitalsModule";
 
 export function registerMetronome(
   routes: Routes,
@@ -60,6 +61,15 @@ export function registerMetronome(
       config,
       assetsManifest,
     }),
+  };
+
+  routes[`${baseUrl}/web-vitals.$version`] = {
+    id: `${baseUrl}/web-vitals.$version`,
+    parentId: undefined,
+    path: `${baseUrl}/web-vitals/:version`,
+    index: undefined,
+    caseSensitive: undefined,
+    module: webVitalsModule,
   };
 
   return routes;
