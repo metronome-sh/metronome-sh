@@ -3,13 +3,14 @@ import { obfuscate } from "../common/helpers";
 
 if (typeof window !== "undefined") {
   window.__metronomeQueue = window.__metronomeQueue ?? [];
+  window.__metronomeDoNotTrack = window.__metronomeDoNotTrack ?? false;
 }
 
 export function useQueue() {
   const intervalId = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const report = useCallback(() => {
-    if (window.__metronomeQueue.length === 0) {
+    if (window.__metronomeQueue.length === 0 || window.__metronomeDoNotTrack) {
       return;
     }
 

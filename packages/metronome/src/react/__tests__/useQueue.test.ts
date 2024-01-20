@@ -80,4 +80,17 @@ describe("useQueue", () => {
       '[{"name":"test","timestamp":0}]'
     );
   });
+
+  it("should not send beacon when window.__metronomeDoNotTrack is set", async () => {
+    const { result } = renderHook(() => useQueue());
+
+    act(() => {
+      result.current.enqueue({ name: "test", timestamp: 0 });
+    });
+
+    window.__metronomeDoNotTrack = true;
+    vi.advanceTimersToNextTimer();
+
+    await expect(sendBeaconMock).not.toHaveBeenEventuallyCalled();
+  });
 });

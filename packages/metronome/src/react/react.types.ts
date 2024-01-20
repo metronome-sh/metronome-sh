@@ -6,7 +6,8 @@ import type {
 
 declare global {
   interface Window {
-    __metronomeQueue: any; // IncomingEventData[];
+    __metronomeQueue: any;
+    __metronomeDoNotTrack: boolean;
     __remixManifest: UNSAFE_RouteManifest<unknown>;
     __remixRouteModules: UNSAFE_RouteModules;
     __remixContext: UNSAFE_RemixContextObject;
