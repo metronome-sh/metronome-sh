@@ -22,7 +22,7 @@ export interface MetronomeConfig {
   apiKey?: string | null;
   ignoredRoutes?: (string | RegExp)[];
   ignoredPathnames?: (string | RegExp)[];
-  headersAllowlist?: HeaderAllowlist;
+  // headersAllowlist?: HeaderAllowlist;
   debug?: boolean;
 }
 
@@ -63,5 +63,11 @@ export type OtelContext = {
 
 export type AsyncLocalStore = {
   traceId: string;
+  doNotTrack?: boolean;
+  doNotTrackErrors?: boolean;
   requestResolvedAttributes?: Record<string, OtelAttribute>;
+};
+
+export type DoNotTrackOptions = {
+  doNotTrackErrors: boolean;
 };

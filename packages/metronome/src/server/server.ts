@@ -1,3 +1,1 @@
-export function doNotTrack() {
-  //
-}
+export { doNotTrack } from "./doNotTrack";

@@ -11,6 +11,8 @@ export default defineConfig({
       debug: true,
       endpoint: "http://localhost:3004",
       apiKey: "test-api-key",
+      ignoredPathnames: ["/ignored"],
+      ignoredRoutes: ["ignored"],
     }),
   ],
 });
