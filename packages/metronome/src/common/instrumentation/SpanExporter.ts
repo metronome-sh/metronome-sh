@@ -51,9 +51,7 @@ export class SpanExporter extends Exporter {
           httpMethod: data.attributes[SemanticAttributes.HttpMethod],
           httpStatusCode:
             data.attributes[SemanticAttributes.HttpStatusCode] ??
-            data.attributes[SemanticAttributes.AppErrored]
-              ? 500
-              : 200,
+            (data.attributes[SemanticAttributes.AppErrored] ? 500 : 200),
           httpStatusText: "",
         },
       };

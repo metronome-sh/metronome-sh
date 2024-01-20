@@ -27,7 +27,7 @@ server.events.on("request:end", async ({ request }) => {
   body += decoder.decode();
 
   // Uncomment to debug
-  // console.log("request:end", body);
+  // console.log("request:end \n", body);
 
   try {
     const json = JSON.parse(body);

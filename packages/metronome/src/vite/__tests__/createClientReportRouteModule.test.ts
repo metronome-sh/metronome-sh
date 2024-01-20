@@ -1,5 +1,3 @@
-// createClientReportRouteModule.spec.ts
-
 import { beforeAll, describe, expect, it } from "vitest";
 import { createClientReportRouteModule } from "../createClientReportRouteModule";
 import { MetronomeInternalConfig, RouteMap } from "../../common/types";
