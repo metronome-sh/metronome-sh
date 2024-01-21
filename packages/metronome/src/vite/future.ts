@@ -1,6 +1,7 @@
 import { HeaderAllowlist } from "../common/types";
 import { isDeferredData, isResponse } from "./helpers";
 import { Span } from "../common/instrumentation/Span";
+import { TypedDeferredData } from "@remix-run/server-runtime";
 
 export function setHeadersToSpan({
   result,

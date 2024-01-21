@@ -64,7 +64,8 @@
     "@remix-run/react": "^2.4.0",
     "@remix-run/server-runtime": "^2.4.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "vite": "^5.0.0"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -72,23 +73,22 @@
   "exports": {
     "./react": {
       "import": "./dist/esm/react.js",
-      "types": "./dist/react/react.d.ts"
+      "types": "./dist/src/react/react.d.ts"
     },
     "./vite": {
       "import": "./dist/esm/vite.js",
-      "types": "./dist/vite/vite.d.ts"
+      "types": "./dist/src/vite/vite.d.ts"
     },
     "./server": {
       "import": "./dist/esm/server.js",
-      "types": "./dist/server/server.d.ts"
+      "types": "./dist/src/server/server.d.ts"
     },
     "./express": {
       "import": "./dist/esm/express.js",
-      "types": "./dist/express/express.d.ts"
+      "types": "./dist/src/express/express.d.ts"
     },
     "./async-local-storage": {
-      "import": "./dist/esm/async-local-storage.js",
-      "types": "./dist/async-local-storage/async-local-storage.d.ts"
+      "import": "./dist/esm/async-local-storage.js"
     }
   }
 }

@@ -17,6 +17,9 @@ export const wrapRemixFunction = (
     const requestStore = asyncLocalStorage.getStore();
     const [{ request }] = args;
 
+    // Don't track head requests
+    if (request.method.toLowerCase() === "head") return remixFunction(...args);
+
     const ignoredPathnames = options.config.ignoredPathnames ?? ["/healthcheck"];
     const shouldIgnoreRouteByPathname = ignoredPathnames.some((value) => {
       const { pathname } = new URL(

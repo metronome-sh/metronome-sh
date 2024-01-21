@@ -1,9 +1,10 @@
 import { expect, vi } from "vitest";
 
+const timeout = 250;
+
 expect.extend({
   async toHaveBeenEventuallyCalled(received) {
     const { isNot } = this;
-    const timeout = 2000;
     let pass = false;
     try {
       await vi.waitUntil(() => received.mock.calls.length, { timeout });
@@ -19,7 +20,6 @@ expect.extend({
   },
 
   async toHaveBeenEventuallyCalledWith(received, ...expectedArgs) {
-    const timeout = 2000;
     const { equals } = this;
 
     let pass = true;

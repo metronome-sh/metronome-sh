@@ -15,7 +15,7 @@ import { metronome } from "metronome-sh/vite";
 export default defineConfig({
   plugins: [remix(), tsconfigPaths(), metronome()],
 });
-`;
+`.trim();
 
 async function install({ template, dirname }: { template: string; dirname: string }) {
   await $$`rm -rf ${dirname}`;
@@ -33,6 +33,10 @@ async function install({ template, dirname }: { template: string; dirname: strin
   await fs.writeFile(path.join(tmpDir, dirname, "vite.config.ts"), viteConfig);
 
   await $$`npm run build --prefix ${dirname}`;
+}
+
+function cleanup(dirname: string) {
+  return $$`rm -rf ${dirname}`;
 }
 
 describe(
@@ -62,6 +66,8 @@ describe(
       // prettier-ignore
       const metronomeWrapperRegex = /const\s+routes\s*=\s*registerMetronome\(\s*\{[\s\S]*?"root"[\s\S]*?\}\s*,\s*\{\s*version:\s*serverManifest\['version'\]\s*\}\s*,\s*metronome\s*\);/
       expect(serverBuild.match(metronomeWrapperRegex)?.[0]).toMatchSnapshot();
+
+      await cleanup(dirname);
     });
   },
   { timeout: 60000 }

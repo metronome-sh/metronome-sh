@@ -24,7 +24,8 @@ export function createMetronomeMiddleware(build: any) {
     res: ExpressResponse,
     next: NextFunction
   ) {
-    if (req.url === "/__metronome") return next();
+    // Don't track metronome or head requests
+    if (req.url === "/__metronome" || req.method.toLowerCase() === "head") return next();
 
     const ip = getIp(req) ?? "0.0.0.0.";
 

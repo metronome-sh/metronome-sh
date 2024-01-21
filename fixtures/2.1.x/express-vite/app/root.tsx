@@ -1,5 +1,14 @@
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 
+export function loader() {
+  globalDoNotTrack(
+    ({ request }) => {
+      console.log("do not track", request.url);
+    },
+    { doNotTrackErrors: true }
+  );
+}
+
 function App() {
   return (
     <html lang="en">

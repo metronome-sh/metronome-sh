@@ -141,6 +141,27 @@ describe("wrapRemixFunction", () => {
     await expect(onMockRequest).not.toHaveBeenEventuallyCalled();
   });
 
+  it("Skips instrumentation if the request method is HEAD", async () => {
+    const response = json({ foo: "bar" });
+    remixFunction.mockResolvedValueOnce(response);
+
+    const wrapped = wrapRemixFunction(remixFunction, {
+      ...wrapperOptions,
+      routeId: "test-route-id",
+      config: { ...wrapperOptions.config },
+      type: "loader",
+    });
+
+    const result = await wrapped({
+      ...remixFunctionArgs,
+      request: new Request("https://metronome.sh/healthcheck", { method: "HEAD" }),
+    });
+    expect(result).toBe(response);
+    expect(remixFunction).toHaveBeenCalled();
+
+    await expect(onMockRequest).not.toHaveBeenEventuallyCalled();
+  });
+
   it("Instruments /healthcheck if ignoredPathnames is declared in config", async () => {
     const response = json({ foo: "bar" });
     remixFunction.mockResolvedValueOnce(response);

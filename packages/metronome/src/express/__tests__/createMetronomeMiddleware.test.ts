@@ -49,6 +49,15 @@ describe("createMetronomeMiddleware", () => {
     const middleware = createMetronomeMiddleware(build);
     middleware(metronomeReq, mockRes, mockNext);
     expect(mockNext).toHaveBeenCalled();
+    expect(mockRes.on).not.toHaveBeenCalled();
+  });
+
+  it("should call next function immediately for HEAD requests", () => {
+    const headReq = { ...mockReq, method: "HEAD" } as ExpressRequest;
+    const middleware = createMetronomeMiddleware(build);
+    middleware(headReq, mockRes, mockNext);
+    expect(mockNext).toHaveBeenCalled();
+    expect(mockRes.on).not.toHaveBeenCalled();
   });
 
   it("instruments the request and response", async () => {
