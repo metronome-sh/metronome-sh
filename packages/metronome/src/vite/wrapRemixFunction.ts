@@ -14,7 +14,7 @@ export const wrapRemixFunction = (
 ): ActionFunction | LoaderFunction => {
   startInstrumentation(options.config);
   return async (...args) => {
-    const store = asyncLocalStorage.getStore();
+    const requestStore = asyncLocalStorage.getStore();
     const [{ request }] = args;
 
     const ignoredPathnames = options.config.ignoredPathnames ?? ["/healthcheck"];
@@ -30,9 +30,9 @@ export const wrapRemixFunction = (
     const shouldIgnoreRouteByRouteId = ignoredRoutes.some((value) => match(value, options.routeId));
 
     if (shouldIgnoreRouteByPathname || shouldIgnoreRouteByRouteId) {
-      if (store) {
-        store.doNotTrack = true;
-        store.doNotTrackErrors = true;
+      if (requestStore) {
+        requestStore.doNotTrack = true;
+        requestStore.doNotTrackErrors = true;
       }
       return remixFunction(...args);
     }
@@ -57,57 +57,71 @@ export const wrapRemixFunction = (
       ...options.config.remixPackages,
     };
 
-    if (store) {
-      store.requestResolvedAttributes = {
+    if (requestStore) {
+      requestStore.requestResolvedAttributes = {
         "app.version": options.assetsManifest.version ?? "",
         ...options.config.remixPackages,
       };
     }
 
-    return tracer().startActiveSpan(options.type, { attributes }, async (span: Span) => {
-      try {
-        const result = await remixFunction(...args);
+    return tracer().startActiveSpan(
+      options.type,
+      { attributes, traceId: requestStore?.traceId },
+      async (span: Span) => {
+        return asyncLocalStorage.run({ traceId: span.getContext().traceId }, async () => {
+          try {
+            const result = await remixFunction(...args);
 
-        if (isResponse(result)) {
-          span.setAttribute(SemanticAttributes.HttpStatusCode, result.status);
-        } else if (isDeferredData(result)) {
-          span.setAttribute(SemanticAttributes.HttpStatusCode, result.init?.status ?? 200);
-          span.setAttribute(SemanticAttributes.RemixDeferred, true);
-        } else {
-          span.setAttribute(SemanticAttributes.HttpStatusCode, 200);
-        }
+            const remixFunctionStore = asyncLocalStorage.getStore();
 
-        if (!store?.doNotTrack) {
-          span.end();
-        }
+            // Bubble up the doNotTrack and doNotTrackErrors flags to the request store
+            if (requestStore) {
+              requestStore.doNotTrack = remixFunctionStore?.doNotTrack ?? false;
+              requestStore.doNotTrackErrors = remixFunctionStore?.doNotTrackErrors ?? false;
+            }
 
-        return result;
-      } catch (throwable) {
-        span.setAttribute(SemanticAttributes.AppErrored, true);
+            if (isResponse(result)) {
+              span.setAttribute(SemanticAttributes.HttpStatusCode, result.status);
+            } else if (isDeferredData(result)) {
+              span.setAttribute(SemanticAttributes.HttpStatusCode, result.init?.status ?? 200);
+              span.setAttribute(SemanticAttributes.RemixDeferred, true);
+            } else {
+              span.setAttribute(SemanticAttributes.HttpStatusCode, 200);
+            }
 
-        if (isResponse(throwable)) {
-          span.setAttribute(SemanticAttributes.HttpStatusCode, throwable.status);
-          span.setAttribute(SemanticAttributes.RemixThrownResponse, true);
+            if (!requestStore?.doNotTrack) {
+              span.end();
+            }
 
-          if (throwable.status >= 400) {
-            span.setAttribute(SemanticAttributes.ErrorType, throwable.status);
+            return result;
+          } catch (throwable) {
+            span.setAttribute(SemanticAttributes.AppErrored, true);
 
-            span.recordException({
-              code: throwable.status,
-              name: throwable.statusText,
-            });
+            if (isResponse(throwable)) {
+              span.setAttribute(SemanticAttributes.HttpStatusCode, throwable.status);
+              span.setAttribute(SemanticAttributes.RemixThrownResponse, true);
+
+              if (throwable.status >= 400) {
+                span.setAttribute(SemanticAttributes.ErrorType, throwable.status);
+
+                span.recordException({
+                  code: throwable.status,
+                  name: throwable.statusText,
+                });
+              }
+            } else {
+              span.setAttribute(SemanticAttributes.ErrorType, (throwable as Error).name);
+              span.recordException(throwable as Error);
+            }
+
+            if (!requestStore?.doNotTrackErrors) {
+              span.end();
+            }
+
+            throw throwable;
           }
-        } else {
-          span.setAttribute(SemanticAttributes.ErrorType, (throwable as Error).name);
-          span.recordException(throwable as Error);
-        }
-
-        if (!store?.doNotTrackErrors) {
-          span.end();
-        }
-
-        throw throwable;
+        });
       }
-    });
+    );
   };
 };

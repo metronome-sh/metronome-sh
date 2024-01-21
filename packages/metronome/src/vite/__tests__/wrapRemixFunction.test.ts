@@ -5,22 +5,22 @@ import { json } from "@remix-run/server-runtime";
 import { onMockRequest } from "../../../vitest/mocks";
 import { asyncLocalStorage } from "@asyncLocalStorage";
 
-const wrapperOptions: Omit<MetronomeWrapperOptions, "type"> = {
-  routeId: "test-route-id",
-  routePath: "test-route-path",
-  config: {
-    apiKey: "test-api-key",
-    endpoint: "https://metrics.metronome.sh",
-    remixPackages: {
-      "remix.package.express": "^2.5.0",
-      "remix.package.node": "^2.5.0",
-      "remix.package.react": "^2.5.0",
-    },
-  },
-  assetsManifest: { version: "abcfed" },
-};
-
 describe("wrapRemixFunction", () => {
+  const wrapperOptions: Omit<MetronomeWrapperOptions, "type"> = {
+    routeId: "test-route-id",
+    routePath: "test-route-path",
+    config: {
+      apiKey: "test-api-key",
+      endpoint: "https://metrics.metronome.sh",
+      remixPackages: {
+        "remix.package.express": "^2.5.0",
+        "remix.package.node": "^2.5.0",
+        "remix.package.react": "^2.5.0",
+      },
+    },
+    assetsManifest: { version: "abcfed" },
+  };
+
   const remixFunctionArgs = {
     request: new Request("https://metronome.sh"),
     context: {},
@@ -29,14 +29,6 @@ describe("wrapRemixFunction", () => {
   const remixFunction = vi.fn();
   const wrappedLoader = wrapRemixFunction(remixFunction, { ...wrapperOptions, type: "loader" });
   const wrappedAction = wrapRemixFunction(remixFunction, { ...wrapperOptions, type: "action" });
-
-  beforeEach(() => {
-    const hrtimeSpy = vi.spyOn(process.hrtime, "bigint");
-    hrtimeSpy.mockImplementation(() => 0n);
-    return () => {
-      hrtimeSpy.mockRestore();
-    };
-  });
 
   it("Instruments a json response", async () => {
     const response = json({ foo: "bar" });
@@ -148,6 +140,7 @@ describe("wrapRemixFunction", () => {
 
     await expect(onMockRequest).not.toHaveBeenEventuallyCalled();
   });
+
   it("Instruments /healthcheck if ignoredPathnames is declared in config", async () => {
     const response = json({ foo: "bar" });
     remixFunction.mockResolvedValueOnce(response);
@@ -241,12 +234,22 @@ describe("wrapRemixFunction", () => {
 
   it("Skips instrumentation if the doNotTrack flag in the storage is set to true", async () => {
     const response = json({ foo: "bar" });
-    remixFunction.mockResolvedValueOnce(response);
+    remixFunction.mockImplementationOnce(() => {
+      const remixFunctionStore = asyncLocalStorage.getStore();
+      if (remixFunctionStore) {
+        remixFunctionStore.doNotTrack = true;
+      }
+      return response;
+    });
 
     let result: Awaited<ReturnType<typeof wrappedLoader>> | undefined;
 
-    await asyncLocalStorage.run({ traceId: "1", doNotTrack: true }, async () => {
+    await asyncLocalStorage.run({ traceId: "" }, async () => {
       result = await wrappedLoader(remixFunctionArgs);
+
+      const doNotTrack = asyncLocalStorage.getStore()?.doNotTrack;
+
+      expect(doNotTrack).toBe(true);
     });
 
     expect(result).toBe(response);
@@ -257,12 +260,26 @@ describe("wrapRemixFunction", () => {
   it("Skips instrumentation if the doNotTrackErrors flag in the storage is set to true and there is an error", async () => {
     const response = new Response("test", { status: 500 });
 
-    remixFunction.mockResolvedValueOnce(response);
+    remixFunction.mockImplementationOnce(() => {
+      const remixFunctionStore = asyncLocalStorage.getStore();
+      if (remixFunctionStore) {
+        remixFunctionStore.doNotTrack = true;
+        remixFunctionStore.doNotTrackErrors = true;
+      }
+      return response;
+    });
 
     let result: Awaited<ReturnType<typeof wrappedLoader>> | undefined;
 
-    await asyncLocalStorage.run({ traceId: "1", doNotTrack: true }, async () => {
+    await asyncLocalStorage.run({ traceId: "1" }, async () => {
       result = await wrappedLoader(remixFunctionArgs);
+
+      const doNotTrack = asyncLocalStorage.getStore()?.doNotTrack;
+      const doNotTrackErrors = asyncLocalStorage.getStore()?.doNotTrackErrors;
+
+      // Check for bubble up of the doNotTrack and doNotTrackErrors flags
+      expect(doNotTrack).toBe(true);
+      expect(doNotTrackErrors).toBe(true);
     });
 
     expect(result).toBe(response);

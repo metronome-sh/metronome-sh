@@ -3,7 +3,6 @@ import { Metric } from "./Metric";
 import { MetricExporter } from "./MetricExporter";
 import { Span } from "./Span";
 import { SpanExporter } from "./SpanExporter";
-import { asyncLocalStorage } from "@asyncLocalStorage";
 
 let tracerInstance: Tracer;
 
@@ -18,28 +17,23 @@ export class Tracer {
 
   public startActiveSpan<T>(
     name: string,
-    options: { attributes?: Record<string, OtelAttribute> },
+    options: { traceId?: string; attributes?: Record<string, OtelAttribute> },
     callback: (span: Span) => T
   ): T | Promise<T> {
-    const store = asyncLocalStorage.getStore();
     const span = new Span(name, {
       attributes: options?.attributes,
-      context: { traceId: store?.traceId },
+      context: { traceId: options?.traceId },
     });
 
     span.addOnEndListener(() => this.exportSpan(span));
 
-    return asyncLocalStorage.run({ traceId: span.getContext().traceId }, () => callback(span));
+    return callback(span);
   }
 
   public startSpan(name: string, options?: { attributes?: Record<string, OtelAttribute> }) {
     const span = new Span(name, { attributes: options?.attributes });
     span.addOnEndListener(() => this.exportSpan(span));
     return span;
-  }
-
-  public getAsyncLocalStore() {
-    return asyncLocalStorage.getStore();
   }
 
   public createHistogram(

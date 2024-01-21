@@ -25,15 +25,11 @@ const isIp = (input: string): boolean => {
   return ipRegex.test(input);
 };
 
-function isExpressRequest(
-  request: Request | ExpressRequest
-): request is ExpressRequest {
+function isExpressRequest(request: Request | ExpressRequest): request is ExpressRequest {
   return typeof (request as ExpressRequest).originalUrl !== "undefined";
 }
 
 export function getIp(request: Request | ExpressRequest): string | null {
-  const headers = request.headers;
-
   let ipAddress = headerNames
     .flatMap((headerName) => {
       let value: null | string | string[] | undefined;
@@ -54,9 +50,7 @@ export function getIp(request: Request | ExpressRequest): string | null {
         return value;
       }
 
-      return typeof value === "string"
-        ? value.split(",").map((ip) => ip.trim())
-        : value;
+      return typeof value === "string" ? value.split(",").map((ip) => ip.trim()) : value;
     })
     .find((ip) => {
       if (ip === null || typeof ip === "undefined") return false;

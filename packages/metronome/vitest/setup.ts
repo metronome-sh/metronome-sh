@@ -9,6 +9,12 @@ beforeAll(() => {
 beforeEach(() => {
   vi.useFakeTimers();
   vi.setSystemTime(new Date(1988, 4, 13));
+
+  const hrtimeSpy = vi.spyOn(process.hrtime, "bigint");
+  hrtimeSpy.mockImplementation(() => 0n);
+  return () => {
+    hrtimeSpy.mockRestore();
+  };
 });
 afterAll(() => server.close());
 afterEach(() => {
