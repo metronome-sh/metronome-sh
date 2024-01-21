@@ -1,5 +1,15 @@
 # @metronome-sh/express
 
+## 8.2.0
+
+### Minor Changes
+
+- 8e987f5: chore
+
+### Patch Changes
+
+- cf2193d: Fixed plugin to wrap the generated root file correctly
+
 ## 8.1.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # @metronome-sh/node
 
+## 8.1.0
+
+### Minor Changes
+
+- 8e987f5: chore
+
+### Patch Changes
+
+- Updated dependencies [8e987f5]
+  - @metronome-sh/runtime@8.1.0
+
 ## 8.0.1
 
 ### Patch Changes

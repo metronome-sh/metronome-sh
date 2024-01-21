@@ -1,5 +1,11 @@
 # @metronome-sh/react
 
+## 8.1.0
+
+### Minor Changes
+
+- 8e987f5: chore
+
 ## 8.0.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@metronome-sh/config",
-  "version": "8.0.1",
+  "version": "8.1.0",
   "description": "Metronome - Insights for Remix",
   "main": "dist/cjs/index.js",
   "types": "dist/index.d.ts",
