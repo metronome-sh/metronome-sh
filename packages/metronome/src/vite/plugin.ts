@@ -56,13 +56,14 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => Plugin = (metrono
       };
     },
     transform(code, id) {
-      if (id.includes("root.tsx")) {
+      if (id.match(/root\.tsx$/)) {
         const magicString = new MagicString(code);
-        magicString.prepend(`import { withMetronome } from "metronome-sh/react";\n`);
+        magicString.prepend('import { withMetronome } from "metronome-sh/react";\n');
+        const defaultExportRegex = /export\sdefault\sfunction/;
 
-        const withMetronomeRegex = /export default (\w+);/;
+        magicString.replace(defaultExportRegex, "const __defaultExport = function");
 
-        magicString.replace(withMetronomeRegex, "export default withMetronome($1);");
+        magicString.append("export default withMetronome(__defaultExport);");
 
         return { code: magicString.toString() };
       }
