@@ -33,3 +33,7 @@ exports[`vite plugin > Installs and builds in the express vite template 3`] = `
   }
 }, { version: serverManifest['version'] }, metronome);"
 `;
+
+exports[`vite plugin > Installs and builds in the express vite template 4`] = `"withMetronome"`;
+
+exports[`vite plugin > Installs and builds in the express vite template 5`] = `"__metronomeQueue"`;
