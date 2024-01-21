@@ -1,0 +1,35 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`vite plugin > Installs and builds in the express vite template 1`] = `"import { registerMetronome } from "metronome-sh/vite";"`;
+
+exports[`vite plugin > Installs and builds in the express vite template 2`] = `
+"export const metronome = {
+  "remixPackages": {
+    "remix.package.express": "^2.5.1",
+    "remix.package.node": "^2.5.1",
+    "remix.package.react": "^2.5.1"
+  },
+  "endpoint": "https://metrics.metronome.sh"
+};"
+`;
+
+exports[`vite plugin > Installs and builds in the express vite template 3`] = `
+"const routes = registerMetronome({
+  "root": {
+    id: "root",
+    parentId: void 0,
+    path: "",
+    index: void 0,
+    caseSensitive: void 0,
+    module: route0
+  },
+  "routes/_index": {
+    id: "routes/_index",
+    parentId: "root",
+    path: void 0,
+    index: true,
+    caseSensitive: void 0,
+    module: route1
+  }
+}, { version: serverManifest['version'] }, metronome);"
+`;
