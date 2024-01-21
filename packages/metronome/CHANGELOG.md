@@ -1,5 +1,11 @@
 # @metronome-sh/express
 
+## 8.1.0
+
+### Minor Changes
+
+- adc0fed: Added vite support
+
 ## 8.0.1
 
 ### Patch Changes
