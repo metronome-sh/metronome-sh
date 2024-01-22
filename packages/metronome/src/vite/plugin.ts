@@ -35,6 +35,7 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => Plugin = (metrono
       });
 
       file.code = magicString.toString();
+      file.map = magicString.generateMap({ hires: true });
     },
     configResolved(config) {
       if (metronomeInternalConfig) return;
@@ -65,7 +66,10 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => Plugin = (metrono
 
         magicString.append("export default withMetronome(__defaultExport);");
 
-        return { code: magicString.toString() };
+        return {
+          code: magicString.toString(),
+          sourcemap: magicString.generateMap({ hires: true }),
+        };
       }
     },
   };
