@@ -52,7 +52,13 @@ jobs:
       - name: Rerun pnpm install
         run: pnpm install --no-frozen-lockfile
 
+      - name: Check for pnpm-lock.yaml changes
+        id: lockfile-check
+        run: |
+          echo "LOCKFILE_CHANGED=$(git diff --name-only | grep -q 'pnpm-lock.yaml' && echo 'true' || echo 'false')" >> $GITHUB_ENV
+
       - name: Push Changes
+        if: env.LOCKFILE_CHANGED == 'true'
         run: |
           git add .
           git commit -m "updated pnpm-lock.yaml [skip actions]"
