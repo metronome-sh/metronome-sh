@@ -62,18 +62,17 @@ export class Metric {
     this.onRecordCallbacks.push(callback);
   }
 
-  toJson(...args: any[]) {
-    return JSON.stringify(
-      {
-        id: this.id,
-        type: this.type,
-        name: this.name,
-        attributes: this.attributes,
-        value: this.value,
-        unit: this.unit,
-      },
-      ...args
-    );
+  toJSON() {
+    return {
+      id: this.id,
+      type: this.type,
+      name: this.name,
+      attributes: Object.fromEntries(
+        Object.entries(this.attributes).map(([key, value]) => [key, `${value}`])
+      ),
+      value: this.value,
+      unit: this.unit,
+    };
   }
 
   public toObject() {

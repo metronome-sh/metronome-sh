@@ -4,9 +4,10 @@ import { onMockRequest } from "./mocks";
 
 export const handlers = [
   http.post("https://metrics.metronome.sh/v4/process", () => {
-    return HttpResponse.text("");
+    return new HttpResponse(null, { status: 200 });
   }),
 ];
+
 export const server = setupServer(...handlers);
 
 server.events.on("request:end", async ({ request }) => {

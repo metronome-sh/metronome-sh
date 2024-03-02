@@ -1,25 +1,22 @@
-import type { ActionFunction, ActionFunctionArgs } from "@remix-run/server-runtime";
+import type { ActionFunction } from "@remix-run/server-runtime";
 import { getIp } from "../common/getIp";
 
 import { METRONOME_VERSION } from "../common/constants";
 import { z } from "zod";
 import { ServerRouteModule } from "@remix-run/server-runtime/dist/routeModules";
 
-import { MetronomeInternalConfig, RouteMap } from "../common/types";
+import { MetronomeResolvedConfig, RouteMap } from "../common/types";
 import { deobfuscate, getRemixAttributes } from "../common/helpers";
 import { ClientErrorSchema, PageviewSchema, WebVitalSchema } from "../common/schemas";
-import { type AssetsManifest } from "@remix-run/server-runtime/dist/entry";
 import { startInstrumentation, tracer } from "../common/instrumentation/Tracer";
 import { SemanticAttributes } from "../common/instrumentation/SemanticAttributes";
 
 export const createClientReportRouteModule = ({
   routeMap,
-  assetsManifest,
   config,
 }: {
   routeMap: RouteMap;
-  assetsManifest: Pick<AssetsManifest, "version">;
-  config: MetronomeInternalConfig;
+  config: MetronomeResolvedConfig;
 }): ServerRouteModule => {
   const action: ActionFunction = async ({ request }) => {
     startInstrumentation(config);
@@ -47,7 +44,7 @@ export const createClientReportRouteModule = ({
     result.data.forEach((incoming) => {
       const remixAttributes = getRemixAttributes({
         routeMap,
-        version: assetsManifest.version,
+        version: config.version,
         path: incoming.pathname,
       });
 
@@ -149,8 +146,5 @@ export const createClientReportRouteModule = ({
     return new Response(null, { status: 204 });
   };
 
-  return {
-    action,
-    default: undefined,
-  };
+  return { action, default: undefined };
 };

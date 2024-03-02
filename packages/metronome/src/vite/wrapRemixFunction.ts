@@ -46,7 +46,7 @@ export const wrapRemixFunction = (
       [SemanticAttributes.HttpMethod]: request.method.toUpperCase(),
       [SemanticAttributes.UrlFull]: request.url,
       [SemanticAttributes.MetronomeVersion]: METRONOME_VERSION,
-      [SemanticAttributes.AppVersion]: options.assetsManifest.version ?? "",
+      [SemanticAttributes.AppVersion]: options.config.version ?? "",
       [SemanticAttributes.ClientAddress]: ip,
       [SemanticAttributes.UserAgentOriginal]: request.headers.get("user-agent") ?? "",
       [SemanticAttributes.RemixRouteId]: options.routeId,
@@ -62,7 +62,7 @@ export const wrapRemixFunction = (
 
     if (requestStore) {
       requestStore.requestResolvedAttributes = {
-        "app.version": options.assetsManifest.version ?? "",
+        "app.version": options.config.version ?? "",
         ...options.config.remixPackages,
       };
     }

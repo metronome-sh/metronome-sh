@@ -1,14 +1,9 @@
-import { MetronomeInternalConfig, RouteMap, Routes } from "../common/types";
+import { MetronomeResolvedConfig, RouteMap, Routes } from "../common/types";
 import { wrapRemixFunction } from "./wrapRemixFunction";
 import { createClientReportRouteModule } from "./createClientReportRouteModule";
-import { type AssetsManifest } from "@remix-run/server-runtime/dist/entry";
 import * as webVitalsModule from "./webVitalsModule";
 
-export function registerMetronome(
-  routes: Routes,
-  assetsManifest: Pick<AssetsManifest, "version">,
-  config: MetronomeInternalConfig
-): Routes {
+export function registerMetronome(routes: Routes, config: MetronomeResolvedConfig): Routes {
   if (!config.apiKey) {
     config.apiKey = process.env.METRONOME_API_KEY;
   }
@@ -28,7 +23,6 @@ export function registerMetronome(
       routeId,
       routePath: route.path,
       config,
-      assetsManifest,
     };
 
     if (route.module.action) {
@@ -56,11 +50,7 @@ export function registerMetronome(
     path: baseUrl,
     index: undefined,
     caseSensitive: undefined,
-    module: createClientReportRouteModule({
-      routeMap,
-      config,
-      assetsManifest,
-    }),
+    module: createClientReportRouteModule({ routeMap, config }),
   };
 
   routes[`${baseUrl}/web-vitals.$version`] = {

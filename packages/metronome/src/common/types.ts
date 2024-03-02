@@ -1,5 +1,4 @@
 import { ServerBuild } from "@remix-run/server-runtime";
-import { type AssetsManifest } from "@remix-run/server-runtime/dist/entry";
 
 export type Routes = Record<string, ServerBuild["routes"][string]>;
 
@@ -22,21 +21,23 @@ export interface MetronomeConfig {
   apiKey?: string | null;
   ignoredRoutes?: (string | RegExp)[];
   ignoredPathnames?: (string | RegExp)[];
+  sourcemap?: boolean;
   // headersAllowlist?: HeaderAllowlist;
   debug?: boolean;
 }
 
-export interface MetronomeInternalConfig extends Omit<MetronomeConfig, "endpoint"> {
-  remixPackages: Record<string, string>;
+export interface MetronomeResolvedConfig extends Omit<MetronomeConfig, "endpoint"> {
   endpoint: string;
+  remixPackages: Record<string, string>;
+  version: string;
+  sourcemapsPath: string;
 }
 
 export interface MetronomeWrapperOptions {
   type: "action" | "loader";
   routeId: string;
   routePath?: string;
-  config: MetronomeInternalConfig;
-  assetsManifest: Pick<AssetsManifest, "version">;
+  config: MetronomeResolvedConfig;
 }
 
 export type RegexpRouteMap = Record<

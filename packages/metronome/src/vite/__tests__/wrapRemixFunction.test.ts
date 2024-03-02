@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { MetronomeWrapperOptions } from "../../common/types";
 import { wrapRemixFunction } from "../wrapRemixFunction";
 import { json } from "@remix-run/server-runtime";
@@ -17,8 +17,9 @@ describe("wrapRemixFunction", () => {
         "remix.package.node": "^2.5.0",
         "remix.package.react": "^2.5.0",
       },
+      version: "abcfed",
+      sourcemapsPath: "test-sourcemaps-path",
     },
-    assetsManifest: { version: "abcfed" },
   };
 
   const remixFunctionArgs = {

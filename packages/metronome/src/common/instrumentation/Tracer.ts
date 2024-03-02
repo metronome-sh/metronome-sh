@@ -1,4 +1,4 @@
-import { MetronomeInternalConfig, OtelAttribute } from "../types";
+import { MetronomeResolvedConfig, OtelAttribute } from "../types";
 import { Metric } from "./Metric";
 import { MetricExporter } from "./MetricExporter";
 import { Span } from "./Span";
@@ -74,7 +74,7 @@ export function tracer() {
   return tracerInstance;
 }
 
-export function startInstrumentation(config: MetronomeInternalConfig) {
+export function startInstrumentation(config: MetronomeResolvedConfig) {
   if (tracerInstance) return;
 
   tracerInstance = new Tracer({

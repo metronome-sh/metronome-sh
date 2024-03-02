@@ -2,32 +2,44 @@ import { OtelAttribute, OtelContext } from "../types";
 import crypto from "crypto";
 import { SpanEvent } from "./SpanEvent";
 
+const kind = {
+  server: 1,
+  client: 2,
+  producer: 3,
+  consumer: 4,
+  internal: 5,
+} as const;
+
+type Kind = keyof typeof kind;
+
 export class Span {
   private id: string;
   private attributes: Record<string, OtelAttribute> = {};
-  private timestamp: number;
-  private startTime: bigint;
-  private endTime: bigint;
+  private startTime: number;
+  private endTime: number;
   private events: SpanEvent[] = [];
   private context: OtelContext = { traceId: "" };
   private onEndCallbacks: ((span: Span) => void)[] = [];
+  private kind: Kind;
 
   constructor(
     readonly name: string,
     options?: Partial<{
+      kind?: Kind;
       timestamp?: number;
-      startTime?: bigint;
+      startTime?: number;
       attributes: Record<string, OtelAttribute>;
       context: Partial<OtelContext>;
     }>
   ) {
     this.id = crypto.randomBytes(8).toString("hex").toLowerCase();
     this.attributes = options?.attributes ?? {};
-    this.timestamp = options?.timestamp ?? Date.now();
-    this.startTime = options?.startTime ?? process.hrtime.bigint();
+    this.startTime = options?.startTime ?? Date.now();
     this.endTime = this.startTime;
     const traceId =
       options?.context?.traceId ?? crypto.randomBytes(16).toString("hex").toLowerCase();
+
+    this.kind = options?.kind ?? "internal";
 
     this.context.traceId = traceId;
   }
@@ -43,7 +55,7 @@ export class Span {
   }
 
   end() {
-    this.endTime = process.hrtime.bigint();
+    this.endTime = Date.now();
     this.onEndCallbacks.forEach((handler) => handler(this));
     this.onEndCallbacks = [];
   }
@@ -92,27 +104,26 @@ export class Span {
       id: this.id,
       name: this.name,
       attributes: this.attributes,
-      events: this.events.map((event) => event.toObject()),
+      events: this.events,
       context: this.context,
-      timestamp: this.timestamp,
       startTime: this.startTime,
       endTime: this.endTime,
     };
   }
 
-  toJson(...args: any[]): string {
-    return JSON.stringify(
-      {
-        id: this.id,
-        timestamp: this.timestamp,
-        name: this.name,
-        attributes: this.attributes,
-        events: this.events.map((event) => event.toObject()),
-        context: this.context,
-        startTime: this.startTime,
-        endTime: this.endTime,
-      },
-      ...args
-    );
+  toJSON() {
+    return {
+      id: this.id,
+      name: this.name,
+      kind: kind[this.kind],
+      // Convert all the attributes to string
+      attributes: Object.fromEntries(
+        Object.entries(this.attributes).map(([key, value]) => [key, `${value}`])
+      ),
+      events: this.events,
+      context: this.context,
+      startTime: this.startTime,
+      endTime: this.endTime,
+    };
   }
 }

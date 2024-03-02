@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from "vitest";
 import { createClientReportRouteModule } from "../createClientReportRouteModule";
-import { MetronomeInternalConfig, RouteMap } from "../../common/types";
+import { MetronomeResolvedConfig, RouteMap } from "../../common/types";
 import { ServerRouteModule } from "@remix-run/server-runtime/dist/routeModules";
 import { obfuscate } from "../../common/helpers";
 import { onMockRequest } from "../../../vitest/mocks";
@@ -14,9 +14,7 @@ describe("createClientReportRouteModule", () => {
       "routes/_index": { id: "routes/_index", parentId: "root", path: void 0 },
     };
 
-    const assetsManifest = { version: "1.0.0" };
-
-    const config: MetronomeInternalConfig = {
+    const config: MetronomeResolvedConfig = {
       apiKey: "test-api-key",
       endpoint: "https://metrics.metronome.sh",
       remixPackages: {
@@ -24,9 +22,11 @@ describe("createClientReportRouteModule", () => {
         "remix.package.node": "^2.5.0",
         "remix.package.react": "^2.5.0",
       },
+      version: "abcedf",
+      sourcemapsPath: "sourcemaps.zip",
     };
 
-    routeModule = createClientReportRouteModule({ routeMap, assetsManifest, config });
+    routeModule = createClientReportRouteModule({ routeMap, config });
   });
 
   it("should return a valid ServerRouteModule", () => {
