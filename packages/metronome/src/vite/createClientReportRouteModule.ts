@@ -10,6 +10,7 @@ import { deobfuscate, getRemixAttributes } from "../common/helpers";
 import { ClientErrorSchema, PageviewSchema, WebVitalSchema } from "../common/schemas";
 import { startInstrumentation, tracer } from "../common/instrumentation/Tracer";
 import { SemanticAttributes } from "../common/instrumentation/SemanticAttributes";
+import { getClientAttributes } from "../common/clientAttributes";
 
 export const createClientReportRouteModule = ({
   routeMap,
@@ -21,7 +22,7 @@ export const createClientReportRouteModule = ({
   const action: ActionFunction = async ({ request }) => {
     startInstrumentation(config);
 
-    const events = await deobfuscate(await request.text());
+    const events = deobfuscate(await request.text());
 
     const ip = getIp(request) ?? "0.0.0.0";
 
@@ -40,6 +41,8 @@ export const createClientReportRouteModule = ({
       }
       return new Response(null, { status: 204 });
     }
+
+    const clientAttributes = await getClientAttributes(request.headers);
 
     result.data.forEach((incoming) => {
       const remixAttributes = getRemixAttributes({
@@ -71,6 +74,7 @@ export const createClientReportRouteModule = ({
             [SemanticAttributes.ClientConnection]: data.connection,
             [SemanticAttributes.ClientDeviceCategory]: data.deviceCategory,
             ...remixAttributes,
+            ...clientAttributes,
             ...config.remixPackages,
           })
           .dispose();
@@ -100,6 +104,7 @@ export const createClientReportRouteModule = ({
             [SemanticAttributes.ClientDeviceCategory]: pvResult.data.deviceCategory,
             [SemanticAttributes.HttpPathname]: pvResult.data.pathname,
             ...remixAttributes,
+            ...clientAttributes,
             ...config.remixPackages,
           })
           .dispose();
@@ -114,11 +119,13 @@ export const createClientReportRouteModule = ({
         const { data } = ceResult;
 
         const span = tracer().startSpan("client_error", {
+          kind: "client",
           attributes: {
             [SemanticAttributes.MetronomeVersion]: METRONOME_VERSION,
             [SemanticAttributes.ClientAddress]: ip,
             [SemanticAttributes.UserAgentOriginal]: request.headers.get("user-agent") ?? "",
             ...remixAttributes,
+            ...clientAttributes,
             ...config.remixPackages,
           },
         });
@@ -126,7 +133,7 @@ export const createClientReportRouteModule = ({
         span.addEvent(
           "exception",
           {
-            [SemanticAttributes.ExceptionType]: data.error.error || "Error",
+            [SemanticAttributes.ExceptionType]: data.error.name || "Error",
             [SemanticAttributes.ExceptionEscaped]: false,
             [SemanticAttributes.ExceptionStacktrace]: data.error.stack,
             [SemanticAttributes.ExceptionMessage]: data.error.message,

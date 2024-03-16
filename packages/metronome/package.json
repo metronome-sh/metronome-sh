@@ -42,6 +42,7 @@
     "path-to-regexp": "^6.2.1",
     "picocolors": "^1.0.0",
     "ts-invariant": "^0.9.4",
+    "ua-parser-js": "2.0.0-beta.2",
     "web-vitals": "^3.5.1",
     "zod": "^3.21.4"
   },

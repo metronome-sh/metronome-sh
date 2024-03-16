@@ -72,17 +72,6 @@ export class Metric {
       ),
       value: this.value,
       unit: this.unit,
-    };
-  }
-
-  public toObject() {
-    return {
-      id: this.id,
-      type: this.type,
-      name: this.name,
-      attributes: this.attributes,
-      value: this.value,
-      unit: this.unit,
       timestamp: this.timestamp,
     };
   }

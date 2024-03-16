@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useRef } from "react";
+import { FunctionComponent, useLayoutEffect, useRef } from "react";
 import { useQueue, useGetBrowserData } from "../hooks";
 
 export const ErrorTracker: FunctionComponent = () => {
@@ -6,7 +6,7 @@ export const ErrorTracker: FunctionComponent = () => {
   const getBrowserData = useGetBrowserData();
   const mounted = useRef(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (mounted.current) return;
 
     function eventHandler(event: ErrorEvent) {

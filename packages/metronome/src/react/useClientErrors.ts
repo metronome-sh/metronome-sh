@@ -2,10 +2,7 @@ import { useEffect, useRef } from "react";
 import { useGetBrowserData } from "./useGetBrowserData";
 import { useQueue } from "./useQueue";
 
-export function useClientErrors(
-  enqueue: ReturnType<typeof useQueue>["enqueue"]
-) {
-  const queue = useQueue();
+export function useClientErrors(enqueue: ReturnType<typeof useQueue>["enqueue"]) {
   const getBrowserData = useGetBrowserData();
   const mounted = useRef(false);
 
@@ -16,10 +13,10 @@ export function useClientErrors(
       const { message, filename, lineno, colno, error } = event;
       const { stack } = error;
 
-      queue.enqueue({
+      enqueue({
         name: "client-error",
         timestamp: Date.now(),
-        error: { error, message, filename, lineno, colno, stack },
+        error: { name: error.name, message, filename, lineno, colno, stack },
         ...getBrowserData(),
       });
     }
@@ -27,5 +24,9 @@ export function useClientErrors(
     window.addEventListener("error", eventHandler);
 
     mounted.current = true;
-  }, [getBrowserData, queue]);
+
+    return () => {
+      window.removeEventListener("error", eventHandler);
+    };
+  }, [getBrowserData, enqueue]);
 }

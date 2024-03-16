@@ -7,6 +7,7 @@ import { startInstrumentation, tracer } from "../common/instrumentation/Tracer";
 import { SemanticAttributes } from "../common/instrumentation/SemanticAttributes";
 import { asyncLocalStorage } from "@asyncLocalStorage";
 import { isDeferredData, isResponse, match } from "./helpers";
+import { getClientAttributes } from "../common/clientAttributes";
 
 export const wrapRemixFunction = (
   remixFunction: ActionFunction | LoaderFunction,
@@ -42,6 +43,8 @@ export const wrapRemixFunction = (
 
     const ip = getIp(request) ?? "0.0.0.0";
 
+    const clientAttributes = await getClientAttributes(request.headers);
+
     const attributes = {
       [SemanticAttributes.HttpMethod]: request.method.toUpperCase(),
       [SemanticAttributes.UrlFull]: request.url,
@@ -58,6 +61,7 @@ export const wrapRemixFunction = (
         `http://${request.headers.get("host") ?? "localhost"}`
       ).pathname,
       ...options.config.remixPackages,
+      ...clientAttributes,
     };
 
     if (requestStore) {

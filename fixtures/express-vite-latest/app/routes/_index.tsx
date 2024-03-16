@@ -10,8 +10,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
   // const foo = new Promise((resolve) => setTimeout(() => resolve("bar"), 3000));
 
   // throw new Error("This is an error");
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 
-  return defer({ message: "Hello World!" }, { headers: { "x-foo": "bar" } });
+  return json({ message: "Hello World!" }, { headers: { "x-foo": "bar" } });
 }
 
 export async function action() {

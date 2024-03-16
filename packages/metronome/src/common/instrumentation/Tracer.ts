@@ -1,7 +1,7 @@
 import { MetronomeResolvedConfig, OtelAttribute } from "../types";
 import { Metric } from "./Metric";
 import { MetricExporter } from "./MetricExporter";
-import { Span } from "./Span";
+import { Span, SpanOptions } from "./Span";
 import { SpanExporter } from "./SpanExporter";
 
 let tracerInstance: Tracer;
@@ -23,6 +23,7 @@ export class Tracer {
     const span = new Span(name, {
       attributes: options?.attributes,
       context: { traceId: options?.traceId },
+      kind: "server",
     });
 
     span.addOnEndListener(() => this.exportSpan(span));
@@ -30,8 +31,8 @@ export class Tracer {
     return callback(span);
   }
 
-  public startSpan(name: string, options?: { attributes?: Record<string, OtelAttribute> }) {
-    const span = new Span(name, { attributes: options?.attributes });
+  public startSpan(name: string, options?: SpanOptions) {
+    const span = new Span(name, options);
     span.addOnEndListener(() => this.exportSpan(span));
     return span;
   }

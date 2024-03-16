@@ -21,7 +21,7 @@ export function useWebVitals(enqueue: ReturnType<typeof useQueue>["enqueue"]) {
     };
 
     const script = document.createElement("script");
-    script.src = `/__metronome/web-vitals/${METRONOME_VERSION}`;
+    script.src = `/__metronome/web-vitals/metronome-${METRONOME_VERSION}.js`;
     script.onload = handleOnLoad;
     document.head.appendChild(script);
   }, []);
@@ -47,7 +47,7 @@ export function useWebVitals(enqueue: ReturnType<typeof useQueue>["enqueue"]) {
     }
 
     window._webVitals.onFCP(enqueueWebVital);
-    window._webVitals.onFCP(enqueueWebVital);
+    window._webVitals.onLCP(enqueueWebVital);
     window._webVitals.onFID(enqueueWebVital);
     window._webVitals.onCLS(enqueueWebVital);
     window._webVitals.onTTFB(enqueueWebVital);

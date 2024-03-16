@@ -12,6 +12,14 @@ const kind = {
 
 type Kind = keyof typeof kind;
 
+export type SpanOptions = Partial<{
+  kind: Kind;
+  timestamp: number;
+  startTime: number;
+  attributes: Record<string, OtelAttribute>;
+  context: Partial<OtelContext>;
+}>;
+
 export class Span {
   private id: string;
   private attributes: Record<string, OtelAttribute> = {};
@@ -22,16 +30,7 @@ export class Span {
   private onEndCallbacks: ((span: Span) => void)[] = [];
   private kind: Kind;
 
-  constructor(
-    readonly name: string,
-    options?: Partial<{
-      kind?: Kind;
-      timestamp?: number;
-      startTime?: number;
-      attributes: Record<string, OtelAttribute>;
-      context: Partial<OtelContext>;
-    }>
-  ) {
+  constructor(readonly name: string, options?: SpanOptions) {
     this.id = crypto.randomBytes(8).toString("hex").toLowerCase();
     this.attributes = options?.attributes ?? {};
     this.startTime = options?.startTime ?? Date.now();

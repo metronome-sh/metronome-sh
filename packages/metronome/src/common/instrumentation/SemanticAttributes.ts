@@ -33,4 +33,13 @@ export enum SemanticAttributes {
   WebVitalName = "web_vital.name",
   WebVitalNavigationType = "web_vital.navigation_type",
   WebVitalRating = "web_vital.rating",
+  BrowserName = "browser.name",
+  BrowserVersion = "browser.version",
+  BrowserMajor = "browser.major",
+  DeviceModel = "device.model",
+  DeviceVendor = "device.vendor",
+  EngineName = "engine.name",
+  EngineVersion = "engine.version",
+  OsName = "os.name",
+  OsVersion = "os.version",
 }

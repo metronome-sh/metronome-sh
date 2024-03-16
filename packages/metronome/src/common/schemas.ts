@@ -58,7 +58,7 @@ export const ClientErrorSchema = z
     name: z.literal("client-error"),
     timestamp: z.number(),
     error: z.object({
-      error: z.string().optional(),
+      name: z.string().optional(),
       message: z.string(),
       stack: z.string(),
       filename: z.string(),

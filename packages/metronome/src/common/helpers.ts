@@ -8,6 +8,8 @@ function getCurrentUtcHour(): number {
 }
 
 export function obfuscate(inputObj: object): string {
+  if (process.env.METRONOME_DEV) return JSON.stringify(inputObj);
+
   const inputStr = JSON.stringify(inputObj);
   const shift = getCurrentUtcHour();
 
@@ -18,6 +20,8 @@ export function obfuscate(inputObj: object): string {
 }
 
 export function deobfuscate<T extends object = {}>(input: string): T | undefined {
+  if (process.env.METRONOME_DEV) return JSON.parse(input);
+
   function rotateArray(arr: number[], n: number) {
     const prevIndex = n - 1 < 0 ? arr.length - 1 : n - 1;
     const nextPart = arr.slice(n + 1).concat(arr.slice(0, prevIndex));

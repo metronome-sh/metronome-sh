@@ -11,7 +11,7 @@ export abstract class Exporter {
       return;
     }
 
-    const url = new URL(`${this.config.endpoint}${this.pathname}`);
+    const url = new URL(this.pathname, this.config.endpoint);
 
     const data = JSON.stringify([exportable], (_, v) => {
       return typeof v === "bigint" ? v.toString() : v;

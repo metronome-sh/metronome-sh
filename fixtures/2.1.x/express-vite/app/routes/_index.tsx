@@ -11,7 +11,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   // throw new Error("This is an error");
 
-  return defer({ message: "Hello World!" }, { headers: { "x-foo": "bar" } });
+  // Wait for 2 seconds
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+
+  return json({ message: "Hello World!" }, { headers: { "x-foo": "bar" } });
 }
 
 export async function action() {

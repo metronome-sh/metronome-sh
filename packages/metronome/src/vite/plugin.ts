@@ -20,7 +20,7 @@ let didOverrideSourcemapConfig: boolean = false;
 const sourceMapMapping: Record<string, string> = {};
 const sourceMaps: Record<string, string> = {};
 
-let __remixPluginResolvedConfig: any;
+let remixContext: any;
 let version: string;
 let serverBuildRan: boolean = false;
 let clientBuildRan: boolean = false;
@@ -60,7 +60,7 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => Plugin[] = (metro
 
       if (!dir) return;
 
-      const relative = path.relative(__remixPluginResolvedConfig.rootDirectory, dir);
+      const relative = path.relative(remixContext.rootDirectory, dir);
 
       for (const [fileName, file] of Object.entries(bundle)) {
         if (file.type !== "chunk" || file.map === null) continue;
@@ -75,7 +75,7 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => Plugin[] = (metro
     async writeBundle(options) {
       if (didOverrideSourcemapConfig) {
         Object.keys(sourceMapMapping).forEach((key) => {
-          const filePath = path.join(__remixPluginResolvedConfig.rootDirectory, key + ".map");
+          const filePath = path.join(remixContext.rootDirectory, key + ".map");
 
           if (fs.existsSync(filePath)) {
             fs.rmSync(filePath);
@@ -84,10 +84,8 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => Plugin[] = (metro
       }
 
       const { dir } = options;
-      const serverDir = path.join(
-        __remixPluginResolvedConfig.rootDirectory,
-        __remixPluginResolvedConfig.serverBuildDirectory
-      );
+
+      const serverDir = path.join(remixContext.remixConfig.buildDirectory, "server");
 
       if (!clientBuildRan) {
         clientBuildRan = dir !== serverDir;
@@ -117,9 +115,16 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => Plugin[] = (metro
           return;
         }
 
+        const routeFiles = Object.entries(remixContext.remixConfig.routes).map(
+          ([key, value]) => (value as any).file
+        );
+
         const files = [
           ...Object.entries(sourceMaps).map(([key, value]) => ({ name: key, content: value })),
-          { name: "mapping.json", content: JSON.stringify(sourceMapMapping, null, 2) },
+          {
+            name: "mapping.json",
+            content: JSON.stringify({ sources: sourceMapMapping, routeFiles }, null, 2),
+          },
         ];
 
         const zip = new AdmZip();
@@ -131,22 +136,25 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => Plugin[] = (metro
         const zipFilePath = path.join(sourceMapDirectoryPath, `${version}.zip`);
         zip.writeZip(zipFilePath);
 
-        const uploadEndpoint = `${metronomeResolvedConfig.endpoint}/${METRONOME_METRICS_VERSION}/sourcemaps`;
+        const uploadEndpoint = `${metronomeResolvedConfig.endpoint}/telemetry/${METRONOME_METRICS_VERSION}/sourcemaps`;
 
         const mimetype = "text/plain";
         const blob = fileFromSync(zipFilePath, mimetype);
+
+        const body = new FormData();
+
+        body.append("file", blob, `${version}.zip`);
 
         console.log(pc.green(`Metronome: Uploading sourcemaps to ${uploadEndpoint}`));
 
         try {
           const response = await fetch(uploadEndpoint, {
             method: "POST",
-            body: blob,
+            body,
             redirect: "error",
             headers: {
               "x-api-key": apiKey,
               "x-version": version,
-              "content-type": "application/zip",
             },
           });
           // Any 200 status code is considered a success
@@ -200,16 +208,21 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => Plugin[] = (metro
         version = versionMatch[1];
       }
 
-      const packageJsonPath = path.resolve(
-        __remixPluginResolvedConfig.rootDirectory,
-        "package.json"
-      );
+      const packageJsonPath = path.resolve(remixContext.rootDirectory, "package.json");
       const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
 
       const remixPackages = Object.fromEntries(
         Object.entries(packageJson.dependencies ?? {})
-          .filter(([key]) => key.includes("@remix-run/"))
-          .map(([key, value]) => [`remix.package.${key.split("/")[1]}`, value])
+          .filter(
+            ([key]) =>
+              key.includes("@remix-run/") || key.includes("react") || key.includes("react-dom")
+          )
+          .map(([key, value]) => {
+            if (key.includes("remix")) {
+              return [`package.remix.${key.split("/")[1]}`, value];
+            }
+            return [`package.${key}`, value];
+          })
       ) as Record<string, string>;
 
       metronomeResolvedConfig = {
@@ -222,19 +235,19 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => Plugin[] = (metro
 
       const magicString = new MagicString(file.code);
 
-      magicString.prepend(`import { registerMetronome } from "metronome-sh/vite";\n`);
+      magicString.prepend(`import { registerMetronome } from "metronome-sh/vite";`);
 
       const regex = /const routes = \{([\s\S]*?)\};/m;
 
       const metronome = JSON.stringify(metronomeResolvedConfig, null, 2);
 
       magicString.replace(regex, (match, p1) => {
-        return `export const metronome = ${metronome};\nconst routes = registerMetronome({${p1}}, metronome);`;
+        return `export const metronome = ${metronome};const routes = registerMetronome({${p1}}, metronome);`;
       });
 
       file.code = magicString.toString();
 
-      file.map = magicString.generateMap({ hires: true });
+      file.map = magicString.generateMap({ hires: true, includeContent: true, source: name });
     },
     configResolved(config) {
       if (fs.existsSync(sourceMapDirectoryPath)) {
@@ -243,24 +256,25 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => Plugin[] = (metro
 
       fs.mkdirSync(sourceMapDirectoryPath);
 
-      const { root, ...rest } = config as any;
+      const { __remixPluginContext } = config as any;
 
-      __remixPluginResolvedConfig = rest.__remixPluginResolvedConfig;
+      remixContext = __remixPluginContext;
     },
     transform(code, id) {
       if (id.match(/root\.tsx$/)) {
         const magicString = new MagicString(code);
 
-        magicString.prepend('import { withMetronome } from "metronome-sh/react";\n');
-        const defaultExportRegex = /export\sdefault/;
+        magicString.prepend('import { withMetronome } from "metronome-sh/react";');
+        const defaultExportRegex = /export\sdefault\s(function\s.*{.*\}$)/gms;
 
-        magicString.replace(defaultExportRegex, "const __defaultExport =");
-
-        magicString.append("export default withMetronome(__defaultExport);");
+        magicString.replace(defaultExportRegex, (replacement, ...rest) => {
+          const [app] = rest;
+          return `export default withMetronome(${app})`;
+        });
 
         return {
           code: magicString.toString(),
-          map: magicString.generateMap({ hires: true }),
+          map: magicString.generateMap({ hires: true, includeContent: true, source: id }),
         };
       }
     },
