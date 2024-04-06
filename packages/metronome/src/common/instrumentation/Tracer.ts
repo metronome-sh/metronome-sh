@@ -15,6 +15,10 @@ export class Tracer {
     this.metricExporter = options.metricExporter;
   }
 
+  public async flush(): Promise<void> {
+    await Promise.all([this.spanExporter.flush(), this.metricExporter.flush()]);
+  }
+
   public startActiveSpan<T>(
     name: string,
     options: { traceId?: string; attributes?: Record<string, OtelAttribute> },

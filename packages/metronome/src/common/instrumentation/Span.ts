@@ -1,5 +1,5 @@
+import { generateRandomBytesHex } from "../helpers";
 import { OtelAttribute, OtelContext } from "../types";
-import crypto from "crypto";
 import { SpanEvent } from "./SpanEvent";
 
 const kind = {
@@ -31,12 +31,11 @@ export class Span {
   private kind: Kind;
 
   constructor(readonly name: string, options?: SpanOptions) {
-    this.id = crypto.randomBytes(8).toString("hex").toLowerCase();
+    this.id = generateRandomBytesHex(8);
     this.attributes = options?.attributes ?? {};
     this.startTime = options?.startTime ?? Date.now();
     this.endTime = this.startTime;
-    const traceId =
-      options?.context?.traceId ?? crypto.randomBytes(16).toString("hex").toLowerCase();
+    const traceId = options?.context?.traceId ?? generateRandomBytesHex(16);
 
     this.kind = options?.kind ?? "internal";
 

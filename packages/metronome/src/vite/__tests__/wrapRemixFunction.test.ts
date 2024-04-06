@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { MetronomeWrapperOptions } from "../../common/types";
-import { wrapRemixFunction } from "../wrapRemixFunction";
+import { wrapRemixFunction } from "../../server/wrapRemixFunction";
 import { json } from "@remix-run/server-runtime";
 import { onMockRequest } from "../../../vitest/mocks";
 import { asyncLocalStorage } from "@asyncLocalStorage";

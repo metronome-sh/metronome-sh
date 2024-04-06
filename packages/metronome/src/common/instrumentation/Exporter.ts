@@ -1,9 +1,15 @@
 import { MetronomeResolvedConfig } from "../types";
-import fetch from "node-fetch";
 
 export abstract class Exporter {
   constructor(readonly config: MetronomeResolvedConfig) {}
   abstract pathname: string;
+  private exportables: Promise<any>[] = [];
+
+  public flush(): Promise<void> {
+    return Promise.all(this.exportables).then(() => {
+      this.exportables = [];
+    });
+  }
 
   public export<T extends object>(exportable: T): void {
     if (!this.config.apiKey) {
@@ -19,12 +25,16 @@ export abstract class Exporter {
 
     if (this.config.debug) console.log(`Metronome: Sending metric data to metronome: \n${data}`);
 
+    const promise = fetch(url, {
+      body: data,
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-api-key": this.config.apiKey! },
+    });
+
+    this.exportables.push(promise);
+
     try {
-      fetch(url, {
-        body: data,
-        method: "POST",
-        headers: { "Content-Type": "application/json", "x-api-key": this.config.apiKey! },
-      }).catch((error) => {
+      promise.catch((error) => {
         if (this.config.debug) {
           console.error(`Metronome: Metric data was not sent to metronome`);
           console.error(error);

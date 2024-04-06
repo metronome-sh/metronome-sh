@@ -1,4 +1,4 @@
-import { Plugin } from "vite";
+import { Plugin, PluginOption } from "vite";
 import MagicString from "magic-string";
 import { fileURLToPath } from "url";
 import fs from "fs";
@@ -25,7 +25,7 @@ let version: string;
 let serverBuildRan: boolean = false;
 let clientBuildRan: boolean = false;
 
-export const metronome: (metronomeConfig?: MetronomeConfig) => Plugin[] = (metronomeConfig) => {
+export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (metronomeConfig) => {
   const sourcemapsPlugin: Plugin = {
     name: "metronome-sourcemaps",
     apply: "build",
@@ -235,7 +235,7 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => Plugin[] = (metro
 
       const magicString = new MagicString(file.code);
 
-      magicString.prepend(`import { registerMetronome } from "metronome-sh/vite";`);
+      magicString.prepend(`import { registerMetronome } from "metronome-sh/server";`);
 
       const regex = /const routes = \{([\s\S]*?)\};/m;
 

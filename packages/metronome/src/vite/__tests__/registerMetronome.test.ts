@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
-import { registerMetronome } from "../registerMetronome";
+import { registerMetronome } from "../../server/registerMetronome";
 import { MetronomeResolvedConfig } from "../../common/types";
-import * as wrapFunctionModule from "../wrapRemixFunction";
+import * as wrapFunctionModule from "../../server/wrapRemixFunction";
 
 describe("registerMetronome", () => {
   it("should register the metronome routes", () => {

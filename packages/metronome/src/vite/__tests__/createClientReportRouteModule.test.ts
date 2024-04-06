@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from "vitest";
-import { createClientReportRouteModule } from "../createClientReportRouteModule";
+import { createClientReportRouteModule } from "../../server/createClientReportRouteModule";
 import { MetronomeResolvedConfig, RouteMap } from "../../common/types";
 import { ServerRouteModule } from "@remix-run/server-runtime/dist/routeModules";
 import { obfuscate } from "../../common/helpers";

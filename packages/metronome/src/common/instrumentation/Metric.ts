@@ -1,5 +1,5 @@
-import { OtelAttribute, OtelContext } from "../types";
-import crypto from "crypto";
+import { generateRandomBytesHex } from "../helpers";
+import { OtelAttribute } from "../types";
 
 export class Metric {
   private id: string;
@@ -20,7 +20,7 @@ export class Metric {
       attributes: Record<string, OtelAttribute>;
     }>
   ) {
-    this.id = options?.id ?? crypto.randomBytes(8).toString("hex").toLowerCase();
+    this.id = options?.id ?? generateRandomBytesHex(8);
     this.unit = options?.unit ?? "";
     this.type = options?.type ?? "counter";
     this.attributes = options?.attributes ?? {};
