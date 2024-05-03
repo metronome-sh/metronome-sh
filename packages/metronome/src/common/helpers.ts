@@ -1,7 +1,6 @@
 import { SemanticAttributes } from "./instrumentation/SemanticAttributes";
 import { RegexpRouteMap, RouteMap } from "./types";
 import { pathToRegexp } from "path-to-regexp";
-import crypto from "node:crypto";
 
 function getCurrentUtcHour(): number {
   const now = new Date();
@@ -119,8 +118,4 @@ export function getRemixAttributes({
     [SemanticAttributes.RemixRoutePath]: found.path ?? "<unknown>",
     [SemanticAttributes.AppVersion]: version,
   };
-}
-
-export function generateRandomBytesHex(length: number) {
-  return crypto.randomBytes(length).toString("hex").toLowerCase();
 }

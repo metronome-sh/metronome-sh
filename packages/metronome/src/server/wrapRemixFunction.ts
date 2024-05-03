@@ -1,5 +1,5 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
-import { MetronomeWrapperOptions } from "../common/types";
+import { CloudflareLoadContext, MetronomeWrapperOptions } from "../common/types";
 import { METRONOME_VERSION } from "../common/constants";
 import { getIp } from "../common/getIp";
 import { Span } from "../common/instrumentation/Span";
@@ -13,10 +13,23 @@ export const wrapRemixFunction = (
   remixFunction: ActionFunction | LoaderFunction,
   options: MetronomeWrapperOptions
 ): ActionFunction | LoaderFunction => {
+  const isCloudflare = Object.keys(options.config.remixPackages).some((key) =>
+    key.includes("cloudflare")
+  );
+
   startInstrumentation(options.config);
+
   return async (...args) => {
     const requestStore = asyncLocalStorage.getStore();
-    const [{ request }] = args;
+    const [{ request, context }] = args;
+
+    const cloudflareWaitUntil = (context as CloudflareLoadContext)?.cloudflare?.waitUntil;
+
+    if (isCloudflare && !cloudflareWaitUntil) {
+      console.warn(
+        "Metronome: cloudflare prop was not found in the context, this route might not be instrumented as waitUntil is not available."
+      );
+    }
 
     // Don't track head requests
     if (request.method.toLowerCase() === "head") return remixFunction(...args);
@@ -98,6 +111,7 @@ export const wrapRemixFunction = (
 
             if (!requestStore?.doNotTrack) {
               span.end();
+              cloudflareWaitUntil?.(tracer().flush());
             }
 
             return result;
@@ -123,6 +137,7 @@ export const wrapRemixFunction = (
 
             if (!requestStore?.doNotTrackErrors) {
               span.end();
+              cloudflareWaitUntil?.(tracer().flush());
             }
 
             throw throwable;

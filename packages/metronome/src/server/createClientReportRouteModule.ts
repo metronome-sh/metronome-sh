@@ -19,7 +19,7 @@ export const createClientReportRouteModule = ({
   routeMap: RouteMap;
   config: MetronomeResolvedConfig;
 }): ServerRouteModule => {
-  const action: ActionFunction = async ({ request }) => {
+  const action: ActionFunction = async ({ request, context }) => {
     startInstrumentation(config);
 
     const events = deobfuscate(await request.text());

@@ -8,6 +8,7 @@ import AdmZip from "adm-zip";
 import fetch, { fileFromSync } from "node-fetch";
 import pc from "picocolors";
 import boxen from "boxen";
+import { $ } from "execa";
 import { METRONOME_METRICS_VERSION } from "../common/constants";
 import { MetronomeConfig, MetronomeResolvedConfig } from "../common/types";
 
@@ -30,7 +31,6 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (m
     name: "metronome-sourcemaps",
     apply: "build",
     enforce: "pre",
-
     config(config) {
       if (typeof config.build?.sourcemap === "undefined" || config.build?.sourcemap === false) {
         didOverrideSourcemapConfig = true;
@@ -95,94 +95,123 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (m
         serverBuildRan = dir === serverDir;
       }
 
-      if (serverBuildRan && clientBuildRan) {
-        const apiKey = metronomeResolvedConfig.apiKey ?? process.env.METRONOME_API_KEY;
+      if (!serverBuildRan || !clientBuildRan) return;
 
-        if (!apiKey) {
-          console.log(
-            pc.yellow(
-              boxen(
-                `Metronome - Cannot export source map\nNo API key provided. Set the ${pc.white(
-                  "METRONOME_API_KEY"
-                )} environment variable or ${pc.white(
-                  "sourcemap: false"
-                )} in the metronome plugin config`,
-                { padding: 0.5, width: 80 }
-              )
+      const isCloudflare = Object.keys(metronomeResolvedConfig.remixPackages).some((key) => {
+        return key.includes("cloudflare");
+      });
+
+      if (isCloudflare) {
+        const outputDir = path.join(remixContext.rootDirectory, "wrangler");
+        console.log(pc.green(`Metronome: building Cloudflare worker sourcemaps`));
+
+        // Run npx with wrangler to out dir to __dirname/wrangler
+        // and read it a put it the content of the sourcema
+        const { stdout } = await $({
+          cwd: remixContext.rootDirectory,
+        })`npx wrangler pages functions build --sourcemap --outdir ${outputDir} --compatibility-flags nodejs_compat`;
+
+        const wranglerSourceMap = fs.readFileSync(path.join(outputDir, "index.js.map"), "utf-8");
+
+        sourceMaps["wrangler.js.map"] = wranglerSourceMap;
+
+        console.log(stdout);
+      }
+
+      const apiKey = metronomeResolvedConfig.apiKey ?? process.env.METRONOME_API_KEY;
+
+      if (!apiKey) {
+        console.log(
+          pc.yellow(
+            boxen(
+              `Metronome - Cannot export source map\nNo API key provided. Set the ${pc.white(
+                "METRONOME_API_KEY"
+              )} environment variable or ${pc.white(
+                "sourcemap: false"
+              )} in the metronome plugin config`,
+              { padding: 0.5, width: 80 }
             )
-          );
-
-          return;
-        }
-
-        const routeFiles = Object.entries(remixContext.remixConfig.routes).map(
-          ([key, value]) => (value as any).file
+          )
         );
 
-        const files = [
-          ...Object.entries(sourceMaps).map(([key, value]) => ({ name: key, content: value })),
-          {
-            name: "mapping.json",
-            content: JSON.stringify({ sources: sourceMapMapping, routeFiles }, null, 2),
-          },
-        ];
+        return;
+      }
 
-        const zip = new AdmZip();
+      const routeFiles = Object.entries(remixContext.remixConfig.routes).map(
+        ([key, value]) => (value as any).file
+      );
 
-        files.forEach((file) => {
-          zip.addFile(file.name, Buffer.from(file.content));
-        });
-
-        const zipFilePath = path.join(sourceMapDirectoryPath, `${version}.zip`);
-        zip.writeZip(zipFilePath);
-
-        const uploadEndpoint = `${metronomeResolvedConfig.endpoint}/telemetry/${METRONOME_METRICS_VERSION}/sourcemaps`;
-
-        const mimetype = "text/plain";
-        const blob = fileFromSync(zipFilePath, mimetype);
-
-        const body = new FormData();
-
-        body.append("file", blob, `${version}.zip`);
-
-        console.log(pc.green(`Metronome: Uploading sourcemaps to ${uploadEndpoint}`));
-
-        try {
-          const response = await fetch(uploadEndpoint, {
-            method: "POST",
-            body,
-            redirect: "error",
-            headers: {
-              "x-api-key": apiKey,
-              "x-version": version,
+      const files = [
+        ...Object.entries(sourceMaps).map(([key, value]) => ({ name: key, content: value })),
+        {
+          name: "mapping.json",
+          content: JSON.stringify(
+            {
+              sources: sourceMapMapping,
+              routeFiles,
+              wranglerMap: isCloudflare ? "wrangler.js.map" : null,
             },
-          });
-          // Any 200 status code is considered a success
-          if (response.status < 300 && response.status >= 200) {
-            console.log(pc.green(`Metronome: Successfully uploaded sourcemaps`));
-          } else {
-            console.log(
-              pc.red(
-                boxen(
-                  `Metronome: Failed to upload sourcemaps: ${response.statusText}-${response.status}`,
-                  {
-                    padding: 0.5,
-                    width: 80,
-                  }
-                )
-              )
-            );
-          }
-        } catch (error) {
+            null,
+            2
+          ),
+        },
+      ];
+
+      const zip = new AdmZip();
+
+      files.forEach((file) => {
+        zip.addFile(file.name, Buffer.from(file.content));
+      });
+
+      const zipFilePath = path.join(sourceMapDirectoryPath, `${version}.zip`);
+      zip.writeZip(zipFilePath);
+
+      const uploadEndpoint = `${metronomeResolvedConfig.endpoint}/telemetry/${METRONOME_METRICS_VERSION}/sourcemaps`;
+
+      const mimetype = "text/plain";
+      const blob = fileFromSync(zipFilePath, mimetype);
+
+      const body = new FormData();
+
+      body.append("file", blob, `${version}.zip`);
+
+      console.log(pc.green(`Metronome: Uploading sourcemaps to ${uploadEndpoint}`));
+
+      try {
+        const response = await fetch(uploadEndpoint, {
+          method: "POST",
+          body,
+          redirect: "error",
+          headers: {
+            "x-api-key": apiKey,
+            "x-version": version,
+          },
+        });
+        // Any 200 status code is considered a success
+        if (response.status < 300 && response.status >= 200) {
+          console.log(pc.green(`Metronome: Successfully uploaded sourcemaps`));
+        } else {
           console.log(
             pc.red(
-              boxen(`Metronome: Failed to upload sourcemaps: ${(error as Error).message}`, {
-                padding: 0.5,
-                width: 80,
-              })
+              boxen(
+                `Metronome: Failed to upload sourcemaps: ${response.statusText}-${response.status}`,
+                {
+                  padding: 0.5,
+                  width: 80,
+                }
+              )
             )
           );
         }
+      } catch (error) {
+        console.log(
+          pc.red(
+            boxen(`Metronome: Failed to upload sourcemaps: ${(error as Error).message}`, {
+              padding: 0.5,
+              width: 80,
+            })
+          )
+        );
       }
     },
   };
@@ -230,7 +259,6 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (m
         remixPackages,
         endpoint: metronomeConfig?.endpoint ?? "https://metrics.metronome.sh",
         version,
-        sourcemapsPath: path.join(sourceMapDirectoryPath, `${version}.zip`),
       };
 
       const magicString = new MagicString(file.code);
@@ -239,10 +267,10 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (m
 
       const regex = /const routes = \{([\s\S]*?)\};/m;
 
-      const metronome = JSON.stringify(metronomeResolvedConfig, null, 2);
-
-      magicString.replace(regex, (match, p1) => {
-        return `export const metronome = ${metronome};const routes = registerMetronome({${p1}}, metronome);`;
+      magicString.replace(regex, (_, p1) => {
+        return `export const metronome = ${JSON.stringify(
+          metronomeResolvedConfig
+        )}; \n const routes = registerMetronome({${p1}}, metronome);`;
       });
 
       file.code = magicString.toString();
@@ -280,5 +308,5 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (m
     },
   };
 
-  return [metronomePlugin, ...(metronomeConfig?.sourcemap === false ? [] : [sourcemapsPlugin])];
+  return [metronomePlugin, ...(metronomeConfig?.unstable_sourcemaps ? [sourcemapsPlugin] : [])];
 };

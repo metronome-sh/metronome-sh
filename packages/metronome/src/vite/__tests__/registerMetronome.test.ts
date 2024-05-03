@@ -20,8 +20,6 @@ describe("registerMetronome", () => {
       },
     };
 
-    const assetsManifest = { version: "abcdef" };
-
     const config: MetronomeResolvedConfig = {
       apiKey: "test-api-key",
       endpoint: "https://metrics.metronome.sh",
@@ -31,7 +29,7 @@ describe("registerMetronome", () => {
         "remix.package.react": "^2.5.0",
       },
       version: "abcedf",
-      sourcemapsPath: "sourcemaps.zip",
+      unstable_sourcemaps: true,
     };
 
     const result = registerMetronome(routes, config);

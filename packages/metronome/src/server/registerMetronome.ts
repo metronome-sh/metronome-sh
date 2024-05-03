@@ -5,7 +5,8 @@ import * as webVitalsModule from "./webVitalsModule";
 
 export function registerMetronome(routes: Routes, config: MetronomeResolvedConfig): Routes {
   if (!config.apiKey) {
-    config.apiKey = process.env.METRONOME_API_KEY;
+    console.warn("Metronome: apiKey is required to enable Metronome");
+    return routes;
   }
 
   const routeMap: RouteMap = {};

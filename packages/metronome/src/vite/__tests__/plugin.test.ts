@@ -7,7 +7,7 @@ const tmpDir = `${__dirname}/.remix`;
 const $$ = $({ cwd: tmpDir });
 
 const viteConfig = `
-import { unstable_vitePlugin as remix } from "@remix-run/dev";
+import { vitePlugin as remix } from "@remix-run/dev";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { metronome } from "metronome-sh/vite";
@@ -46,7 +46,7 @@ describe(
       const dirname = "express-vite-" + Math.random().toString(36).substring(7);
 
       await install({
-        template: "remix-run/remix/templates/unstable-vite-express",
+        template: "remix-run/remix/templates/express",
         dirname,
       });
 
@@ -56,19 +56,19 @@ describe(
       );
 
       // prettier-ignore
-      const metronomeImportRegex = /import\s+\{\s*registerMetronome\s*\}\s+from\s+"metronome-sh\/vite";/;
+      const metronomeImportRegex = /import\s+\{\s*registerMetronome\s*\}\s+from\s+"metronome-sh\/server";/;
 
       expect(serverBuild.match(metronomeImportRegex)?.[0]).toBeDefined();
       expect(serverBuild.match(metronomeImportRegex)?.[0]).toMatchSnapshot();
 
       // prettier-ignore
-      const metronomeExportRegex = /export\s+const\s+metronome\s*=\s*\{\s*"remixPackages":\s*\{\s*"remix\.package\.express":\s*"\^[^"]+",\s*"remix\.package\.node":\s*"\^[^"]+",\s*"remix\.package\.react":\s*"\^[^"]+"\s*\},\s*"endpoint":\s*"https:\/\/metrics\.metronome\.sh"\s*\};/
+      const metronomeExportRegex = /export\s+const\s+metronome\s=\s{"remixPackages":{"package.remix.express":"\^.*","package.remix.node":"\^.*","package.remix.react":"\^.*","package.react":"\^.*","package.react-dom":"\^.*"},"endpoint":"https:\/\/metrics.metronome.sh","version":"\w+"};/;
 
       expect(serverBuild.match(metronomeExportRegex)?.[0]).toBeDefined();
       expect(serverBuild.match(metronomeExportRegex)?.[0]).toMatchSnapshot();
 
       // prettier-ignore
-      const metronomeWrapperRegex = /const\s+routes\s*=\s*registerMetronome\(\s*\{[\s\S]*?"root"[\s\S]*?\}\s*,\s*\{\s*version:\s*serverManifest\['version'\]\s*\}\s*,\s*metronome\s*\);/
+      const metronomeWrapperRegex = /const\s+routes\s*=\s*registerMetronome\(\s*\{[\s\S]*?"root"[\s\S]*?\}\s*,\s*metronome\s*\);/;
 
       expect(serverBuild.match(metronomeWrapperRegex)?.[0]).toBeDefined();
       expect(serverBuild.match(metronomeWrapperRegex)?.[0]).toMatchSnapshot();

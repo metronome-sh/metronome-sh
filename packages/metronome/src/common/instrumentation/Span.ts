@@ -1,4 +1,4 @@
-import { generateRandomBytesHex } from "../helpers";
+import { generateRandomBytesHex } from "../helpers/generateRandomBytesHex";
 import { OtelAttribute, OtelContext } from "../types";
 import { SpanEvent } from "./SpanEvent";
 

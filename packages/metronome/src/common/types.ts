@@ -1,4 +1,5 @@
 import { ServerBuild } from "@remix-run/server-runtime";
+import { type EventContext } from "@cloudflare/workers-types";
 
 export type Routes = Record<string, ServerBuild["routes"][string]>;
 
@@ -21,7 +22,7 @@ export interface MetronomeConfig {
   apiKey?: string | null;
   ignoredRoutes?: (string | RegExp)[];
   ignoredPathnames?: (string | RegExp)[];
-  sourcemap?: boolean;
+  unstable_sourcemaps?: boolean;
   // headersAllowlist?: HeaderAllowlist;
   debug?: boolean;
 }
@@ -30,7 +31,6 @@ export interface MetronomeResolvedConfig extends Omit<MetronomeConfig, "endpoint
   endpoint: string;
   remixPackages: Record<string, string>;
   version: string;
-  sourcemapsPath: string;
 }
 
 export interface MetronomeWrapperOptions {
@@ -71,4 +71,19 @@ export type AsyncLocalStore = {
 
 export type DoNotTrackOptions = {
   doNotTrackErrors: boolean;
+};
+
+export type CloudflareLoadContext<
+  Env = unknown,
+  Params extends string = any,
+  Data extends Record<string, unknown> = Record<string, unknown>
+> = {
+  cloudflare?: EventContext<Env, Params, Data> & {
+    cf: EventContext<Env, Params, Data>["request"]["cf"];
+    ctx: {
+      waitUntil: EventContext<Env, Params, Data>["waitUntil"];
+      passThroughOnException: EventContext<Env, Params, Data>["passThroughOnException"];
+    };
+    caches: CacheStorage;
+  };
 };
