@@ -1,5 +1,11 @@
 # @metronome-sh/express
 
+## 8.4.1
+
+### Patch Changes
+
+- 27dd9eb: Fixed sourcemap generation in remix cloudflare
+
 ## 8.4.0
 
 ### Minor Changes
