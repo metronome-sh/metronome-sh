@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeAll } from "vitest";
 import { MetronomeWrapperOptions } from "../../common/types";
-import { wrapRemixFunction } from "../wrapRemixFunction";
+import { wrapRemixFunction } from "../../server/wrapRemixFunction";
 import { json } from "@remix-run/server-runtime";
 import { onMockRequest } from "../../../vitest/mocks";
 import { asyncLocalStorage } from "@asyncLocalStorage";
@@ -17,12 +17,17 @@ describe("wrapRemixFunction", () => {
         "remix.package.node": "^2.5.0",
         "remix.package.react": "^2.5.0",
       },
+      version: "abcfed",
+      unstable_sourceMaps: true,
     },
-    assetsManifest: { version: "abcfed" },
   };
 
+  // header with user agent
+  const headers = new Headers();
+  headers.set("user-agent", "test-user-agent");
+
   const remixFunctionArgs = {
-    request: new Request("https://metronome.sh"),
+    request: new Request("https://metronome.sh", { headers }),
     context: {},
     params: {},
   };
@@ -39,22 +44,40 @@ describe("wrapRemixFunction", () => {
 
     await expect(onMockRequest).toHaveBeenEventuallyCalledWith([
       {
+        endTime: 579506400000,
+        events: [],
+        id: expect.any(String),
+        kind: 1,
         name: "loader",
-        details: {
-          timestamp: 579506400000,
-          duration: "0",
-          errored: false,
-          hash: "abcfed",
-          ip: "0.0.0.0",
-          ua: "",
-          adapter: "vite",
-          routeId: "test-route-id",
-          routePath: "test-route-path",
-          startTime: "0",
-          httpPathname: "/",
-          httpMethod: "GET",
-          httpStatusCode: 200,
-          httpStatusText: "",
+        startTime: 579506400000,
+        context: {
+          traceId: expect.any(String),
+        },
+        attributes: {
+          "app.version": "abcfed",
+          "browser.major": "",
+          "browser.name": "",
+          "browser.version": "",
+          "client.address": "0.0.0.0",
+          "device.model": "",
+          "device.vendor": "",
+          "engine.name": "",
+          "engine.version": "",
+          "http.method": "GET",
+          "http.pathname": "/",
+          "http.status_code": "200",
+          "metronome.adapter": "vite",
+          "metronome.version": "undefined",
+          "os.name": "",
+          "os.version": "",
+          "remix.function": "loader",
+          "remix.package.express": "^2.5.0",
+          "remix.package.node": "^2.5.0",
+          "remix.package.react": "^2.5.0",
+          "remix.route_id": "test-route-id",
+          "remix.route_path": "test-route-path",
+          "url.full": "https://metronome.sh/",
+          "user_agent.original": "test-user-agent",
         },
       },
     ]);
@@ -69,22 +92,40 @@ describe("wrapRemixFunction", () => {
 
     await expect(onMockRequest).toHaveBeenEventuallyCalledWith([
       {
+        endTime: 579506400000,
+        events: [],
+        id: expect.any(String),
+        kind: 1,
         name: "loader",
-        details: {
-          timestamp: 579506400000,
-          duration: "0",
-          errored: false,
-          hash: "abcfed",
-          ip: "0.0.0.0",
-          ua: "",
-          adapter: "vite",
-          routeId: "test-route-id",
-          routePath: "test-route-path",
-          startTime: "0",
-          httpPathname: "/",
-          httpMethod: "GET",
-          httpStatusCode: 200,
-          httpStatusText: "",
+        startTime: 579506400000,
+        context: {
+          traceId: expect.any(String),
+        },
+        attributes: {
+          "app.version": "abcfed",
+          "browser.major": "",
+          "browser.name": "",
+          "browser.version": "",
+          "client.address": "0.0.0.0",
+          "device.model": "",
+          "device.vendor": "",
+          "engine.name": "",
+          "engine.version": "",
+          "http.method": "GET",
+          "http.pathname": "/",
+          "http.status_code": "200",
+          "metronome.adapter": "vite",
+          "metronome.version": "undefined",
+          "os.name": "",
+          "os.version": "",
+          "remix.function": "loader",
+          "remix.package.express": "^2.5.0",
+          "remix.package.node": "^2.5.0",
+          "remix.package.react": "^2.5.0",
+          "remix.route_id": "test-route-id",
+          "remix.route_path": "test-route-path",
+          "url.full": "https://metronome.sh/",
+          "user_agent.original": "test-user-agent",
         },
       },
     ]);
@@ -99,22 +140,40 @@ describe("wrapRemixFunction", () => {
 
     await expect(onMockRequest).toHaveBeenEventuallyCalledWith([
       {
+        endTime: 579506400000,
+        events: [],
+        id: expect.any(String),
+        kind: 1,
         name: "loader",
-        details: {
-          timestamp: 579506400000,
-          duration: "0",
-          errored: false,
-          hash: "abcfed",
-          ip: "0.0.0.0",
-          ua: "",
-          adapter: "vite",
-          routeId: "test-route-id",
-          routePath: "test-route-path",
-          startTime: "0",
-          httpPathname: "/",
-          httpMethod: "GET",
-          httpStatusCode: 500,
-          httpStatusText: "",
+        startTime: 579506400000,
+        context: {
+          traceId: expect.any(String),
+        },
+        attributes: {
+          "app.version": "abcfed",
+          "browser.major": "",
+          "browser.name": "",
+          "browser.version": "",
+          "client.address": "0.0.0.0",
+          "device.model": "",
+          "device.vendor": "",
+          "engine.name": "",
+          "engine.version": "",
+          "http.method": "GET",
+          "http.pathname": "/",
+          "http.status_code": "500",
+          "metronome.adapter": "vite",
+          "metronome.version": "undefined",
+          "os.name": "",
+          "os.version": "",
+          "remix.function": "loader",
+          "remix.package.express": "^2.5.0",
+          "remix.package.node": "^2.5.0",
+          "remix.package.react": "^2.5.0",
+          "remix.route_id": "test-route-id",
+          "remix.route_path": "test-route-path",
+          "url.full": "https://metronome.sh/",
+          "user_agent.original": "test-user-agent",
         },
       },
     ]);
@@ -228,26 +287,54 @@ describe("wrapRemixFunction", () => {
     const error = new Error("test-error");
     remixFunction.mockRejectedValueOnce(error);
     expect(() => wrappedLoader(remixFunctionArgs)).rejects.toThrowError(error);
-    expect(remixFunction).toHaveBeenCalled();
 
     await expect(onMockRequest).toHaveBeenEventuallyCalledWith([
       {
+        endTime: 579506400050,
+        events: [
+          {
+            name: "exception",
+            timestamp: 579506400050,
+            attributes: {
+              "exception.message": "test-error",
+              "exception.stacktrace": error.stack,
+              "exception.type": "Error",
+            },
+          },
+        ],
+        id: expect.any(String),
+        kind: 1,
         name: "loader",
-        details: {
-          timestamp: 579506400000,
-          duration: "0",
-          errored: true,
-          hash: "abcfed",
-          ip: "0.0.0.0",
-          ua: "",
-          adapter: "vite",
-          routeId: "test-route-id",
-          routePath: "test-route-path",
-          startTime: "0",
-          httpPathname: "/",
-          httpMethod: "GET",
-          httpStatusCode: 500,
-          httpStatusText: "",
+        startTime: 579506400050,
+        context: {
+          traceId: expect.any(String),
+        },
+        attributes: {
+          "app.errored": "true",
+          "app.version": "abcfed",
+          "browser.major": "",
+          "browser.name": "",
+          "browser.version": "",
+          "client.address": "0.0.0.0",
+          "device.model": "",
+          "device.vendor": "",
+          "engine.name": "",
+          "engine.version": "",
+          "error.type": "Error",
+          "http.method": "GET",
+          "http.pathname": "/",
+          "metronome.adapter": "vite",
+          "metronome.version": "undefined",
+          "os.name": "",
+          "os.version": "",
+          "remix.function": "loader",
+          "remix.package.express": "^2.5.0",
+          "remix.package.node": "^2.5.0",
+          "remix.package.react": "^2.5.0",
+          "remix.route_id": "test-route-id",
+          "remix.route_path": "test-route-path",
+          "url.full": "https://metronome.sh/",
+          "user_agent.original": "test-user-agent",
         },
       },
     ]);
@@ -317,22 +404,40 @@ describe("wrapRemixFunction", () => {
 
     await expect(onMockRequest).toHaveBeenEventuallyCalledWith([
       {
+        endTime: 579506400000,
+        events: [],
+        id: expect.any(String),
+        kind: 1,
         name: "action",
-        details: {
-          timestamp: 579506400000,
-          duration: "0",
-          errored: false,
-          hash: "abcfed",
-          ip: "0.0.0.0",
-          ua: "",
-          adapter: "vite",
-          routeId: "test-route-id",
-          routePath: "test-route-path",
-          startTime: "0",
-          httpPathname: "/",
-          httpMethod: "GET",
-          httpStatusCode: 200,
-          httpStatusText: "",
+        startTime: 579506400000,
+        context: {
+          traceId: expect.any(String),
+        },
+        attributes: {
+          "app.version": "abcfed",
+          "browser.major": "",
+          "browser.name": "",
+          "browser.version": "",
+          "client.address": "0.0.0.0",
+          "device.model": "",
+          "device.vendor": "",
+          "engine.name": "",
+          "engine.version": "",
+          "http.method": "GET",
+          "http.pathname": "/",
+          "http.status_code": "200",
+          "metronome.adapter": "vite",
+          "metronome.version": "undefined",
+          "os.name": "",
+          "os.version": "",
+          "remix.function": "action",
+          "remix.package.express": "^2.5.0",
+          "remix.package.node": "^2.5.0",
+          "remix.package.react": "^2.5.0",
+          "remix.route_id": "test-route-id",
+          "remix.route_path": "test-route-path",
+          "url.full": "https://metronome.sh/",
+          "user_agent.original": "test-user-agent",
         },
       },
     ]);

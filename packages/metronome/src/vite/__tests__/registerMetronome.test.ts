@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
-import { registerMetronome } from "../registerMetronome";
-import { MetronomeInternalConfig } from "../../common/types";
-import * as wrapFunctionModule from "../wrapRemixFunction";
+import { registerMetronome } from "../../server/registerMetronome";
+import { MetronomeResolvedConfig } from "../../common/types";
+import * as wrapFunctionModule from "../../server/wrapRemixFunction";
 
 describe("registerMetronome", () => {
   it("should register the metronome routes", () => {
@@ -20,15 +20,19 @@ describe("registerMetronome", () => {
       },
     };
 
-    const assetsManifest = { version: "abcdef" };
-
-    const config: MetronomeInternalConfig = {
+    const config: MetronomeResolvedConfig = {
       apiKey: "test-api-key",
-      endpoint: "https://metronome.sh",
-      remixPackages: {},
+      endpoint: "https://metrics.metronome.sh",
+      remixPackages: {
+        "remix.package.express": "^2.5.0",
+        "remix.package.node": "^2.5.0",
+        "remix.package.react": "^2.5.0",
+      },
+      version: "abcedf",
+      unstable_sourceMaps: true,
     };
 
-    const result = registerMetronome(routes, assetsManifest, config);
+    const result = registerMetronome(routes, config);
 
     expect(wrapRemixFunctionSpy).toHaveBeenCalledTimes(2);
     expect(result["/"]).toBeDefined();

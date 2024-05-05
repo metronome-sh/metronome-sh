@@ -27,10 +27,12 @@ export class SpanEvent {
     return this.name;
   }
 
-  toObject() {
+  toJSON() {
     return {
       name: this.name,
-      attributes: this.attributes,
+      attributes: Object.fromEntries(
+        Object.entries(this.attributes).map(([key, value]) => [key, `${value}`])
+      ),
       timestamp: this.timestamp,
     };
   }

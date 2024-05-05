@@ -1,7 +1,7 @@
-import { MetronomeInternalConfig, OtelAttribute } from "../types";
+import { CloudflareContext, MetronomeResolvedConfig, OtelAttribute } from "../types";
 import { Metric } from "./Metric";
 import { MetricExporter } from "./MetricExporter";
-import { Span } from "./Span";
+import { Span, SpanOptions } from "./Span";
 import { SpanExporter } from "./SpanExporter";
 
 let tracerInstance: Tracer;
@@ -9,10 +9,26 @@ let tracerInstance: Tracer;
 export class Tracer {
   protected spanExporter: SpanExporter;
   protected metricExporter: MetricExporter;
+  protected cloudflareContext: CloudflareContext | undefined;
 
   constructor(options: { spanExporter: SpanExporter; metricExporter: MetricExporter }) {
     this.spanExporter = options.spanExporter;
     this.metricExporter = options.metricExporter;
+  }
+
+  public async flush(): Promise<void> {
+    await Promise.all([this.spanExporter.flush(), this.metricExporter.flush()]);
+  }
+
+  public setCloudflareContext(context: CloudflareContext | undefined) {
+    if (!context) {
+      console.warn("Metronome: cloudflare context was not found within the Remix context.");
+      return;
+    }
+
+    this.cloudflareContext = context;
+    this.spanExporter.setCloudflareContext(context);
+    this.metricExporter.setCloudflareContext(context);
   }
 
   public startActiveSpan<T>(
@@ -23,6 +39,7 @@ export class Tracer {
     const span = new Span(name, {
       attributes: options?.attributes,
       context: { traceId: options?.traceId },
+      kind: "server",
     });
 
     span.addOnEndListener(() => this.exportSpan(span));
@@ -30,8 +47,8 @@ export class Tracer {
     return callback(span);
   }
 
-  public startSpan(name: string, options?: { attributes?: Record<string, OtelAttribute> }) {
-    const span = new Span(name, { attributes: options?.attributes });
+  public startSpan(name: string, options?: SpanOptions) {
+    const span = new Span(name, options);
     span.addOnEndListener(() => this.exportSpan(span));
     return span;
   }
@@ -74,7 +91,7 @@ export function tracer() {
   return tracerInstance;
 }
 
-export function startInstrumentation(config: MetronomeInternalConfig) {
+export function startInstrumentation(config: MetronomeResolvedConfig) {
   if (tracerInstance) return;
 
   tracerInstance = new Tracer({

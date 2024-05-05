@@ -1,5 +1,5 @@
 import { ServerBuild } from "@remix-run/server-runtime";
-import { type AssetsManifest } from "@remix-run/server-runtime/dist/entry";
+import { type EventContext } from "@cloudflare/workers-types";
 
 export type Routes = Record<string, ServerBuild["routes"][string]>;
 
@@ -22,21 +22,22 @@ export interface MetronomeConfig {
   apiKey?: string | null;
   ignoredRoutes?: (string | RegExp)[];
   ignoredPathnames?: (string | RegExp)[];
+  unstable_sourceMaps?: boolean;
   // headersAllowlist?: HeaderAllowlist;
   debug?: boolean;
 }
 
-export interface MetronomeInternalConfig extends Omit<MetronomeConfig, "endpoint"> {
-  remixPackages: Record<string, string>;
+export interface MetronomeResolvedConfig extends Omit<MetronomeConfig, "endpoint"> {
   endpoint: string;
+  remixPackages: Record<string, string>;
+  version: string;
 }
 
 export interface MetronomeWrapperOptions {
   type: "action" | "loader";
   routeId: string;
   routePath?: string;
-  config: MetronomeInternalConfig;
-  assetsManifest: Pick<AssetsManifest, "version">;
+  config: MetronomeResolvedConfig;
 }
 
 export type RegexpRouteMap = Record<
@@ -70,4 +71,25 @@ export type AsyncLocalStore = {
 
 export type DoNotTrackOptions = {
   doNotTrackErrors: boolean;
+};
+
+export type CloudflareLoadContext<
+  Env = { [key: string]: string },
+  Params extends string = any,
+  Data extends Record<string, unknown> = Record<string, unknown>
+> = {
+  cloudflare?: CloudflareContext<Env, Params, Data>;
+};
+
+export type CloudflareContext<
+  Env = { [key: string]: string },
+  Params extends string = any,
+  Data extends Record<string, unknown> = Record<string, unknown>
+> = EventContext<Env, Params, Data> & {
+  cf: EventContext<Env, Params, Data>["request"]["cf"];
+  ctx: {
+    waitUntil: EventContext<Env, Params, Data>["waitUntil"];
+    passThroughOnException: EventContext<Env, Params, Data>["passThroughOnException"];
+  };
+  caches: CacheStorage;
 };

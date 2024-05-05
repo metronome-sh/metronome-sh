@@ -3,10 +3,14 @@ import { http, HttpResponse } from "msw";
 import { onMockRequest } from "./mocks";
 
 export const handlers = [
-  http.post("https://metrics.metronome.sh/v4/process", () => {
-    return HttpResponse.text("");
+  http.post("https://metrics.metronome.sh/telemetry/v5/metrics", () => {
+    return new HttpResponse(null, { status: 200 });
+  }),
+  http.post("https://metrics.metronome.sh/telemetry/v5/spans", () => {
+    return new HttpResponse(null, { status: 200 });
   }),
 ];
+
 export const server = setupServer(...handlers);
 
 server.events.on("request:end", async ({ request }) => {

@@ -6,13 +6,13 @@ import {
 import { startInstrumentation, tracer } from "../common/instrumentation/Tracer";
 import { getIp } from "../common/getIp";
 import { METRONOME_VERSION } from "../common/constants";
-import { MetronomeInternalConfig } from "src/common/types";
+import { MetronomeResolvedConfig } from "src/common/types";
 import { invariant } from "ts-invariant";
 import { SemanticAttributes } from "../common/instrumentation/SemanticAttributes";
 import { asyncLocalStorage } from "@asyncLocalStorage";
 
 export function createMetronomeMiddleware(build: any) {
-  const config = build?.metronome as MetronomeInternalConfig;
+  const config = build?.metronome as MetronomeResolvedConfig;
 
   // prettier-ignore
   invariant(config, "Metronome config is missing. Check the following: \n 1. Add the metronome vite plugin to your vite.config.ts \n 2. Pass the remix build to the createMetronomeMiddleware")

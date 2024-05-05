@@ -1,5 +1,41 @@
 # @metronome-sh/express
 
+## 8.4.0
+
+### Minor Changes
+
+- 7543031: execa fix
+
+### Patch Changes
+
+- 7543031: fixed execa
+- 7543031: added node and cloudflare env vars compatibility
+- 052f129: Sourcemap generation fixes
+- 7543031: added execa
+
+## 8.4.0-prerelease.2
+
+### Patch Changes
+
+- added node and cloudflare env vars compatibility
+
+## 8.4.0-prerelease.1
+
+### Minor Changes
+
+- execa fix
+
+### Patch Changes
+
+- fixed execa
+- added execa
+
+## 8.3.1-prerelease.0
+
+### Patch Changes
+
+- 052f129: Sourcemap generation fixes
+
 ## 8.2.0
 
 ### Minor Changes

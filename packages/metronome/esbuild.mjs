@@ -33,6 +33,7 @@ const commonConfig = {
     replace({
       "process.env.METRONOME_VERSION": JSON.stringify(packageJson.version),
       "process.env.METRONOME_WEB_VITALS": JSON.stringify(webVitalsAttributes),
+      "process.env.METRONOME_DEV": process.env.NODE_ENV !== "production",
     }),
     replaceAsyncStoragePlugin,
   ],

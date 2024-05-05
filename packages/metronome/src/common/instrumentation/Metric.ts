@@ -1,5 +1,5 @@
-import { OtelAttribute, OtelContext } from "../types";
-import crypto from "crypto";
+import { generateRandomBytesHex } from "../helpers/generateRandomBytesHex";
+import { OtelAttribute } from "../types";
 
 export class Metric {
   private id: string;
@@ -20,7 +20,7 @@ export class Metric {
       attributes: Record<string, OtelAttribute>;
     }>
   ) {
-    this.id = options?.id ?? crypto.randomBytes(8).toString("hex").toLowerCase();
+    this.id = options?.id ?? generateRandomBytesHex(8);
     this.unit = options?.unit ?? "";
     this.type = options?.type ?? "counter";
     this.attributes = options?.attributes ?? {};
@@ -62,26 +62,14 @@ export class Metric {
     this.onRecordCallbacks.push(callback);
   }
 
-  toJson(...args: any[]) {
-    return JSON.stringify(
-      {
-        id: this.id,
-        type: this.type,
-        name: this.name,
-        attributes: this.attributes,
-        value: this.value,
-        unit: this.unit,
-      },
-      ...args
-    );
-  }
-
-  public toObject() {
+  toJSON() {
     return {
       id: this.id,
       type: this.type,
       name: this.name,
-      attributes: this.attributes,
+      attributes: Object.fromEntries(
+        Object.entries(this.attributes).map(([key, value]) => [key, `${value}`])
+      ),
       value: this.value,
       unit: this.unit,
       timestamp: this.timestamp,
