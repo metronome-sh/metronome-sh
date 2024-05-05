@@ -35,7 +35,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // wrangler-modules-watch:wrangler:modules-watch
 var init_wrangler_modules_watch = __esm({
   "wrangler-modules-watch:wrangler:modules-watch"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
   }
 });
@@ -51,7 +51,7 @@ var init_modules_watch_stub = __esm({
 var require_cookie = __commonJS({
   "../../../node_modules/.pnpm/cookie@0.6.0/node_modules/cookie/index.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     exports.parse = parse2;
     exports.serialize = serialize;
@@ -198,7 +198,7 @@ var require_cookie = __commonJS({
 var require_warnings = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/warnings.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var alreadyWarned = {};
@@ -216,7 +216,7 @@ var require_warnings = __commonJS({
 var require_cookies = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/cookies.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var cookie = require_cookie();
@@ -386,7 +386,7 @@ function arraysEqual(a, b) {
 }
 var init_utils = __esm({
   "../../../node_modules/.pnpm/@web3-storage+multipart-parser@1.0.0/node_modules/@web3-storage/multipart-parser/esm/src/utils.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
   }
 });
@@ -420,7 +420,7 @@ function createOccurenceTable(s) {
 var MATCH, StreamSearch, ReadableStreamSearch, EOQ, QueueableStreamSearch;
 var init_search = __esm({
   "../../../node_modules/.pnpm/@web3-storage+multipart-parser@1.0.0/node_modules/@web3-storage/multipart-parser/esm/src/search.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     init_utils();
     MATCH = Symbol("Match");
@@ -819,7 +819,7 @@ async function* iterateMultipart(body, boundary) {
 var mergeArrays2, dash, CRLF;
 var init_src = __esm({
   "../../../node_modules/.pnpm/@web3-storage+multipart-parser@1.0.0/node_modules/@web3-storage/multipart-parser/esm/src/index.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     init_search();
     init_utils();
@@ -833,7 +833,7 @@ var init_src = __esm({
 var require_formData = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/formData.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var multipartParser = (init_src(), __toCommonJS(src_exports));
@@ -878,7 +878,7 @@ var require_formData = __commonJS({
 var require_router_cjs = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+router@1.16.0/node_modules/@remix-run/router/dist/router.cjs.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     function _extends3() {
@@ -4549,7 +4549,7 @@ var require_router_cjs = __commonJS({
 var require_mode = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/mode.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var ServerMode = /* @__PURE__ */ function(ServerMode2) {
@@ -4570,7 +4570,7 @@ var require_mode = __commonJS({
 var require_errors = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/errors.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var router = require_router_cjs();
@@ -4639,7 +4639,7 @@ var require_errors = __commonJS({
 var require_responses = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/responses.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var router = require_router_cjs();
@@ -4733,7 +4733,7 @@ var require_responses = __commonJS({
 var require_utils = __commonJS({
   "../../../node_modules/.pnpm/turbo-stream@2.0.1/node_modules/turbo-stream/dist/utils.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.createLineSplittingTransform = exports.Deferred = exports.TYPE_URL = exports.TYPE_SYMBOL = exports.TYPE_SET = exports.TYPE_REGEXP = exports.TYPE_PROMISE = exports.TYPE_NULL_OBJECT = exports.TYPE_MAP = exports.TYPE_ERROR = exports.TYPE_DATE = exports.TYPE_BIGINT = exports.UNDEFINED = exports.POSITIVE_INFINITY = exports.NULL = exports.NEGATIVE_ZERO = exports.NEGATIVE_INFINITY = exports.NAN = exports.HOLE = void 0;
@@ -4793,7 +4793,7 @@ var require_utils = __commonJS({
 var require_flatten = __commonJS({
   "../../../node_modules/.pnpm/turbo-stream@2.0.1/node_modules/turbo-stream/dist/flatten.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.flatten = void 0;
@@ -4914,7 +4914,7 @@ var require_flatten = __commonJS({
 var require_unflatten = __commonJS({
   "../../../node_modules/.pnpm/turbo-stream@2.0.1/node_modules/turbo-stream/dist/unflatten.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.unflatten = void 0;
@@ -5036,7 +5036,7 @@ var require_unflatten = __commonJS({
 var require_turbo_stream = __commonJS({
   "../../../node_modules/.pnpm/turbo-stream@2.0.1/node_modules/turbo-stream/dist/turbo-stream.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.encode = exports.decode = void 0;
@@ -5224,7 +5224,7 @@ var require_turbo_stream = __commonJS({
 var require_routeModules = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/routeModules.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var ResponseStubOperationsSymbol = Symbol("ResponseStubOperations");
@@ -5236,7 +5236,7 @@ var require_routeModules = __commonJS({
 var require_single_fetch = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/single-fetch.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var router = require_router_cjs();
@@ -5596,7 +5596,7 @@ var require_single_fetch = __commonJS({
 var require_entry = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/entry.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     function createEntryRouteModules(manifest) {
@@ -5613,7 +5613,7 @@ var require_entry = __commonJS({
 var require_set_cookie = __commonJS({
   "../../../node_modules/.pnpm/set-cookie-parser@2.6.0/node_modules/set-cookie-parser/lib/set-cookie.js"(exports, module) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     var defaultParseOptions = {
       decodeValues: true,
@@ -5783,7 +5783,7 @@ var require_set_cookie = __commonJS({
 var require_headers = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/headers.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var setCookieParser = require_set_cookie();
@@ -5858,7 +5858,7 @@ var require_headers = __commonJS({
 var require_invariant = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/invariant.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     function invariant2(value, message) {
@@ -5875,7 +5875,7 @@ var require_invariant = __commonJS({
 var require_routeMatching = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/routeMatching.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var router = require_router_cjs();
@@ -5897,7 +5897,7 @@ var require_routeMatching = __commonJS({
 var require_data = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/data.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var responses = require_responses();
@@ -6000,7 +6000,7 @@ var require_data = __commonJS({
 var require_routes = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/routes.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var data = require_data();
@@ -6071,7 +6071,7 @@ var require_routes = __commonJS({
 var require_markup = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/markup.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var ESCAPE_LOOKUP2 = {
@@ -6093,7 +6093,7 @@ var require_markup = __commonJS({
 var require_serverHandoff = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/serverHandoff.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var markup = require_markup();
@@ -6108,7 +6108,7 @@ var require_serverHandoff = __commonJS({
 var require_dev = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/dev.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     async function broadcastDevReady(build, origin) {
@@ -6155,7 +6155,7 @@ var require_dev = __commonJS({
 var require_server = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/server.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var router = require_router_cjs();
@@ -6545,7 +6545,7 @@ ${String(error)}`;
 var require_sessions = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/sessions.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var cookies = require_cookies();
@@ -6642,7 +6642,7 @@ var require_sessions = __commonJS({
 var require_cookieStorage = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/sessions/cookieStorage.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var cookies = require_cookies();
@@ -6680,7 +6680,7 @@ var require_cookieStorage = __commonJS({
 var require_memoryStorage = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/sessions/memoryStorage.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var createMemorySessionStorageFactory = (createSessionStorage) => ({
@@ -6730,7 +6730,7 @@ var require_memoryStorage = __commonJS({
 var require_errors2 = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/upload/errors.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var MaxPartSizeExceededError = class extends Error {
@@ -6748,7 +6748,7 @@ var require_errors2 = __commonJS({
 var require_memoryUploadHandler = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/upload/memoryUploadHandler.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var errors = require_errors2();
@@ -6796,7 +6796,7 @@ var require_memoryUploadHandler = __commonJS({
 var require_dist = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+server-runtime@2.9.1_typescript@5.4.5/node_modules/@remix-run/server-runtime/dist/index.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var cookies = require_cookies();
@@ -6837,7 +6837,7 @@ var require_dist = __commonJS({
 var require_crypto = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+cloudflare@2.9.1_@cloudflare+workers-types@4.20240502.0_typescript@5.4.5/node_modules/@remix-run/cloudflare/dist/crypto.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var encoder = new TextEncoder();
@@ -6881,7 +6881,7 @@ var require_crypto = __commonJS({
 var require_implementations = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+cloudflare@2.9.1_@cloudflare+workers-types@4.20240502.0_typescript@5.4.5/node_modules/@remix-run/cloudflare/dist/implementations.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var serverRuntime = require_dist();
@@ -6904,7 +6904,7 @@ var require_implementations = __commonJS({
 var require_workersKVStorage = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+cloudflare@2.9.1_@cloudflare+workers-types@4.20240502.0_typescript@5.4.5/node_modules/@remix-run/cloudflare/dist/sessions/workersKVStorage.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var implementations = require_implementations();
@@ -6953,7 +6953,7 @@ var require_workersKVStorage = __commonJS({
 var require_dist2 = __commonJS({
   "../../../node_modules/.pnpm/@remix-run+cloudflare@2.9.1_@cloudflare+workers-types@4.20240502.0_typescript@5.4.5/node_modules/@remix-run/cloudflare/dist/index.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var workersKVStorage = require_workersKVStorage();
@@ -7128,7 +7128,7 @@ function createPagesFunctionHandler({
 var import_cloudflare;
 var init_worker = __esm({
   "../../../node_modules/.pnpm/@remix-run+cloudflare-pages@2.9.1_@cloudflare+workers-types@4.20240502.0_typescript@5.4.5/node_modules/@remix-run/cloudflare-pages/dist/esm/worker.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     import_cloudflare = __toESM(require_dist2());
   }
@@ -7137,7 +7137,7 @@ var init_worker = __esm({
 // ../../../node_modules/.pnpm/@remix-run+cloudflare-pages@2.9.1_@cloudflare+workers-types@4.20240502.0_typescript@5.4.5/node_modules/@remix-run/cloudflare-pages/dist/esm/index.js
 var init_esm = __esm({
   "../../../node_modules/.pnpm/@remix-run+cloudflare-pages@2.9.1_@cloudflare+workers-types@4.20240502.0_typescript@5.4.5/node_modules/@remix-run/cloudflare-pages/dist/esm/index.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     init_worker();
   }
@@ -7149,7 +7149,7 @@ var asyncLocalStorage;
 var init_async_local_storage = __esm({
   "../../../packages/metronome/dist/esm/async-local-storage.js"() {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     asyncLocalStorage = new AsyncLocalStorage();
   }
@@ -7368,7 +7368,7 @@ function UAParser(ua, extensions, headers) {
 var LIBVERSION, EMPTY, UNKNOWN, FUNC_TYPE, UNDEF_TYPE, OBJ_TYPE, STR_TYPE, MAJOR, MODEL, NAME, TYPE, VENDOR, VERSION, ARCHITECTURE, CONSOLE, MOBILE, TABLET, SMARTTV, WEARABLE, EMBEDDED, USER_AGENT, UA_MAX_LENGTH, BRANDS, FORMFACTOR, FULLVERLIST, PLATFORM, PLATFORMVER, BITNESS, CH_HEADER, CH_HEADER_FULL_VER_LIST, CH_HEADER_ARCH, CH_HEADER_BITNESS, CH_HEADER_FORM_FACTOR, CH_HEADER_MOBILE, CH_HEADER_MODEL, CH_HEADER_PLATFORM, CH_HEADER_PLATFORM_VER, CH_ALL_VALUES, UA_BROWSER, UA_CPU, UA_DEVICE, UA_ENGINE, UA_OS, UA_RESULT, AMAZON, APPLE, ASUS, BLACKBERRY, GOOGLE, HUAWEI, LENOVO, LG, MICROSOFT, MOTOROLA, SAMSUNG, SHARP, SONY, XIAOMI, ZEBRA, PREFIX_MOBILE, SUFFIX_BROWSER, CHROME, EDGE, FIREFOX, OPERA, FACEBOOK, SOGOU, WINDOWS, isWindow, NAVIGATOR, NAVIGATOR_UADATA, extend, enumerize, has, isExtensions, isString, itemListToArray, lowerize, majorize, setProps, strip, stripQuotes, trim, rgxMapper, strMapper, windowsVersionMap, formFactorMap, defaultRegexes, defaultProps, createIData;
 var init_ua_parser = __esm({
   "../../../node_modules/.pnpm/ua-parser-js@2.0.0-beta.2/node_modules/ua-parser-js/src/main/ua-parser.mjs"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     LIBVERSION = "2.0.0-beta.2";
     EMPTY = "";
@@ -8837,7 +8837,7 @@ function custom(check, params = {}, fatal) {
 var util, objectUtil, ZodParsedType, getParsedType, ZodIssueCode, quotelessJson, ZodError, errorMap, overrideErrorMap, makeIssue, EMPTY_PATH, ParseStatus, INVALID, DIRTY, OK, isAborted, isDirty, isValid, isAsync, errorUtil, _ZodEnum_cache, _ZodNativeEnum_cache, ParseInputLazyPath, handleResult, ZodType, cuidRegex, cuid2Regex, ulidRegex, uuidRegex, nanoidRegex, durationRegex, emailRegex, _emojiRegex, emojiRegex, ipv4Regex, ipv6Regex, base64Regex, dateRegexSource, dateRegex, ZodString, ZodNumber, ZodBigInt, ZodBoolean, ZodDate, ZodSymbol, ZodUndefined, ZodNull, ZodAny, ZodUnknown, ZodNever, ZodVoid, ZodArray, ZodObject, ZodUnion, getDiscriminator, ZodDiscriminatedUnion, ZodIntersection, ZodTuple, ZodRecord, ZodMap, ZodSet, ZodFunction, ZodLazy, ZodLiteral, ZodEnum, ZodNativeEnum, ZodPromise, ZodEffects, ZodOptional, ZodNullable, ZodDefault, ZodCatch, ZodNaN, BRAND, ZodBranded, ZodPipeline, ZodReadonly, late, ZodFirstPartyTypeKind, instanceOfType, stringType, numberType, nanType, bigIntType, booleanType, dateType, symbolType, undefinedType, nullType, anyType, unknownType, neverType, voidType, arrayType, objectType, strictObjectType, unionType, discriminatedUnionType, intersectionType, tupleType, recordType, mapType, setType, functionType, lazyType, literalType, enumType, nativeEnumType, promiseType, effectsType, optionalType, nullableType, preprocessType, pipelineType, ostring, onumber, oboolean, coerce2, NEVER, z;
 var init_lib = __esm({
   "../../../node_modules/.pnpm/zod@3.23.6/node_modules/zod/lib/index.mjs"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     (function(util2) {
       util2.assertEqual = (val) => val;
@@ -12869,7 +12869,7 @@ function pathToRegexp(path, keys, options) {
 }
 var init_dist = __esm({
   "../../../node_modules/.pnpm/path-to-regexp@6.2.2/node_modules/path-to-regexp/dist.es2015/index.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
   }
 });
@@ -13137,7 +13137,7 @@ function registerMetronome(routes3, config) {
 var __defProp2, __export2, METRONOME_VERSION, METRONOME_WEB_VITALS, METRONOME_METRICS_VERSION, headerNames, isIp, Metric, Exporter, MetricExporter, SpanEvent, kind, Span, SpanExporter, tracerInstance, Tracer, wrapRemixFunction, regexpRouteMap, BrowserAttributesSchema, WebVitalSchema, PageviewSchema, ClientErrorSchema, createClientReportRouteModule, webVitalsModule_exports, webVitalsModule_default;
 var init_server = __esm({
   "../../../packages/metronome/dist/esm/server.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     init_async_local_storage();
     init_async_local_storage();
@@ -13150,7 +13150,7 @@ var init_server = __esm({
       for (var name in all)
         __defProp2(target, name, { get: all[name], enumerable: true });
     };
-    METRONOME_VERSION = "8.4.0-prerelease.1";
+    METRONOME_VERSION = "8.4.0";
     METRONOME_WEB_VITALS = 'var webVitals=function(e){"use strict";var n,t,r,i,o,a=-1,c=function(e){addEventListener("pageshow",(function(n){n.persisted&&(a=n.timeStamp,e(n))}),!0)},u=function(){return window.performance&&performance.getEntriesByType&&performance.getEntriesByType("navigation")[0]},s=function(){var e=u();return e&&e.activationStart||0},f=function(e,n){var t=u(),r="navigate";a>=0?r="back-forward-cache":t&&(document.prerendering||s()>0?r="prerender":document.wasDiscarded?r="restore":t.type&&(r=t.type.replace(/_/g,"-")));return{name:e,value:void 0===n?-1:n,rating:"good",delta:0,entries:[],id:"v3-".concat(Date.now(),"-").concat(Math.floor(8999999999999*Math.random())+1e12),navigationType:r}},d=function(e,n,t){try{if(PerformanceObserver.supportedEntryTypes.includes(e)){var r=new PerformanceObserver((function(e){Promise.resolve().then((function(){n(e.getEntries())}))}));return r.observe(Object.assign({type:e,buffered:!0},t||{})),r}}catch(e){}},l=function(e,n,t,r){var i,o;return function(a){n.value>=0&&(a||r)&&((o=n.value-(i||0))||void 0===i)&&(i=n.value,n.delta=o,n.rating=function(e,n){return e>n[1]?"poor":e>n[0]?"needs-improvement":"good"}(n.value,t),e(n))}},v=function(e){requestAnimationFrame((function(){return requestAnimationFrame((function(){return e()}))}))},p=function(e){var n=function(n){"pagehide"!==n.type&&"hidden"!==document.visibilityState||e(n)};addEventListener("visibilitychange",n,!0),addEventListener("pagehide",n,!0)},m=function(e){var n=!1;return function(t){n||(e(t),n=!0)}},h=-1,g=function(){return"hidden"!==document.visibilityState||document.prerendering?1/0:0},T=function(e){"hidden"===document.visibilityState&&h>-1&&(h="visibilitychange"===e.type?e.timeStamp:0,E())},y=function(){addEventListener("visibilitychange",T,!0),addEventListener("prerenderingchange",T,!0)},E=function(){removeEventListener("visibilitychange",T,!0),removeEventListener("prerenderingchange",T,!0)},C=function(){return h<0&&(h=g(),y(),c((function(){setTimeout((function(){h=g(),y()}),0)}))),{get firstHiddenTime(){return h}}},L=function(e){document.prerendering?addEventListener("prerenderingchange",(function(){return e()}),!0):e()},w=[1800,3e3],S=function(e,n){n=n||{},L((function(){var t,r=C(),i=f("FCP"),o=d("paint",(function(e){e.forEach((function(e){"first-contentful-paint"===e.name&&(o.disconnect(),e.startTime<r.firstHiddenTime&&(i.value=Math.max(e.startTime-s(),0),i.entries.push(e),t(!0)))}))}));o&&(t=l(e,i,w,n.reportAllChanges),c((function(r){i=f("FCP"),t=l(e,i,w,n.reportAllChanges),v((function(){i.value=performance.now()-r.timeStamp,t(!0)}))})))}))},b=[.1,.25],P=function(e,n){n=n||{},S(m((function(){var t,r=f("CLS",0),i=0,o=[],a=function(e){e.forEach((function(e){if(!e.hadRecentInput){var n=o[0],t=o[o.length-1];i&&e.startTime-t.startTime<1e3&&e.startTime-n.startTime<5e3?(i+=e.value,o.push(e)):(i=e.value,o=[e])}})),i>r.value&&(r.value=i,r.entries=o,t())},u=d("layout-shift",a);u&&(t=l(e,r,b,n.reportAllChanges),p((function(){a(u.takeRecords()),t(!0)})),c((function(){i=0,r=f("CLS",0),t=l(e,r,b,n.reportAllChanges),v((function(){return t()}))})),setTimeout(t,0))})))},I={passive:!0,capture:!0},F=new Date,A=function(e,i){n||(n=i,t=e,r=new Date,k(removeEventListener),D())},D=function(){if(t>=0&&t<r-F){var e={entryType:"first-input",name:n.type,target:n.target,cancelable:n.cancelable,startTime:n.timeStamp,processingStart:n.timeStamp+t};i.forEach((function(n){n(e)})),i=[]}},M=function(e){if(e.cancelable){var n=(e.timeStamp>1e12?new Date:performance.now())-e.timeStamp;"pointerdown"==e.type?function(e,n){var t=function(){A(e,n),i()},r=function(){i()},i=function(){removeEventListener("pointerup",t,I),removeEventListener("pointercancel",r,I)};addEventListener("pointerup",t,I),addEventListener("pointercancel",r,I)}(n,e):A(n,e)}},k=function(e){["mousedown","keydown","touchstart","pointerdown"].forEach((function(n){return e(n,M,I)}))},B=[100,300],x=function(e,r){r=r||{},L((function(){var o,a=C(),u=f("FID"),s=function(e){e.startTime<a.firstHiddenTime&&(u.value=e.processingStart-e.startTime,u.entries.push(e),o(!0))},v=function(e){e.forEach(s)},h=d("first-input",v);o=l(e,u,B,r.reportAllChanges),h&&p(m((function(){v(h.takeRecords()),h.disconnect()}))),h&&c((function(){var a;u=f("FID"),o=l(e,u,B,r.reportAllChanges),i=[],t=-1,n=null,k(addEventListener),a=s,i.push(a),D()}))}))},N=0,R=1/0,H=0,O=function(e){e.forEach((function(e){e.interactionId&&(R=Math.min(R,e.interactionId),H=Math.max(H,e.interactionId),N=H?(H-R)/7+1:0)}))},q=function(){return o?N:performance.interactionCount||0},j=function(){"interactionCount"in performance||o||(o=d("event",O,{type:"event",buffered:!0,durationThreshold:0}))},V=[200,500],_=0,z=function(){return q()-_},G=[],J={},K=function(e){var n=G[G.length-1],t=J[e.interactionId];if(t||G.length<10||e.duration>n.latency){if(t)t.entries.push(e),t.latency=Math.max(t.latency,e.duration);else{var r={id:e.interactionId,latency:e.duration,entries:[e]};J[r.id]=r,G.push(r)}G.sort((function(e,n){return n.latency-e.latency})),G.splice(10).forEach((function(e){delete J[e.id]}))}},Q=function(e,n){n=n||{},L((function(){var t;j();var r,i=f("INP"),o=function(e){e.forEach((function(e){(e.interactionId&&K(e),"first-input"===e.entryType)&&(!G.some((function(n){return n.entries.some((function(n){return e.duration===n.duration&&e.startTime===n.startTime}))}))&&K(e))}));var n,t=(n=Math.min(G.length-1,Math.floor(z()/50)),G[n]);t&&t.latency!==i.value&&(i.value=t.latency,i.entries=t.entries,r())},a=d("event",o,{durationThreshold:null!==(t=n.durationThreshold)&&void 0!==t?t:40});r=l(e,i,V,n.reportAllChanges),a&&("PerformanceEventTiming"in window&&"interactionId"in PerformanceEventTiming.prototype&&a.observe({type:"first-input",buffered:!0}),p((function(){o(a.takeRecords()),i.value<0&&z()>0&&(i.value=0,i.entries=[]),r(!0)})),c((function(){G=[],_=q(),i=f("INP"),r=l(e,i,V,n.reportAllChanges)})))}))},U=[2500,4e3],W={},X=function(e,n){n=n||{},L((function(){var t,r=C(),i=f("LCP"),o=function(e){var n=e[e.length-1];n&&n.startTime<r.firstHiddenTime&&(i.value=Math.max(n.startTime-s(),0),i.entries=[n],t())},a=d("largest-contentful-paint",o);if(a){t=l(e,i,U,n.reportAllChanges);var u=m((function(){W[i.id]||(o(a.takeRecords()),a.disconnect(),W[i.id]=!0,t(!0))}));["keydown","click"].forEach((function(e){addEventListener(e,(function(){return setTimeout(u,0)}),!0)})),p(u),c((function(r){i=f("LCP"),t=l(e,i,U,n.reportAllChanges),v((function(){i.value=performance.now()-r.timeStamp,W[i.id]=!0,t(!0)}))}))}}))},Y=[800,1800],Z=function e(n){document.prerendering?L((function(){return e(n)})):"complete"!==document.readyState?addEventListener("load",(function(){return e(n)}),!0):setTimeout(n,0)},$=function(e,n){n=n||{};var t=f("TTFB"),r=l(e,t,Y,n.reportAllChanges);Z((function(){var i=u();if(i){var o=i.responseStart;if(o<=0||o>performance.now())return;t.value=Math.max(o-s(),0),t.entries=[i],r(!0),c((function(){t=f("TTFB",0),(r=l(e,t,Y,n.reportAllChanges))(!0)}))}}))};return e.CLSThresholds=b,e.FCPThresholds=w,e.FIDThresholds=B,e.INPThresholds=V,e.LCPThresholds=U,e.TTFBThresholds=Y,e.getCLS=P,e.getFCP=S,e.getFID=x,e.getINP=Q,e.getLCP=X,e.getTTFB=$,e.onCLS=P,e.onFCP=S,e.onFID=x,e.onINP=Q,e.onLCP=X,e.onTTFB=$,e}({});\n';
     METRONOME_METRICS_VERSION = "v5";
     headerNames = [
@@ -13880,7 +13880,7 @@ ${data}`);
 var require_react_production_min = __commonJS({
   "../../../node_modules/.pnpm/react@18.3.1/node_modules/react/cjs/react.production.min.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     var l = Symbol.for("react.element");
     var n = Symbol.for("react.portal");
@@ -14181,7 +14181,7 @@ var require_react_production_min = __commonJS({
 var require_react = __commonJS({
   "../../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js"(exports, module) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     if (true) {
       module.exports = require_react_production_min();
@@ -14195,7 +14195,7 @@ var require_react = __commonJS({
 var require_react_jsx_runtime_production_min = __commonJS({
   "../../../node_modules/.pnpm/react@18.3.1/node_modules/react/cjs/react-jsx-runtime.production.min.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     var f = require_react();
     var k = Symbol.for("react.element");
@@ -14225,7 +14225,7 @@ var require_react_jsx_runtime_production_min = __commonJS({
 var require_jsx_runtime = __commonJS({
   "../../../node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js"(exports, module) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     if (true) {
       module.exports = require_react_jsx_runtime_production_min();
@@ -14239,7 +14239,7 @@ var require_jsx_runtime = __commonJS({
 var require_scheduler_production_min = __commonJS({
   "../../../node_modules/.pnpm/scheduler@0.23.2/node_modules/scheduler/cjs/scheduler.production.min.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     function f(a, b) {
       var c = a.length;
@@ -14512,7 +14512,7 @@ var require_scheduler_production_min = __commonJS({
 var require_scheduler = __commonJS({
   "../../../node_modules/.pnpm/scheduler@0.23.2/node_modules/scheduler/index.js"(exports, module) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     if (true) {
       module.exports = require_scheduler_production_min();
@@ -14526,7 +14526,7 @@ var require_scheduler = __commonJS({
 var require_react_dom_production_min = __commonJS({
   "../../../node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.production.min.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     var aa = require_react();
     var ca = require_scheduler();
@@ -21668,7 +21668,7 @@ var require_react_dom_production_min = __commonJS({
 var require_react_dom = __commonJS({
   "../../../node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/index.js"(exports, module) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     function checkDCE() {
       if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined" || typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== "function") {
@@ -21695,7 +21695,7 @@ var require_react_dom = __commonJS({
 // ../../../node_modules/.pnpm/react-router@6.23.0_react@18.3.1/node_modules/react-router/dist/umd/react-router.production.min.js
 var require_react_router_production_min = __commonJS({
   "../../../node_modules/.pnpm/react-router@6.23.0_react@18.3.1/node_modules/react-router/dist/umd/react-router.production.min.js"(exports, module) {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     !function(e, t) {
       "object" == typeof exports && "undefined" != typeof module ? t(exports, require_react(), require_router_cjs()) : "function" == typeof define && define.amd ? define(["exports", "react", "@remix-run/router"], t) : t((e = "undefined" != typeof globalThis ? globalThis : e || self).ReactRouter = {}, e.React, e.RemixRouter);
@@ -22085,7 +22085,7 @@ var require_react_router_production_min = __commonJS({
 var require_main = __commonJS({
   "../../../node_modules/.pnpm/react-router@6.23.0_react@18.3.1/node_modules/react-router/dist/main.js"(exports, module) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     if (true) {
       module.exports = require_react_router_production_min();
@@ -22285,7 +22285,7 @@ function useViewTransitionState(to, opts) {
 var React, ReactDOM, import_react_router, import_react_router2, import_router, _excluded, _excluded2, REACT_ROUTER_VERSION, ViewTransitionContext, START_TRANSITION, startTransitionImpl, FLUSH_SYNC, flushSyncImpl, USE_ID, useIdImpl, isBrowser, ABSOLUTE_URL_REGEX, Link, NavLink, DataRouterHook, DataRouterStateHook, SCROLL_RESTORATION_STORAGE_KEY, savedScrollPositions;
 var init_dist2 = __esm({
   "../../../node_modules/.pnpm/react-router-dom@6.23.0_react-dom@18.3.1_react@18.3.1/node_modules/react-router-dom/dist/index.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     React = __toESM(require_react());
     ReactDOM = __toESM(require_react_dom());
@@ -22486,7 +22486,7 @@ function _extends2() {
 }
 var init_rollupPluginBabelHelpers = __esm({
   "../../../node_modules/.pnpm/@remix-run+react@2.9.1_react-dom@18.3.1_react@18.3.1_typescript@5.4.5/node_modules/@remix-run/react/dist/esm/_virtual/_rollupPluginBabelHelpers.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
   }
 });
@@ -22499,7 +22499,7 @@ function invariant(value, message) {
 }
 var init_invariant = __esm({
   "../../../node_modules/.pnpm/@remix-run+react@2.9.1_react-dom@18.3.1_react@18.3.1_typescript@5.4.5/node_modules/@remix-run/react/dist/esm/invariant.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
   }
 });
@@ -22529,7 +22529,7 @@ async function loadRouteModule(route, routeModulesCache) {
 }
 var init_routeModules = __esm({
   "../../../node_modules/.pnpm/@remix-run+react@2.9.1_react-dom@18.3.1_react@18.3.1_typescript@5.4.5/node_modules/@remix-run/react/dist/esm/routeModules.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
   }
 });
@@ -22692,7 +22692,7 @@ function parsePathPatch(href) {
 }
 var init_links = __esm({
   "../../../node_modules/.pnpm/@remix-run+react@2.9.1_react-dom@18.3.1_react@18.3.1_typescript@5.4.5/node_modules/@remix-run/react/dist/esm/links.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     init_dist2();
     init_routeModules();
@@ -22711,7 +22711,7 @@ function createHtml(html) {
 var ESCAPE_LOOKUP, ESCAPE_REGEX;
 var init_markup = __esm({
   "../../../node_modules/.pnpm/@remix-run+react@2.9.1_react-dom@18.3.1_react@18.3.1_typescript@5.4.5/node_modules/@remix-run/react/dist/esm/markup.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     ESCAPE_LOOKUP = {
       "&": "\\u0026",
@@ -22810,7 +22810,7 @@ function singleFetchUrl(reqUrl) {
 var React2;
 var init_single_fetch = __esm({
   "../../../node_modules/.pnpm/@remix-run+react@2.9.1_react-dom@18.3.1_react@18.3.1_typescript@5.4.5/node_modules/@remix-run/react/dist/esm/single-fetch.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     React2 = __toESM(require_react());
     init_markup();
@@ -23371,7 +23371,7 @@ function mergeRefs(...refs) {
 var React3, RemixContext, ABSOLUTE_URL_REGEX2, NavLink2, Link2, isHydrated;
 var init_components = __esm({
   "../../../node_modules/.pnpm/@remix-run+react@2.9.1_react-dom@18.3.1_react@18.3.1_typescript@5.4.5/node_modules/@remix-run/react/dist/esm/components.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     init_rollupPluginBabelHelpers();
     React3 = __toESM(require_react());
@@ -23493,7 +23493,7 @@ function BoundaryShell({
 var React4, RemixErrorBoundary;
 var init_errorBoundaries = __esm({
   "../../../node_modules/.pnpm/@remix-run+react@2.9.1_react-dom@18.3.1_react@18.3.1_typescript@5.4.5/node_modules/@remix-run/react/dist/esm/errorBoundaries.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     React4 = __toESM(require_react());
     init_dist2();
@@ -23556,7 +23556,7 @@ function RemixRootDefaultHydrateFallback() {
 var React5;
 var init_fallback = __esm({
   "../../../node_modules/.pnpm/@remix-run+react@2.9.1_react-dom@18.3.1_react@18.3.1_typescript@5.4.5/node_modules/@remix-run/react/dist/esm/fallback.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     React5 = __toESM(require_react());
     init_errorBoundaries();
@@ -23652,7 +23652,7 @@ function shouldHydrateRouteLoader(route, routeModule, isSpaMode2) {
 var React6;
 var init_routes = __esm({
   "../../../node_modules/.pnpm/@remix-run+react@2.9.1_react-dom@18.3.1_react@18.3.1_typescript@5.4.5/node_modules/@remix-run/react/dist/esm/routes.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     React6 = __toESM(require_react());
     init_dist2();
@@ -23718,7 +23718,7 @@ function ScrollRestoration({
 var React7, STORAGE_KEY;
 var init_scroll_restoration = __esm({
   "../../../node_modules/.pnpm/@remix-run+react@2.9.1_react-dom@18.3.1_react@18.3.1_typescript@5.4.5/node_modules/@remix-run/react/dist/esm/scroll-restoration.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     init_rollupPluginBabelHelpers();
     React7 = __toESM(require_react());
@@ -23732,7 +23732,7 @@ var init_scroll_restoration = __esm({
 var require_server2 = __commonJS({
   "../../../node_modules/.pnpm/react-router-dom@6.23.0_react-dom@18.3.1_react@18.3.1/node_modules/react-router-dom/server.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     Object.defineProperty(exports, "__esModule", { value: true });
     var React9 = require_react();
@@ -24120,7 +24120,7 @@ function RemixServer({
 var React8, import_server;
 var init_server2 = __esm({
   "../../../node_modules/.pnpm/@remix-run+react@2.9.1_react-dom@18.3.1_react@18.3.1_typescript@5.4.5/node_modules/@remix-run/react/dist/esm/server.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     React8 = __toESM(require_react());
     import_server = __toESM(require_server2());
@@ -24134,7 +24134,7 @@ var init_server2 = __esm({
 // ../../../node_modules/.pnpm/@remix-run+react@2.9.1_react-dom@18.3.1_react@18.3.1_typescript@5.4.5/node_modules/@remix-run/react/dist/esm/index.js
 var init_esm2 = __esm({
   "../../../node_modules/.pnpm/@remix-run+react@2.9.1_react-dom@18.3.1_react@18.3.1_typescript@5.4.5/node_modules/@remix-run/react/dist/esm/index.js"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     init_dist2();
     init_components();
@@ -24157,7 +24157,7 @@ function isbot(userAgent) {
 var fullPattern, naivePattern, usedPattern;
 var init_isbot = __esm({
   "../../../node_modules/.pnpm/isbot@4.4.0/node_modules/isbot/index.mjs"() {
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     fullPattern = " daum[ /]| deusu/| yadirectfetcher|(?:^| )site|(?:^|[^g])news|(?<! (?:channel/|google/))google(?!(app|/google| pixel))|(?<! cu)bot(?:[^\\w]|_|$)|(?<! ya(?:yandex)?)search|(?<!(?:lib))http|(?<![hg]m)score|@[a-z]|\\(at\\)[a-z]|\\[at\\][a-z]|^12345|^<|^[\\w \\.\\-\\(?:\\):]+(?:/v?\\d+(\\.\\d+)?(?:\\.\\d{1,10})?)?(?:,|$)|^[^ ]{50,}$|^active|^ad muncher|^amaya|^anglesharp/|^avsdevicesdk/|^bidtellect/|^biglotron|^bot|^btwebclient/|^clamav[ /]|^client/|^cobweb/|^coccoc|^custom|^ddg[_-]android|^discourse|^dispatch/\\d|^downcast/|^duckduckgo|^facebook|^fdm[ /]\\d|^getright/|^gozilla/|^hatena|^hobbit|^hotzonu|^hwcdn/|^jeode/|^jetty/|^jigsaw|^linkdex|^metauri|^microsoft bits|^movabletype|^mozilla/\\d\\.\\d \\(compatible;?\\)$|^mozilla/\\d\\.\\d \\w*$|^navermailapp|^netsurf|^nuclei|^offline explorer|^php|^postman|^postrank|^python|^rank|^read|^reed|^rest|^serf|^snapchat|^space bison|^svn|^swcd |^taringa|^thumbor/|^tumblr/|^user-agent:|^valid|^venus/fedoraplanet|^w3c|^webbandit/|^webcopier|^wget|^whatsapp|^xenu link sleuth|^yahoo|^yandex|^zdm/\\d|^zoom marketplace/|^{{.*}}$|adbeat\\.com|appinsights|archive|ask jeeves/teoma|bit\\.ly/|bluecoat drtr|browsex|burpcollaborator|capture|catch|check|chrome-lighthouse|chromeframe|classifier|cloud|crawl|cryptoapi|dareboost|datanyze|dataprovider|dejaclick|dmbrowser|download|evc-batch/|feed|firephp|freesafeip|gomezagent|headless|httrack|hubspot marketing grader|hydra|ibisbrowser|images|inspect|iplabel|ips-agent|java(?!;)|library|mail\\.ru/|manager|monitor|neustar wpm|nutch|offbyone|optimize|pageburst|parser|perl|phantom|pingdom|powermarks|preview|proxy|ptst[ /]\\d|reader|reputation|resolver|retriever|rexx;|rigor|robot|rss|scan|scrape|server|sogou|sparkler/|speedcurve|spider|splash|statuscake|stumbleupon\\.com|supercleaner|synapse|synthetic|torrent|trace|transcoder|twingly recon|url|virtuoso|wappalyzer|webglance|webkit2png|whatcms/|wordpress|zgrab";
     naivePattern = /bot|spider|crawl|http|lighthouse/i;
@@ -24168,7 +24168,7 @@ var init_isbot = __esm({
 var require_react_dom_server_legacy_browser_production_min = __commonJS({
   "../../../node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom-server-legacy.browser.production.min.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     var aa = require_react();
     function l(a) {
@@ -25804,7 +25804,7 @@ var require_react_dom_server_legacy_browser_production_min = __commonJS({
 var require_react_dom_server_browser_production_min = __commonJS({
   "../../../node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom-server.browser.production.min.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     var aa = require_react();
     function k(a) {
@@ -27543,7 +27543,7 @@ var require_react_dom_server_browser_production_min = __commonJS({
 var require_server_browser = __commonJS({
   "../../../node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/server.browser.js"(exports) {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     var l;
     var s;
@@ -27814,7 +27814,7 @@ var import_jsx_runtime, import_server4, import_react2, import_cloudflare2, entry
 var init_server3 = __esm({
   "../build/server/index.js"() {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     init_server();
     import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
@@ -27831,7 +27831,7 @@ var init_server3 = __esm({
       window.__metronomeQueue = window.__metronomeQueue ?? [];
       window.__metronomeDoNotTrack = window.__metronomeDoNotTrack ?? false;
     }
-    METRONOME_VERSION2 = "8.4.0-prerelease.1";
+    METRONOME_VERSION2 = "8.4.0";
     MetronomeInstrumentation = () => {
       const { enqueue } = useQueue();
       useWebVitals(enqueue);
@@ -27908,7 +27908,7 @@ var init_server3 = __esm({
       loader: loader2,
       meta
     }, Symbol.toStringTag, { value: "Module" }));
-    serverManifest = { "entry": { "module": "/assets/entry.client-eCRgj3J5.js", "imports": ["/assets/jsx-runtime-56DGgGmo.js", "/assets/components-aZkzK2pd.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/root-ByObtCeH.js", "imports": ["/assets/jsx-runtime-56DGgGmo.js", "/assets/components-aZkzK2pd.js"], "css": [] }, "routes/error-client": { "id": "routes/error-client", "parentId": "root", "path": "error-client", "index": void 0, "caseSensitive": void 0, "hasAction": true, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/error-client-BUt1fT46.js", "imports": ["/assets/jsx-runtime-56DGgGmo.js"], "css": [] }, "routes/healthcheck": { "id": "routes/healthcheck", "parentId": "root", "path": "healthcheck", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/healthcheck-l0sNRNKZ.js", "imports": [], "css": [] }, "routes/project.$id": { "id": "routes/project.$id", "parentId": "root", "path": "project/:id", "index": void 0, "caseSensitive": void 0, "hasAction": true, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/project._id-DrFjl1xC.js", "imports": ["/assets/jsx-runtime-56DGgGmo.js"], "css": [] }, "routes/_index": { "id": "routes/_index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": true, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/_index-MPfO6gCD.js", "imports": ["/assets/jsx-runtime-56DGgGmo.js"], "css": [] }, "routes/error": { "id": "routes/error", "parentId": "root", "path": "error", "index": void 0, "caseSensitive": void 0, "hasAction": true, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/error-Cbv4NSYm.js", "imports": ["/assets/jsx-runtime-56DGgGmo.js"], "css": [] } }, "url": "/assets/manifest-445b870a.js", "version": "445b870a" };
+    serverManifest = { "entry": { "module": "/assets/entry.client-eCRgj3J5.js", "imports": ["/assets/jsx-runtime-56DGgGmo.js", "/assets/components-aZkzK2pd.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/root-CmSk6Ke2.js", "imports": ["/assets/jsx-runtime-56DGgGmo.js", "/assets/components-aZkzK2pd.js"], "css": [] }, "routes/error-client": { "id": "routes/error-client", "parentId": "root", "path": "error-client", "index": void 0, "caseSensitive": void 0, "hasAction": true, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/error-client-BUt1fT46.js", "imports": ["/assets/jsx-runtime-56DGgGmo.js"], "css": [] }, "routes/healthcheck": { "id": "routes/healthcheck", "parentId": "root", "path": "healthcheck", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/healthcheck-l0sNRNKZ.js", "imports": [], "css": [] }, "routes/project.$id": { "id": "routes/project.$id", "parentId": "root", "path": "project/:id", "index": void 0, "caseSensitive": void 0, "hasAction": true, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/project._id-DrFjl1xC.js", "imports": ["/assets/jsx-runtime-56DGgGmo.js"], "css": [] }, "routes/_index": { "id": "routes/_index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": true, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/_index-MPfO6gCD.js", "imports": ["/assets/jsx-runtime-56DGgGmo.js"], "css": [] }, "routes/error": { "id": "routes/error", "parentId": "root", "path": "error", "index": void 0, "caseSensitive": void 0, "hasAction": true, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/error-Cbv4NSYm.js", "imports": ["/assets/jsx-runtime-56DGgGmo.js"], "css": [] } }, "url": "/assets/manifest-73826b93.js", "version": "73826b93" };
     mode = "production";
     assetsBuildDirectory = "build/client";
     basename = "/";
@@ -27916,7 +27916,7 @@ var init_server3 = __esm({
     isSpaMode = false;
     publicPath = "/";
     entry = { module: entryServer };
-    metronome = { "debug": true, "unstable_sourceMaps": true, "endpoint": "http://localhost:3000", "remixPackages": { "package.remix.cloudflare": "^2.8.1", "package.remix.cloudflare-pages": "^2.8.1", "package.remix.react": "^2.8.1", "package.react": "^18.2.0", "package.react-dom": "^18.2.0" }, "version": "445b870a" };
+    metronome = { "debug": true, "unstable_sourceMaps": true, "apiKey": "ak_2qOLYxI0fbiKlWs8AtcbS9QArUVSib4UcCajf6BS", "remixPackages": { "package.remix.cloudflare": "^2.8.1", "package.remix.cloudflare-pages": "^2.8.1", "package.remix.react": "^2.8.1", "package.react": "^18.2.0", "package.react-dom": "^18.2.0" }, "endpoint": "https://metrics.metronome.sh", "version": "73826b93" };
     routes2 = registerMetronome({
       "root": {
         id: "root",
@@ -27975,7 +27975,7 @@ var onRequest;
 var init_path = __esm({
   "[[path]].ts"() {
     "use strict";
-    init_functionsRoutes_0_1662572679991665();
+    init_functionsRoutes_0_42099635443441774();
     init_modules_watch_stub();
     init_esm();
     init_server3();
@@ -27983,10 +27983,10 @@ var init_path = __esm({
   }
 });
 
-// ../.wrangler/tmp/pages-Bf0COc/functionsRoutes-0.1662572679991665.mjs
+// ../.wrangler/tmp/pages-3R3G51/functionsRoutes-0.42099635443441774.mjs
 var routes;
-var init_functionsRoutes_0_1662572679991665 = __esm({
-  "../.wrangler/tmp/pages-Bf0COc/functionsRoutes-0.1662572679991665.mjs"() {
+var init_functionsRoutes_0_42099635443441774 = __esm({
+  "../.wrangler/tmp/pages-3R3G51/functionsRoutes-0.42099635443441774.mjs"() {
     "use strict";
     init_path();
     routes = [
@@ -28002,7 +28002,7 @@ var init_functionsRoutes_0_1662572679991665 = __esm({
 });
 
 // ../../../node_modules/.pnpm/wrangler@3.53.1_@cloudflare+workers-types@4.20240502.0/node_modules/wrangler/templates/pages-template-worker.ts
-init_functionsRoutes_0_1662572679991665();
+init_functionsRoutes_0_42099635443441774();
 init_modules_watch_stub();
 init_dist();
 var escapeRegex = /[.+?^${}()|[\]\\]/g;
