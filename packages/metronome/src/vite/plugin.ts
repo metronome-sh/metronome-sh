@@ -8,8 +8,13 @@ import AdmZip from "adm-zip";
 import fetch, { fileFromSync } from "node-fetch";
 import pc from "picocolors";
 import boxen from "boxen";
+import childProcess from "child_process";
+import { promisify } from "util";
+
 import { METRONOME_METRICS_VERSION } from "../common/constants";
 import { MetronomeConfig, MetronomeResolvedConfig } from "../common/types";
+
+const exec = promisify(childProcess.exec);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const sourceMapDirectoryPath = path.join(__dirname, "sourcemaps");
@@ -104,13 +109,9 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (m
         const outputDir = path.join(remixContext.rootDirectory, "wrangler");
         console.log(pc.green(`Metronome: building Cloudflare worker sourcemaps`));
 
-        const { $ } = await import("execa");
+        const command = `npx wrangler pages functions build --sourcemap --outdir ${outputDir} --compatibility-flags nodejs_compat`;
 
-        // Run npx with wrangler to out dir to __dirname/wrangler
-        // and read it a put it the content of the sourcema
-        const { stdout } = await $({
-          cwd: remixContext.rootDirectory,
-        })`npx wrangler pages functions build --sourcemap --outdir ${outputDir} --compatibility-flags nodejs_compat`;
+        const { stdout } = await exec(command, { cwd: remixContext.rootDirectory });
 
         const wranglerSourceMap = fs.readFileSync(path.join(outputDir, "index.js.map"), "utf-8");
 
