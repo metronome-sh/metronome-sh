@@ -65,7 +65,6 @@ describe(
       const metronomeExportRegex = /export\s+const\s+metronome\s=\s{"remixPackages":{"package.remix.express":"\^.*","package.remix.node":"\^.*","package.remix.react":"\^.*","package.react":"\^.*","package.react-dom":"\^.*"},"endpoint":"https:\/\/metrics.metronome.sh","version":"\w+"};/;
 
       expect(serverBuild.match(metronomeExportRegex)?.[0]).toBeDefined();
-      expect(serverBuild.match(metronomeExportRegex)?.[0]).toMatchSnapshot();
 
       // prettier-ignore
       const metronomeWrapperRegex = /const\s+routes\s*=\s*registerMetronome\(\s*\{[\s\S]*?"root"[\s\S]*?\}\s*,\s*metronome\s*\);/;

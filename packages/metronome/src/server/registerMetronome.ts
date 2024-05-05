@@ -4,11 +4,6 @@ import { createClientReportRouteModule } from "./createClientReportRouteModule";
 import * as webVitalsModule from "./webVitalsModule";
 
 export function registerMetronome(routes: Routes, config: MetronomeResolvedConfig): Routes {
-  if (!config.apiKey) {
-    console.warn("Metronome: apiKey is required to enable Metronome");
-    return routes;
-  }
-
   const routeMap: RouteMap = {};
 
   for (const [routeId, route] of Object.entries(routes)) {

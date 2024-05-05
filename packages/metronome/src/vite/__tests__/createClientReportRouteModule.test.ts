@@ -23,7 +23,7 @@ describe("createClientReportRouteModule", () => {
         "remix.package.react": "^2.5.0",
       },
       version: "abcedf",
-      unstable_sourcemaps: true,
+      unstable_sourceMaps: true,
     };
 
     routeModule = createClientReportRouteModule({ routeMap, config });

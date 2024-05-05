@@ -2,9 +2,7 @@
 
 exports[`vite plugin > Installs and builds in the express vite template 1`] = `"import { registerMetronome } from "metronome-sh/server";"`;
 
-exports[`vite plugin > Installs and builds in the express vite template 2`] = `"export const metronome = {"remixPackages":{"package.remix.express":"^2.9.1","package.remix.node":"^2.9.1","package.remix.react":"^2.9.1","package.react":"^18.2.0","package.react-dom":"^18.2.0"},"endpoint":"https://metrics.metronome.sh","version":"b3b47b81"};"`;
-
-exports[`vite plugin > Installs and builds in the express vite template 3`] = `
+exports[`vite plugin > Installs and builds in the express vite template 2`] = `
 "const routes = registerMetronome({
   "root": {
     id: "root",
@@ -25,6 +23,6 @@ exports[`vite plugin > Installs and builds in the express vite template 3`] = `
 }, metronome);"
 `;
 
-exports[`vite plugin > Installs and builds in the express vite template 4`] = `"withMetronome"`;
+exports[`vite plugin > Installs and builds in the express vite template 3`] = `"withMetronome"`;
 
-exports[`vite plugin > Installs and builds in the express vite template 5`] = `"__metronomeQueue"`;
+exports[`vite plugin > Installs and builds in the express vite template 4`] = `"__metronomeQueue"`;

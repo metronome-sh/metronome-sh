@@ -22,7 +22,7 @@ export interface MetronomeConfig {
   apiKey?: string | null;
   ignoredRoutes?: (string | RegExp)[];
   ignoredPathnames?: (string | RegExp)[];
-  unstable_sourcemaps?: boolean;
+  unstable_sourceMaps?: boolean;
   // headersAllowlist?: HeaderAllowlist;
   debug?: boolean;
 }
@@ -74,16 +74,22 @@ export type DoNotTrackOptions = {
 };
 
 export type CloudflareLoadContext<
-  Env = unknown,
+  Env = { [key: string]: string },
   Params extends string = any,
   Data extends Record<string, unknown> = Record<string, unknown>
 > = {
-  cloudflare?: EventContext<Env, Params, Data> & {
-    cf: EventContext<Env, Params, Data>["request"]["cf"];
-    ctx: {
-      waitUntil: EventContext<Env, Params, Data>["waitUntil"];
-      passThroughOnException: EventContext<Env, Params, Data>["passThroughOnException"];
-    };
-    caches: CacheStorage;
+  cloudflare?: CloudflareContext<Env, Params, Data>;
+};
+
+export type CloudflareContext<
+  Env = { [key: string]: string },
+  Params extends string = any,
+  Data extends Record<string, unknown> = Record<string, unknown>
+> = EventContext<Env, Params, Data> & {
+  cf: EventContext<Env, Params, Data>["request"]["cf"];
+  ctx: {
+    waitUntil: EventContext<Env, Params, Data>["waitUntil"];
+    passThroughOnException: EventContext<Env, Params, Data>["passThroughOnException"];
   };
+  caches: CacheStorage;
 };

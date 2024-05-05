@@ -10,7 +10,7 @@ export default defineConfig({
     metronome({
       debug: true,
       unstable_sourcemaps: true,
-      // endpoint: "http://localhost:3000",
+      // endpoint: "http://localhost:3004",
       // apiKey: process.env.METRONOME_API_KEY ?? "ak_m7QJZggmUgaXXApDAjHCpjhZ3kJu2RyiH0reRXXy",
       endpoint: "https://test.metronome.sh",
       apiKey: "ak_NyQEc7iyP3rP464Lz4UOkWTv7BuCyHTaxrXZLcZC",

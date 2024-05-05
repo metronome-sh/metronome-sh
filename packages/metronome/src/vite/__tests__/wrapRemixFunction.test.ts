@@ -18,7 +18,7 @@ describe("wrapRemixFunction", () => {
         "remix.package.react": "^2.5.0",
       },
       version: "abcfed",
-      unstable_sourcemaps: true,
+      unstable_sourceMaps: true,
     },
   };
 

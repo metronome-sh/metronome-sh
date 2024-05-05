@@ -1,4 +1,4 @@
-import { MetronomeResolvedConfig, OtelAttribute } from "../types";
+import { CloudflareContext, MetronomeResolvedConfig, OtelAttribute } from "../types";
 import { Metric } from "./Metric";
 import { MetricExporter } from "./MetricExporter";
 import { Span, SpanOptions } from "./Span";
@@ -9,6 +9,7 @@ let tracerInstance: Tracer;
 export class Tracer {
   protected spanExporter: SpanExporter;
   protected metricExporter: MetricExporter;
+  protected cloudflareContext: CloudflareContext | undefined;
 
   constructor(options: { spanExporter: SpanExporter; metricExporter: MetricExporter }) {
     this.spanExporter = options.spanExporter;
@@ -17,6 +18,17 @@ export class Tracer {
 
   public async flush(): Promise<void> {
     await Promise.all([this.spanExporter.flush(), this.metricExporter.flush()]);
+  }
+
+  public setCloudflareContext(context: CloudflareContext | undefined) {
+    if (!context) {
+      console.warn("Metronome: cloudflare context was not found within the Remix context.");
+      return;
+    }
+
+    this.cloudflareContext = context;
+    this.spanExporter.setCloudflareContext(context);
+    this.metricExporter.setCloudflareContext(context);
   }
 
   public startActiveSpan<T>(

@@ -25,6 +25,10 @@ export const wrapRemixFunction = (
 
     const cloudflareWaitUntil = (context as CloudflareLoadContext)?.cloudflare?.waitUntil;
 
+    if (isCloudflare) {
+      tracer().setCloudflareContext((context as CloudflareLoadContext)?.cloudflare);
+    }
+
     if (isCloudflare && !cloudflareWaitUntil) {
       console.warn(
         "Metronome: cloudflare prop was not found in the context, this route might not be instrumented as waitUntil is not available."

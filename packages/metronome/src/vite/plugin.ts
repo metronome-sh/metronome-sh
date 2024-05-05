@@ -8,7 +8,6 @@ import AdmZip from "adm-zip";
 import fetch, { fileFromSync } from "node-fetch";
 import pc from "picocolors";
 import boxen from "boxen";
-import { $ } from "execa";
 import { METRONOME_METRICS_VERSION } from "../common/constants";
 import { MetronomeConfig, MetronomeResolvedConfig } from "../common/types";
 
@@ -105,6 +104,8 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (m
         const outputDir = path.join(remixContext.rootDirectory, "wrangler");
         console.log(pc.green(`Metronome: building Cloudflare worker sourcemaps`));
 
+        const { $ } = await import("execa");
+
         // Run npx with wrangler to out dir to __dirname/wrangler
         // and read it a put it the content of the sourcema
         const { stdout } = await $({
@@ -127,7 +128,7 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (m
               `Metronome - Cannot export source map\nNo API key provided. Set the ${pc.white(
                 "METRONOME_API_KEY"
               )} environment variable or ${pc.white(
-                "sourcemap: false"
+                "unstable_sourceMap: false"
               )} in the metronome plugin config`,
               { padding: 0.5, width: 80 }
             )
@@ -308,5 +309,5 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (m
     },
   };
 
-  return [metronomePlugin, ...(metronomeConfig?.unstable_sourcemaps ? [sourcemapsPlugin] : [])];
+  return [metronomePlugin, ...(metronomeConfig?.unstable_sourceMaps ? [sourcemapsPlugin] : [])];
 };

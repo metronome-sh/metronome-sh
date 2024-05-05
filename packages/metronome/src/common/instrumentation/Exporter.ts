@@ -1,6 +1,8 @@
-import { MetronomeResolvedConfig } from "../types";
+import { CloudflareContext, MetronomeResolvedConfig } from "../types";
 
 export abstract class Exporter {
+  private cloudflareContext: CloudflareContext | undefined;
+
   constructor(readonly config: MetronomeResolvedConfig) {}
   abstract pathname: string;
   private exportables: Promise<any>[] = [];
@@ -11,8 +13,23 @@ export abstract class Exporter {
     });
   }
 
+  public setCloudflareContext(context: CloudflareContext | undefined) {
+    this.cloudflareContext = context;
+  }
+
   public export<T extends object>(exportable: T): void {
-    if (!this.config.apiKey) {
+    const apiKey = this.config.apiKey
+      ? // Config
+        this.config.apiKey
+      : // Cloudflare
+      this.cloudflareContext?.env?.METRONOME_API_KEY
+      ? this.cloudflareContext?.env?.METRONOME_API_KEY
+      : // Node
+      typeof process !== "undefined"
+      ? process.env.METRONOME_API_KEY
+      : null;
+
+    if (!apiKey) {
       console.log("Metronome: Cannot export: No API key provided");
       return;
     }
@@ -28,7 +45,7 @@ export abstract class Exporter {
     const promise = fetch(url, {
       body: data,
       method: "POST",
-      headers: { "Content-Type": "application/json", "x-api-key": this.config.apiKey! },
+      headers: { "Content-Type": "application/json", "x-api-key": apiKey! },
     });
 
     this.exportables.push(promise);

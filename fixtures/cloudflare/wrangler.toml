@@ -1,1 +1,5 @@
 compatibility_flags = ["nodejs_compat"]
+
+# Env
+[vars]
+METRONOME_API_KEY = "ak_0EWfTkVzZ8kz2Xy0iteIMvJYT51LNZ0xXOfjhjm0"
