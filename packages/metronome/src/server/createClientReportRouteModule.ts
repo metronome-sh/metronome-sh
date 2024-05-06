@@ -5,7 +5,7 @@ import { METRONOME_VERSION } from "../common/constants";
 import { z } from "zod";
 import { ServerRouteModule } from "@remix-run/server-runtime/dist/routeModules";
 
-import { MetronomeResolvedConfig, RouteMap } from "../common/types";
+import { CloudflareLoadContext, MetronomeResolvedConfig, RouteMap } from "../common/types";
 import { deobfuscate, getRemixAttributes } from "../common/helpers";
 import { ClientErrorSchema, PageviewSchema, WebVitalSchema } from "../common/schemas";
 import { startInstrumentation, tracer } from "../common/instrumentation/Tracer";
@@ -21,6 +21,8 @@ export const createClientReportRouteModule = ({
 }): ServerRouteModule => {
   const action: ActionFunction = async ({ request, context }) => {
     startInstrumentation(config);
+
+    const cloudflareWaitUntil = (context as CloudflareLoadContext)?.cloudflare?.waitUntil;
 
     const events = deobfuscate(await request.text());
 
@@ -79,6 +81,8 @@ export const createClientReportRouteModule = ({
           })
           .dispose();
 
+        cloudflareWaitUntil?.(tracer().flush());
+
         return;
       }
 
@@ -108,6 +112,8 @@ export const createClientReportRouteModule = ({
             ...config.remixPackages,
           })
           .dispose();
+
+        cloudflareWaitUntil?.(tracer().flush());
 
         return;
       }
@@ -145,6 +151,8 @@ export const createClientReportRouteModule = ({
         );
 
         span.end();
+
+        cloudflareWaitUntil?.(tracer().flush());
 
         return;
       }
