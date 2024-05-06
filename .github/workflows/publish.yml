@@ -38,8 +38,6 @@ jobs:
       - name: Changeset Version
         run: |
           npx @changesets/cli version
-          git add .
-          git commit -m "version changeset [skip actions]"
 
       - name: Build
         run: pnpm run build
@@ -49,17 +47,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Rerun pnpm install
-        run: pnpm install --no-frozen-lockfile
-
-      - name: Check for pnpm-lock.yaml changes
-        id: lockfile-check
-        run: |
-          echo "LOCKFILE_CHANGED=$(git diff --name-only | grep -q 'pnpm-lock.yaml' && echo 'true' || echo 'false')" >> $GITHUB_ENV
-
-      - name: Push Changes
-        if: env.LOCKFILE_CHANGED == 'true'
+      - name: Commit changeset
         run: |
           git add .
-          git commit -m "updated pnpm-lock.yaml [skip actions]"
+          git commit -m "chore: changeset [skip actions]"
           git push
