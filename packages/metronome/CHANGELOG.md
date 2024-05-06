@@ -1,5 +1,11 @@
 # @metronome-sh/express
 
+## 8.4.3
+
+### Patch Changes
+
+- ee5b120: fix: deployment bug
+
 ## 8.4.2
 
 ### Patch Changes
