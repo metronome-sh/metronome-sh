@@ -1,5 +1,11 @@
 # @metronome-sh/express
 
+## 8.4.2
+
+### Patch Changes
+
+- caad444: now client events are waited to be sent in Cloudflare
+
 ## 8.4.1
 
 ### Patch Changes
