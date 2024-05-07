@@ -40,5 +40,10 @@ describe("registerMetronome", () => {
     expect(result["__metronome"]).toBeDefined();
     expect(result["__metronome"].path).toBe("__metronome");
     expect(result["__metronome/web-vitals.$version"].path).toBe("__metronome/web-vitals/:version");
+
+    // Make sure the order is correct
+    expect(JSON.stringify(Object.keys(result))).toBe(
+      JSON.stringify(["__metronome", "__metronome/web-vitals.$version", "/"])
+    );
   });
 });

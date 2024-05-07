@@ -1,9 +1,349 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`vite plugin > Installs and builds in the express vite template 1`] = `"import { registerMetronome } from "metronome-sh/server";"`;
-
-exports[`vite plugin > Installs and builds in the express vite template 2`] = `
-"const routes = registerMetronome({
+exports[`vite plugin > Installs and builds in the express vite template 1`] = `
+"import { registerMetronome } from "metronome-sh/server";
+import { jsx, jsxs, Fragment } from "react/jsx-runtime";
+import { PassThrough } from "node:stream";
+import { createReadableStreamFromReadable } from "@remix-run/node";
+import { RemixServer, useLocation, Outlet, Meta, Links, ScrollRestoration, Scripts } from "@remix-run/react";
+import { isbot } from "isbot";
+import { renderToPipeableStream } from "react-dom/server";
+import { useRef, useCallback, useEffect, useState } from "react";
+const ABORT_DELAY = 5e3;
+function handleRequest(request, responseStatusCode, responseHeaders, remixContext, loadContext) {
+  return isbot(request.headers.get("user-agent") || "") ? handleBotRequest(
+    request,
+    responseStatusCode,
+    responseHeaders,
+    remixContext
+  ) : handleBrowserRequest(
+    request,
+    responseStatusCode,
+    responseHeaders,
+    remixContext
+  );
+}
+function handleBotRequest(request, responseStatusCode, responseHeaders, remixContext) {
+  return new Promise((resolve, reject) => {
+    let shellRendered = false;
+    const { pipe, abort } = renderToPipeableStream(
+      /* @__PURE__ */ jsx(
+        RemixServer,
+        {
+          context: remixContext,
+          url: request.url,
+          abortDelay: ABORT_DELAY
+        }
+      ),
+      {
+        onAllReady() {
+          shellRendered = true;
+          const body = new PassThrough();
+          const stream = createReadableStreamFromReadable(body);
+          responseHeaders.set("Content-Type", "text/html");
+          resolve(
+            new Response(stream, {
+              headers: responseHeaders,
+              status: responseStatusCode
+            })
+          );
+          pipe(body);
+        },
+        onShellError(error) {
+          reject(error);
+        },
+        onError(error) {
+          responseStatusCode = 500;
+          if (shellRendered) {
+            console.error(error);
+          }
+        }
+      }
+    );
+    setTimeout(abort, ABORT_DELAY);
+  });
+}
+function handleBrowserRequest(request, responseStatusCode, responseHeaders, remixContext) {
+  return new Promise((resolve, reject) => {
+    let shellRendered = false;
+    const { pipe, abort } = renderToPipeableStream(
+      /* @__PURE__ */ jsx(
+        RemixServer,
+        {
+          context: remixContext,
+          url: request.url,
+          abortDelay: ABORT_DELAY
+        }
+      ),
+      {
+        onShellReady() {
+          shellRendered = true;
+          const body = new PassThrough();
+          const stream = createReadableStreamFromReadable(body);
+          responseHeaders.set("Content-Type", "text/html");
+          resolve(
+            new Response(stream, {
+              headers: responseHeaders,
+              status: responseStatusCode
+            })
+          );
+          pipe(body);
+        },
+        onShellError(error) {
+          reject(error);
+        },
+        onError(error) {
+          responseStatusCode = 500;
+          if (shellRendered) {
+            console.error(error);
+          }
+        }
+      }
+    );
+    setTimeout(abort, ABORT_DELAY);
+  });
+}
+const entryServer = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: handleRequest
+}, Symbol.toStringTag, { value: "Module" }));
+function obfuscate(inputObj) {
+  return JSON.stringify(inputObj);
+}
+if (typeof window !== "undefined") {
+  window.__metronomeQueue = window.__metronomeQueue ?? [];
+  window.__metronomeDoNotTrack = window.__metronomeDoNotTrack ?? false;
+}
+function useQueue() {
+  const intervalId = useRef(void 0);
+  const report = useCallback(() => {
+    if (window.__metronomeQueue.length === 0 || window.__metronomeDoNotTrack) {
+      return;
+    }
+    const str = obfuscate(window.__metronomeQueue);
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon("/__metronome", str);
+    } else {
+      fetch("/__metronome", { body: str, method: "POST", keepalive: true });
+    }
+    window.__metronomeQueue = [];
+  }, []);
+  useEffect(() => {
+    const visibilityChangeHandler = () => {
+      if (document.visibilityState === "hidden") {
+        report();
+      }
+    };
+    addEventListener("visibilitychange", visibilityChangeHandler);
+    addEventListener("pagehide", report);
+    addEventListener("beforeunload", report);
+    intervalId.current = setInterval(report, 5e3);
+    return () => {
+      removeEventListener("visibilitychange", visibilityChangeHandler);
+      removeEventListener("pagehide", report);
+      removeEventListener("beforeunload", report);
+      clearInterval(intervalId.current);
+      report();
+    };
+  }, []);
+  const enqueue = useCallback((event) => {
+    window.__metronomeQueue.push(event);
+  }, []);
+  return { enqueue };
+}
+function useGetBrowserData() {
+  const location = useLocation();
+  const useGetBrowserData2 = useCallback(() => {
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const minWidth = 768;
+    const hasTouchSupport = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    let deviceCategory = "desktop";
+    if (hasTouchSupport) {
+      const hasSmallScreen = window.screen.width < minWidth;
+      deviceCategory = hasSmallScreen ? "mobile" : "tablet";
+    }
+    return {
+      pathname: location.pathname ?? "",
+      url: window.location.href,
+      hostname: window.location.hostname,
+      referrer: document.referrer,
+      screen: \`\${window.screen.width}x\${window.screen.height}\`,
+      language: navigator.language,
+      connection: (connection == null ? void 0 : connection.effectiveType) || "unknown",
+      deviceCategory
+    };
+  }, [location]);
+  return useGetBrowserData2;
+}
+var METRONOME_VERSION = "8.4.3";
+function useWebVitals(enqueue) {
+  const getBrowserData = useGetBrowserData();
+  const [webVitalScriptLoaded, setWebVitalScriptLoaded] = useState(false);
+  useEffect(() => {
+    const handleOnLoad = () => {
+      window._webVitals = window.webVitals;
+      setWebVitalScriptLoaded(true);
+    };
+    const script = document.createElement("script");
+    script.src = \`/__metronome/web-vitals/metronome-\${METRONOME_VERSION}.js\`;
+    script.onload = handleOnLoad;
+    document.head.appendChild(script);
+  }, []);
+  useEffect(() => {
+    if (!webVitalScriptLoaded || typeof window._webVitals === "undefined")
+      return;
+    function enqueueWebVital(metric) {
+      const webVitalMetric = {
+        name: "web-vital",
+        timestamp: Date.now(),
+        metric: {
+          id: metric.id,
+          name: metric.name,
+          value: metric.value,
+          rating: metric.rating,
+          navigationType: metric.navigationType
+        },
+        ...getBrowserData()
+      };
+      enqueue(webVitalMetric);
+    }
+    window._webVitals.onFCP(enqueueWebVital);
+    window._webVitals.onLCP(enqueueWebVital);
+    window._webVitals.onFID(enqueueWebVital);
+    window._webVitals.onCLS(enqueueWebVital);
+    window._webVitals.onTTFB(enqueueWebVital);
+    window._webVitals.onINP(enqueueWebVital);
+  }, [webVitalScriptLoaded]);
+}
+function useWebAnalytics(enqueue) {
+  const lastLocationKey = useRef();
+  const location = useLocation();
+  const getBrowserData = useGetBrowserData();
+  useEffect(() => {
+    const { key } = location;
+    if (lastLocationKey.current === key)
+      return;
+    const pageviewMetric = {
+      name: "pageview",
+      timestamp: Date.now(),
+      ...getBrowserData()
+    };
+    enqueue(pageviewMetric);
+    lastLocationKey.current = key;
+  }, [location, getBrowserData]);
+}
+function useClientErrors(enqueue) {
+  const getBrowserData = useGetBrowserData();
+  const mounted = useRef(false);
+  useEffect(() => {
+    if (mounted.current)
+      return;
+    function eventHandler(event) {
+      const { message, filename, lineno, colno, error } = event;
+      const { stack } = error;
+      enqueue({
+        name: "client-error",
+        timestamp: Date.now(),
+        error: { name: error.name, message, filename, lineno, colno, stack },
+        ...getBrowserData()
+      });
+    }
+    window.addEventListener("error", eventHandler);
+    mounted.current = true;
+    return () => {
+      window.removeEventListener("error", eventHandler);
+    };
+  }, [getBrowserData, enqueue]);
+}
+var MetronomeInstrumentation = () => {
+  const { enqueue } = useQueue();
+  useWebVitals(enqueue);
+  useWebAnalytics(enqueue);
+  useClientErrors(enqueue);
+  return null;
+};
+MetronomeInstrumentation.displayName = "MetronomeInstrumentation";
+var withMetronome = process.env.NODE_ENV === "development" ? (App2) => {
+  return function Metronome(props) {
+    return /* @__PURE__ */ jsx(App2, { ...props });
+  };
+} : (App2) => {
+  return function Metronome(props) {
+    return /* @__PURE__ */ jsxs(Fragment, { children: [
+      /* @__PURE__ */ jsx(MetronomeInstrumentation, {}),
+      /* @__PURE__ */ jsx(App2, { ...props })
+    ] });
+  };
+};
+function Layout({ children }) {
+  return /* @__PURE__ */ jsxs("html", { lang: "en", children: [
+    /* @__PURE__ */ jsxs("head", { children: [
+      /* @__PURE__ */ jsx("meta", { charSet: "utf-8" }),
+      /* @__PURE__ */ jsx("meta", { name: "viewport", content: "width=device-width, initial-scale=1" }),
+      /* @__PURE__ */ jsx(Meta, {}),
+      /* @__PURE__ */ jsx(Links, {})
+    ] }),
+    /* @__PURE__ */ jsxs("body", { children: [
+      children,
+      /* @__PURE__ */ jsx(ScrollRestoration, {}),
+      /* @__PURE__ */ jsx(Scripts, {})
+    ] })
+  ] });
+}
+const root = withMetronome(function App() {
+  return /* @__PURE__ */ jsx(Outlet, {});
+});
+const route0 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  Layout,
+  default: root
+}, Symbol.toStringTag, { value: "Module" }));
+const meta = () => {
+  return [
+    { title: "New Remix App" },
+    { name: "description", content: "Welcome to Remix!" }
+  ];
+};
+function Index() {
+  return /* @__PURE__ */ jsxs("div", { style: { fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }, children: [
+    /* @__PURE__ */ jsx("h1", { children: "Welcome to Remix" }),
+    /* @__PURE__ */ jsxs("ul", { children: [
+      /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(
+        "a",
+        {
+          target: "_blank",
+          href: "https://remix.run/tutorials/blog",
+          rel: "noreferrer",
+          children: "15m Quickstart Blog Tutorial"
+        }
+      ) }),
+      /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(
+        "a",
+        {
+          target: "_blank",
+          href: "https://remix.run/tutorials/jokes",
+          rel: "noreferrer",
+          children: "Deep Dive Jokes App Tutorial"
+        }
+      ) }),
+      /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("a", { target: "_blank", href: "https://remix.run/docs", rel: "noreferrer", children: "Remix Docs" }) })
+    ] })
+  ] });
+}
+const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: Index,
+  meta
+}, Symbol.toStringTag, { value: "Module" }));
+const serverManifest = { "entry": { "module": "/assets/entry.client-SsbtWqCx.js", "imports": ["/assets/jsx-runtime-CZxWQka4.js", "/assets/components-Dy59w57O.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/root-ScZMl8Mx.js", "imports": ["/assets/jsx-runtime-CZxWQka4.js", "/assets/components-Dy59w57O.js"], "css": [] }, "routes/_index": { "id": "routes/_index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/_index-DEGe_7QY.js", "imports": ["/assets/jsx-runtime-CZxWQka4.js"], "css": [] } }, "url": "/assets/manifest-499ac594.js", "version": "499ac594" };
+const mode = "production";
+const assetsBuildDirectory = "build/client";
+const basename = "/";
+const future = { "v3_fetcherPersist": false, "v3_relativeSplatPath": false, "v3_throwAbortReason": false, "unstable_singleFetch": false };
+const isSpaMode = false;
+const publicPath = "/";
+const entry = { module: entryServer };
+const routes = registerMetronome({
   "root": {
     id: "root",
     parentId: void 0,
@@ -20,9 +360,43 @@ exports[`vite plugin > Installs and builds in the express vite template 2`] = `
     caseSensitive: void 0,
     module: route1
   }
-}, metronome);"
+}, {
+  "remixPackages": {
+    "package.remix.express": "^2.9.1",
+    "package.remix.node": "^2.9.1",
+    "package.remix.react": "^2.9.1",
+    "package.react": "^18.2.0",
+    "package.react-dom": "^18.2.0"
+  },
+  "version": "499ac594",
+  "unstable_excludeTimeout": 1000,
+  "endpoint": "https://metrics.metronome.sh",
+  "unstable_exclude": undefined
+});
+export {
+  serverManifest as assets,
+  assetsBuildDirectory,
+  basename,
+  entry,
+  future,
+  isSpaMode,
+  mode,
+  publicPath,
+  routes
+};
+"
 `;
 
-exports[`vite plugin > Installs and builds in the express vite template 3`] = `"withMetronome"`;
-
-exports[`vite plugin > Installs and builds in the express vite template 4`] = `"__metronomeQueue"`;
+exports[`vite plugin > Installs and builds in the express vite template 2`] = `
+"import{r as a,j as s}from"./jsx-runtime-CZxWQka4.js";import{u as v,w as m,x as g,y as _,_ as y,M as b,L as S,S as x,O as E}from"./components-Dy59w57O.js";/**
+ * @remix-run/react v2.9.1
+ *
+ * Copyright (c) Remix Software Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.md file in the root directory of this source tree.
+ *
+ * @license MIT
+ */let h="positions";function L({getKey:e,...n}){let{isSpaMode:r}=v(),t=m(),i=g();_({getKey:e,storageKey:h});let o=a.useMemo(()=>{if(!e)return null;let u=e(t,i);return u!==t.key?u:null},[]);if(r)return null;let l=((u,w)=>{if(!window.history.state||!window.history.state.key){let c=Math.random().toString(32).slice(2);window.history.replaceState({key:c},"")}try{let d=JSON.parse(sessionStorage.getItem(u)||"{}")[w||window.history.state.key];typeof d=="number"&&window.scrollTo(0,d)}catch(c){console.error(c),sessionStorage.removeItem(u)}}).toString();return a.createElement("script",y({},n,{suppressHydrationWarning:!0,dangerouslySetInnerHTML:{__html:\`(\${l})(\${JSON.stringify(h)}, \${JSON.stringify(o)})\`}}))}function k(e){return JSON.stringify(e)}typeof window<"u"&&(window.__metronomeQueue=window.__metronomeQueue??[],window.__metronomeDoNotTrack=window.__metronomeDoNotTrack??!1);function j(){const e=a.useRef(void 0),n=a.useCallback(()=>{if(window.__metronomeQueue.length===0||window.__metronomeDoNotTrack)return;const t=k(window.__metronomeQueue);navigator.sendBeacon?navigator.sendBeacon("/__metronome",t):fetch("/__metronome",{body:t,method:"POST",keepalive:!0}),window.__metronomeQueue=[]},[]);return a.useEffect(()=>{const t=()=>{document.visibilityState==="hidden"&&n()};return addEventListener("visibilitychange",t),addEventListener("pagehide",n),addEventListener("beforeunload",n),e.current=setInterval(n,5e3),()=>{removeEventListener("visibilitychange",t),removeEventListener("pagehide",n),removeEventListener("beforeunload",n),clearInterval(e.current),n()}},[]),{enqueue:a.useCallback(t=>{window.__metronomeQueue.push(t)},[])}}function f(){const e=m();return a.useCallback(()=>{const r=navigator.connection||navigator.mozConnection||navigator.webkitConnection,t=768,i="ontouchstart"in window||navigator.maxTouchPoints>0;let o="desktop";return i&&(o=window.screen.width<t?"mobile":"tablet"),{pathname:e.pathname??"",url:window.location.href,hostname:window.location.hostname,referrer:document.referrer,screen:\`\${window.screen.width}x\${window.screen.height}\`,language:navigator.language,connection:(r==null?void 0:r.effectiveType)||"unknown",deviceCategory:o}},[e])}var M="8.4.3";function V(e){const n=f(),[r,t]=a.useState(!1);a.useEffect(()=>{const i=()=>{window._webVitals=window.webVitals,t(!0)},o=document.createElement("script");o.src=\`/__metronome/web-vitals/metronome-\${M}.js\`,o.onload=i,document.head.appendChild(o)},[]),a.useEffect(()=>{if(!r||typeof window._webVitals>"u")return;function i(o){const l={name:"web-vital",timestamp:Date.now(),metric:{id:o.id,name:o.name,value:o.value,rating:o.rating,navigationType:o.navigationType},...n()};e(l)}window._webVitals.onFCP(i),window._webVitals.onLCP(i),window._webVitals.onFID(i),window._webVitals.onCLS(i),window._webVitals.onTTFB(i),window._webVitals.onINP(i)},[r])}function T(e){const n=a.useRef(),r=m(),t=f();a.useEffect(()=>{const{key:i}=r;if(n.current===i)return;const o={name:"pageview",timestamp:Date.now(),...t()};e(o),n.current=i},[r,t])}function C(e){const n=f(),r=a.useRef(!1);a.useEffect(()=>{if(r.current)return;function t(i){const{message:o,filename:l,lineno:u,colno:w,error:c}=i,{stack:d}=c;e({name:"client-error",timestamp:Date.now(),error:{name:c.name,message:o,filename:l,lineno:u,colno:w,stack:d},...n()})}return window.addEventListener("error",t),r.current=!0,()=>{window.removeEventListener("error",t)}},[n,e])}var p=()=>{const{enqueue:e}=j();return V(e),T(e),C(e),null};p.displayName="MetronomeInstrumentation";var D=e=>function(r){return s.jsxs(s.Fragment,{children:[s.jsx(p,{}),s.jsx(e,{...r})]})};function O({children:e}){return s.jsxs("html",{lang:"en",children:[s.jsxs("head",{children:[s.jsx("meta",{charSet:"utf-8"}),s.jsx("meta",{name:"viewport",content:"width=device-width, initial-scale=1"}),s.jsx(b,{}),s.jsx(S,{})]}),s.jsxs("body",{children:[e,s.jsx(L,{}),s.jsx(x,{})]})]})}const B=D(function(){return s.jsx(E,{})});export{O as Layout,B as default};
+"
+`;

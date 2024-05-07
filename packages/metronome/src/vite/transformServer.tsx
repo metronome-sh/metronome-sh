@@ -56,7 +56,6 @@ export const transformServer = ({
   return {
     code: serverCode,
     map: new MagicString(serverCode).generateMap({
-      hires: true,
       includeContent: true,
       source: id,
       file: id,

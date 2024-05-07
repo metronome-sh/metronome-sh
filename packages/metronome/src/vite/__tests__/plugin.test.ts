@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 import { $ } from "execa";
 import fs from "fs/promises";
 import path from "path";
@@ -41,7 +41,7 @@ function cleanup(dirname: string) {
 describe(
   "vite plugin",
   () => {
-    test("Installs and builds in the express vite template", async () => {
+    it("Installs and builds in the express vite template", async () => {
       // Generate random dirname to avoid conflicts
       const dirname = "express-vite-" + Math.random().toString(36).substring(7);
 
@@ -55,27 +55,7 @@ describe(
         "utf-8"
       );
 
-      // prettier-ignore
-      const metronomeImportRegex = /import\s+\{\s*registerMetronome\s*\}\s+from\s+"metronome-sh\/server";/;
-
-      expect(serverBuild.match(metronomeImportRegex)?.[0]).toBeDefined();
-      expect(serverBuild.match(metronomeImportRegex)?.[0]).toMatchSnapshot();
-
-      // prettier-ignore
-      const metronomeExportRegex = /export\s+const\s+metronome\s=\s{"remixPackages":{"package.remix.express":"\^.*","package.remix.node":"\^.*","package.remix.react":"\^.*","package.react":"\^.*","package.react-dom":"\^.*"},"endpoint":"https:\/\/metrics.metronome.sh","version":"\w+"};/;
-
-      expect(serverBuild.match(metronomeExportRegex)?.[0]).toBeDefined();
-
-      // prettier-ignore
-      const metronomeWrapperRegex = /const\s+routes\s*=\s*registerMetronome\(\s*\{[\s\S]*?"root"[\s\S]*?\}\s*,\s*metronome\s*\);/;
-
-      expect(serverBuild.match(metronomeWrapperRegex)?.[0]).toBeDefined();
-      expect(serverBuild.match(metronomeWrapperRegex)?.[0]).toMatchSnapshot();
-
-      const withMetronomeRegex = /withMetronome/;
-
-      expect(serverBuild.match(withMetronomeRegex)?.[0]).toBeDefined();
-      expect(serverBuild.match(withMetronomeRegex)?.[0]).toMatchSnapshot();
+      expect(serverBuild).toMatchSnapshot();
 
       const files = await fs.readdir(path.join(tmpDir, dirname, "build/client/assets"));
 
@@ -88,10 +68,7 @@ describe(
         "utf-8"
       );
 
-      const metronomeQueueRegex = /__metronomeQueue/;
-
-      expect(rootBuild.match(metronomeQueueRegex)?.[0]).toBeDefined();
-      expect(rootBuild.match(metronomeQueueRegex)?.[0]).toMatchSnapshot();
+      expect(rootBuild).toMatchSnapshot();
 
       await cleanup(dirname);
     });

@@ -26,7 +26,6 @@ export function transformRootTsx({ code, id }: { code: string; id: string }) {
   return {
     code: rootTsx,
     map: new MagicString(rootTsx).generateMap({
-      hires: true,
       includeContent: true,
       source: id,
       file: id,

@@ -14,8 +14,8 @@ export default defineConfig({
     metronome({
       debug: true,
       unstable_sourceMaps: true,
-      endpoint: "http://localhost:3004",
-      apiKey: "ak_bq4ImM8lXuoM9ORGXIvac4rMck8zszCfhhOX38fA",
+      // endpoint: "http://localhost:3004",
+      apiKey: "ak_2qOLYxI0fbiKlWs8AtcbS9QArUVSib4UcCajf6BS",
       unstable_exclude: async ({ request }) => {
         return false;
       },
