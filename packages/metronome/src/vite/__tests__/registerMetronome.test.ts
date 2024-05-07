@@ -30,6 +30,7 @@ describe("registerMetronome", () => {
       },
       version: "abcedf",
       unstable_sourceMaps: true,
+      unstable_excludeTimeout: 1000,
     };
 
     const result = registerMetronome(routes, config);

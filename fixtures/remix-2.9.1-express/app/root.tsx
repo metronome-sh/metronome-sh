@@ -1,12 +1,15 @@
-import {
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "@remix-run/react";
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 
-export function Layout({ children }: { children: React.ReactNode }) {
+// export function loader() {
+//   // globalDoNotTrack(
+//   //   ({ request }) => {
+//   //     console.log("do not track", request.url);
+//   //   },
+//   //   { doNotTrackErrors: true }
+//   // );
+// }
+
+export default function App() {
   return (
     <html lang="en">
       <head>
@@ -16,14 +19,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <Outlet />
         <ScrollRestoration />
         <Scripts />
       </body>
     </html>
   );
-}
-
-export default function App() {
-  return <Outlet />;
 }

@@ -35,6 +35,7 @@
   },
   "homepage": "https://github.com/metronome-sh/metronome-sh#readme",
   "dependencies": {
+    "@typescript-eslint/typescript-estree": "^7.8.0",
     "adm-zip": "^0.5.10",
     "boxen": "^7.1.1",
     "magic-string": "^0.30.5",

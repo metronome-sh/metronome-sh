@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeAll } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { MetronomeWrapperOptions } from "../../common/types";
-import { wrapRemixFunction } from "../../server/wrapRemixFunction";
+import { wrapRemixFunction } from "../wrapRemixFunction";
 import { json } from "@remix-run/server-runtime";
 import { onMockRequest } from "../../../vitest/mocks";
 import { asyncLocalStorage } from "@asyncLocalStorage";
@@ -19,6 +19,7 @@ describe("wrapRemixFunction", () => {
       },
       version: "abcfed",
       unstable_sourceMaps: true,
+      unstable_excludeTimeout: 1000,
     },
   };
 
@@ -441,5 +442,78 @@ describe("wrapRemixFunction", () => {
         },
       },
     ]);
+  });
+
+  it("exclude the request from instrumentation if the exclude function returns true", async () => {
+    const response = json({ foo: "bar" });
+    remixFunction.mockResolvedValueOnce(response);
+    const wrapped = wrapRemixFunction(remixFunction, {
+      ...wrapperOptions,
+      type: "loader",
+      config: {
+        ...wrapperOptions.config,
+        unstable_exclude: ({ request }) => request.url.includes("exclude"),
+      },
+    });
+
+    const result = await wrapped({
+      ...remixFunctionArgs,
+      request: new Request("https://metronome.sh/exclude"),
+    });
+    expect(result).toBe(response);
+    expect(remixFunction).toHaveBeenCalled();
+
+    await expect(onMockRequest).not.toHaveBeenEventuallyCalled();
+  });
+
+  it("doest no exclude it it takes too long to resolve", async () => {
+    const response = json({ foo: "bar" });
+    remixFunction.mockResolvedValueOnce(response);
+    const wrapped = wrapRemixFunction(remixFunction, {
+      ...wrapperOptions,
+      type: "loader",
+      config: {
+        ...wrapperOptions.config,
+        unstable_exclude: async () => {
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+          return false;
+        },
+      },
+    });
+
+    // Stub console.warn to avoid the warning message
+    const consoleWarn = console.warn;
+    console.warn = vi.fn();
+
+    const result = await wrapped(remixFunctionArgs);
+    expect(result).toBe(response);
+    expect(remixFunction).toHaveBeenCalled();
+    expect(console.warn).toHaveBeenCalled();
+    await expect(onMockRequest).toHaveBeenEventuallyCalled();
+
+    // Restore console.warn
+    console.warn = consoleWarn;
+  });
+
+  it("run the exclude function with a cloned request", async () => {
+    const response = json({ foo: "bar" });
+    remixFunction.mockResolvedValueOnce(response);
+    const wrapped = wrapRemixFunction(remixFunction, {
+      ...wrapperOptions,
+      type: "loader",
+      config: {
+        ...wrapperOptions.config,
+        unstable_exclude: ({ request }) => {
+          expect(request.url).toBe("https://metronome.sh/");
+          return false;
+        },
+      },
+    });
+
+    const spy = vi.spyOn(remixFunctionArgs.request, "clone");
+
+    await wrapped(remixFunctionArgs);
+
+    expect(spy).toHaveBeenCalled();
   });
 });

@@ -21,7 +21,7 @@ export const wrapRemixFunction = (
 
   return async (...args) => {
     const requestStore = asyncLocalStorage.getStore();
-    const [{ request, context }] = args;
+    const [{ request, context, params }] = args;
 
     const cloudflareWaitUntil = (context as CloudflareLoadContext)?.cloudflare?.waitUntil;
 
@@ -49,8 +49,38 @@ export const wrapRemixFunction = (
 
     const ignoredRoutes = options.config.ignoredRoutes ?? [];
     const shouldIgnoreRouteByRouteId = ignoredRoutes.some((value) => match(value, options.routeId));
+    // Wait for the unstable_exclude function to resolve before continuing at most 1 second
+    const controller = new AbortController();
+    const { signal } = controller;
 
-    if (shouldIgnoreRouteByPathname || shouldIgnoreRouteByRouteId) {
+    const shouldExcludeRequest = options.config.unstable_exclude
+      ? await Promise.race([
+          (async () => {
+            const result = await options.config.unstable_exclude!({
+              request: request.clone(),
+              context,
+              params,
+            });
+            controller.abort();
+            return result;
+          })(),
+          new Promise<false>((resolve) =>
+            setTimeout(() => {
+              if (!signal.aborted) {
+                // prettier-ignore
+                console.warn(`Metronome: exclude function took too long to resolve [${options.config.unstable_excludeTimeout}ms]`);
+              }
+              resolve(false);
+            }, options.config.unstable_excludeTimeout)
+          ),
+        ])
+      : false;
+
+    if (shouldExcludeRequest && options.config.debug) {
+      console.warn("Metronome: request was excluded by the exclude function");
+    }
+
+    if (shouldIgnoreRouteByPathname || shouldIgnoreRouteByRouteId || shouldExcludeRequest) {
       if (requestStore) {
         requestStore.doNotTrack = true;
         requestStore.doNotTrackErrors = true;

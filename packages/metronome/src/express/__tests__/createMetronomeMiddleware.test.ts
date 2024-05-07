@@ -31,6 +31,7 @@ describe.skip("createMetronomeMiddleware", () => {
       },
       version: "abcedf",
       unstable_sourceMaps: true,
+      unstable_excludeTimeout: 1000,
     },
   };
 
