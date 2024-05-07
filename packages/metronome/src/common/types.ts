@@ -1,4 +1,4 @@
-import { ServerBuild } from "@remix-run/server-runtime";
+import { ActionFunctionArgs, LoaderFunctionArgs, ServerBuild } from "@remix-run/server-runtime";
 import { type EventContext } from "@cloudflare/workers-types";
 
 export type Routes = Record<string, ServerBuild["routes"][string]>;
@@ -22,15 +22,27 @@ export interface MetronomeConfig {
   apiKey?: string | null;
   ignoredRoutes?: (string | RegExp)[];
   ignoredPathnames?: (string | RegExp)[];
-  unstable_sourceMaps?: boolean;
-  // headersAllowlist?: HeaderAllowlist;
   debug?: boolean;
+  unstable_sourceMaps?: boolean;
+  /**
+   * @description Exclude requests from being tracked by Metronome
+   */
+  unstable_exclude?: (args: UnstableExcludeArgs) => boolean | Promise<boolean>;
+  unstable_excludeTimeout?: number;
 }
 
-export interface MetronomeResolvedConfig extends Omit<MetronomeConfig, "endpoint"> {
+type UnstableExcludeArgs = {
+  request: LoaderFunctionArgs["request"] | ActionFunctionArgs["request"];
+  context: LoaderFunctionArgs["context"] | ActionFunctionArgs["context"];
+  params: LoaderFunctionArgs["params"] | ActionFunctionArgs["params"];
+};
+
+export interface MetronomeResolvedConfig
+  extends Omit<MetronomeConfig, "endpoint" | "unstable_excludeTimeout"> {
   endpoint: string;
   remixPackages: Record<string, string>;
   version: string;
+  unstable_excludeTimeout: number;
 }
 
 export interface MetronomeWrapperOptions {

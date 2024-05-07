@@ -13,6 +13,8 @@ import { promisify } from "util";
 
 import { METRONOME_METRICS_VERSION } from "../common/constants";
 import { MetronomeConfig, MetronomeResolvedConfig } from "../common/types";
+import { transformRootTsx } from "./transformRootTsx";
+import { transformServer } from "./transformServer";
 
 const exec = promisify(childProcess.exec);
 
@@ -259,25 +261,20 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (m
       metronomeResolvedConfig = {
         ...metronomeConfig,
         remixPackages,
-        endpoint: metronomeConfig?.endpoint ?? "https://metrics.metronome.sh",
         version,
+        // defaults
+        unstable_excludeTimeout: metronomeConfig?.unstable_excludeTimeout ?? 1000,
+        endpoint: metronomeConfig?.endpoint ?? "https://metrics.metronome.sh",
       };
 
-      const magicString = new MagicString(file.code);
-
-      magicString.prepend(`import { registerMetronome } from "metronome-sh/server";`);
-
-      const regex = /const routes = \{([\s\S]*?)\};/m;
-
-      magicString.replace(regex, (_, p1) => {
-        return `export const metronome = ${JSON.stringify(
-          metronomeResolvedConfig
-        )}; \n const routes = registerMetronome({${p1}}, metronome);`;
+      const { code, map } = transformServer({
+        code: file.code,
+        id: name,
+        config: metronomeResolvedConfig,
       });
 
-      file.code = magicString.toString();
-
-      file.map = magicString.generateMap({ hires: true, includeContent: true, source: name });
+      file.code = code;
+      file.map = map;
     },
     configResolved(config) {
       if (fs.existsSync(sourceMapDirectoryPath)) {
@@ -292,20 +289,7 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (m
     },
     transform(code, id) {
       if (id.match(/root\.tsx$/)) {
-        const magicString = new MagicString(code);
-
-        magicString.prepend('import { withMetronome } from "metronome-sh/react";');
-        const defaultExportRegex = /export\sdefault\s(function\s.*{.*\}$)/gms;
-
-        magicString.replace(defaultExportRegex, (replacement, ...rest) => {
-          const [app] = rest;
-          return `export default withMetronome(${app})`;
-        });
-
-        return {
-          code: magicString.toString(),
-          map: magicString.generateMap({ hires: true, includeContent: true, source: id }),
-        };
+        return transformRootTsx({ code, id });
       }
     },
   };

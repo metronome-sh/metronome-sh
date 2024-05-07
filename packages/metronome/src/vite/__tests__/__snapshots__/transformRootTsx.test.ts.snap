@@ -1,0 +1,296 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`transformRootTsx > should transform __templates__/complex-root.txt 1`] = `
+"import { withMetronome } from "metronome-sh/react";
+import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
+import { json } from "@remix-run/cloudflare";
+import {
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData,
+  useNavigate,
+} from "@remix-run/react";
+import type { ReactNode } from "react";
+import { RouterProvider, useLocale } from "react-aria-components";
+import { AuthenticityTokenProvider } from "remix-utils/csrf/react";
+
+import { useIsBot } from "#app/helpers/is-bot";
+import { CSRF } from "#app/modules/csrf.server";
+import { cn } from "#app/std/cn";
+import "#app/tailwind.css";
+
+export async function loader({ request, context }: LoaderFunctionArgs) {
+  let url = new URL(request.url);
+
+  let headers = new Headers();
+
+  // Cross-Site Request Forgery
+  let csrf = new CSRF(context);
+  let [token, cookie] = await csrf.commitToken(request);
+  if (cookie) headers.append("set-cookie", cookie);
+
+  // No-JS
+  let noJS = await context.noJS.validate(request);
+  await context.noJS.save(noJS, headers);
+
+  // Response
+  return json({ token, noJS, locale: context.i18n.locale, url }, { headers });
+}
+
+export default withMetronome(function App() {
+  let { token, noJS, url } = useLoaderData<typeof loader>();
+
+  let noJSURL = new URL(url);
+  noJSURL.searchParams.set("no-js", "true");
+
+  return (
+    <AuthenticityTokenProvider token={token}>
+      {noJS ? null : (
+        <noscript>
+          <meta httpEquiv="refresh" content={\`0; url=\${noJSURL.toString()}\`} />
+        </noscript>
+      )}
+
+      <Outlet />
+    </AuthenticityTokenProvider>
+  );
+});
+
+export function Layout({ children }: { children: ReactNode }) {
+  let isBot = useIsBot();
+  let navigate = useNavigate();
+
+  let { locale, direction } = useLocale();
+
+  return (
+    <RouterProvider navigate={navigate}>
+      <html
+        lang={locale}
+        dir={direction}
+        className="bg-white text-neutral-950 dark:bg-black dark:text-neutral-50"
+      >
+        <head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width,initial-scale=1" />
+          <Meta />
+          <Links />
+        </head>
+
+        <body className={cn("min-h-screen w-screen")}>
+          {children}
+          {!isBot && (
+            <>
+              <ScrollRestoration />
+              <Scripts />
+            </>
+          )}
+        </body>
+      </html>
+    </RouterProvider>
+  );
+}
+"
+`;
+
+exports[`transformRootTsx > should transform __templates__/complex-root.txt 2`] = `
+SourceMap {
+  "file": "complex-root.txt",
+  "mappings": "AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;",
+  "names": [],
+  "sources": [
+    "complex-root.txt",
+  ],
+  "sourcesContent": [
+    "import { withMetronome } from "metronome-sh/react";
+import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
+import { json } from "@remix-run/cloudflare";
+import {
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData,
+  useNavigate,
+} from "@remix-run/react";
+import type { ReactNode } from "react";
+import { RouterProvider, useLocale } from "react-aria-components";
+import { AuthenticityTokenProvider } from "remix-utils/csrf/react";
+
+import { useIsBot } from "#app/helpers/is-bot";
+import { CSRF } from "#app/modules/csrf.server";
+import { cn } from "#app/std/cn";
+import "#app/tailwind.css";
+
+export async function loader({ request, context }: LoaderFunctionArgs) {
+  let url = new URL(request.url);
+
+  let headers = new Headers();
+
+  // Cross-Site Request Forgery
+  let csrf = new CSRF(context);
+  let [token, cookie] = await csrf.commitToken(request);
+  if (cookie) headers.append("set-cookie", cookie);
+
+  // No-JS
+  let noJS = await context.noJS.validate(request);
+  await context.noJS.save(noJS, headers);
+
+  // Response
+  return json({ token, noJS, locale: context.i18n.locale, url }, { headers });
+}
+
+export default withMetronome(function App() {
+  let { token, noJS, url } = useLoaderData<typeof loader>();
+
+  let noJSURL = new URL(url);
+  noJSURL.searchParams.set("no-js", "true");
+
+  return (
+    <AuthenticityTokenProvider token={token}>
+      {noJS ? null : (
+        <noscript>
+          <meta httpEquiv="refresh" content={\`0; url=\${noJSURL.toString()}\`} />
+        </noscript>
+      )}
+
+      <Outlet />
+    </AuthenticityTokenProvider>
+  );
+});
+
+export function Layout({ children }: { children: ReactNode }) {
+  let isBot = useIsBot();
+  let navigate = useNavigate();
+
+  let { locale, direction } = useLocale();
+
+  return (
+    <RouterProvider navigate={navigate}>
+      <html
+        lang={locale}
+        dir={direction}
+        className="bg-white text-neutral-950 dark:bg-black dark:text-neutral-50"
+      >
+        <head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width,initial-scale=1" />
+          <Meta />
+          <Links />
+        </head>
+
+        <body className={cn("min-h-screen w-screen")}>
+          {children}
+          {!isBot && (
+            <>
+              <ScrollRestoration />
+              <Scripts />
+            </>
+          )}
+        </body>
+      </html>
+    </RouterProvider>
+  );
+}
+",
+  ],
+  "version": 3,
+}
+`;
+
+exports[`transformRootTsx > should transform __templates__/default-template-root.txt 1`] = `
+"import { withMetronome } from "metronome-sh/react";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+
+export function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+
+export default withMetronome(function App() {
+  return <Outlet />;
+});
+"
+`;
+
+exports[`transformRootTsx > should transform __templates__/default-template-root.txt 2`] = `
+SourceMap {
+  "file": "default-template-root.txt",
+  "mappings": "AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;",
+  "names": [],
+  "sources": [
+    "default-template-root.txt",
+  ],
+  "sourcesContent": [
+    "import { withMetronome } from "metronome-sh/react";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+
+export function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+
+export default withMetronome(function App() {
+  return <Outlet />;
+});
+",
+  ],
+  "version": 3,
+}
+`;
+
+exports[`transformRootTsx > should transform __templates__/simple-root.txt 1`] = `
+"import { withMetronome } from "metronome-sh/react";
+export default withMetronome(function App() {
+  return <div>Hello, world!</div>;
+});
+"
+`;
+
+exports[`transformRootTsx > should transform __templates__/simple-root.txt 2`] = `
+SourceMap {
+  "file": "simple-root.txt",
+  "mappings": "AAAA;AACA;AACA;AACA;",
+  "names": [],
+  "sources": [
+    "simple-root.txt",
+  ],
+  "sourcesContent": [
+    "import { withMetronome } from "metronome-sh/react";
+export default withMetronome(function App() {
+  return <div>Hello, world!</div>;
+});
+",
+  ],
+  "version": 3,
+}
+`;

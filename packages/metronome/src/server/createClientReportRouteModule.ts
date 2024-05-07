@@ -19,7 +19,40 @@ export const createClientReportRouteModule = ({
   routeMap: RouteMap;
   config: MetronomeResolvedConfig;
 }): ServerRouteModule => {
-  const action: ActionFunction = async ({ request, context }) => {
+  const action: ActionFunction = async ({ request, context, params }) => {
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    const shouldExcludeRequest = config.unstable_exclude
+      ? await Promise.race([
+          (async () => {
+            const result = await config.unstable_exclude!({
+              request: request.clone(),
+              context,
+              params,
+            });
+            controller.abort();
+            return result;
+          })(),
+          new Promise<false>((resolve) =>
+            setTimeout(() => {
+              if (!signal.aborted) {
+                // prettier-ignore
+                console.warn(`Metronome: exclude function took too long to resolve [${config.unstable_excludeTimeout}ms]`);
+              }
+              resolve(false);
+            }, config.unstable_excludeTimeout)
+          ),
+        ])
+      : false;
+
+    if (shouldExcludeRequest) {
+      if (config.debug) {
+        console.warn("Metronome: request was excluded by the exclude function");
+      }
+      return new Response(null, { status: 204 });
+    }
+
     startInstrumentation(config);
 
     const cloudflareWaitUntil = (context as CloudflareLoadContext)?.cloudflare?.waitUntil;

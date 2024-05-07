@@ -5,8 +5,33 @@ import * as webVitalsModule from "./webVitalsModule";
 
 export function registerMetronome(routes: Routes, config: MetronomeResolvedConfig): Routes {
   const routeMap: RouteMap = {};
+  const newRoutes: Routes = {};
+  // Register custom metronome route
+  const baseUrl = "__metronome";
+
+  newRoutes[baseUrl] = {
+    id: baseUrl,
+    parentId: undefined,
+    path: baseUrl,
+    index: undefined,
+    caseSensitive: undefined,
+    module: createClientReportRouteModule({ routeMap, config }),
+  };
+
+  newRoutes[`${baseUrl}/web-vitals.$version`] = {
+    id: `${baseUrl}/web-vitals.$version`,
+    parentId: undefined,
+    path: `${baseUrl}/web-vitals/:version`,
+    index: undefined,
+    caseSensitive: undefined,
+    module: webVitalsModule,
+  };
 
   for (const [routeId, route] of Object.entries(routes)) {
+    if (routeId === baseUrl || routeId.startsWith(baseUrl)) {
+      continue;
+    }
+
     routeMap[routeId] = {
       id: routeId,
       parentId: route.parentId,
@@ -34,29 +59,8 @@ export function registerMetronome(routes: Routes, config: MetronomeResolvedConfi
       });
     }
 
-    routes[routeId] = newRoute;
+    newRoutes[routeId] = newRoute;
   }
 
-  // Register custom metronome route
-  const baseUrl = "__metronome";
-
-  routes[baseUrl] = {
-    id: baseUrl,
-    parentId: undefined,
-    path: baseUrl,
-    index: undefined,
-    caseSensitive: undefined,
-    module: createClientReportRouteModule({ routeMap, config }),
-  };
-
-  routes[`${baseUrl}/web-vitals.$version`] = {
-    id: `${baseUrl}/web-vitals.$version`,
-    parentId: undefined,
-    path: `${baseUrl}/web-vitals/:version`,
-    index: undefined,
-    caseSensitive: undefined,
-    module: webVitalsModule,
-  };
-
-  return routes;
+  return newRoutes;
 }

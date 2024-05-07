@@ -40,6 +40,8 @@ jobs:
           npx @changesets/cli version
 
       - name: Build
+        env:
+          NODE_ENV: production
         run: pnpm run build
 
       - name: Publish to npm
