@@ -1,5 +1,11 @@
 # @metronome-sh/express
 
+## 8.5.0
+
+### Minor Changes
+
+- 40ab3cf: fixes and added unstable_exclude function
+
 ## 8.4.3
 
 ### Patch Changes
