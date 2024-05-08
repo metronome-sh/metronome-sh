@@ -14,7 +14,7 @@
     "test": "pnpm -r --parallel test",
     "lint": "pnpm -r --parallel lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "clean": "find . '(' -name \"node_modules\" -o -name \"build\" -o -name \"dist\" -o -name \".cache\" -o -name \".turbo\" ')' -type d -prune -exec rm -rf '{}' +",
+    "clean": "find . '(' -name \"node_modules\" -o -name \"build\" -o -name \"dist\" -o -name \".cache\" -o -name \"__remix__\" ')' -type d -prune -exec rm -rf '{}' +",
     "reset": "pnpm clean && pnpm i && pnpm -r build"
   },
   "devDependencies": {

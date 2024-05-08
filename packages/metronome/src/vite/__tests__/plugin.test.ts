@@ -3,7 +3,7 @@ import { $ } from "execa";
 import fs from "fs/promises";
 import path from "path";
 
-const tmpDir = `${__dirname}/.remix`;
+const tmpDir = `${__dirname}/__remix__`;
 const $$ = $({ cwd: tmpDir });
 
 const viteConfig = `
@@ -43,7 +43,7 @@ describe(
   () => {
     it("Installs and builds in the express vite template", async () => {
       // Generate random dirname to avoid conflicts
-      const dirname = "express-vite-" + Math.random().toString(36).substring(7);
+      const dirname = "remix-express-" + Math.random().toString(36).substring(7);
 
       await install({
         template: "remix-run/remix/templates/express",

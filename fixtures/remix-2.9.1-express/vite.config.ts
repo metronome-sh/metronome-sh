@@ -23,7 +23,7 @@ export default defineConfig({
     tsconfigPaths(),
     metronome({
       debug: true,
-      // unstable_sourceMaps: true,
+      unstable_sourceMaps: true,
       // endpoint: "http://localhost:3004",
       apiKey: "ak_TOh5XryVbjCEanmWlFtngYMD7qvkz4f3F80MOQcU",
       unstable_exclude: async ({ request }) => {
