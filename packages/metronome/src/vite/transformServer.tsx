@@ -1,4 +1,4 @@
-import { MetronomeResolvedConfig } from "src/common/types";
+import { MetronomeResolvedConfig } from "../common/types";
 import MagicString from "magic-string";
 import { parse } from "@typescript-eslint/typescript-estree";
 import { walk } from "./walk";

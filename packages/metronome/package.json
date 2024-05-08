@@ -1,6 +1,6 @@
 {
   "name": "metronome-sh",
-  "version": "8.5.0",
+  "version": "8.5.1-prerelease.2",
   "description": "Metronome - Insights for Remix",
   "module": "dist/esm/index.js",
   "type": "module",

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 import { obfuscate } from "../common/helpers";
+import { METRONOME_REPORT_ROUTE } from "../common/constants";
 
 if (typeof window !== "undefined") {
   window.__metronomeQueue = window.__metronomeQueue ?? [];
@@ -17,9 +18,9 @@ export function useQueue() {
     const str = obfuscate(window.__metronomeQueue);
 
     if (navigator.sendBeacon) {
-      navigator.sendBeacon("/__metronome", str);
+      navigator.sendBeacon(METRONOME_REPORT_ROUTE, str);
     } else {
-      fetch("/__metronome", { body: str, method: "POST", keepalive: true });
+      fetch(METRONOME_REPORT_ROUTE, { body: str, method: "POST", keepalive: true });
     }
 
     window.__metronomeQueue = [];

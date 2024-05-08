@@ -4,7 +4,7 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "remix vite:build",
+    "build": "NODE_ENV=production remix vite:build",
     "dev": "node ./server.js",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "cross-env NODE_ENV=production PORT=3300 node ./server.js",
@@ -14,6 +14,7 @@
     "@remix-run/express": "^2.9.1",
     "@remix-run/node": "^2.9.1",
     "@remix-run/react": "^2.9.1",
+    "aws-sdk": "^2.1615.0",
     "compression": "^1.7.4",
     "express": "^4.18.2",
     "isbot": "^4.1.0",
@@ -21,7 +22,8 @@
     "morgan": "^1.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "remix-2.9.1-express": "link:"
+    "remix-2.9.1-express": "link:",
+    "remix-custom-routes": "^1.0.1"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.9.1",

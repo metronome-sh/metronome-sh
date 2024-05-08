@@ -6,7 +6,7 @@ import {
 import { startInstrumentation, tracer } from "../common/instrumentation/Tracer";
 import { getIp } from "../common/getIp";
 import { METRONOME_VERSION } from "../common/constants";
-import { MetronomeResolvedConfig } from "src/common/types";
+import { MetronomeResolvedConfig } from "../common/types";
 import { invariant } from "ts-invariant";
 import { SemanticAttributes } from "../common/instrumentation/SemanticAttributes";
 import { asyncLocalStorage } from "@asyncLocalStorage";

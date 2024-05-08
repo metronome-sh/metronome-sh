@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { registerMetronome } from "../../server/registerMetronome";
 import { MetronomeResolvedConfig } from "../../common/types";
 import * as wrapFunctionModule from "../../server/wrapRemixFunction";
+import { METRONOME_REPORT_ROUTE, METRONOME_WEB_VITALS_ROUTE } from "../../common/constants";
 
 describe("registerMetronome", () => {
   it("should register the metronome routes", () => {
@@ -37,13 +38,13 @@ describe("registerMetronome", () => {
 
     expect(wrapRemixFunctionSpy).toHaveBeenCalledTimes(2);
     expect(result["/"]).toBeDefined();
-    expect(result["__metronome"]).toBeDefined();
-    expect(result["__metronome"].path).toBe("__metronome");
-    expect(result["__metronome/web-vitals.$version"].path).toBe("__metronome/web-vitals/:version");
+    expect(result[METRONOME_REPORT_ROUTE]).toBeDefined();
+    expect(result[METRONOME_REPORT_ROUTE].path).toBe(METRONOME_REPORT_ROUTE);
+    expect(result[METRONOME_WEB_VITALS_ROUTE].path).toBe(METRONOME_WEB_VITALS_ROUTE);
 
     // Make sure the order is correct
     expect(JSON.stringify(Object.keys(result))).toBe(
-      JSON.stringify(["__metronome", "__metronome/web-vitals.$version", "/"])
+      JSON.stringify([METRONOME_REPORT_ROUTE, METRONOME_WEB_VITALS_ROUTE, "/"])
     );
   });
 });

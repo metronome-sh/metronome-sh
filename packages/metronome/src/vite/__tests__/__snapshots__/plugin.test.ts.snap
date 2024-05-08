@@ -1,7 +1,11 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`vite plugin > Installs and builds in the express vite template 1`] = `
-"import { registerMetronome } from "metronome-sh/server";
+"import { AsyncLocalStorage } from "node:async_hooks";
+import crypto from "node:crypto";
+import { UAParser } from "ua-parser-js";
+import { z } from "zod";
+import { pathToRegexp } from "path-to-regexp";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import { PassThrough } from "node:stream";
 import { createReadableStreamFromReadable } from "@remix-run/node";
@@ -9,6 +13,1038 @@ import { RemixServer, useLocation, Outlet, Meta, Links, ScrollRestoration, Scrip
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 import { useRef, useCallback, useEffect, useState } from "react";
+var asyncLocalStorage = new AsyncLocalStorage();
+var __defProp = Object.defineProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var METRONOME_VERSION$1 = "8.5.1-prerelease.1";
+var METRONOME_WEB_VITALS = 'var webVitals=function(e){"use strict";var n,t,r,i,o,a=-1,c=function(e){addEventListener("pageshow",(function(n){n.persisted&&(a=n.timeStamp,e(n))}),!0)},u=function(){return window.performance&&performance.getEntriesByType&&performance.getEntriesByType("navigation")[0]},s=function(){var e=u();return e&&e.activationStart||0},f=function(e,n){var t=u(),r="navigate";a>=0?r="back-forward-cache":t&&(document.prerendering||s()>0?r="prerender":document.wasDiscarded?r="restore":t.type&&(r=t.type.replace(/_/g,"-")));return{name:e,value:void 0===n?-1:n,rating:"good",delta:0,entries:[],id:"v3-".concat(Date.now(),"-").concat(Math.floor(8999999999999*Math.random())+1e12),navigationType:r}},d=function(e,n,t){try{if(PerformanceObserver.supportedEntryTypes.includes(e)){var r=new PerformanceObserver((function(e){Promise.resolve().then((function(){n(e.getEntries())}))}));return r.observe(Object.assign({type:e,buffered:!0},t||{})),r}}catch(e){}},l=function(e,n,t,r){var i,o;return function(a){n.value>=0&&(a||r)&&((o=n.value-(i||0))||void 0===i)&&(i=n.value,n.delta=o,n.rating=function(e,n){return e>n[1]?"poor":e>n[0]?"needs-improvement":"good"}(n.value,t),e(n))}},v=function(e){requestAnimationFrame((function(){return requestAnimationFrame((function(){return e()}))}))},p=function(e){var n=function(n){"pagehide"!==n.type&&"hidden"!==document.visibilityState||e(n)};addEventListener("visibilitychange",n,!0),addEventListener("pagehide",n,!0)},m=function(e){var n=!1;return function(t){n||(e(t),n=!0)}},h=-1,g=function(){return"hidden"!==document.visibilityState||document.prerendering?1/0:0},T=function(e){"hidden"===document.visibilityState&&h>-1&&(h="visibilitychange"===e.type?e.timeStamp:0,E())},y=function(){addEventListener("visibilitychange",T,!0),addEventListener("prerenderingchange",T,!0)},E=function(){removeEventListener("visibilitychange",T,!0),removeEventListener("prerenderingchange",T,!0)},C=function(){return h<0&&(h=g(),y(),c((function(){setTimeout((function(){h=g(),y()}),0)}))),{get firstHiddenTime(){return h}}},L=function(e){document.prerendering?addEventListener("prerenderingchange",(function(){return e()}),!0):e()},w=[1800,3e3],S=function(e,n){n=n||{},L((function(){var t,r=C(),i=f("FCP"),o=d("paint",(function(e){e.forEach((function(e){"first-contentful-paint"===e.name&&(o.disconnect(),e.startTime<r.firstHiddenTime&&(i.value=Math.max(e.startTime-s(),0),i.entries.push(e),t(!0)))}))}));o&&(t=l(e,i,w,n.reportAllChanges),c((function(r){i=f("FCP"),t=l(e,i,w,n.reportAllChanges),v((function(){i.value=performance.now()-r.timeStamp,t(!0)}))})))}))},b=[.1,.25],P=function(e,n){n=n||{},S(m((function(){var t,r=f("CLS",0),i=0,o=[],a=function(e){e.forEach((function(e){if(!e.hadRecentInput){var n=o[0],t=o[o.length-1];i&&e.startTime-t.startTime<1e3&&e.startTime-n.startTime<5e3?(i+=e.value,o.push(e)):(i=e.value,o=[e])}})),i>r.value&&(r.value=i,r.entries=o,t())},u=d("layout-shift",a);u&&(t=l(e,r,b,n.reportAllChanges),p((function(){a(u.takeRecords()),t(!0)})),c((function(){i=0,r=f("CLS",0),t=l(e,r,b,n.reportAllChanges),v((function(){return t()}))})),setTimeout(t,0))})))},I={passive:!0,capture:!0},F=new Date,A=function(e,i){n||(n=i,t=e,r=new Date,k(removeEventListener),D())},D=function(){if(t>=0&&t<r-F){var e={entryType:"first-input",name:n.type,target:n.target,cancelable:n.cancelable,startTime:n.timeStamp,processingStart:n.timeStamp+t};i.forEach((function(n){n(e)})),i=[]}},M=function(e){if(e.cancelable){var n=(e.timeStamp>1e12?new Date:performance.now())-e.timeStamp;"pointerdown"==e.type?function(e,n){var t=function(){A(e,n),i()},r=function(){i()},i=function(){removeEventListener("pointerup",t,I),removeEventListener("pointercancel",r,I)};addEventListener("pointerup",t,I),addEventListener("pointercancel",r,I)}(n,e):A(n,e)}},k=function(e){["mousedown","keydown","touchstart","pointerdown"].forEach((function(n){return e(n,M,I)}))},B=[100,300],x=function(e,r){r=r||{},L((function(){var o,a=C(),u=f("FID"),s=function(e){e.startTime<a.firstHiddenTime&&(u.value=e.processingStart-e.startTime,u.entries.push(e),o(!0))},v=function(e){e.forEach(s)},h=d("first-input",v);o=l(e,u,B,r.reportAllChanges),h&&p(m((function(){v(h.takeRecords()),h.disconnect()}))),h&&c((function(){var a;u=f("FID"),o=l(e,u,B,r.reportAllChanges),i=[],t=-1,n=null,k(addEventListener),a=s,i.push(a),D()}))}))},N=0,R=1/0,H=0,O=function(e){e.forEach((function(e){e.interactionId&&(R=Math.min(R,e.interactionId),H=Math.max(H,e.interactionId),N=H?(H-R)/7+1:0)}))},q=function(){return o?N:performance.interactionCount||0},j=function(){"interactionCount"in performance||o||(o=d("event",O,{type:"event",buffered:!0,durationThreshold:0}))},V=[200,500],_=0,z=function(){return q()-_},G=[],J={},K=function(e){var n=G[G.length-1],t=J[e.interactionId];if(t||G.length<10||e.duration>n.latency){if(t)t.entries.push(e),t.latency=Math.max(t.latency,e.duration);else{var r={id:e.interactionId,latency:e.duration,entries:[e]};J[r.id]=r,G.push(r)}G.sort((function(e,n){return n.latency-e.latency})),G.splice(10).forEach((function(e){delete J[e.id]}))}},Q=function(e,n){n=n||{},L((function(){var t;j();var r,i=f("INP"),o=function(e){e.forEach((function(e){(e.interactionId&&K(e),"first-input"===e.entryType)&&(!G.some((function(n){return n.entries.some((function(n){return e.duration===n.duration&&e.startTime===n.startTime}))}))&&K(e))}));var n,t=(n=Math.min(G.length-1,Math.floor(z()/50)),G[n]);t&&t.latency!==i.value&&(i.value=t.latency,i.entries=t.entries,r())},a=d("event",o,{durationThreshold:null!==(t=n.durationThreshold)&&void 0!==t?t:40});r=l(e,i,V,n.reportAllChanges),a&&("PerformanceEventTiming"in window&&"interactionId"in PerformanceEventTiming.prototype&&a.observe({type:"first-input",buffered:!0}),p((function(){o(a.takeRecords()),i.value<0&&z()>0&&(i.value=0,i.entries=[]),r(!0)})),c((function(){G=[],_=q(),i=f("INP"),r=l(e,i,V,n.reportAllChanges)})))}))},U=[2500,4e3],W={},X=function(e,n){n=n||{},L((function(){var t,r=C(),i=f("LCP"),o=function(e){var n=e[e.length-1];n&&n.startTime<r.firstHiddenTime&&(i.value=Math.max(n.startTime-s(),0),i.entries=[n],t())},a=d("largest-contentful-paint",o);if(a){t=l(e,i,U,n.reportAllChanges);var u=m((function(){W[i.id]||(o(a.takeRecords()),a.disconnect(),W[i.id]=!0,t(!0))}));["keydown","click"].forEach((function(e){addEventListener(e,(function(){return setTimeout(u,0)}),!0)})),p(u),c((function(r){i=f("LCP"),t=l(e,i,U,n.reportAllChanges),v((function(){i.value=performance.now()-r.timeStamp,W[i.id]=!0,t(!0)}))}))}}))},Y=[800,1800],Z=function e(n){document.prerendering?L((function(){return e(n)})):"complete"!==document.readyState?addEventListener("load",(function(){return e(n)}),!0):setTimeout(n,0)},$=function(e,n){n=n||{};var t=f("TTFB"),r=l(e,t,Y,n.reportAllChanges);Z((function(){var i=u();if(i){var o=i.responseStart;if(o<=0||o>performance.now())return;t.value=Math.max(o-s(),0),t.entries=[i],r(!0),c((function(){t=f("TTFB",0),(r=l(e,t,Y,n.reportAllChanges))(!0)}))}}))};return e.CLSThresholds=b,e.FCPThresholds=w,e.FIDThresholds=B,e.INPThresholds=V,e.LCPThresholds=U,e.TTFBThresholds=Y,e.getCLS=P,e.getFCP=S,e.getFID=x,e.getINP=Q,e.getLCP=X,e.getTTFB=$,e.onCLS=P,e.onFCP=S,e.onFID=x,e.onINP=Q,e.onLCP=X,e.onTTFB=$,e}({});\\n';
+var METRONOME_METRICS_VERSION = "v5";
+var METRONOME_REPORT_ROUTE$1 = \`/__metronome/\${METRONOME_VERSION$1}/report\`;
+var METRONOME_WEB_VITALS_ROUTE$1 = \`/__metronome/\${METRONOME_VERSION$1}/web-vitals.js\`;
+var headerNames = [
+  "X-Client-IP",
+  "X-Forwarded-For",
+  "HTTP-X-Forwarded-For",
+  "Fly-Client-IP",
+  "CF-Connecting-IP",
+  "Fastly-Client-Ip",
+  "True-Client-Ip",
+  "X-Real-IP",
+  "X-Cluster-Client-IP",
+  "X-Forwarded",
+  "Forwarded-For",
+  "Forwarded",
+  "DO-Connecting-IP",
+  "oxygen-buyer-ip"
+];
+var isIp = (input) => {
+  const ipRegex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}|(?:[A-Fa-f0-9]{1,4}:){1,7}:|(?:[A-Fa-f0-9]{1,4}:){1,6}:[A-Fa-f0-9]{1,4}|(?:[A-Fa-f0-9]{1,4}:){1,5}(?::[A-Fa-f0-9]{1,4}){1,2}|(?:[A-Fa-f0-9]{1,4}:){1,4}(?::[A-Fa-f0-9]{1,4}){1,3}|(?:[A-Fa-f0-9]{1,4}:){1,3}(?::[A-Fa-f0-9]{1,4}){1,4}|(?:[A-Fa-f0-9]{1,4}:){1,2}(?::[A-Fa-f0-9]{1,4}){1,5}|[A-Fa-f0-9]{1,4}:(?:(?::[A-Fa-f0-9]{1,4}){1,6})|:(?:(?::[A-Fa-f0-9]{1,4}){1,7}|:)|fe80:(?::[A-Fa-f0-9]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(?:ffff(?::0{1,4}){0,1}:){0,1}(?:(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|(?:[A-Fa-f0-9]{1,4}:){1,4}:(?:(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/;
+  return ipRegex.test(input);
+};
+function isExpressRequest(request) {
+  return typeof request.originalUrl !== "undefined";
+}
+function getIp(request) {
+  let ipAddress = headerNames.flatMap((headerName) => {
+    let value;
+    if (isExpressRequest(request)) {
+      value = request.headers[headerName];
+    } else {
+      value = request.headers.get(headerName);
+    }
+    if (headerName === "Forwarded") {
+      return parseForwardedHeader(typeof value === "string" ? value : null);
+    }
+    if (!value)
+      return;
+    if (typeof value === "string" && !value.includes(",")) {
+      return value;
+    }
+    return typeof value === "string" ? value.split(",").map((ip) => ip.trim()) : value;
+  }).find((ip) => {
+    if (ip === null || typeof ip === "undefined")
+      return false;
+    return isIp(ip);
+  });
+  return ipAddress ?? null;
+}
+function parseForwardedHeader(value) {
+  if (!value)
+    return null;
+  for (let part of value.split(";")) {
+    if (part.startsWith("for="))
+      return part.slice(4);
+    continue;
+  }
+  return null;
+}
+function generateRandomBytesHex(length) {
+  return crypto.randomBytes(length).toString("hex").toLowerCase();
+}
+var Metric = class {
+  constructor(name, options) {
+    this.name = name;
+    this.unit = "";
+    this.type = "counter";
+    this.attributes = {};
+    this.value = 0;
+    this.onRecordCallbacks = [];
+    this.isDisposed = false;
+    this.id = (options == null ? void 0 : options.id) ?? generateRandomBytesHex(8);
+    this.unit = (options == null ? void 0 : options.unit) ?? "";
+    this.type = (options == null ? void 0 : options.type) ?? "counter";
+    this.attributes = (options == null ? void 0 : options.attributes) ?? {};
+    this.timestamp = Date.now();
+  }
+  record(value, attributes) {
+    if (this.isDisposed) {
+      throw new Error("Metric is disposed, cannot record.");
+    }
+    this.value = value;
+    this.attributes = { ...this.attributes, ...attributes };
+    this.onRecordCallbacks.forEach((handler) => handler(this));
+    this.onRecordCallbacks = [];
+    return this;
+  }
+  add(value, attributes) {
+    if (this.isDisposed) {
+      throw new Error("Metric is disposed, cannot add.");
+    }
+    this.value += value;
+    this.attributes = { ...this.attributes, ...attributes };
+    this.onRecordCallbacks.forEach((handler) => handler(this));
+    this.onRecordCallbacks = [];
+    return this;
+  }
+  dispose() {
+    this.isDisposed = true;
+    this.onRecordCallbacks = [];
+  }
+  addOnRecordListener(callback) {
+    this.onRecordCallbacks.push(callback);
+  }
+  toJSON() {
+    return {
+      id: this.id,
+      type: this.type,
+      name: this.name,
+      attributes: Object.fromEntries(
+        Object.entries(this.attributes).map(([key, value]) => [key, \`\${value}\`])
+      ),
+      value: this.value,
+      unit: this.unit,
+      timestamp: this.timestamp
+    };
+  }
+};
+var Exporter = class {
+  constructor(config) {
+    this.config = config;
+    this.exportables = [];
+  }
+  flush() {
+    return Promise.all(this.exportables).then(() => {
+      this.exportables = [];
+    });
+  }
+  setCloudflareContext(context) {
+    this.cloudflareContext = context;
+  }
+  export(exportable) {
+    var _a, _b, _c, _d;
+    const apiKey = this.config.apiKey ? (
+      // Config
+      this.config.apiKey
+    ) : (
+      // Cloudflare
+      ((_b = (_a = this.cloudflareContext) == null ? void 0 : _a.env) == null ? void 0 : _b.METRONOME_API_KEY) ? (_d = (_c = this.cloudflareContext) == null ? void 0 : _c.env) == null ? void 0 : _d.METRONOME_API_KEY : (
+        // Node
+        typeof process !== "undefined" ? process.env.METRONOME_API_KEY : null
+      )
+    );
+    if (!apiKey) {
+      console.log("Metronome: Cannot export: No API key provided");
+      return;
+    }
+    const url = new URL(this.pathname, this.config.endpoint);
+    const data = JSON.stringify([exportable], (_, v) => {
+      return typeof v === "bigint" ? v.toString() : v;
+    });
+    if (this.config.debug)
+      console.log(\`Metronome: Sending metric data to metronome: 
+\${data}\`);
+    const promise = fetch(url, {
+      body: data,
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-api-key": apiKey }
+    });
+    this.exportables.push(promise);
+    try {
+      promise.catch((error) => {
+        if (this.config.debug) {
+          console.error(\`Metronome: Metric data was not sent to metronome\`);
+          console.error(error);
+        }
+      });
+    } catch (error) {
+      if (this.config.debug) {
+        console.error(\`Metronome: Metric data was not sent to metronome\`);
+        console.error(error);
+      }
+    }
+  }
+};
+var MetricExporter = class extends Exporter {
+  constructor() {
+    super(...arguments);
+    this.pathname = \`telemetry/\${METRONOME_METRICS_VERSION}/metrics\`;
+  }
+};
+var SpanEvent = class {
+  constructor(name, options) {
+    this.name = name;
+    this.attributes = {};
+    this.timestamp = (options == null ? void 0 : options.timestamp) ?? Date.now();
+    this.attributes = (options == null ? void 0 : options.attributes) ?? {};
+  }
+  setAttribute(key, value) {
+    this.attributes[key] = value;
+  }
+  getAttributes() {
+    return this.attributes;
+  }
+  getName() {
+    return this.name;
+  }
+  toJSON() {
+    return {
+      name: this.name,
+      attributes: Object.fromEntries(
+        Object.entries(this.attributes).map(([key, value]) => [key, \`\${value}\`])
+      ),
+      timestamp: this.timestamp
+    };
+  }
+};
+var kind = {
+  server: 1,
+  client: 2,
+  producer: 3,
+  consumer: 4,
+  internal: 5
+};
+var Span = class {
+  constructor(name, options) {
+    var _a;
+    this.name = name;
+    this.attributes = {};
+    this.events = [];
+    this.context = { traceId: "" };
+    this.onEndCallbacks = [];
+    this.id = generateRandomBytesHex(8);
+    this.attributes = (options == null ? void 0 : options.attributes) ?? {};
+    this.startTime = (options == null ? void 0 : options.startTime) ?? Date.now();
+    this.endTime = this.startTime;
+    const traceId = ((_a = options == null ? void 0 : options.context) == null ? void 0 : _a.traceId) ?? generateRandomBytesHex(16);
+    this.kind = (options == null ? void 0 : options.kind) ?? "internal";
+    this.context.traceId = traceId;
+  }
+  setAttribute(key, value) {
+    if (value === void 0)
+      return;
+    this.attributes[key] = value;
+  }
+  setAttributes(attributes) {
+    this.attributes = { ...this.attributes, ...attributes };
+  }
+  end() {
+    this.endTime = Date.now();
+    this.onEndCallbacks.forEach((handler) => handler(this));
+    this.onEndCallbacks = [];
+  }
+  addOnEndListener(callback) {
+    this.onEndCallbacks.push(callback);
+  }
+  getContext() {
+    return this.context;
+  }
+  addEvent(name, attributes, timestamp) {
+    this.events.push(new SpanEvent(name, { attributes, timestamp }));
+  }
+  recordException(exception) {
+    const event = new SpanEvent("exception");
+    if (exception.code) {
+      event.setAttribute("exception.code", exception.code);
+    }
+    if (exception.name) {
+      event.setAttribute("exception.type", exception.name);
+    }
+    if (exception.message) {
+      event.setAttribute("exception.message", exception.message);
+    }
+    if (exception.stack) {
+      event.setAttribute("exception.stacktrace", exception.stack);
+    }
+    this.events.push(event);
+  }
+  toObject() {
+    return {
+      id: this.id,
+      name: this.name,
+      attributes: this.attributes,
+      events: this.events,
+      context: this.context,
+      startTime: this.startTime,
+      endTime: this.endTime
+    };
+  }
+  toJSON() {
+    return {
+      id: this.id,
+      name: this.name,
+      kind: kind[this.kind],
+      // Convert all the attributes to string
+      attributes: Object.fromEntries(
+        Object.entries(this.attributes).map(([key, value]) => [key, \`\${value}\`])
+      ),
+      events: this.events,
+      context: this.context,
+      startTime: this.startTime,
+      endTime: this.endTime
+    };
+  }
+};
+var SpanExporter = class extends Exporter {
+  constructor() {
+    super(...arguments);
+    this.pathname = \`telemetry/\${METRONOME_METRICS_VERSION}/spans\`;
+  }
+};
+var tracerInstance;
+var Tracer = class {
+  constructor(options) {
+    this.spanExporter = options.spanExporter;
+    this.metricExporter = options.metricExporter;
+  }
+  async flush() {
+    await Promise.all([this.spanExporter.flush(), this.metricExporter.flush()]);
+  }
+  setCloudflareContext(context) {
+    if (!context) {
+      console.warn("Metronome: cloudflare context was not found within the Remix context.");
+      return;
+    }
+    this.cloudflareContext = context;
+    this.spanExporter.setCloudflareContext(context);
+    this.metricExporter.setCloudflareContext(context);
+  }
+  startActiveSpan(name, options, callback) {
+    const span = new Span(name, {
+      attributes: options == null ? void 0 : options.attributes,
+      context: { traceId: options == null ? void 0 : options.traceId },
+      kind: "server"
+    });
+    span.addOnEndListener(() => this.exportSpan(span));
+    return callback(span);
+  }
+  startSpan(name, options) {
+    const span = new Span(name, options);
+    span.addOnEndListener(() => this.exportSpan(span));
+    return span;
+  }
+  createHistogram(name, options) {
+    const metric = new Metric(name, {
+      type: "histogram",
+      ...options ?? {}
+    });
+    metric.addOnRecordListener(() => this.exportMetric(metric));
+    return metric;
+  }
+  createCounter(name, options) {
+    const metric = new Metric(name, { type: "counter", ...options ?? {} });
+    metric.addOnRecordListener(() => this.exportMetric(metric));
+    return metric;
+  }
+  exportSpan(span) {
+    this.spanExporter.export(span);
+  }
+  exportMetric(metric) {
+    this.metricExporter.export(metric);
+  }
+};
+function tracer() {
+  if (!tracerInstance) {
+    throw new Error("Tracer not initialized");
+  }
+  return tracerInstance;
+}
+function startInstrumentation(config) {
+  if (tracerInstance)
+    return;
+  tracerInstance = new Tracer({
+    spanExporter: new SpanExporter(config),
+    metricExporter: new MetricExporter(config)
+  });
+}
+function isResponse(value) {
+  return value != null && typeof value.status === "number" && typeof value.statusText === "string" && typeof value.headers === "object" && typeof value.body !== "undefined";
+}
+function isDeferredData(value) {
+  return value && typeof value === "object" && typeof value.data === "object" && typeof value.unlistenAbortSignal === "function" && typeof value.controller === "object" && typeof value.abortPromise === "object" && typeof Array.isArray(value.valueKeys) && value.subscribers instanceof Set && value.pendingKeysSet instanceof Set;
+}
+function match(input, target) {
+  if (typeof input === "string") {
+    return input === target;
+  } else {
+    return input.test(target);
+  }
+}
+async function getClientAttributes(headers) {
+  const keyValueHeaders = Object.fromEntries(headers.entries());
+  const result = await UAParser(keyValueHeaders).withClientHints();
+  return {
+    [
+      "browser.name"
+      /* BrowserName */
+    ]: result.browser.name ?? "",
+    [
+      "browser.version"
+      /* BrowserVersion */
+    ]: result.browser.version ?? "",
+    [
+      "browser.major"
+      /* BrowserMajor */
+    ]: result.browser.major ?? "",
+    [
+      "device.model"
+      /* DeviceModel */
+    ]: result.device.model ?? "",
+    [
+      "device.vendor"
+      /* DeviceVendor */
+    ]: result.device.vendor ?? "",
+    [
+      "engine.name"
+      /* EngineName */
+    ]: result.engine.name ?? "",
+    [
+      "engine.version"
+      /* EngineVersion */
+    ]: result.engine.version ?? "",
+    [
+      "os.name"
+      /* OsName */
+    ]: result.os.name ?? "",
+    [
+      "os.version"
+      /* OsVersion */
+    ]: result.os.version ?? ""
+  };
+}
+var wrapRemixFunction = (remixFunction, options) => {
+  const isCloudflare = Object.keys(options.config.remixPackages).some(
+    (key) => key.includes("cloudflare")
+  );
+  startInstrumentation(options.config);
+  return async (...args) => {
+    var _a;
+    const requestStore = asyncLocalStorage.getStore();
+    const [{ request, context, params }] = args;
+    const cloudflareWaitUntil = (_a = context == null ? void 0 : context.cloudflare) == null ? void 0 : _a.waitUntil;
+    if (isCloudflare) {
+      tracer().setCloudflareContext(context == null ? void 0 : context.cloudflare);
+    }
+    if (isCloudflare && !cloudflareWaitUntil) {
+      console.warn(
+        "Metronome: cloudflare prop was not found in the context, this route might not be instrumented as waitUntil is not available."
+      );
+    }
+    if (request.method.toLowerCase() === "head")
+      return remixFunction(...args);
+    const ignoredPathnames = options.config.ignoredPathnames ?? ["/healthcheck"];
+    const shouldIgnoreRouteByPathname = ignoredPathnames.some((value) => {
+      const { pathname } = new URL(
+        request.url,
+        \`http://\${request.headers.get("host") ?? "localhost"}\`
+      );
+      return match(value, pathname ?? "");
+    });
+    const ignoredRoutes = options.config.ignoredRoutes ?? [];
+    const shouldIgnoreRouteByRouteId = ignoredRoutes.some((value) => match(value, options.routeId));
+    const controller = new AbortController();
+    const { signal } = controller;
+    const shouldExcludeRequest = options.config.unstable_exclude ? await Promise.race([
+      (async () => {
+        const result = await options.config.unstable_exclude({
+          request: request.clone(),
+          context,
+          params
+        });
+        controller.abort();
+        return result;
+      })(),
+      new Promise(
+        (resolve) => setTimeout(() => {
+          if (!signal.aborted) {
+            console.warn(\`Metronome: exclude function took too long to resolve [\${options.config.unstable_excludeTimeout}ms]\`);
+          }
+          resolve(false);
+        }, options.config.unstable_excludeTimeout)
+      )
+    ]) : false;
+    if (shouldExcludeRequest && options.config.debug) {
+      console.warn("Metronome: request was excluded by the exclude function");
+    }
+    if (shouldIgnoreRouteByPathname || shouldIgnoreRouteByRouteId || shouldExcludeRequest) {
+      if (requestStore) {
+        requestStore.doNotTrack = true;
+        requestStore.doNotTrackErrors = true;
+      }
+      return remixFunction(...args);
+    }
+    const ip = getIp(request) ?? "0.0.0.0";
+    const clientAttributes = await getClientAttributes(request.headers);
+    const attributes = {
+      [
+        "http.method"
+        /* HttpMethod */
+      ]: request.method.toUpperCase(),
+      [
+        "url.full"
+        /* UrlFull */
+      ]: request.url,
+      [
+        "metronome.version"
+        /* MetronomeVersion */
+      ]: METRONOME_VERSION$1,
+      [
+        "app.version"
+        /* AppVersion */
+      ]: options.config.version ?? "",
+      [
+        "client.address"
+        /* ClientAddress */
+      ]: ip,
+      [
+        "user_agent.original"
+        /* UserAgentOriginal */
+      ]: request.headers.get("user-agent") ?? "",
+      [
+        "remix.route_id"
+        /* RemixRouteId */
+      ]: options.routeId,
+      [
+        "remix.route_path"
+        /* RemixRoutePath */
+      ]: options.routePath ?? "",
+      [
+        "remix.function"
+        /* RemixFunction */
+      ]: options.type,
+      [
+        "metronome.adapter"
+        /* MetronomeAdapter */
+      ]: "vite",
+      [
+        "http.pathname"
+        /* HttpPathname */
+      ]: new URL(
+        request.url,
+        \`http://\${request.headers.get("host") ?? "localhost"}\`
+      ).pathname,
+      ...options.config.remixPackages,
+      ...clientAttributes
+    };
+    if (requestStore) {
+      requestStore.requestResolvedAttributes = {
+        "app.version": options.config.version ?? "",
+        ...options.config.remixPackages
+      };
+    }
+    return tracer().startActiveSpan(
+      options.type,
+      { attributes, traceId: requestStore == null ? void 0 : requestStore.traceId },
+      async (span) => {
+        return asyncLocalStorage.run({ traceId: span.getContext().traceId }, async () => {
+          var _a2;
+          try {
+            const result = await remixFunction(...args);
+            const remixFunctionStore = asyncLocalStorage.getStore();
+            if (requestStore) {
+              requestStore.doNotTrack = (remixFunctionStore == null ? void 0 : remixFunctionStore.doNotTrack) ?? false;
+              requestStore.doNotTrackErrors = (remixFunctionStore == null ? void 0 : remixFunctionStore.doNotTrackErrors) ?? false;
+            }
+            if (isResponse(result)) {
+              span.setAttribute("http.status_code", result.status);
+            } else if (isDeferredData(result)) {
+              span.setAttribute("http.status_code", ((_a2 = result.init) == null ? void 0 : _a2.status) ?? 200);
+              span.setAttribute("remix.deferred", true);
+            } else {
+              span.setAttribute("http.status_code", 200);
+            }
+            if (!(requestStore == null ? void 0 : requestStore.doNotTrack)) {
+              span.end();
+              cloudflareWaitUntil == null ? void 0 : cloudflareWaitUntil(tracer().flush());
+            }
+            return result;
+          } catch (throwable) {
+            span.setAttribute("app.errored", true);
+            if (isResponse(throwable)) {
+              span.setAttribute("http.status_code", throwable.status);
+              span.setAttribute("remix.thrown_response", true);
+              if (throwable.status >= 400) {
+                span.setAttribute("error.type", throwable.status);
+                span.recordException({
+                  code: throwable.status,
+                  name: throwable.statusText
+                });
+              }
+            } else {
+              span.setAttribute("error.type", throwable.name);
+              span.recordException(throwable);
+            }
+            if (!(requestStore == null ? void 0 : requestStore.doNotTrackErrors)) {
+              span.end();
+              cloudflareWaitUntil == null ? void 0 : cloudflareWaitUntil(tracer().flush());
+            }
+            throw throwable;
+          }
+        });
+      }
+    );
+  };
+};
+function deobfuscate(input) {
+  return JSON.parse(input);
+}
+var regexpRouteMap;
+function toRegexpRouteMap(routeMap) {
+  if (regexpRouteMap)
+    return regexpRouteMap;
+  const entries = Object.entries(routeMap);
+  regexpRouteMap = Object.fromEntries(
+    entries.map(([key, value]) => {
+      let route = value;
+      let paths = [];
+      const visited = /* @__PURE__ */ new Set();
+      while (route) {
+        paths = [route.path || "", ...paths];
+        if (!route.parentId || visited.has(route.parentId))
+          break;
+        visited.add(route.parentId);
+        route = routeMap[route.parentId];
+      }
+      const regexp = pathToRegexp(paths.join("/").replace(/\\*/g, ":splat*"));
+      return [
+        key,
+        {
+          ...value,
+          path: paths.join("/"),
+          regexp
+        }
+      ];
+    })
+  );
+  return regexpRouteMap;
+}
+function getRemixAttributes({
+  routeMap,
+  path,
+  version
+}) {
+  const found = Object.values(toRegexpRouteMap(routeMap)).find(({ regexp, id }) => {
+    if (id === "root")
+      return false;
+    return regexp.test(path);
+  });
+  if (!found)
+    return {
+      [
+        "app.version"
+        /* AppVersion */
+      ]: version,
+      [
+        "remix.route_id"
+        /* RemixRouteId */
+      ]: "<unknown>",
+      [
+        "remix.route_path"
+        /* RemixRoutePath */
+      ]: "<unknown>"
+    };
+  return {
+    [
+      "remix.route_id"
+      /* RemixRouteId */
+    ]: found.id,
+    [
+      "remix.route_path"
+      /* RemixRoutePath */
+    ]: found.path ?? "<unknown>",
+    [
+      "app.version"
+      /* AppVersion */
+    ]: version
+  };
+}
+var BrowserAttributesSchema = z.object({
+  pathname: z.string(),
+  screen: z.string(),
+  referrer: z.string(),
+  hostname: z.string(),
+  language: z.string(),
+  connection: z.string(),
+  deviceCategory: z.string(),
+  url: z.string()
+});
+var WebVitalSchema = z.object({
+  name: z.literal("web-vital"),
+  timestamp: z.number(),
+  metric: z.object({
+    id: z.string(),
+    name: z.enum(["CLS", "FID", "TTFB", "LCP", "FCP", "INP"]),
+    value: z.number(),
+    rating: z.enum(["good", "needs-improvement", "poor"]),
+    navigationType: z.enum([
+      "navigate",
+      "reload",
+      "back-forward",
+      "back-forward-cache",
+      "prerender",
+      "restore"
+    ])
+  })
+}).merge(BrowserAttributesSchema);
+var PageviewSchema = z.object({
+  name: z.literal("pageview"),
+  timestamp: z.number()
+}).merge(BrowserAttributesSchema);
+var ClientErrorSchema = z.object({
+  name: z.literal("client-error"),
+  timestamp: z.number(),
+  error: z.object({
+    name: z.string().optional(),
+    message: z.string(),
+    stack: z.string(),
+    filename: z.string(),
+    lineno: z.number(),
+    colno: z.number()
+  })
+}).merge(BrowserAttributesSchema);
+var createClientReportRouteModule = ({
+  routeMap,
+  config
+}) => {
+  const action = async ({ request, context, params }) => {
+    var _a;
+    const controller = new AbortController();
+    const { signal } = controller;
+    const shouldExcludeRequest = config.unstable_exclude ? await Promise.race([
+      (async () => {
+        const result2 = await config.unstable_exclude({
+          request: request.clone(),
+          context,
+          params
+        });
+        controller.abort();
+        return result2;
+      })(),
+      new Promise(
+        (resolve) => setTimeout(() => {
+          if (!signal.aborted) {
+            console.warn(\`Metronome: exclude function took too long to resolve [\${config.unstable_excludeTimeout}ms]\`);
+          }
+          resolve(false);
+        }, config.unstable_excludeTimeout)
+      )
+    ]) : false;
+    if (shouldExcludeRequest) {
+      if (config.debug) {
+        console.warn("Metronome: request was excluded by the exclude function");
+      }
+      return new Response(null, { status: 204 });
+    }
+    startInstrumentation(config);
+    const cloudflareWaitUntil = (_a = context == null ? void 0 : context.cloudflare) == null ? void 0 : _a.waitUntil;
+    const events = deobfuscate(await request.text());
+    const ip = getIp(request) ?? "0.0.0.0";
+    if (!events) {
+      if (config.debug) {
+        console.warn("Metronome: couldn't process events");
+      }
+      return new Response(null, { status: 204 });
+    }
+    const result = z.array(z.any()).safeParse(events);
+    if (!result.success) {
+      if (config.debug) {
+        console.warn("Metronome: Invalid event(s)", JSON.stringify(events));
+      }
+      return new Response(null, { status: 204 });
+    }
+    const clientAttributes = await getClientAttributes(request.headers);
+    result.data.forEach((incoming) => {
+      const remixAttributes = getRemixAttributes({
+        routeMap,
+        version: config.version,
+        path: incoming.pathname
+      });
+      const wvResult = WebVitalSchema.safeParse(incoming);
+      if (wvResult.success) {
+        const { data } = wvResult;
+        const metric = tracer().createHistogram(data.metric.name, { id: data.metric.id });
+        metric.record(data.metric.value, {
+          [
+            "web_vital.name"
+            /* WebVitalName */
+          ]: data.metric.name,
+          [
+            "web_vital.rating"
+            /* WebVitalRating */
+          ]: data.metric.rating,
+          [
+            "web_vital.navigation_type"
+            /* WebVitalNavigationType */
+          ]: data.metric.navigationType,
+          [
+            "metronome.version"
+            /* MetronomeVersion */
+          ]: METRONOME_VERSION$1,
+          [
+            "client.address"
+            /* ClientAddress */
+          ]: ip,
+          [
+            "user_agent.original"
+            /* UserAgentOriginal */
+          ]: request.headers.get("user-agent") ?? "",
+          [
+            "http.pathname"
+            /* HttpPathname */
+          ]: data.pathname,
+          [
+            "url.full"
+            /* UrlFull */
+          ]: data.url,
+          [
+            "app.hostname"
+            /* AppHostname */
+          ]: data.hostname,
+          [
+            "client.referrer"
+            /* ClientReferrer */
+          ]: data.referrer,
+          [
+            "client.screen"
+            /* ClientScreen */
+          ]: data.screen,
+          [
+            "client.language"
+            /* ClientLanguage */
+          ]: data.language,
+          [
+            "client.connection"
+            /* ClientConnection */
+          ]: data.connection,
+          [
+            "client.device_category"
+            /* ClientDeviceCategory */
+          ]: data.deviceCategory,
+          ...remixAttributes,
+          ...clientAttributes,
+          ...config.remixPackages
+        }).dispose();
+        cloudflareWaitUntil == null ? void 0 : cloudflareWaitUntil(tracer().flush());
+        return;
+      }
+      const pvResult = PageviewSchema.safeParse(incoming);
+      if (pvResult.success) {
+        const metric = tracer().createCounter("pageview");
+        const url = new URL(pvResult.data.url);
+        metric.add(1, {
+          [
+            "metronome.version"
+            /* MetronomeVersion */
+          ]: METRONOME_VERSION$1,
+          [
+            "client.address"
+            /* ClientAddress */
+          ]: ip,
+          [
+            "user_agent.original"
+            /* UserAgentOriginal */
+          ]: request.headers.get("user-agent") ?? "",
+          [
+            "url.query"
+            /* UrlQuery */
+          ]: url.search,
+          [
+            "client.screen"
+            /* ClientScreen */
+          ]: pvResult.data.screen,
+          [
+            "client.referrer"
+            /* ClientReferrer */
+          ]: pvResult.data.referrer,
+          [
+            "app.hostname"
+            /* AppHostname */
+          ]: url.hostname,
+          [
+            "client.language"
+            /* ClientLanguage */
+          ]: pvResult.data.language,
+          [
+            "client.connection"
+            /* ClientConnection */
+          ]: pvResult.data.connection,
+          [
+            "client.device_category"
+            /* ClientDeviceCategory */
+          ]: pvResult.data.deviceCategory,
+          [
+            "http.pathname"
+            /* HttpPathname */
+          ]: pvResult.data.pathname,
+          ...remixAttributes,
+          ...clientAttributes,
+          ...config.remixPackages
+        }).dispose();
+        cloudflareWaitUntil == null ? void 0 : cloudflareWaitUntil(tracer().flush());
+        return;
+      }
+      const ceResult = ClientErrorSchema.safeParse(incoming);
+      if (ceResult.success) {
+        const { data } = ceResult;
+        const span = tracer().startSpan("client_error", {
+          kind: "client",
+          attributes: {
+            [
+              "metronome.version"
+              /* MetronomeVersion */
+            ]: METRONOME_VERSION$1,
+            [
+              "client.address"
+              /* ClientAddress */
+            ]: ip,
+            [
+              "user_agent.original"
+              /* UserAgentOriginal */
+            ]: request.headers.get("user-agent") ?? "",
+            ...remixAttributes,
+            ...clientAttributes,
+            ...config.remixPackages
+          }
+        });
+        span.addEvent(
+          "exception",
+          {
+            [
+              "exception.type"
+              /* ExceptionType */
+            ]: data.error.name || "Error",
+            [
+              "exception.escaped"
+              /* ExceptionEscaped */
+            ]: false,
+            [
+              "exception.stacktrace"
+              /* ExceptionStacktrace */
+            ]: data.error.stack,
+            [
+              "exception.message"
+              /* ExceptionMessage */
+            ]: data.error.message,
+            [
+              "exception.filename"
+              /* ExceptionFilename */
+            ]: data.error.filename,
+            [
+              "exception.lineno"
+              /* ExceptionLineno */
+            ]: data.error.lineno,
+            [
+              "exception.colno"
+              /* ExceptionColno */
+            ]: data.error.colno
+          },
+          data.timestamp
+        );
+        span.end();
+        cloudflareWaitUntil == null ? void 0 : cloudflareWaitUntil(tracer().flush());
+        return;
+      }
+    });
+    return new Response(null, { status: 204 });
+  };
+  return { action, default: void 0 };
+};
+var webVitalsModule_exports = {};
+__export(webVitalsModule_exports, {
+  default: () => webVitalsModule_default,
+  loader: () => loader
+});
+function loader() {
+  return new Response(METRONOME_WEB_VITALS, {
+    headers: {
+      "content-type": "application/javascript; charset=UTF-8",
+      "cache-control": "public, max-age=31536000, immutable"
+    }
+  });
+}
+var webVitalsModule_default = void 0;
+function registerMetronome(routes2, config) {
+  const routeMap = {};
+  const newRoutes = {};
+  newRoutes[METRONOME_REPORT_ROUTE$1] = {
+    id: METRONOME_REPORT_ROUTE$1,
+    parentId: void 0,
+    path: METRONOME_REPORT_ROUTE$1,
+    index: false,
+    caseSensitive: void 0,
+    module: createClientReportRouteModule({ routeMap, config })
+  };
+  newRoutes[METRONOME_WEB_VITALS_ROUTE$1] = {
+    id: METRONOME_WEB_VITALS_ROUTE$1,
+    parentId: void 0,
+    path: METRONOME_WEB_VITALS_ROUTE$1,
+    index: false,
+    caseSensitive: void 0,
+    module: webVitalsModule_exports
+  };
+  for (const [routeId, route] of Object.entries(routes2)) {
+    if (routeId === METRONOME_WEB_VITALS_ROUTE$1 || routeId === METRONOME_REPORT_ROUTE$1) {
+      continue;
+    }
+    routeMap[routeId] = {
+      id: routeId,
+      parentId: route.parentId,
+      path: route.path
+    };
+    const newRoute = { ...route, module: { ...route.module } };
+    const wrapperOptions = {
+      routeId,
+      routePath: route.path,
+      config
+    };
+    if (route.module.action) {
+      newRoute.module.action = wrapRemixFunction(route.module.action, {
+        type: "action",
+        ...wrapperOptions
+      });
+    }
+    if (route.module.loader) {
+      newRoute.module.loader = wrapRemixFunction(route.module.loader, {
+        type: "loader",
+        ...wrapperOptions
+      });
+    }
+    newRoutes[routeId] = newRoute;
+  }
+  return newRoutes;
+}
 const ABORT_DELAY = 5e3;
 function handleRequest(request, responseStatusCode, responseHeaders, remixContext, loadContext) {
   return isbot(request.headers.get("user-agent") || "") ? handleBotRequest(
@@ -110,6 +1146,9 @@ const entryServer = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineP
 function obfuscate(inputObj) {
   return JSON.stringify(inputObj);
 }
+var METRONOME_VERSION = "8.5.1-prerelease.1";
+var METRONOME_REPORT_ROUTE = \`/__metronome/\${METRONOME_VERSION}/report\`;
+var METRONOME_WEB_VITALS_ROUTE = \`/__metronome/\${METRONOME_VERSION}/web-vitals.js\`;
 if (typeof window !== "undefined") {
   window.__metronomeQueue = window.__metronomeQueue ?? [];
   window.__metronomeDoNotTrack = window.__metronomeDoNotTrack ?? false;
@@ -122,9 +1161,9 @@ function useQueue() {
     }
     const str = obfuscate(window.__metronomeQueue);
     if (navigator.sendBeacon) {
-      navigator.sendBeacon("/__metronome", str);
+      navigator.sendBeacon(METRONOME_REPORT_ROUTE, str);
     } else {
-      fetch("/__metronome", { body: str, method: "POST", keepalive: true });
+      fetch(METRONOME_REPORT_ROUTE, { body: str, method: "POST", keepalive: true });
     }
     window.__metronomeQueue = [];
   }, []);
@@ -175,7 +1214,6 @@ function useGetBrowserData() {
   }, [location]);
   return useGetBrowserData2;
 }
-var METRONOME_VERSION = "8.4.3";
 function useWebVitals(enqueue) {
   const getBrowserData = useGetBrowserData();
   const [webVitalScriptLoaded, setWebVitalScriptLoaded] = useState(false);
@@ -185,7 +1223,7 @@ function useWebVitals(enqueue) {
       setWebVitalScriptLoaded(true);
     };
     const script = document.createElement("script");
-    script.src = \`/__metronome/web-vitals/metronome-\${METRONOME_VERSION}.js\`;
+    script.src = METRONOME_WEB_VITALS_ROUTE;
     script.onload = handleOnLoad;
     document.head.appendChild(script);
   }, []);
@@ -335,7 +1373,7 @@ const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProper
   default: Index,
   meta
 }, Symbol.toStringTag, { value: "Module" }));
-const serverManifest = { "entry": { "module": "/assets/entry.client-SsbtWqCx.js", "imports": ["/assets/jsx-runtime-CZxWQka4.js", "/assets/components-Dy59w57O.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/root-ScZMl8Mx.js", "imports": ["/assets/jsx-runtime-CZxWQka4.js", "/assets/components-Dy59w57O.js"], "css": [] }, "routes/_index": { "id": "routes/_index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/_index-DEGe_7QY.js", "imports": ["/assets/jsx-runtime-CZxWQka4.js"], "css": [] } }, "url": "/assets/manifest-499ac594.js", "version": "499ac594" };
+const serverManifest = { "entry": { "module": "/assets/entry.client-SsbtWqCx.js", "imports": ["/assets/jsx-runtime-CZxWQka4.js", "/assets/components-Dy59w57O.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/root-LMBbrdVP.js", "imports": ["/assets/jsx-runtime-CZxWQka4.js", "/assets/components-Dy59w57O.js"], "css": [] }, "routes/_index": { "id": "routes/_index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/_index-DEGe_7QY.js", "imports": ["/assets/jsx-runtime-CZxWQka4.js"], "css": [] } }, "url": "/assets/manifest-8e40fdff.js", "version": "8e40fdff" };
 const mode = "production";
 const assetsBuildDirectory = "build/client";
 const basename = "/";
@@ -368,10 +1406,9 @@ const routes = registerMetronome({
     "package.react": "^18.2.0",
     "package.react-dom": "^18.2.0"
   },
-  "version": "499ac594",
-  "unstable_excludeTimeout": 1000,
+  "unstable_excludeTimeout": 1e3,
   "endpoint": "https://metrics.metronome.sh",
-  "unstable_exclude": undefined
+  "unstable_exclude": void 0
 });
 export {
   serverManifest as assets,
@@ -388,7 +1425,7 @@ export {
 `;
 
 exports[`vite plugin > Installs and builds in the express vite template 2`] = `
-"import{r as a,j as s}from"./jsx-runtime-CZxWQka4.js";import{u as v,w as m,x as g,y as _,_ as y,M as b,L as S,S as x,O as E}from"./components-Dy59w57O.js";/**
+"import{r as a,j as s}from"./jsx-runtime-CZxWQka4.js";import{u as _,w as m,x as y,y as b,_ as S,M as E,L as x,S as L,O as T}from"./components-Dy59w57O.js";/**
  * @remix-run/react v2.9.1
  *
  * Copyright (c) Remix Software Inc.
@@ -397,6 +1434,6 @@ exports[`vite plugin > Installs and builds in the express vite template 2`] = `
  * LICENSE.md file in the root directory of this source tree.
  *
  * @license MIT
- */let h="positions";function L({getKey:e,...n}){let{isSpaMode:r}=v(),t=m(),i=g();_({getKey:e,storageKey:h});let o=a.useMemo(()=>{if(!e)return null;let u=e(t,i);return u!==t.key?u:null},[]);if(r)return null;let l=((u,w)=>{if(!window.history.state||!window.history.state.key){let c=Math.random().toString(32).slice(2);window.history.replaceState({key:c},"")}try{let d=JSON.parse(sessionStorage.getItem(u)||"{}")[w||window.history.state.key];typeof d=="number"&&window.scrollTo(0,d)}catch(c){console.error(c),sessionStorage.removeItem(u)}}).toString();return a.createElement("script",y({},n,{suppressHydrationWarning:!0,dangerouslySetInnerHTML:{__html:\`(\${l})(\${JSON.stringify(h)}, \${JSON.stringify(o)})\`}}))}function k(e){return JSON.stringify(e)}typeof window<"u"&&(window.__metronomeQueue=window.__metronomeQueue??[],window.__metronomeDoNotTrack=window.__metronomeDoNotTrack??!1);function j(){const e=a.useRef(void 0),n=a.useCallback(()=>{if(window.__metronomeQueue.length===0||window.__metronomeDoNotTrack)return;const t=k(window.__metronomeQueue);navigator.sendBeacon?navigator.sendBeacon("/__metronome",t):fetch("/__metronome",{body:t,method:"POST",keepalive:!0}),window.__metronomeQueue=[]},[]);return a.useEffect(()=>{const t=()=>{document.visibilityState==="hidden"&&n()};return addEventListener("visibilitychange",t),addEventListener("pagehide",n),addEventListener("beforeunload",n),e.current=setInterval(n,5e3),()=>{removeEventListener("visibilitychange",t),removeEventListener("pagehide",n),removeEventListener("beforeunload",n),clearInterval(e.current),n()}},[]),{enqueue:a.useCallback(t=>{window.__metronomeQueue.push(t)},[])}}function f(){const e=m();return a.useCallback(()=>{const r=navigator.connection||navigator.mozConnection||navigator.webkitConnection,t=768,i="ontouchstart"in window||navigator.maxTouchPoints>0;let o="desktop";return i&&(o=window.screen.width<t?"mobile":"tablet"),{pathname:e.pathname??"",url:window.location.href,hostname:window.location.hostname,referrer:document.referrer,screen:\`\${window.screen.width}x\${window.screen.height}\`,language:navigator.language,connection:(r==null?void 0:r.effectiveType)||"unknown",deviceCategory:o}},[e])}var M="8.4.3";function V(e){const n=f(),[r,t]=a.useState(!1);a.useEffect(()=>{const i=()=>{window._webVitals=window.webVitals,t(!0)},o=document.createElement("script");o.src=\`/__metronome/web-vitals/metronome-\${M}.js\`,o.onload=i,document.head.appendChild(o)},[]),a.useEffect(()=>{if(!r||typeof window._webVitals>"u")return;function i(o){const l={name:"web-vital",timestamp:Date.now(),metric:{id:o.id,name:o.name,value:o.value,rating:o.rating,navigationType:o.navigationType},...n()};e(l)}window._webVitals.onFCP(i),window._webVitals.onLCP(i),window._webVitals.onFID(i),window._webVitals.onCLS(i),window._webVitals.onTTFB(i),window._webVitals.onINP(i)},[r])}function T(e){const n=a.useRef(),r=m(),t=f();a.useEffect(()=>{const{key:i}=r;if(n.current===i)return;const o={name:"pageview",timestamp:Date.now(),...t()};e(o),n.current=i},[r,t])}function C(e){const n=f(),r=a.useRef(!1);a.useEffect(()=>{if(r.current)return;function t(i){const{message:o,filename:l,lineno:u,colno:w,error:c}=i,{stack:d}=c;e({name:"client-error",timestamp:Date.now(),error:{name:c.name,message:o,filename:l,lineno:u,colno:w,stack:d},...n()})}return window.addEventListener("error",t),r.current=!0,()=>{window.removeEventListener("error",t)}},[n,e])}var p=()=>{const{enqueue:e}=j();return V(e),T(e),C(e),null};p.displayName="MetronomeInstrumentation";var D=e=>function(r){return s.jsxs(s.Fragment,{children:[s.jsx(p,{}),s.jsx(e,{...r})]})};function O({children:e}){return s.jsxs("html",{lang:"en",children:[s.jsxs("head",{children:[s.jsx("meta",{charSet:"utf-8"}),s.jsx("meta",{name:"viewport",content:"width=device-width, initial-scale=1"}),s.jsx(b,{}),s.jsx(S,{})]}),s.jsxs("body",{children:[e,s.jsx(L,{}),s.jsx(x,{})]})]})}const B=D(function(){return s.jsx(E,{})});export{O as Layout,B as default};
+ */let h="positions";function M({getKey:e,...n}){let{isSpaMode:r}=_(),t=m(),i=y();b({getKey:e,storageKey:h});let o=a.useMemo(()=>{if(!e)return null;let u=e(t,i);return u!==t.key?u:null},[]);if(r)return null;let l=((u,w)=>{if(!window.history.state||!window.history.state.key){let c=Math.random().toString(32).slice(2);window.history.replaceState({key:c},"")}try{let d=JSON.parse(sessionStorage.getItem(u)||"{}")[w||window.history.state.key];typeof d=="number"&&window.scrollTo(0,d)}catch(c){console.error(c),sessionStorage.removeItem(u)}}).toString();return a.createElement("script",S({},n,{suppressHydrationWarning:!0,dangerouslySetInnerHTML:{__html:\`(\${l})(\${JSON.stringify(h)}, \${JSON.stringify(o)})\`}}))}function k(e){return JSON.stringify(e)}var v="8.5.1-prerelease.1",p=\`/__metronome/\${v}/report\`,O=\`/__metronome/\${v}/web-vitals.js\`;typeof window<"u"&&(window.__metronomeQueue=window.__metronomeQueue??[],window.__metronomeDoNotTrack=window.__metronomeDoNotTrack??!1);function j(){const e=a.useRef(void 0),n=a.useCallback(()=>{if(window.__metronomeQueue.length===0||window.__metronomeDoNotTrack)return;const t=k(window.__metronomeQueue);navigator.sendBeacon?navigator.sendBeacon(p,t):fetch(p,{body:t,method:"POST",keepalive:!0}),window.__metronomeQueue=[]},[]);return a.useEffect(()=>{const t=()=>{document.visibilityState==="hidden"&&n()};return addEventListener("visibilitychange",t),addEventListener("pagehide",n),addEventListener("beforeunload",n),e.current=setInterval(n,5e3),()=>{removeEventListener("visibilitychange",t),removeEventListener("pagehide",n),removeEventListener("beforeunload",n),clearInterval(e.current),n()}},[]),{enqueue:a.useCallback(t=>{window.__metronomeQueue.push(t)},[])}}function f(){const e=m();return a.useCallback(()=>{const r=navigator.connection||navigator.mozConnection||navigator.webkitConnection,t=768,i="ontouchstart"in window||navigator.maxTouchPoints>0;let o="desktop";return i&&(o=window.screen.width<t?"mobile":"tablet"),{pathname:e.pathname??"",url:window.location.href,hostname:window.location.hostname,referrer:document.referrer,screen:\`\${window.screen.width}x\${window.screen.height}\`,language:navigator.language,connection:(r==null?void 0:r.effectiveType)||"unknown",deviceCategory:o}},[e])}function V(e){const n=f(),[r,t]=a.useState(!1);a.useEffect(()=>{const i=()=>{window._webVitals=window.webVitals,t(!0)},o=document.createElement("script");o.src=O,o.onload=i,document.head.appendChild(o)},[]),a.useEffect(()=>{if(!r||typeof window._webVitals>"u")return;function i(o){const l={name:"web-vital",timestamp:Date.now(),metric:{id:o.id,name:o.name,value:o.value,rating:o.rating,navigationType:o.navigationType},...n()};e(l)}window._webVitals.onFCP(i),window._webVitals.onLCP(i),window._webVitals.onFID(i),window._webVitals.onCLS(i),window._webVitals.onTTFB(i),window._webVitals.onINP(i)},[r])}function R(e){const n=a.useRef(),r=m(),t=f();a.useEffect(()=>{const{key:i}=r;if(n.current===i)return;const o={name:"pageview",timestamp:Date.now(),...t()};e(o),n.current=i},[r,t])}function C(e){const n=f(),r=a.useRef(!1);a.useEffect(()=>{if(r.current)return;function t(i){const{message:o,filename:l,lineno:u,colno:w,error:c}=i,{stack:d}=c;e({name:"client-error",timestamp:Date.now(),error:{name:c.name,message:o,filename:l,lineno:u,colno:w,stack:d},...n()})}return window.addEventListener("error",t),r.current=!0,()=>{window.removeEventListener("error",t)}},[n,e])}var g=()=>{const{enqueue:e}=j();return V(e),R(e),C(e),null};g.displayName="MetronomeInstrumentation";var D=e=>function(r){return s.jsxs(s.Fragment,{children:[s.jsx(g,{}),s.jsx(e,{...r})]})};function B({children:e}){return s.jsxs("html",{lang:"en",children:[s.jsxs("head",{children:[s.jsx("meta",{charSet:"utf-8"}),s.jsx("meta",{name:"viewport",content:"width=device-width, initial-scale=1"}),s.jsx(E,{}),s.jsx(x,{})]}),s.jsxs("body",{children:[e,s.jsx(M,{}),s.jsx(L,{})]})]})}const Q=D(function(){return s.jsx(T,{})});export{B as Layout,Q as default};
 "
 `;
