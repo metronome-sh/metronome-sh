@@ -1,5 +1,11 @@
 # @metronome-sh/express
 
+## 8.5.2
+
+### Patch Changes
+
+- 670b8ff: fixes remix version getter for metronome
+
 ## 8.5.1
 
 ### Patch Changes
