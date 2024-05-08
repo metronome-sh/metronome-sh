@@ -1,5 +1,4 @@
 import { Plugin, PluginOption } from "vite";
-import MagicString from "magic-string";
 import { fileURLToPath } from "url";
 import fs from "fs";
 import path from "path";
@@ -223,59 +222,6 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (m
   const metronomePlugin: Plugin = {
     name: "metronome",
     apply: "build",
-    generateBundle(_, bundle) {
-      const serverBuild = Object.entries(bundle).find(([, value]) => {
-        const facadeModuleId = (value as any)?.facadeModuleId;
-        return facadeModuleId?.includes("virtual:remix/server-build");
-      });
-
-      if (!serverBuild) return;
-
-      const [name] = serverBuild;
-
-      const file = bundle[name] as any;
-
-      if (!version) {
-        const versionRegex = /const serverManifest\s*=\s*\{[\s\S]*?"version":\s*"([a-z0-9]+)"/;
-        const versionMatch = file.code.match(versionRegex) ?? [];
-        version = versionMatch[1];
-      }
-
-      const packageJsonPath = path.resolve(remixContext.rootDirectory, "package.json");
-      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
-
-      const remixPackages = Object.fromEntries(
-        Object.entries(packageJson.dependencies ?? {})
-          .filter(
-            ([key]) =>
-              key.includes("@remix-run/") || key.includes("react") || key.includes("react-dom")
-          )
-          .map(([key, value]) => {
-            if (key.includes("remix")) {
-              return [`package.remix.${key.split("/")[1]}`, value];
-            }
-            return [`package.${key}`, value];
-          })
-      ) as Record<string, string>;
-
-      metronomeResolvedConfig = {
-        ...metronomeConfig,
-        remixPackages,
-        version,
-        // defaults
-        unstable_excludeTimeout: metronomeConfig?.unstable_excludeTimeout ?? 1000,
-        endpoint: metronomeConfig?.endpoint ?? "https://metrics.metronome.sh",
-      };
-
-      const { code, map } = transformServer({
-        code: file.code,
-        id: name,
-        config: metronomeResolvedConfig,
-      });
-
-      file.code = code;
-      file.map = map;
-    },
     configResolved(config) {
       if (fs.existsSync(sourceMapDirectoryPath)) {
         fs.rmSync(sourceMapDirectoryPath, { recursive: true });
@@ -290,6 +236,42 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (m
     transform(code, id) {
       if (id.match(/root\.tsx$/)) {
         return transformRootTsx({ code, id });
+      }
+
+      if (id.match(/virtual:remix\/server-build/)) {
+        if (!version) {
+          const versionRegex = /const serverManifest\s*=\s*\{[\s\S]*?"version":\s*"([a-z0-9]+)"/;
+          const versionMatch = code.match(versionRegex) ?? [];
+          version = versionMatch[1];
+        }
+
+        const packageJsonPath = path.resolve(remixContext.rootDirectory, "package.json");
+        const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
+
+        const remixPackages = Object.fromEntries(
+          Object.entries(packageJson.dependencies ?? {})
+            .filter(
+              ([key]) =>
+                key.includes("@remix-run/") || key.includes("react") || key.includes("react-dom")
+            )
+            .map(([key, value]) => {
+              if (key.includes("remix")) {
+                return [`package.remix.${key.split("/")[1]}`, value];
+              }
+              return [`package.${key}`, value];
+            })
+        ) as Record<string, string>;
+
+        metronomeResolvedConfig = {
+          ...metronomeConfig,
+          remixPackages,
+          version,
+          // defaults
+          unstable_excludeTimeout: metronomeConfig?.unstable_excludeTimeout ?? 1000,
+          endpoint: metronomeConfig?.endpoint ?? "https://metrics.metronome.sh",
+        };
+
+        return transformServer({ code, id, config: metronomeResolvedConfig });
       }
     },
   };

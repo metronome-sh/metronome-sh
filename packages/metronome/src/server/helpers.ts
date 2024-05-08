@@ -1,5 +1,4 @@
 import { TypedDeferredData } from "@remix-run/server-runtime";
-import { MetronomeResolvedConfig } from "src/common/types";
 
 // https://github.com/remix-run/remix/blob/973cd68528c8c58679a5b2d974ae8cefde0db455/packages/remix-server-runtime/responses.ts#L54
 export function isResponse(value: any): value is Response {

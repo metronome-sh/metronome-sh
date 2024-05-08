@@ -2,6 +2,7 @@ import { renderHook, act } from "@testing-library/react";
 import { useQueue } from "../useQueue";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as helpersModule from "../../common/helpers";
+import { METRONOME_REPORT_ROUTE } from "../../common/constants";
 
 const sendBeaconMock = vi.fn();
 
@@ -27,7 +28,7 @@ describe("useQueue", () => {
     vi.advanceTimersToNextTimer();
 
     await expect(sendBeaconMock).toHaveBeenEventuallyCalledWith(
-      "/__metronome",
+      METRONOME_REPORT_ROUTE,
       '[{"name":"test","timestamp":0}]'
     );
   });
@@ -46,7 +47,7 @@ describe("useQueue", () => {
     visibilityStateSpy.mockRestore();
 
     await expect(sendBeaconMock).toHaveBeenEventuallyCalledWith(
-      "/__metronome",
+      METRONOME_REPORT_ROUTE,
       '[{"name":"test","timestamp":0}]'
     );
   });
@@ -61,7 +62,7 @@ describe("useQueue", () => {
     window.dispatchEvent(new Event("pagehide"));
 
     await expect(sendBeaconMock).toHaveBeenEventuallyCalledWith(
-      "/__metronome",
+      METRONOME_REPORT_ROUTE,
       '[{"name":"test","timestamp":0}]'
     );
   });
@@ -76,7 +77,7 @@ describe("useQueue", () => {
     window.dispatchEvent(new Event("beforeunload"));
 
     await expect(sendBeaconMock).toHaveBeenEventuallyCalledWith(
-      "/__metronome",
+      METRONOME_REPORT_ROUTE,
       '[{"name":"test","timestamp":0}]'
     );
   });

@@ -2,33 +2,32 @@ import { MetronomeResolvedConfig, RouteMap, Routes } from "../common/types";
 import { wrapRemixFunction } from "./wrapRemixFunction";
 import { createClientReportRouteModule } from "./createClientReportRouteModule";
 import * as webVitalsModule from "./webVitalsModule";
+import { METRONOME_REPORT_ROUTE, METRONOME_WEB_VITALS_ROUTE } from "../common/constants";
 
 export function registerMetronome(routes: Routes, config: MetronomeResolvedConfig): Routes {
   const routeMap: RouteMap = {};
   const newRoutes: Routes = {};
-  // Register custom metronome route
-  const baseUrl = "__metronome";
 
-  newRoutes[baseUrl] = {
-    id: baseUrl,
+  newRoutes[METRONOME_REPORT_ROUTE] = {
+    id: METRONOME_REPORT_ROUTE,
     parentId: undefined,
-    path: baseUrl,
-    index: undefined,
+    path: METRONOME_REPORT_ROUTE,
+    index: false,
     caseSensitive: undefined,
     module: createClientReportRouteModule({ routeMap, config }),
   };
 
-  newRoutes[`${baseUrl}/web-vitals.$version`] = {
-    id: `${baseUrl}/web-vitals.$version`,
+  newRoutes[METRONOME_WEB_VITALS_ROUTE] = {
+    id: METRONOME_WEB_VITALS_ROUTE,
     parentId: undefined,
-    path: `${baseUrl}/web-vitals/:version`,
-    index: undefined,
+    path: METRONOME_WEB_VITALS_ROUTE,
+    index: false,
     caseSensitive: undefined,
     module: webVitalsModule,
   };
 
   for (const [routeId, route] of Object.entries(routes)) {
-    if (routeId === baseUrl || routeId.startsWith(baseUrl)) {
+    if (routeId === METRONOME_WEB_VITALS_ROUTE || routeId === METRONOME_REPORT_ROUTE) {
       continue;
     }
 

@@ -1,5 +1,31 @@
 # @metronome-sh/express
 
+## 8.5.1
+
+### Patch Changes
+
+- improved metronome routes
+- removed index from metronome routes
+- moved the server parse to transform hook
+
+## 8.5.1-prerelease.2
+
+### Patch Changes
+
+- moved the server parse to transform hook
+
+## 8.5.1-prerelease.1
+
+### Patch Changes
+
+- removed index from metronome routes
+
+## 8.5.1-prerelease.0
+
+### Patch Changes
+
+- improved metronome routes
+
 ## 8.5.0
 
 ### Minor Changes

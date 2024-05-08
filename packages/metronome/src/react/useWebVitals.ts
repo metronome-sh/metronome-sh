@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useGetBrowserData } from "./useGetBrowserData";
 import type { useQueue } from "./useQueue";
-import { METRONOME_VERSION } from "../common/constants";
+import { METRONOME_VERSION, METRONOME_WEB_VITALS_ROUTE } from "../common/constants";
 import type * as WebVitals from "web-vitals/attribution";
 
 declare global {
@@ -21,7 +21,7 @@ export function useWebVitals(enqueue: ReturnType<typeof useQueue>["enqueue"]) {
     };
 
     const script = document.createElement("script");
-    script.src = `/__metronome/web-vitals/metronome-${METRONOME_VERSION}.js`;
+    script.src = METRONOME_WEB_VITALS_ROUTE;
     script.onload = handleOnLoad;
     document.head.appendChild(script);
   }, []);

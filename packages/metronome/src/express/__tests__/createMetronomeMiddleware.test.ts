@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, Mock } from "vitest";
 import { createMetronomeMiddleware } from "../createMetronomeMiddleware";
 import type { Request as ExpressRequest, Response as ExpressResponse, NextFunction } from "express";
-import { MetronomeResolvedConfig } from "src/common/types";
+import { MetronomeResolvedConfig } from "../../common/types";
 import { onMockRequest } from "../../../vitest/mocks";
 import { asyncLocalStorage } from "@asyncLocalStorage";
 
