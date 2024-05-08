@@ -4,6 +4,12 @@
 
 ### Patch Changes
 
+- e8a4e81: fixed vite server issue
+
+## 8.5.1
+
+### Patch Changes
+
 - improved metronome routes
 - removed index from metronome routes
 - moved the server parse to transform hook
