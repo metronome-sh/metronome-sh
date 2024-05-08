@@ -31,9 +31,10 @@ export const transformServer = ({
     2
   );
 
-  metronomeConfig = metronomeConfig.replace(`"${excludePlaceholder}"`, excludeFn);
+  metronomeConfig = metronomeConfig.replace(`"${excludePlaceholder}"`, "unstableExcludeFn");
 
   magicString.prepend('import { registerMetronome } from "metronome-sh/server";\n');
+  magicString.prepend('import unstableExcludeFn from "virtual:metronome/unstable-exclude";\n');
 
   walk(ast, (node) => {
     // Find the `const routes` and wrap it

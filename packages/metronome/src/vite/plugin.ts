@@ -14,6 +14,7 @@ import { METRONOME_METRICS_VERSION } from "../common/constants";
 import { MetronomeConfig, MetronomeResolvedConfig } from "../common/types";
 import { transformRootTsx } from "./transformRootTsx";
 import { transformServer } from "./transformServer";
+import { generateExcludeFunction } from "./generateExcludeFunction";
 
 const exec = promisify(childProcess.exec);
 
@@ -30,8 +31,11 @@ let remixContext: any;
 let version: string;
 let serverBuildRan: boolean = false;
 let clientBuildRan: boolean = false;
+let configFile: string | undefined;
 
 export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (metronomeConfig) => {
+  const virtualUnstableExcludeId = "virtual:metronome/unstable-exclude";
+
   const sourcemapsPlugin: Plugin = {
     name: "metronome-sourcemaps",
     apply: "build",
@@ -222,7 +226,21 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (m
   const metronomePlugin: Plugin = {
     name: "metronome",
     apply: "build",
+    resolveId(source) {
+      if (source === virtualUnstableExcludeId) {
+        return source; // Indicate that this id should be handled by this plugin
+      }
+      return null;
+    },
+    load(id) {
+      if (id === virtualUnstableExcludeId) {
+        return generateExcludeFunction({ configFile });
+      }
+      return null;
+    },
     configResolved(config) {
+      configFile = config.configFile;
+
       if (fs.existsSync(sourceMapDirectoryPath)) {
         fs.rmSync(sourceMapDirectoryPath, { recursive: true });
       }

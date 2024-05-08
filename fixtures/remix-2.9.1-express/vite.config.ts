@@ -27,6 +27,7 @@ export default defineConfig({
       // endpoint: "http://localhost:3004",
       apiKey: "ak_TOh5XryVbjCEanmWlFtngYMD7qvkz4f3F80MOQcU",
       unstable_exclude: async ({ request }) => {
+        console.log({ imported: path.resolve("test", "app") });
         return false;
       },
     }),
