@@ -1,2 +1,2 @@
-/.remix/*
-!/.remix/.gitkeep
+/__remix__/*
+!/__remix__/.gitkeep

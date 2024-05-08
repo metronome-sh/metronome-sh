@@ -27,7 +27,6 @@ const sourceMapMapping: Record<string, string> = {};
 const sourceMaps: Record<string, string> = {};
 
 let remixContext: any;
-let version: string;
 let serverBuildRan: boolean = false;
 let clientBuildRan: boolean = false;
 
@@ -141,7 +140,7 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (m
       }
 
       const routeFiles = Object.entries(remixContext.remixConfig.routes).map(
-        ([key, value]) => (value as any).file
+        ([_, value]) => (value as any).file
       );
 
       const files = [
@@ -161,7 +160,7 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (m
       ];
 
       const zip = new AdmZip();
-
+      const { version } = await remixContext.getRemixServerManifest();
       files.forEach((file) => {
         zip.addFile(file.name, Buffer.from(file.content));
       });
@@ -233,17 +232,13 @@ export const metronome: (metronomeConfig?: MetronomeConfig) => PluginOption = (m
 
       remixContext = __remixPluginContext;
     },
-    transform(code, id) {
+    async transform(code, id) {
       if (id.match(/root\.tsx$/)) {
         return transformRootTsx({ code, id });
       }
 
       if (id.match(/virtual:remix\/server-build/)) {
-        if (!version) {
-          const versionRegex = /const serverManifest\s*=\s*\{[\s\S]*?"version":\s*"([a-z0-9]+)"/;
-          const versionMatch = code.match(versionRegex) ?? [];
-          version = versionMatch[1];
-        }
+        const { version } = await remixContext.getRemixServerManifest();
 
         const packageJsonPath = path.resolve(remixContext.rootDirectory, "package.json");
         const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
